@@ -63,7 +63,7 @@
     }
     .qr-image {
       display: block;
-      margin: 0 auto 20px;
+      margin: 20px auto;
       width: 100%;
       max-width: 300px;
       border-radius: 10px;
@@ -80,13 +80,21 @@
       const orderId = 'MY' + Math.floor(Math.random() * 1000000);
       localStorage.setItem('mryogi_order_id', orderId);
 
+      // UPI ID and dynamic UPI link
+      const upiID = "mryogipremium@ybl";
+      const upiLink = `upi://pay?pa=${upiID}&pn=MR%20YOGI&mc=123456&tid=${orderId}&tr=${orderId}&tn=${encodeURIComponent(plan)}&am=${price}&cu=INR`;
+
+      // QR Code dynamically generated using the UPI link
+      const qrCodeURL = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(upiLink)}&size=250x250`;
+
+      // Set up the page content dynamically
       document.getElementById('summary').innerHTML = `
         <p><strong>Name:</strong> <span class="highlight">${name}</span></p>
         <p><strong>Plan:</strong> ${plan}</p>
         <p><strong>Price:</strong> ₹${price}</p>
         <p><strong>Order ID:</strong> <span class="highlight">${orderId}</span></p>
         <div class="upi-copy">
-          <span id="upi-text">mryogipremium@ybl</span>
+          <span id="upi-text">${upiID}</span>
           <button onclick="copyUPI()">Copy</button>
         </div>
         <p>Please send a screenshot with your name and order ID to our WhatsApp after payment.</p>
@@ -94,6 +102,9 @@
            href="https://wa.me/8618388937?text=Hi%20MR%20YOGI%2C%20I%20have%20paid%20for%20${encodeURIComponent(plan)}%20(₹${price})%20-%20Order%20ID%3A%20${orderId}%20-%20Name%3A%20${encodeURIComponent(name)}">
           📩 Send Screenshot on WhatsApp
         </a>
+        
+        <!-- Dynamic QR Code Section -->
+        <img src="${qrCodeURL}" alt="Scan to Pay" class="qr-image"/>
       `;
     }
 
@@ -110,9 +121,6 @@
 <body>
   <div class="summary-box">
     <h2>Complete Your Payment</h2>
-
-    <!-- QR Code Image -->
-    <img src="phonepe_qr.jpg" alt="Scan to Pay with PhonePe" class="qr-image"/>
 
     <!-- Dynamic Summary -->
     <div id="summary"></div>
