@@ -3,127 +3,142 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Payment - mryogi</title>
+  <title>All OTT Plans – MR YOGI</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
       background-color: #000;
       color: #fff;
-      font-family: 'Poppins', sans-serif;
-      padding: 30px;
     }
-    .summary-box {
-      max-width: 600px;
-      margin: auto;
-      background: #111;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(255, 44, 87, 0.2);
-    }
-    h2 {
-      color: #ff2c57;
+    header {
+      background-color: #111;
+      padding: 15px 0;
       text-align: center;
-      margin-bottom: 20px;
+      border-bottom: 2px solid #222;
     }
-    .summary-box p {
+    header h1 {
+      margin: 0;
+      color: #ff2c57;
+      font-size: 24px;
+    }
+    .container {
+      width: 95%;
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 10px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background-color: #1a1a1a;
+      border: 1px solid #222;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(255, 44, 87, 0.2);
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card h2 {
+      color: #00e6e6;
+      font-size: 28px; /* Increased size for plan name */
       margin-bottom: 15px;
-      font-size: 16px;
     }
-    .highlight {
-      color: #ff2c57;
-      font-weight: bold;
+    .card p {
+      font-size: 14px;
+      color: #ccc;
+      margin: 10px 0;
     }
-    a.whatsapp-btn {
+    .card a {
       display: inline-block;
-      margin-top: 20px;
-      background-color: #25D366;
-      color: #fff;
-      padding: 12px 20px;
-      border-radius: 6px;
+      margin-top: 10px;
+      padding: 10px 15px;
+      font-size: 14px;
+      font-weight: 600;
+      background-color: #ff2c57;
+      color: white;
       text-decoration: none;
-      font-weight: bold;
-      text-align: center;
-    }
-    .upi-copy {
-      background: #222;
-      padding: 10px;
       border-radius: 5px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #fff;
     }
-    .upi-copy button {
-      background: #ff2c57;
-      color: #fff;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .qr-image {
-      display: block;
-      margin: 20px auto;
-      width: 100%;
-      max-width: 300px;
-      border-radius: 10px;
-      border: 2px solid #333;
-      box-shadow: 0 0 12px rgba(255, 44, 87, 0.3);
+    .card a:hover {
+      background-color: #ff4f6f;
     }
   </style>
-  <script>
-    function showSummary() {
-      const url = new URL(window.location.href);
-      const name = url.searchParams.get('name') || 'Customer';
-      const plan = url.searchParams.get('plan') || 'Unknown Plan';
-      const price = url.searchParams.get('price') || '0';
-      const orderId = 'MY' + Math.floor(Math.random() * 1000000);
-      localStorage.setItem('mryogi_order_id', orderId);
-
-      // UPI ID and dynamic UPI link
-      const upiID = "mryogipremium@ybl";
-      const upiLink = `upi://pay?pa=${upiID}&pn=MR%20YOGI&mc=123456&tid=${orderId}&tr=${orderId}&tn=${encodeURIComponent(plan)}&am=${price}&cu=INR`;
-
-      // QR Code dynamically generated using the UPI link
-      const qrCodeURL = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(upiLink)}&size=250x250`;
-
-      // Set up the page content dynamically
-      document.getElementById('summary').innerHTML = `
-        <p><strong>Name:</strong> <span class="highlight">${name}</span></p>
-        <p><strong>Plan:</strong> ${plan}</p>
-        <p><strong>Price:</strong> ₹${price}</p>
-        <p><strong>Order ID:</strong> <span class="highlight">${orderId}</span></p>
-        <div class="upi-copy">
-          <span id="upi-text">${upiID}</span>
-          <button onclick="copyUPI()">Copy</button>
-        </div>
-        <p>Please send a screenshot with your name and order ID to our WhatsApp after payment.</p>
-        <a class="whatsapp-btn" target="_blank"
-           href="https://wa.me/8618388937?text=Hi%20MR%20YOGI%2C%20I%20have%20paid%20for%20${encodeURIComponent(plan)}%20(₹${price})%20-%20Order%20ID%3A%20${orderId}%20-%20Name%3A%20${encodeURIComponent(name)}">
-          📩 Send Screenshot on WhatsApp
-        </a>
-        
-        <!-- Dynamic QR Code Section -->
-        <img src="${qrCodeURL}" alt="Scan to Pay" class="qr-image"/>
-      `;
-    }
-
-    function copyUPI() {
-      const upi = document.getElementById("upi-text").textContent;
-      navigator.clipboard.writeText(upi).then(() => {
-        alert("UPI ID copied to clipboard!");
-      });
-    }
-
-    window.onload = showSummary;
-  </script>
 </head>
 <body>
-  <div class="summary-box">
-    <h2>Complete Your Payment</h2>
 
-    <!-- Dynamic Summary -->
-    <div id="summary"></div>
+  <header>
+    <h1>Browse Our Subscription Categories</h1>
+  </header>
+
+  <div class="container">
+    <div class="grid">
+      
+      <div class="card">
+        <h2>Netflix</h2>
+        <p>Ultra HD, Shared & Private Plans</p>
+        <a href="netflix.html">View Plans</a>
+      </div>
+
+      <div class="card">
+        <h2>Amazon Prime</h2>
+        <p>With Shopping, 4K Multi-Screen</p>
+        <a href="prime.html">View Plans</a>
+      </div>
+
+      <div class="card">
+        <h2>JioHotstar</h2>
+        <p>1M to 12M | Shared & On Number</p>
+        <a href="hotstar.html">View Plans</a>
+      </div>
+
+      <div class="card">
+        <h2>ZEE5</h2>
+        <p>Premium Plans for All Screens</p>
+        <a href="zee5.html">View Plans</a>
+      </div>
+
+      <div class="card">
+        <h2>SonyLIV</h2>
+        <p>HD & 4K Plans | Up to 12 Months</p>
+        <a href="sonyliv.html">View Plans</a>
+      </div>
+
+      <div class="card">
+        <h2>YouTube Premium</h2>
+        <p>1M to 12M Plans – Ad-Free</p>
+        <a href="youtube.html">View Plans</a>
+      </div>
+
+      <div class="card">
+        <h2>Spotify Premium</h2>
+        <p>Ad-Free | 2-Month Validity</p>
+        <a href="spotify.html">View Plans</a>
+      </div>
+
+      <!-- Canva Pro EDU Plan -->
+      <div class="card">
+        <h2>Canva Pro (EDU)</h2>
+        <p>1 Year Activate On Your Gmail</p>
+        <a href="canva.html">View Plans</a>
+      </div>
+
+      <!-- AI & Software Tools Plan -->
+      <div class="card">
+        <h2>AI & Software Tools</h2>
+        <p>All AI & Software Tools</p>
+        <a href="perplexity.html">View Plans</a>
+      </div>
+
+    </div>
   </div>
+
 </body>
 </html>
