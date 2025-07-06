@@ -3,101 +3,127 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>2 IN 1 COMBO – MR YOGI</title>
+  <title>Combo Deals – MR YOGI</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background-color: #0d0d0d;
+      background-color: #000;
       color: #fff;
     }
     header {
-      background-color: #1a1a1a;
-      padding: 20px;
+      background-color: #111;
+      padding: 15px 0;
       text-align: center;
-      border-bottom: 2px solid #333;
+      border-bottom: 2px solid #222;
     }
     header h1 {
       margin: 0;
-      color: #ff3b3f;
+      color: #ff2c57;
+      font-size: 24px;
     }
     .container {
-      padding: 20px;
-      max-width: 900px;
-      margin: auto;
+      width: 95%;
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 10px;
     }
-    .combo-details {
-      background-color: #1c1c1c;
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background-color: #1a1a1a;
       border: 1px solid #333;
       border-radius: 10px;
-      margin-bottom: 20px;
       padding: 20px;
-    }
-    .combo-details h2 {
-      color: #ff3b3f;
-      font-size: 24px;
       text-align: center;
+      box-shadow: 0 2px 8px rgba(255, 44, 87, 0.1);
+      transition: transform 0.2s;
     }
-    .combo-details ul {
-      list-style-type: none;
-      padding-left: 0;
-      margin-top: 20px;
+    .card:hover {
+      transform: translateY(-5px);
     }
-    .combo-details ul li {
-      margin-bottom: 8px;
+    .card h2 {
+      color: #ff3b3f;
       font-size: 18px;
-      color: #ccc;
+      margin-bottom: 10px;
     }
-    .price {
+    .card p {
+      font-size: 14px;
+      color: #ccc;
+      margin: 6px 0;
+    }
+    .card .price {
       font-size: 24px;
       font-weight: bold;
-      color: #00e6e6;
-      margin-top: 20px;
-      text-align: center;
+      color: #fff;
+      margin: 12px 0;
     }
-    .buy-btn {
-      margin-top: 15px;
+    .card a {
       display: inline-block;
-      background-color: #ff3b3f;
-      color: white;
-      padding: 10px 20px;
+      margin-top: 10px;
+      padding: 10px 16px;
+      background-color: #ff2c57;
+      color: #fff;
+      font-weight: 600;
       text-decoration: none;
       border-radius: 5px;
-      font-weight: bold;
-      text-align: center;
-      width: 100%;
+    }
+    .card a:hover {
+      background-color: #ff456e;
     }
   </style>
 </head>
 <body>
+
   <header>
-    <h1>2 IN 1 COMBO DEAL</h1>
+    <h1>Combo Deals</h1>
   </header>
+
   <div class="container">
-    <div class="combo-details">
-      <h2>🔥 2 IN 1 COMBO 🔥</h2>
-      <p>📌 VALIDITY: 1 MONTH</p>
+    <div class="cards">
 
-      <h3>☣️ AMAZON PRIME 4K - ACTIVATE ON YOUR MAIL ✉️</h3>
-      <ul>
-        <li>🖥️ SCREEN: 5 LOGINS</li>
-        <li>📺 ALL DEVICES SUPPORT</li>
-      </ul>
+      <!-- 2 IN 1 COMBO -->
+      <div class="card">
+        <h2>🔥 2 IN 1 COMBO 🔥</h2>
+        <p><strong>📌 VALIDITY: 1 MONTH</strong></p>
+        <h3>☣️ AMAZON PRIME 4K - ACTIVATE ON YOUR MAIL ✉️</h3>
+        <p>🖥️ SCREEN: 5 LOGINS</p>
+        <p>📺 ALL DEVICES SUPPORT</p>
+        <hr style="border-top: 1px dashed #ccc; margin: 20px 0;">
+        <h3>☣️ JIOHOTSTAR - ACTIVATE ON YOUR NUMBER (1080p)</h3>
+        <p>🖥️ SCREEN: 5 LOGINS</p>
+        <p>📺 ALL DEVICES SUPPORT</p>
+        <div class="price">PRICE: ₹140/-</div>
+        <a href="contact.html?plan=2 IN 1 COMBO&price=140" class="buy-btn">👉 Buy Now 👈</a>
+      </div>
 
-      <hr style="border-top: 1px dashed #ccc; margin: 20px 0;">
+      <!-- PREMIUM COMBO DEAL -->
+      <div class="card">
+        <h2>💥 PREMIUM COMBO DEAL 💥</h2>
+        <p><strong>📌 VALIDITY: 12 MONTHS</strong></p>
+        <h3>📺 ZEE5 Premium (12 Months)</h3>
+        <ul>
+          <li>✅ Activated on your number (Private)</li>
+          <li>✅ 5 screens | 1080p Full HD</li>
+          <li>✅ Works on TV, Mobile & Laptop</li>
+        </ul>
+        <hr style="border-top: 1px dashed #ccc; margin: 20px 0;">
+        <h3>🎬 SonyLIV Premium (12 Months)</h3>
+        <ul>
+          <li>✅ Activated on your number (Private)</li>
+          <li>✅ 5 devices login | 4K Quality</li>
+          <li>✅ Works on TV, Mobile & Laptop</li>
+        </ul>
+        <div class="price">PRICE: ₹720</div>
+        <a href="contact.html?plan=Premium Combo&price=720" class="buy-btn">👉 Buy Now 👈</a>
+      </div>
 
-      <h3>☣️ JIOHOTSTAR - ACTIVATE ON YOUR NUMBER (1080p)</h3>
-      <ul>
-        <li>🖥️ SCREEN: 5 LOGINS</li>
-        <li>📺 ALL DEVICES SUPPORT</li>
-      </ul>
-
-      <div class="price">PRICE: ₹140/-</div>
-      
-      <!-- Buy Now Button -->
-      <a href="contact.html?plan=2 IN 1 COMBO&price=140" class="buy-btn">👉 Buy Now 👈</a>
     </div>
   </div>
+
 </body>
 </html>
