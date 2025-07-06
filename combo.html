@@ -3,98 +3,91 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Combo Deals - MR YOGI</title>
+  <title>Combo Deals – MR YOGI</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background-color: #000;
+      background-color: #0d0d0d;
       color: #fff;
     }
     header {
-      background-color: #111;
-      padding: 15px 0;
+      background-color: #1a1a1a;
+      padding: 20px;
       text-align: center;
-      border-bottom: 2px solid #222;
+      border-bottom: 2px solid #333;
     }
     header h1 {
       margin: 0;
-      color: #ff2c57;
-      font-size: 24px;
+      color: #ff3b3f;
     }
     .container {
-      width: 95%;
-      max-width: 1200px;
-      margin: 30px auto;
-      padding: 0 10px;
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
     }
-    .combo-details {
-      background-color: #1a1a1a;
-      padding: 30px;
+    .combo-card {
+      background-color: #1c1c1c;
+      border: 1px solid #333;
       border-radius: 10px;
-      border: 1px solid #222;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(255, 44, 87, 0.2);
-    }
-    .combo-details h2 {
-      color: #ff2c57;
-      font-size: 32px;
       margin-bottom: 20px;
+      padding: 20px;
     }
-    .combo-details p {
-      font-size: 18px;
-      color: #ccc;
-      margin: 15px 0;
+    .combo-card h2 {
+      color: #ff3b3f;
     }
-    .combo-details .price {
+    .combo-card ul {
+      padding-left: 20px;
+    }
+    .combo-card ul li {
+      margin-bottom: 8px;
+    }
+    .price {
       font-size: 24px;
-      color: #00e6e6;
       font-weight: bold;
-      margin-top: 20px;
+      margin-top: 10px;
     }
-    .btn {
-      background-color: #ff2c57;
+    .buy-btn {
+      margin-top: 15px;
+      display: inline-block;
+      background-color: #ff3b3f;
       color: white;
-      padding: 12px 25px;
-      font-size: 16px;
-      border-radius: 5px;
+      padding: 10px 20px;
       text-decoration: none;
-      font-weight: 600;
-      margin-top: 20px;
-    }
-    .btn:hover {
-      background-color: #ff4f6f;
+      border-radius: 5px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-
   <header>
     <h1>Combo Deals</h1>
   </header>
-
   <div class="container">
-    <div class="combo-details">
-      <h2>🔥 COMBO DEALS 🔥</h2>
-      <p><strong>📌 VALIDITY: 1 MONTH</strong></p>
 
-      <h3>☣️ AMAZON PRIME 4K - ACTIVATE ON YOUR MAIL ✉️</h3>
-      <p><strong>🖥️ SCREEN: 5 LOGINS</strong></p>
-      <p><strong>📺 ALL DEVICES SUPPORT</strong></p>
-
-      <hr style="border-top: 1px dashed #ccc; margin: 20px 0;">
-
-      <h3>☣️ JIOHOTSTAR - ACTIVATE ON YOUR NUMBER (1080p)</h3>
-      <p><strong>🖥️ SCREEN: 5 LOGINS</strong></p>
-      <p><strong>📺 ALL DEVICES SUPPORT</strong></p>
-
-      <div class="price">PRICE: ₹140/-</div>
-      
-      <!-- Buy Now Button -->
-      <a href="pricing.html" class="btn">👉 Buy Now 👈</a>
+    <div class="combo-card">
+      <h2>Amazon Prime 4K - Activate on Your Email</h2>
+      <ul>
+        <li>5 Screen Logins</li>
+        <li>All Devices Supported</li>
+        <li>1 Month Validity</li>
+      </ul>
+      <div class="price">₹140</div>
+      <a href="contact.html?plan=Amazon Prime 4K&price=140" class="buy-btn">Buy Now</a>
     </div>
-  </div>
 
+    <div class="combo-card">
+      <h2>JioHotstar 1080p - Activate on Your Number</h2>
+      <ul>
+        <li>5 Screen Logins</li>
+        <li>All Devices Supported</li>
+        <li>1 Month Validity</li>
+      </ul>
+      <div class="price">₹140</div>
+      <a href="contact.html?plan=JioHotstar 1080p&price=140" class="buy-btn">Buy Now</a>
+    </div>
+
+  </div>
 </body>
 </html>
