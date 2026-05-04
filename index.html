@@ -3,13 +3,15 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MR.YOGI PREMIUM</title>
+
 <style>
 body{font-family:Arial;background:#eef6ff;margin:0;color:#0b1f3a}
 header{background:#fff;padding:15px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 15px #cfe3ff}
-.logo{color:#0066ff;font-weight:900;font-size:21px}
+.logo{color:#0066ff;font-weight:900;font-size:22px}
 button{background:#0066ff;color:white;border:0;padding:11px 16px;border-radius:22px;margin:5px;cursor:pointer;font-weight:900}
 button:hover{background:#004dcc}
 .hero{text-align:center;padding:40px 15px;background:linear-gradient(135deg,#fff,#d8ebff)}
+.hero h1{font-size:34px}
 .joinBtn{display:inline-block;margin-top:15px;background:#25D366;color:white;padding:13px 20px;border-radius:25px;text-decoration:none;font-weight:900}
 .section{padding:20px}
 .title{text-align:center;color:#0066ff}
@@ -30,6 +32,7 @@ footer{text-align:center;background:#fff;padding:20px}
 .legal p{cursor:pointer;color:#0066ff;margin:10px}
 </style>
 </head>
+
 <body>
 
 <header>
@@ -50,11 +53,14 @@ footer{text-align:center;background:#fff;padding:20px}
 
 <section class="admin" id="adminPage">
   <h2 class="title">Admin Panel</h2>
+
   <input id="serviceName" placeholder="Service Name">
   <textarea id="serviceDesc" placeholder="Description / Features"></textarea>
   <textarea id="servicePlans" placeholder="Plans - one per line"></textarea>
+
   <button onclick="saveService()">Save / Update</button>
   <button class="green" onclick="showWebsite()">Back Website</button>
+
   <div id="adminList"></div>
 </section>
 
@@ -85,6 +91,7 @@ footer{text-align:center;background:#fff;padding:20px}
 <footer>
   <b>MR.YOGI PREMIUM</b><br>
   Premium Accounts • Trusted Service • Best Prices
+
   <div class="legal">
     <h3>Legal</h3>
     <p onclick="openLegal('Privacy Policy')">Privacy Policy</p>
@@ -101,21 +108,87 @@ let selectedService = "";
 let selectedPlan = "";
 
 let services = JSON.parse(localStorage.getItem("mrYogiServices")) || [
-{name:"Netflix Premium",desc:"4K UHD quality, 1 device login, mobile/TV/laptop support, smooth streaming and fast support.",plans:["1 Month – ₹150 | 1 Device | 4K UHD","3 Months – ₹399 | 1 Device","6 Months – ₹699 | Best Value","12 Months – ₹1250 | Maximum Savings"]},
-{name:"Prime Video",desc:"1 device and 5 devices personal mail plans, HD/4K streaming, ads-free options available.",plans:["1 Month – ₹49 | 1 Device","3 Months – ₹129 | 1 Device","12 Months – ₹320 | 1 Device","1 Month – ₹99 | 5 Devices Personal Mail","Ads-Free 1 Month – ₹129","6 Months Normal – ₹299","6 Months Ads-Free – ₹349"]},
-{name:"JioHotstar 1080p",desc:"Full HD 1080p streaming, instant activation, smooth playback for movies, shows and sports.",plans:["1 Month – ₹39","2 Months – ₹75","3 Months – ₹110","6 Months – ₹220","12 Months – ₹359"]},
-{name:"SonyLIV 4K Premium",desc:"4K premium access, shared and private plans, secure access and smooth streaming.",plans:["1 Month – ₹69 Shared","3 Months – ₹199 Shared","6 Months – ₹269 Shared","12 Months – ₹320 Shared","12 Months Private – ₹549 On Your Number"]},
-{name:"ZEE5 Full HD",desc:"Full HD 1080p streaming, supported devices, instant activation and private number plan available.",plans:["1 Month – ₹49","3 Months – ₹129","6 Months – ₹169","12 Months – ₹210","12 Months Private – ₹349 On Your Number"]},
-{name:"YouTube Premium",desc:"Activation on your mail, ad-free YouTube, background play, downloads and YouTube Music.",plans:["1 Month – ₹49 | Activation on Your Mail"]},
-{name:"Adobe Creative Cloud",desc:"Original License Pro Plan, 20+ Adobe apps, 80GB cloud, 2 devices, AI credits, 2FA, warranty and replacement.",plans:["1 Month – ₹299 | Original License | On Your Mail Activation"]}
+{
+name:"Netflix Premium",
+desc:"4K UHD quality, 1 device login, mobile/TV/laptop support, smooth streaming and fast support.",
+plans:[
+"1 Month – ₹150 | 1 Device | 4K UHD",
+"3 Months – ₹399 | 1 Device",
+"6 Months – ₹699 | Best Value",
+"12 Months – ₹1250 | Maximum Savings"
+]
+},
+{
+name:"Prime Video",
+desc:"1 device and 5 devices personal mail plans, HD/4K streaming, ads-free options available.",
+plans:[
+"1 Month – ₹49 | 1 Device",
+"3 Months – ₹129 | 1 Device",
+"12 Months – ₹320 | 1 Device",
+"1 Month – ₹99 | 5 Devices Personal Mail",
+"Ads-Free 1 Month – ₹129",
+"6 Months Normal – ₹299",
+"6 Months Ads-Free – ₹349"
+]
+},
+{
+name:"JioHotstar 1080p",
+desc:"Full HD 1080p streaming, instant activation, smooth playback for movies, shows and sports.",
+plans:[
+"1 Month – ₹39",
+"2 Months – ₹75",
+"3 Months – ₹110",
+"6 Months – ₹220",
+"12 Months – ₹359"
+]
+},
+{
+name:"SonyLIV 4K Premium",
+desc:"4K premium access, shared and private plans, secure access and smooth streaming.",
+plans:[
+"1 Month – ₹69 Shared",
+"3 Months – ₹199 Shared",
+"6 Months – ₹269 Shared",
+"12 Months – ₹320 Shared",
+"12 Months Private – ₹549 On Your Number"
+]
+},
+{
+name:"ZEE5 Full HD",
+desc:"Full HD 1080p streaming, supported devices, instant activation and private number plan available.",
+plans:[
+"1 Month – ₹49",
+"3 Months – ₹129",
+"6 Months – ₹169",
+"12 Months – ₹210",
+"12 Months Private – ₹349 On Your Number"
+]
+},
+{
+name:"YouTube Premium",
+desc:"Activation on your mail, ad-free YouTube, background play, downloads and YouTube Music.",
+plans:[
+"1 Month – ₹49 | Activation on Your Mail"
+]
+},
+{
+name:"Adobe Creative Cloud",
+desc:"Original License Pro Plan. 20+ Adobe apps, 80GB cloud storage, 2 device support, 10000 AI Fill credits/month, private account with 2FA, warranty and replacement.",
+plans:[
+"1 Month – ₹299 | Original License | On Your Mail Activation"
+]
+}
 ];
 
-function saveData(){localStorage.setItem("mrYogiServices", JSON.stringify(services));}
+function saveData(){
+  localStorage.setItem("mrYogiServices", JSON.stringify(services));
+}
 
 function renderWebsite(){
   let html="";
   services.forEach((s,i)=>{
-    html+=`<div class="card">
+    html+=`
+    <div class="card">
       <h3>${s.name}</h3>
       <p>Premium Access Available</p>
       <button onclick="showDescription(${i})">Description</button>
@@ -149,7 +222,7 @@ function openOrderForm(service,plan){
   selectedPlan=plan;
   popupTitle.innerText="Complete Your Order";
   popupContent.innerHTML=`
-    <p><b>Product:</b> ${service}<br><b>Plan:</b> ${plan}</p>
+    <p style="text-align:left"><b>📦 Product:</b> ${service}<br><b>📋 Plan:</b> ${plan}</p>
     <input id="custName" placeholder="Your Name">
     <input id="custMail" placeholder="Your Mail">
     <input id="custNum" placeholder="WhatsApp Number">
@@ -160,33 +233,46 @@ function sendOrder(){
   let name=custName.value.trim();
   let mail=custMail.value.trim();
   let num=custNum.value.trim();
-  if(!name || !mail || !num){alert("Fill all details");return;}
+
+  if(!name || !mail || !num){
+    alert("Fill all details");
+    return;
+  }
+
   let id="ORD"+Date.now().toString().slice(-6);
-  let msg=`Hello,
+
+  let msg=`👋 Hello,
 I want to buy:
 
-Order ID: ${id}
-Product: ${selectedService}
-Plan: ${selectedPlan}
+🆔 Order ID: ${id}
+📦 Product: ${selectedService}
+📋 Plan: ${selectedPlan}
 
-Name: ${name}
-Mail: ${mail}
-Number: ${num}
+👤 Name: ${name}
+📧 Mail: ${mail}
+📱 Number: ${num}
 
-Please assist with payment.`;
+💬 Please assist with payment.`;
+
   window.open(`https://wa.me/${number}?text=${encodeURIComponent(msg)}`,"_blank");
 }
 
-function openLogin(){loginPopup.style.display="flex";}
+function openLogin(){
+  loginPopup.style.display="flex";
+}
+
 function adminLogin(){
   let u=adminUser.value.trim();
   let p=adminPass.value.trim();
+
   if(u.toLowerCase()==="admin" && p==="yogi19001"){
     closePopup();
     customerPage.style.display="none";
     adminPage.style.display="block";
     renderAdmin();
-  }else alert("Wrong username or password");
+  }else{
+    alert("Wrong username or password");
+  }
 }
 
 function showWebsite(){
@@ -199,16 +285,30 @@ function saveService(){
   let n=serviceName.value.trim();
   let d=serviceDesc.value.trim();
   let p=servicePlans.value.split("\n").map(x=>x.trim()).filter(x=>x);
-  if(!n || !d || p.length===0){alert("Fill all fields");return;}
-  if(editIndex===null){services.push({name:n,desc:d,plans:p});}
-  else{services[editIndex]={name:n,desc:d,plans:p};editIndex=null;}
-  saveData();clearForm();renderWebsite();renderAdmin();
+
+  if(!n || !d || p.length===0){
+    alert("Fill all fields");
+    return;
+  }
+
+  if(editIndex===null){
+    services.push({name:n,desc:d,plans:p});
+  }else{
+    services[editIndex]={name:n,desc:d,plans:p};
+    editIndex=null;
+  }
+
+  saveData();
+  clearForm();
+  renderWebsite();
+  renderAdmin();
 }
 
 function renderAdmin(){
   let html="";
   services.forEach((s,i)=>{
-    html+=`<div class="admin-card">
+    html+=`
+    <div class="admin-card">
       <h3>${s.name}</h3>
       <p><b>Description:</b> ${s.desc}</p>
       <p><b>Plans:</b><br>${s.plans.join("<br>")}</p>
@@ -230,13 +330,26 @@ function editService(i){
 function deleteService(i){
   if(confirm("Delete this plan?")){
     services.splice(i,1);
-    saveData();renderWebsite();renderAdmin();
+    saveData();
+    renderWebsite();
+    renderAdmin();
   }
 }
 
-function clearForm(){serviceName.value="";serviceDesc.value="";servicePlans.value="";}
-function closePopup(){loginPopup.style.display="none";mainPopup.style.display="none";}
-function safe(t){return t.replace(/'/g,"\\'");}
+function clearForm(){
+  serviceName.value="";
+  serviceDesc.value="";
+  servicePlans.value="";
+}
+
+function closePopup(){
+  loginPopup.style.display="none";
+  mainPopup.style.display="none";
+}
+
+function safe(t){
+  return t.replace(/'/g,"\\'");
+}
 
 function openLegal(type){
   let text="";
@@ -244,10 +357,12 @@ function openLegal(type){
   if(type==="Terms of Service") text="Do not misuse accounts or change login/recovery details. Misuse cancels warranty.";
   if(type==="Refund Policy") text="Refund or replacement is provided only if service is not working and issue is verified.";
   if(type==="Security Policy") text="Keep your account and login details safe. Do not share with unknown persons.";
+
   popupTitle.innerText=type;
   popupContent.innerHTML=`<p style="text-align:left;line-height:1.8">${text}</p>`;
   mainPopup.style.display="flex";
 }
 </script>
+
 </body>
 </html>
