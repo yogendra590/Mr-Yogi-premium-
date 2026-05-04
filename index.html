@@ -1,145 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>mryogi Premium Subscriptions</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: #000;
-      color: #fff;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mr.Yogi Premium</title>
 
-    .hero {
-      background: #111 url('https://godspeedottstore.netlify.app/static/media/banner.6eead5ac33944dbb839d.jpg') no-repeat center/cover;
-      padding: 10px 0; /* Further reduced padding to move content up more */
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: auto;
-    }
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle at top, #0a1a2f, #000);
+    color: white;
+    text-align: center;
+}
 
-    h1 {
-      color: #ff2c57;
-      font-size: 48px; /* Reduced size */
-      margin-top: 0;
-      margin-bottom: 5px;
-      font-weight: 600;
-    }
+/* HEADER */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+}
 
-    .hero h2 {
-      font-size: 28px; /* Reduced size */
-      margin-top: 0;
-      margin-bottom: 5px;
-    }
+.logo {
+    height: 40px;
+}
 
-    .hero p {
-      font-size: 16px; /* Reduced size */
-      margin-top: 0;
-      margin-bottom: 10px;
-    }
+.menu {
+    font-size: 24px;
+    cursor: pointer;
+}
 
-    .btn {
-      background-color: #ff2c57;
-      color: #fff;
-      padding: 10px 25px; /* Reduced padding */
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 16px; /* Reduced button text size */
-    }
+/* HERO */
+.hero {
+    padding: 50px 20px;
+}
 
-    .features {
-      padding: 10px 0;
-      background-color: #111;
-    }
+.tag {
+    background: rgba(255,255,255,0.1);
+    padding: 8px 15px;
+    border-radius: 20px;
+    display: inline-block;
+    font-size: 12px;
+}
 
-    .features h3 {
-      text-align: center;
-      font-size: 24px; /* Reduced size */
-      margin-top: 0;
-      margin-bottom: 5px;
-    }
+h1 {
+    font-size: 32px;
+    margin: 20px 0;
+    line-height: 1.3;
+}
 
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 15px;
-    }
+p {
+    color: #aaa;
+    font-size: 14px;
+    max-width: 400px;
+    margin: auto;
+}
 
-    .feature-box {
-      background-color: #1b1b1b;
-      padding: 10px;
-      border-radius: 8px;
-      text-align: center;
-    }
+/* BUTTONS */
+.btn-main {
+    background: red;
+    padding: 15px 30px;
+    border-radius: 30px;
+    margin-top: 25px;
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
 
-    .footer {
-      background-color: #000;
-      text-align: center;
-      padding: 5px 0;
-      font-size: 12px; /* Reduced size */
-    }
+.btn-sec {
+    margin-top: 15px;
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.1);
+    text-decoration: none;
+    color: white;
+}
 
-    .msme-note {
-      text-align: center;
-      background-color: #00e6e6;
-      color: #000;
-      padding: 5px;
-      margin-top: 0;
-      margin-bottom: 5px;
-      font-size: 14px; /* Reduced size */
-      font-weight: 600;
-    }
-  </style>
+/* FEATURES */
+.features {
+    margin-top: 40px;
+}
+
+.feature-box {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.08);
+    font-size: 12px;
+}
+</style>
 </head>
+
 <body>
 
-  <section class="hero">
-    <h1>MR.YOGI</h1>
-    <h2>WELCOME TO MR.YOGI PREMIUM SUBSCRIPTIONS</h2>
-    <p>OTT • Music • Creative • Combo Deals – All in One Place</p>
-    <a href="pricing.html" class="btn">👉 View Plans 👈</a>
-  </section>
+<header>
+    <!-- LOGO -->
+    <img src="logo.png" class="logo">
 
-  <section class="msme-note">
-    <p><strong>We are an MSME (GOVT OF INDIA) Verified Seller</strong> – <a href="certificate.html" style="color: #000; text-decoration: underline;">Click here to view our MSME Certificate</a></p>
-  </section>
+    <!-- MENU -->
+    <div class="menu">☰</div>
+</header>
 
-  <section class="features">
-    <div class="container">
-      <h3>Why Choose Us?</h3>
-      <div class="features-grid">
-        <div class="feature-box">
-          <h4>🎥 HD/4K Content</h4>
-          <p>Stream high-quality content on all devices.</p>
-        </div>
-        <div class="feature-box">
-          <h4>💰 Affordable Prices</h4>
-          <p>Plans starting at just ₹39!</p>
-        </div>
-        <div class="feature-box">
-          <h4>⚡ Instant Activation</h4>
-          <p>Delivered quickly on your mail or phone.</p>
-        </div>
-        <div class="feature-box">
-          <h4>⏰ 24/7 Support</h4>
-          <p>We're here to help you anytime, day or night!</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<section class="hero">
 
-  <footer class="footer">
-    <div class="container">
-      <p1><a href="about.html" style="color: #ff2c57; text-decoration: none;">About Us</a></p1>
-    </div>
-  </footer>
+<div class="tag">🟢 TRUSTED BY 10,000+ INDIANS</div>
+
+<h1>
+Premium OTT & Tools.<br>
+Simple. Affordable.<br>
+Trusted.
+</h1>
+
+<p>
+Unlock your favorite premium subscriptions instantly at the best prices.
+Zero hidden fees. Fully secure. Trusted by thousands.
+</p>
+
+<a href="#" class="btn-main">View Plans →</a><br>
+<a href="#" class="btn-sec">See Reviews</a>
+
+<div class="features">
+    <div class="feature-box">🔐 Secure Payments</div>
+    <div class="feature-box">⚡ Instant Access</div>
+    <div class="feature-box">💬 24/7 Support</div>
+</div>
+
+</section>
 
 </body>
 </html>
