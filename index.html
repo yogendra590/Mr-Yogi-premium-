@@ -2,28 +2,104 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MR.YOGI PREMIUM Admin</title>
+<title>MR.YOGI PREMIUM</title>
+
 <style>
 *{box-sizing:border-box;font-family:Arial;margin:0;padding:0}
-body{background:#1a001f;color:white}
-header{background:#2b0033;padding:18px;display:flex;justify-content:space-between;align-items:center}
-.logo{color:#ff4da6;font-size:22px;font-weight:900}
-button,.btn{background:#ff4da6;color:white;border:0;padding:12px 18px;border-radius:25px;font-weight:900;cursor:pointer}
-.hero{text-align:center;padding:40px 15px;background:linear-gradient(135deg,#1a001f,#4d004d)}
+body{background:#f4f8ff;color:#0b1f3a}
+
+/* HEADER */
+header{background:white;padding:18px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 15px #dbe7ff}
+.logo{color:#0066ff;font-size:22px;font-weight:900}
+
+/* BUTTON */
+button,.btn{
+background:#0066ff;
+color:white;
+border:0;
+padding:12px 18px;
+border-radius:25px;
+font-weight:900;
+cursor:pointer
+}
+button:hover,.btn:hover{background:#004dcc}
+
+/* HERO */
+.hero{text-align:center;padding:40px 15px;background:linear-gradient(135deg,#ffffff,#dbeaff)}
 .hero h1{font-size:32px}
-.hero span,.title{color:#ff4da6}
+.hero span,.title{color:#0066ff}
+.hero p{color:#34506f;margin-top:8px}
+
+/* SECTION */
 .section{padding:25px 15px}
 .title{text-align:center;margin-bottom:20px}
+
+/* CARDS */
 .plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;max-width:1200px;margin:auto}
-.card{background:#2b0033;border:1px solid #ff4da6;border-radius:18px;padding:18px;box-shadow:0 0 18px #ff4da655}
-.card h3{color:#ff99cc;margin-bottom:10px}
-.card p{line-height:1.7;color:#ffd6f0}
-.popup{display:none;position:fixed;inset:0;background:#000c;justify-content:center;align-items:center;z-index:999;padding:15px}
-.box{background:#2b0033;border:1px solid #ff4da6;border-radius:18px;padding:20px;max-width:420px;width:100%;text-align:center}
-.planBtn{display:block;width:100%;background:#3d004d;border:1px solid #ff4da6;margin:8px 0;border-radius:12px;padding:12px;color:white;font-weight:900}
+.card{
+background:white;
+border:1px solid #b8d4ff;
+border-radius:18px;
+padding:18px;
+box-shadow:0 8px 25px rgba(0,102,255,.12)
+}
+.card h3{color:#0066ff;margin-bottom:10px}
+.card p{line-height:1.7;color:#253b57}
+
+/* POPUP */
+.popup{
+display:none;
+position:fixed;
+inset:0;
+background:#0008;
+justify-content:center;
+align-items:center;
+z-index:999;
+padding:15px
+}
+.box{
+background:white;
+color:#0b1f3a;
+border:1px solid #0066ff;
+border-radius:18px;
+padding:20px;
+max-width:420px;
+width:100%;
+text-align:center;
+box-shadow:0 10px 35px rgba(0,102,255,.25)
+}
+.planBtn{
+display:block;
+width:100%;
+background:#eaf3ff;
+border:1px solid #9cc7ff;
+margin:8px 0;
+border-radius:12px;
+padding:12px;
+color:#0b1f3a;
+font-weight:900
+}
+.planBtn:hover{background:#0066ff;color:white}
+
+/* ADMIN */
 .admin{display:none;max-width:900px;margin:auto}
-input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:1px solid #ff4da6;background:#25002d;color:white}
-.admin-card{background:#2b0033;padding:15px;border-radius:15px;margin:12px 0;border:1px solid #ff4da6}
+input,textarea{
+width:100%;
+padding:12px;
+margin:8px 0;
+border-radius:10px;
+border:1px solid #9cc7ff;
+background:white;
+color:#0b1f3a
+}
+.admin-card{
+background:white;
+padding:15px;
+border-radius:15px;
+margin:12px 0;
+border:1px solid #b8d4ff;
+box-shadow:0 6px 18px rgba(0,102,255,.10)
+}
 .small{padding:8px 12px;margin:4px;border-radius:10px}
 .red{background:#ff3333}
 .green{background:#25D366;color:#002b12}
@@ -33,8 +109,8 @@ input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:1p
 <body>
 
 <header>
-  <div class="logo">💖 MR.YOGI PREMIUM</div>
-  <button onclick="showAdminLogin()">Admin</button>
+  <div class="logo">💙 MR.YOGI PREMIUM</div>
+  <button onclick="showLogin()">Admin</button>
 </header>
 
 <section class="hero">
@@ -42,207 +118,152 @@ input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:1p
   <p>Instant Activation • Trusted Service • WhatsApp Orders</p>
 </section>
 
-<section class="section" id="customerPage">
-  <h2 class="title">🔥 Premium Plans</h2>
-  <div class="plans" id="plansArea"></div>
+<section class="section" id="customer">
+  <h2 class="title">🔥 Plans</h2>
+  <div class="plans" id="plans"></div>
 </section>
 
-<section class="section admin" id="adminPanel">
+<section class="section admin" id="admin">
   <h2 class="title">Admin Panel</h2>
 
-  <input id="serviceName" placeholder="Service Name e.g Netflix Premium">
-  <textarea id="serviceDesc" placeholder="Description / Features"></textarea>
-  <textarea id="servicePlans" placeholder="Plans - one per line e.g&#10;1 Month - ₹150&#10;3 Months - ₹399"></textarea>
-  <button onclick="saveService()">Save / Add Plan</button>
-  <button class="green" onclick="showCustomer()">View Website</button>
+  <input id="name" placeholder="Service Name">
+  <textarea id="desc" placeholder="Description"></textarea>
+  <textarea id="plan" placeholder="Plans (line by line)"></textarea>
 
-  <div id="adminList"></div>
+  <button onclick="save()">Add / Update</button>
+  <button class="green" onclick="back()">Back</button>
+
+  <div id="list"></div>
 </section>
 
-<div id="loginPopup" class="popup">
+<!-- LOGIN -->
+<div id="login" class="popup">
   <div class="box">
     <h2>Admin Login</h2>
-    <input id="adminUser" placeholder="Username">
-    <input id="adminPass" type="password" placeholder="Password">
-    <button onclick="loginAdmin()">Login</button>
+    <input id="user" placeholder="Username">
+    <input id="pass" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
     <button class="red" onclick="closeLogin()">Close</button>
   </div>
 </div>
 
-<div id="planPopup" class="popup">
+<!-- PLAN POPUP -->
+<div id="popup" class="popup">
   <div class="box">
-    <h2 id="popupTitle">Choose Plan</h2>
-    <p>Select your plan</p>
+    <h2 id="title"></h2>
     <div id="popupPlans"></div>
-    <button class="red" onclick="closePlanPopup()">Close</button>
+    <button class="red" onclick="closePopup()">Close</button>
   </div>
 </div>
 
 <script>
-const whatsapp = "918618388937";
-let editIndex = null;
-
-let services = JSON.parse(localStorage.getItem("services")) || [
-  {
-    name:"Netflix Premium",
-    desc:"4K UHD Quality | 1 Device | Mobile, TV, Laptop",
-    plans:["1 Month - ₹150","3 Months - ₹399","6 Months - ₹699","12 Months - ₹1250"]
-  },
-  {
-    name:"JioHotstar 1080p",
-    desc:"Full HD 1080p | Smooth Streaming | Instant Activation",
-    plans:["1 Month - ₹39","2 Months - ₹75","3 Months - ₹110","6 Months - ₹220","12 Months - ₹359"]
-  },
-  {
-    name:"SonyLIV 4K Premium",
-    desc:"Shared & Private Plans | 4K Premium",
-    plans:["1 Month - ₹69 Shared","3 Months - ₹199 Shared","6 Months - ₹269 Shared","12 Months - ₹320 Shared","12 Months - ₹549 Private On Your Number"]
-  },
-  {
-    name:"ZEE5 Full HD",
-    desc:"1080p | Mobile, TV, Laptop",
-    plans:["1 Month - ₹49","3 Months - ₹129","6 Months - ₹169","12 Months - ₹210","12 Months - ₹349 Private On Your Number"]
-  },
-  {
-    name:"Prime Video",
-    desc:"1 Device & 5 Devices Personal Mail Plans",
-    plans:["1 Month - ₹49 1 Device","3 Months - ₹129 1 Device","12 Months - ₹320 1 Device","1 Month - ₹99 5 Devices","Ads-Free 1 Month - ₹129","6 Months Normal - ₹299","6 Months Ads-Free - ₹349"]
-  },
-  {
-    name:"YouTube Premium",
-    desc:"Activation on Your Mail",
-    plans:["1 Month - ₹49"]
-  }
+let services = JSON.parse(localStorage.getItem("data")) || [
+{name:"Netflix",desc:"4K UHD Quality",plans:["1 Month ₹150","3 Months ₹399"]},
+{name:"Prime Video",desc:"HD Streaming",plans:["1 Month ₹49","3 Months ₹129"]},
+{name:"YouTube Premium",desc:"Mail Activation",plans:["1 Month ₹49"]}
 ];
 
-function saveData(){
-  localStorage.setItem("services", JSON.stringify(services));
+const number="918618388937";
+let edit=null;
+
+/* RENDER */
+function render(){
+let html="";
+services.forEach((s,i)=>{
+html+=`
+<div class="card">
+<h3>${s.name}</h3>
+<p>${s.desc}</p>
+<p>${s.plans.join("<br>")}</p>
+<button onclick="openPopup(${i})">Choose Plan</button>
+</div>`;
+});
+document.getElementById("plans").innerHTML=html;
+}
+render();
+
+/* POPUP */
+function openPopup(i){
+let s=services[i];
+document.getElementById("title").innerText=s.name;
+let html="";
+s.plans.forEach(p=>{
+html+=`<button class="planBtn" onclick="order('${s.name}','${p}')">${p}</button>`;
+});
+document.getElementById("popupPlans").innerHTML=html;
+document.getElementById("popup").style.display="flex";
+}
+function closePopup(){document.getElementById("popup").style.display="none";}
+
+/* ORDER */
+function order(service,plan){
+let msg=`Hi MR.YOGI Premium, I want ${service} - ${plan}`;
+window.open(`https://wa.me/${number}?text=${encodeURIComponent(msg)}`);
 }
 
-function renderCustomer(){
-  let html = "";
-  services.forEach((s,i)=>{
-    html += `
-    <div class="card">
-      <h3>${s.name}</h3>
-      <p>${s.desc}</p>
-      <p><b>Plans:</b><br>${s.plans.join("<br>")}</p>
-      <button onclick="openPlanPopup(${i})">Choose Plan</button>
-    </div>`;
-  });
-  document.getElementById("plansArea").innerHTML = html;
+/* LOGIN */
+function showLogin(){document.getElementById("login").style.display="flex";}
+function closeLogin(){document.getElementById("login").style.display="none";}
+
+function login(){
+let u=document.getElementById("user").value;
+let p=document.getElementById("pass").value;
+
+if(u==="Admin" && p==="yogi19001"){
+closeLogin();
+document.getElementById("customer").style.display="none";
+document.getElementById("admin").style.display="block";
+renderAdmin();
+}else alert("Wrong login");
 }
 
-function openPlanPopup(index){
-  const s = services[index];
-  document.getElementById("popupTitle").innerText = s.name;
-  let html = "";
-  s.plans.forEach(plan=>{
-    html += `<button class="planBtn" onclick="orderNow('${s.name}','${plan}')">${plan}</button>`;
-  });
-  document.getElementById("popupPlans").innerHTML = html;
-  document.getElementById("planPopup").style.display = "flex";
-}
+/* ADMIN */
+function save(){
+let n=name.value;
+let d=desc.value;
+let pl=plan.value.split("\n");
 
-function closePlanPopup(){
-  document.getElementById("planPopup").style.display = "none";
-}
+if(edit==null) services.push({name:n,desc:d,plans:pl});
+else services[edit]={name:n,desc:d,plans:pl};
 
-function orderNow(service, plan){
-  let msg = `Hi MR.YOGI Premium, I want ${service} plan: ${plan}`;
-  window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(msg)}`,"_blank");
-}
-
-function showAdminLogin(){
-  document.getElementById("loginPopup").style.display = "flex";
-}
-
-function closeLogin(){
-  document.getElementById("loginPopup").style.display = "none";
-}
-
-function loginAdmin(){
-  let u = document.getElementById("adminUser").value;
-  let p = document.getElementById("adminPass").value;
-  if(u === "admin" && p === "1234"){
-    closeLogin();
-    document.getElementById("customerPage").style.display = "none";
-    document.getElementById("adminPanel").style.display = "block";
-    renderAdmin();
-  }else{
-    alert("Wrong username or password");
-  }
-}
-
-function showCustomer(){
-  document.getElementById("adminPanel").style.display = "none";
-  document.getElementById("customerPage").style.display = "block";
-  renderCustomer();
-}
-
-function saveService(){
-  let name = document.getElementById("serviceName").value.trim();
-  let desc = document.getElementById("serviceDesc").value.trim();
-  let plans = document.getElementById("servicePlans").value.split("\n").filter(x=>x.trim());
-
-  if(!name || !desc || plans.length === 0){
-    alert("Fill all details");
-    return;
-  }
-
-  let data = {name, desc, plans};
-
-  if(editIndex === null){
-    services.push(data);
-  }else{
-    services[editIndex] = data;
-    editIndex = null;
-  }
-
-  saveData();
-  clearForm();
-  renderAdmin();
-  renderCustomer();
+localStorage.setItem("data",JSON.stringify(services));
+edit=null;
+render();
+renderAdmin();
 }
 
 function renderAdmin(){
-  let html = "";
-  services.forEach((s,i)=>{
-    html += `
-    <div class="admin-card">
-      <h3>${s.name}</h3>
-      <p>${s.desc}</p>
-      <p>${s.plans.join("<br>")}</p>
-      <button class="small green" onclick="editService(${i})">Edit</button>
-      <button class="small red" onclick="deleteService(${i})">Delete</button>
-    </div>`;
-  });
-  document.getElementById("adminList").innerHTML = html;
+let html="";
+services.forEach((s,i)=>{
+html+=`
+<div class="admin-card">
+<h3>${s.name}</h3>
+<p>${s.plans.join("<br>")}</p>
+<button class="small green" onclick="editItem(${i})">Edit</button>
+<button class="small red" onclick="del(${i})">Delete</button>
+</div>`;
+});
+list.innerHTML=html;
 }
 
-function editService(i){
-  editIndex = i;
-  document.getElementById("serviceName").value = services[i].name;
-  document.getElementById("serviceDesc").value = services[i].desc;
-  document.getElementById("servicePlans").value = services[i].plans.join("\n");
+function editItem(i){
+edit=i;
+name.value=services[i].name;
+desc.value=services[i].desc;
+plan.value=services[i].plans.join("\n");
 }
 
-function deleteService(i){
-  if(confirm("Delete this plan?")){
-    services.splice(i,1);
-    saveData();
-    renderAdmin();
-    renderCustomer();
-  }
+function del(i){
+services.splice(i,1);
+localStorage.setItem("data",JSON.stringify(services));
+render();
+renderAdmin();
 }
 
-function clearForm(){
-  document.getElementById("serviceName").value = "";
-  document.getElementById("serviceDesc").value = "";
-  document.getElementById("servicePlans").value = "";
+function back(){
+document.getElementById("admin").style.display="none";
+document.getElementById("customer").style.display="block";
 }
-
-renderCustomer();
 </script>
 
 </body>
