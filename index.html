@@ -10,259 +10,193 @@ body{background:#f4f8ff;color:#0b1f3a}
 
 /* HEADER */
 header{background:white;padding:18px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 15px #dbe7ff}
-.logo{color:#0066ff;font-size:22px;font-weight:900}
-
-/* BUTTON */
-button,.btn{
-background:#0066ff;
-color:white;
-border:0;
-padding:12px 18px;
-border-radius:25px;
-font-weight:900;
-cursor:pointer
-}
-button:hover,.btn:hover{background:#004dcc}
+.logo{color:#0066ff;font-size:24px;font-weight:900}
 
 /* HERO */
-.hero{text-align:center;padding:40px 15px;background:linear-gradient(135deg,#ffffff,#dbeaff)}
-.hero h1{font-size:32px}
-.hero span,.title{color:#0066ff}
-.hero p{color:#34506f;margin-top:8px}
+.hero{text-align:center;padding:45px;background:linear-gradient(135deg,#fff,#dbeaff)}
+.hero h1{font-size:42px;font-weight:900}
+.hero span{color:#0066ff}
+.hero p{color:#34506f;margin-top:10px}
 
-/* SECTION */
-.section{padding:25px 15px}
-.title{text-align:center;margin-bottom:20px}
+/* BUTTON */
+button{
+background:#0066ff;color:white;border:0;padding:12px 18px;border-radius:25px;font-weight:900;cursor:pointer;margin:5px
+}
+button:hover{background:#004dcc;transform:scale(1.05)}
 
 /* CARDS */
-.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;max-width:1200px;margin:auto}
+.section{padding:25px}
+.title{text-align:center;font-size:32px;font-weight:900;color:#0066ff;margin-bottom:20px}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
 .card{
-background:white;
-border:1px solid #b8d4ff;
-border-radius:18px;
-padding:18px;
-box-shadow:0 8px 25px rgba(0,102,255,.12)
+background:white;border:1px solid #b8d4ff;border-radius:18px;padding:20px;text-align:center;
+box-shadow:0 8px 25px rgba(0,102,255,.12);animation:fadeZoom .8s
 }
-.card h3{color:#0066ff;margin-bottom:10px}
-.card p{line-height:1.7;color:#253b57}
+.card h3{font-size:24px;color:#0066ff;margin-bottom:10px}
 
 /* POPUP */
-.popup{
-display:none;
-position:fixed;
-inset:0;
-background:#0008;
-justify-content:center;
-align-items:center;
-z-index:999;
-padding:15px
-}
-.box{
-background:white;
-color:#0b1f3a;
-border:1px solid #0066ff;
-border-radius:18px;
-padding:20px;
-max-width:420px;
-width:100%;
-text-align:center;
-box-shadow:0 10px 35px rgba(0,102,255,.25)
-}
-.planBtn{
-display:block;
-width:100%;
-background:#eaf3ff;
-border:1px solid #9cc7ff;
-margin:8px 0;
-border-radius:12px;
-padding:12px;
-color:#0b1f3a;
-font-weight:900
-}
+.popup{display:none;position:fixed;inset:0;background:#0008;justify-content:center;align-items:center}
+.box{background:white;padding:20px;border-radius:18px;width:90%;max-width:420px;text-align:center}
+.planBtn{display:block;width:100%;margin:8px 0;padding:12px;border-radius:10px;background:#eaf3ff;border:1px solid #9cc7ff}
 .planBtn:hover{background:#0066ff;color:white}
 
 /* ADMIN */
-.admin{display:none;max-width:900px;margin:auto}
-input,textarea{
-width:100%;
-padding:12px;
-margin:8px 0;
-border-radius:10px;
-border:1px solid #9cc7ff;
-background:white;
-color:#0b1f3a
+.admin{display:none}
+input,textarea{width:100%;padding:10px;margin:5px;border:1px solid #9cc7ff;border-radius:10px}
+
+@keyframes fadeZoom{
+from{opacity:0;transform:scale(.92)}
+to{opacity:1;transform:scale(1)}
 }
-.admin-card{
-background:white;
-padding:15px;
-border-radius:15px;
-margin:12px 0;
-border:1px solid #b8d4ff;
-box-shadow:0 6px 18px rgba(0,102,255,.10)
-}
-.small{padding:8px 12px;margin:4px;border-radius:10px}
-.red{background:#ff3333}
-.green{background:#25D366;color:#002b12}
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">💙 MR.YOGI PREMIUM</div>
-  <button onclick="showLogin()">Admin</button>
+<div class="logo">MR.YOGI PREMIUM</div>
+<button onclick="showLogin()">Admin</button>
 </header>
 
 <section class="hero">
-  <h1>Premium OTT Plans <span>Best Price</span></h1>
-  <p>Instant Activation • Trusted Service • WhatsApp Orders</p>
+<h1>Premium OTT Plans <span>Best Price</span></h1>
+<p>Instant Activation • Trusted Service</p>
 </section>
 
 <section class="section" id="customer">
-  <h2 class="title">🔥 Plans</h2>
-  <div class="plans" id="plans"></div>
+<h2 class="title">All Plans</h2>
+<div class="plans" id="plans"></div>
 </section>
 
+<!-- ADMIN -->
 <section class="section admin" id="admin">
-  <h2 class="title">Admin Panel</h2>
+<h2 class="title">Admin Panel</h2>
 
-  <input id="name" placeholder="Service Name">
-  <textarea id="desc" placeholder="Description"></textarea>
-  <textarea id="plan" placeholder="Plans (line by line)"></textarea>
+<input id="name" placeholder="Service Name">
+<textarea id="desc" placeholder="Description"></textarea>
+<textarea id="plan" placeholder="Plans"></textarea>
 
-  <button onclick="save()">Add / Update</button>
-  <button class="green" onclick="back()">Back</button>
+<button onclick="save()">Save</button>
+<button onclick="back()">Back</button>
 
-  <div id="list"></div>
+<div id="list"></div>
 </section>
 
 <!-- LOGIN -->
-<div id="login" class="popup">
-  <div class="box">
-    <h2>Admin Login</h2>
-    <input id="user" placeholder="Username">
-    <input id="pass" type="password" placeholder="Password">
-    <button onclick="login()">Login</button>
-    <button class="red" onclick="closeLogin()">Close</button>
-  </div>
+<div class="popup" id="login">
+<div class="box">
+<h2>Login</h2>
+<input id="user" placeholder="Username">
+<input id="pass" placeholder="Password">
+<button onclick="login()">Login</button>
+</div>
 </div>
 
-<!-- PLAN POPUP -->
-<div id="popup" class="popup">
-  <div class="box">
-    <h2 id="title"></h2>
-    <div id="popupPlans"></div>
-    <button class="red" onclick="closePopup()">Close</button>
-  </div>
+<!-- POPUP -->
+<div class="popup" id="popup">
+<div class="box">
+<h2 id="title"></h2>
+<div id="content"></div>
+<button onclick="closePopup()">Close</button>
+</div>
 </div>
 
 <script>
-let services = JSON.parse(localStorage.getItem("data")) || [
-{name:"Netflix",desc:"4K UHD Quality",plans:["1 Month ₹150","3 Months ₹399"]},
-{name:"Prime Video",desc:"HD Streaming",plans:["1 Month ₹49","3 Months ₹129"]},
-{name:"YouTube Premium",desc:"Mail Activation",plans:["1 Month ₹49"]}
+const number="918618388937";
+
+let services=[
+{
+name:"Netflix Premium",
+desc:"4K UHD, No Logout, All Devices Support",
+plans:["1 Month ₹150","3 Months ₹399","6 Months ₹699","12 Months ₹1250"]
+},
+{
+name:"Prime Video",
+desc:"1 Device & 5 Devices Plans, Ads-Free Available",
+plans:["1 Month ₹49","3 Months ₹129","12 Months ₹320"]
+},
+{
+name:"ZEE5",
+desc:"Full HD Streaming, Private Plan Available",
+plans:["1 Month ₹49","3 Months ₹129","12 Months ₹210"]
+},
+{
+name:"SonyLIV",
+desc:"4K Premium Shared & Private Plans",
+plans:["1 Month ₹69","3 Months ₹199","12 Months ₹320"]
+},
+{
+name:"JioHotstar",
+desc:"1080p Streaming Budget Plans",
+plans:["1 Month ₹39","3 Months ₹110","12 Months ₹359"]
+},
+{
+name:"YouTube Premium",
+desc:"Ad-Free, Background Play, Music",
+plans:["1 Month ₹49"]
+},
+{
+name:"Adobe Creative Cloud",
+desc:"20+ Apps, 80GB Cloud, 2 Devices, AI Credits, 2FA Secure",
+plans:["1 Month ₹299"]
+}
 ];
 
-const number="918618388937";
-let edit=null;
-
-/* RENDER */
 function render(){
 let html="";
 services.forEach((s,i)=>{
 html+=`
 <div class="card">
 <h3>${s.name}</h3>
-<p>${s.desc}</p>
-<p>${s.plans.join("<br>")}</p>
-<button onclick="openPopup(${i})">Choose Plan</button>
+<button onclick="desc(${i})">Description</button>
+<button onclick="plan(${i})">Choose Plan</button>
 </div>`;
 });
 document.getElementById("plans").innerHTML=html;
 }
 render();
 
-/* POPUP */
-function openPopup(i){
+function desc(i){
 let s=services[i];
-document.getElementById("title").innerText=s.name;
+title.innerText=s.name;
+content.innerHTML=`<p>${s.desc}</p>`;
+popup.style.display="flex";
+}
+
+function plan(i){
+let s=services[i];
+title.innerText=s.name+" Plans";
 let html="";
 s.plans.forEach(p=>{
 html+=`<button class="planBtn" onclick="order('${s.name}','${p}')">${p}</button>`;
 });
-document.getElementById("popupPlans").innerHTML=html;
-document.getElementById("popup").style.display="flex";
+content.innerHTML=html;
+popup.style.display="flex";
 }
-function closePopup(){document.getElementById("popup").style.display="none";}
 
-/* ORDER */
+function closePopup(){popup.style.display="none";}
+
 function order(service,plan){
 let msg=`Hi MR.YOGI Premium, I want ${service} - ${plan}`;
 window.open(`https://wa.me/${number}?text=${encodeURIComponent(msg)}`);
 }
 
-/* LOGIN */
-function showLogin(){document.getElementById("login").style.display="flex";}
-function closeLogin(){document.getElementById("login").style.display="none";}
-
-function login(){
-let u=document.getElementById("user").value;
-let p=document.getElementById("pass").value;
-
-if(u==="Admin" && p==="yogi19001"){
-closeLogin();
-document.getElementById("customer").style.display="none";
-document.getElementById("admin").style.display="block";
-renderAdmin();
-}else alert("Wrong login");
-}
-
 /* ADMIN */
+function showLogin(){login.style.display="flex";}
+function login(){
+if(user.value==="Admin" && pass.value==="yogi19001"){
+login.style.display="none";
+customer.style.display="none";
+admin.style.display="block";
+}else alert("Wrong");
+}
 function save(){
-let n=name.value;
-let d=desc.value;
-let pl=plan.value.split("\n");
-
-if(edit==null) services.push({name:n,desc:d,plans:pl});
-else services[edit]={name:n,desc:d,plans:pl};
-
-localStorage.setItem("data",JSON.stringify(services));
-edit=null;
+services.push({name:name.value,desc:desc.value,plans:plan.value.split("\n")});
 render();
-renderAdmin();
 }
-
-function renderAdmin(){
-let html="";
-services.forEach((s,i)=>{
-html+=`
-<div class="admin-card">
-<h3>${s.name}</h3>
-<p>${s.plans.join("<br>")}</p>
-<button class="small green" onclick="editItem(${i})">Edit</button>
-<button class="small red" onclick="del(${i})">Delete</button>
-</div>`;
-});
-list.innerHTML=html;
-}
-
-function editItem(i){
-edit=i;
-name.value=services[i].name;
-desc.value=services[i].desc;
-plan.value=services[i].plans.join("\n");
-}
-
-function del(i){
-services.splice(i,1);
-localStorage.setItem("data",JSON.stringify(services));
-render();
-renderAdmin();
-}
-
 function back(){
-document.getElementById("admin").style.display="none";
-document.getElementById("customer").style.display="block";
+admin.style.display="none";
+customer.style.display="block";
 }
 </script>
 
