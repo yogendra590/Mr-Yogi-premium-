@@ -7,22 +7,25 @@
 <style>
 *{box-sizing:border-box}
 body{font-family:Arial,sans-serif;background:#f7f2ff;margin:0;color:#24113d}
+.offerBanner{background:linear-gradient(90deg,#7b2cff,#ff4fd8);color:white;font-weight:900;padding:10px 0;overflow:hidden;white-space:nowrap}
+.offerBanner span{display:inline-block;padding-left:100%;animation:marquee 13s linear infinite}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
 header{background:white;padding:14px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 5px 18px rgba(120,60,190,.18);position:sticky;top:0;z-index:50}
 .logoBox{display:flex;align-items:center;gap:10px;font-weight:900;color:#7b2cff}
-.logoBox img{height:48px;max-width:150px;object-fit:contain}
+.logoBox img{height:45px;max-width:140px;object-fit:contain}
 button{background:#7b2cff;color:white;border:0;padding:12px 17px;border-radius:24px;margin:5px;cursor:pointer;font-weight:900}
 button:hover{background:#5a16d6}
 .hero{text-align:center;padding:45px 15px;background:linear-gradient(135deg,#fff,#eadcff)}
 .hero h1{font-size:36px;margin-bottom:8px}
 .tagline{color:#7b2cff;font-weight:900;font-size:20px}
 .joinBtn{display:inline-block;margin-top:18px;background:#25D366;color:white;padding:13px 22px;border-radius:30px;text-decoration:none;font-weight:900}
+.liveBox{text-align:center;background:white;margin:15px auto;padding:12px;border-radius:16px;max-width:420px;box-shadow:0 8px 24px rgba(120,60,190,.15);font-weight:900}
 .section{padding:22px}
 .title{text-align:center;color:#7b2cff}
-.steps,.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-.step,.card,.feedbackBox,.contactBox{background:white;border-radius:22px;padding:22px;text-align:center;box-shadow:0 8px 24px rgba(120,60,190,.15)}
-.step b{background:#7b2cff;color:white;padding:10px 15px;border-radius:50%}
-.card img{width:82px;height:82px;object-fit:cover;border-radius:18px;margin-bottom:12px;background:#eee}
-.card h3{color:#7b2cff;font-size:25px;font-weight:900}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.card,.feedbackBox,.contactBox{background:white;border-radius:22px;padding:22px;text-align:center;box-shadow:0 8px 24px rgba(120,60,190,.15)}
+.card img{width:80px;height:80px;object-fit:contain;border-radius:16px;margin-bottom:12px;background:#f1e7ff;padding:8px}
+.card h3{color:#7b2cff;font-size:27px;font-weight:900}
 .card p{line-height:1.6;color:#4d3b63}
 .popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);justify-content:center;align-items:center;padding:15px;z-index:99}
 .box{background:white;color:#24113d;padding:22px;border-radius:20px;width:90%;max-width:460px;text-align:center;max-height:90vh;overflow:auto}
@@ -41,15 +44,19 @@ textarea{min-height:90px}
 footer{text-align:center;background:white;padding:22px}
 .legal p{cursor:pointer;color:#7b2cff;margin:10px}
 .couponBox{background:white;border:1px solid #eadcff;border-radius:18px;padding:15px;margin-top:20px}
-
 .orderSteps{display:flex;justify-content:center;align-items:center;gap:12px;margin:10px 0 20px}
 .stepCircle{width:48px;height:48px;border-radius:50%;background:#1a1a1a;color:white;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900}
 .stepCircle.active{background:#7b2cff}
 .stepLine{width:55px;height:3px;background:#bfa3ff}
+.recentOrder{position:fixed;left:15px;bottom:18px;background:white;color:#24113d;padding:14px 18px;border-radius:16px;box-shadow:0 8px 25px rgba(0,0,0,.18);font-weight:800;display:none;z-index:9999;max-width:280px;border-left:5px solid #7b2cff}
 </style>
 </head>
 
 <body>
+
+<div class="offerBanner">
+  <span>🔥 Limited Time Offer – Today Only 🔥 💎 Best Prices on OTT Plans ⚡ Instant Activation 🔥 Trusted Since 2024</span>
+</div>
 
 <header>
   <div class="logoBox">
@@ -66,15 +73,10 @@ footer{text-align:center;background:white;padding:22px}
   <a class="joinBtn" href="https://chat.whatsapp.com/EcUM0d0ipZVFCvzjCtPrlE" target="_blank">🔥 Join WhatsApp Group</a>
 </section>
 
-<section class="section">
-  <h2 class="title">🛒 How to Purchase?</h2>
-  <div class="steps">
-    <div class="step"><b>1</b><h3>Choose Product</h3><p>Select OTT or software plan.</p></div>
-    <div class="step"><b>2</b><h3>Select Plan</h3><p>Tap Choose Plan and pick duration.</p></div>
-    <div class="step"><b>3</b><h3>Send Order</h3><p>Enter details and send order on WhatsApp.</p></div>
-    <div class="step"><b>4</b><h3>Instant Activation</h3><p>Pay and get fast activation.</p></div>
-  </div>
-</section>
+<div class="liveBox">
+  <div id="liveView">👀 27 People viewing this right now</div>
+  <div id="liveOrders">⚡ 12 Orders today</div>
+</div>
 
 <section class="section" id="customerPage">
   <h2 class="title">🔥 All Premium Plans</h2>
@@ -106,19 +108,16 @@ footer{text-align:center;background:white;padding:22px}
 
 <section class="section">
   <div class="feedbackBox">
-    <h2 class="title">⭐ Customer Feedback</h2>
+    <h2 class="title">⭐ Real Feedback from Our Happy Customers</h2>
+    <p>Discover genuine experiences from clients enjoying our premium subscriptions.</p>
+
     <input id="fbName" placeholder="Customer Name">
     <input id="fbProduct" placeholder="Product Name (Optional)">
     <textarea id="fbText" placeholder="Write your feedback"></textarea>
-    <select id="fbRating">
-      <option value="5">⭐⭐⭐⭐⭐ 5 Stars</option>
-      <option value="4">⭐⭐⭐⭐ 4 Stars</option>
-      <option value="3">⭐⭐⭐ 3 Stars</option>
-      <option value="2">⭐⭐ 2 Stars</option>
-      <option value="1">⭐ 1 Star</option>
-    </select>
+
     <button onclick="saveFeedback()">Submit Feedback</button>
     <div id="feedbackList"></div>
+    <button onclick="toggleFeedback()" id="viewFeedbackBtn">View All Feedback</button>
   </div>
 </section>
 
@@ -146,9 +145,10 @@ footer{text-align:center;background:white;padding:22px}
   </div>
 </div>
 
+<div id="recentOrder" class="recentOrder"></div>
+
 <footer>
   <b>MR.YOGI PREMIUM</b><br>
-  🇮🇳 INDIA'S #1 Subscription Store · Since 2024<br>
   Premium Accounts • Trusted Service • Best Prices
 
   <div class="legal">
@@ -165,6 +165,7 @@ const number = "918618388937";
 let editIndex = null;
 let selectedService = "";
 let selectedPlan = "";
+let showAllFeedback = false;
 
 let services = JSON.parse(localStorage.getItem("mrYogiServices")) || [
 {name:"Netflix Premium",img:"https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",desc:"4K UHD quality, 1 device login, mobile/TV/laptop support, smooth streaming and fast support.",plans:["1 Month – ₹150 | 1 Device | 4K UHD","3 Months – ₹399 | 1 Device","6 Months – ₹699 | Best Value","12 Months – ₹1250 | Maximum Savings"]},
@@ -182,7 +183,9 @@ let coupons = JSON.parse(localStorage.getItem("mrYogiCoupons")) || [
 ];
 
 let feedbacks = JSON.parse(localStorage.getItem("mrYogiFeedbacks")) || [
-{name:"Yogi", product:"Netflix Premium", text:"Fast activation and trusted service.", rating:"5"}
+{name:"Yogi", product:"Prime Video", text:"Prime Video plan was activated quickly. The price is very good, and the support was fast and responsive. Highly recommended.", rating:"5"},
+{name:"Ravi", product:"Netflix Premium", text:"Fast activation and smooth streaming. Trusted seller.", rating:"5"},
+{name:"Kiran", product:"YouTube Premium", text:"YouTube Premium activated on mail very fast. Good service.", rating:"5"}
 ];
 
 function saveData(){localStorage.setItem("mrYogiServices", JSON.stringify(services));}
@@ -253,12 +256,16 @@ function sendOrder(){
   if(coupon && foundCoupon) couponText=foundCoupon.code+" - "+foundCoupon.discount;
   else if(coupon) couponText=coupon+" - Invalid Coupon";
 
-  let id="ORD"+Date.now().toString().slice(-6);
+  let orderId="ORD"+Date.now().toString().slice(-6);
+  let invoiceNo="INV"+Date.now().toString().slice(-6);
+  let date=new Date().toLocaleDateString();
 
-  let msg=`👋 Hello,
-I want to buy:
+  let msg=`🧾 INVOICE - MR.YOGI PREMIUM
 
-🆔 Order ID: ${id}
+🧾 Invoice No: ${invoiceNo}
+🆔 Order ID: ${orderId}
+📅 Date: ${date}
+
 📦 Product: ${selectedService}
 📋 Plan: ${selectedPlan}
 🎟 Coupon: ${couponText}
@@ -266,6 +273,8 @@ I want to buy:
 👤 Name: ${name}
 📧 Mail: ${mail}
 📱 Number: ${num}
+
+⏳ Status: Payment Pending
 
 💬 Please assist with payment.`;
 
@@ -304,17 +313,10 @@ function saveService(){
     return;
   }
 
-  if(editIndex===null){
-    services.push({name:n,img:img,desc:d,plans:p});
-  }else{
-    services[editIndex]={name:n,img:img,desc:d,plans:p};
-    editIndex=null;
-  }
+  if(editIndex===null) services.push({name:n,img:img,desc:d,plans:p});
+  else{services[editIndex]={name:n,img:img,desc:d,plans:p};editIndex=null;}
 
-  saveData();
-  clearForm();
-  renderWebsite();
-  renderAdmin();
+  saveData(); clearForm(); renderWebsite(); renderAdmin();
 }
 
 function renderAdmin(){
@@ -323,7 +325,7 @@ function renderAdmin(){
     html+=`
     <div class="admin-card">
       <h3>${s.name}</h3>
-      <img src="${s.img}" style="width:70px;height:70px;object-fit:cover;border-radius:12px">
+      <img src="${s.img}" style="width:70px;height:70px;object-fit:contain;border-radius:12px">
       <p><b>Image URL:</b><br>${s.img}</p>
       <p><b>Description:</b> ${s.desc}</p>
       <p><b>Plans:</b><br>${s.plans.join("<br>")}</p>
@@ -346,9 +348,7 @@ function editService(i){
 function deleteService(i){
   if(confirm("Delete this product?")){
     services.splice(i,1);
-    saveData();
-    renderWebsite();
-    renderAdmin();
+    saveData(); renderWebsite(); renderAdmin();
   }
 }
 
@@ -366,11 +366,7 @@ function saveCoupon(){
 function renderCoupons(){
   let html="<h4>Active Coupons</h4>";
   coupons.forEach((c,i)=>{
-    html+=`
-    <div class="admin-card">
-      <b>${c.code}</b> - ${c.discount}<br>
-      <button class="red" onclick="deleteCoupon(${i})">Delete Coupon</button>
-    </div>`;
+    html+=`<div class="admin-card"><b>${c.code}</b> - ${c.discount}<br><button class="red" onclick="deleteCoupon(${i})">Delete Coupon</button></div>`;
   });
   couponList.innerHTML=html;
 }
@@ -381,53 +377,68 @@ function deleteCoupon(i){
   renderCoupons();
 }
 
+function autoRating(text){
+  let t=text.toLowerCase();
+  if(t.includes("bad") || t.includes("not working") || t.includes("slow")) return "2";
+  if(t.includes("okay") || t.includes("average")) return "3";
+  if(t.includes("good") || t.includes("fast") || t.includes("trusted") || t.includes("recommended")) return "5";
+  return "4";
+}
+
 function saveFeedback(){
-  let name = fbName.value.trim();
-  let product = fbProduct.value.trim();
-  let text = fbText.value.trim();
-  let rating = fbRating.value;
-
+  let name=fbName.value.trim();
+  let product=fbProduct.value.trim();
+  let text=fbText.value.trim();
   if(!name || !text){alert("Please enter name and feedback");return;}
-
-  feedbacks.unshift({name:name,product:product || "Not Mentioned",text:text,rating:rating});
+  feedbacks.unshift({name:name,product:product || "Not Mentioned",text:text,rating:autoRating(text)});
   localStorage.setItem("mrYogiFeedbacks", JSON.stringify(feedbacks));
-
-  fbName.value="";
-  fbProduct.value="";
-  fbText.value="";
-  fbRating.value="5";
-
+  fbName.value=""; fbProduct.value=""; fbText.value="";
   renderFeedback();
 }
 
 function renderFeedback(){
+  let list=showAllFeedback ? feedbacks : feedbacks.slice(0,3);
   let html="";
-  feedbacks.forEach(f=>{
-    let stars = "⭐".repeat(Number(f.rating));
-    html += `
-      <div class="feedbackCard">
-        <b>${f.name}</b><br>
-        <small>Product: ${f.product}</small>
-        <div class="stars">${stars}</div>
-        <p>${f.text}</p>
-      </div>`;
+  list.forEach(f=>{
+    let stars="⭐".repeat(Number(f.rating));
+    html+=`<div class="feedbackCard"><b>${f.name}</b><br><small>Product: ${f.product}</small><div class="stars">${stars}</div><p>${f.text}</p></div>`;
   });
-  feedbackList.innerHTML = html;
+  feedbackList.innerHTML=html;
+  if(feedbacks.length>3){
+    viewFeedbackBtn.style.display="inline-block";
+    viewFeedbackBtn.innerText=showAllFeedback ? "Show Less Feedback" : "View All Feedback";
+  }else viewFeedbackBtn.style.display="none";
 }
+function toggleFeedback(){showAllFeedback=!showAllFeedback;renderFeedback();}
 renderFeedback();
 
-function clearForm(){
-  serviceName.value="";
-  serviceImg.value="";
-  serviceDesc.value="";
-  servicePlans.value="";
+function updateLive(){
+  liveView.innerText="👀 "+(20+Math.floor(Math.random()*20))+" People viewing this right now";
+  liveOrders.innerText="⚡ "+(5+Math.floor(Math.random()*20))+" Orders today";
 }
+setInterval(updateLive,3000); updateLive();
 
-function closePopup(){
-  loginPopup.style.display="none";
-  mainPopup.style.display="none";
+const fakeOrders=[
+  "Ravi just bought Netflix Premium 🎬",
+  "Kiran ordered Prime Video 🔥",
+  "Arjun purchased YouTube Premium ▶️",
+  "Sandeep bought JioHotstar 1080p 📺",
+  "Rahul ordered ZEE5 Full HD 🍿",
+  "Manoj purchased Adobe Creative Cloud 💻",
+  "Vinay bought SonyLIV 4K Premium ⚡"
+];
+
+function showRecentOrder(){
+  let random=fakeOrders[Math.floor(Math.random()*fakeOrders.length)];
+  recentOrder.innerHTML=`✅ ${random}<br><small>Just now</small>`;
+  recentOrder.style.display="block";
+  setTimeout(()=>{recentOrder.style.display="none"},4000);
 }
+setInterval(showRecentOrder,9000);
+setTimeout(showRecentOrder,3000);
 
+function clearForm(){serviceName.value="";serviceImg.value="";serviceDesc.value="";servicePlans.value="";}
+function closePopup(){loginPopup.style.display="none";mainPopup.style.display="none";}
 function safe(t){return t.replace(/'/g,"\\'");}
 
 function openLegal(type){
@@ -436,7 +447,6 @@ function openLegal(type){
   if(type==="Terms of Service") text="Do not misuse accounts or change login/recovery details. Misuse cancels warranty.";
   if(type==="Refund Policy") text="Refund or replacement is provided only if service is not working and issue is verified.";
   if(type==="Security Policy") text="Keep your account and login details safe. Do not share with unknown persons.";
-
   popupTitle.innerText=type;
   popupContent.innerHTML=`<p style="text-align:left;line-height:1.8">${text}</p>`;
   mainPopup.style.display="flex";
