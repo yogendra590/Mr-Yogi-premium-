@@ -1,58 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MR.YOGI PREMIUM</title>
-
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-body{background:#eef6ff;color:#0b1f3a}
-header{background:#fff;padding:18px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 18px #cfe3ff;position:sticky;top:0;z-index:99}
-.logo{font-size:24px;font-weight:900;color:#0066ff}
-button{border:0;padding:12px 18px;border-radius:30px;font-weight:900;cursor:pointer;background:#0066ff;color:white;margin:5px;transition:.25s}
-button:hover{transform:scale(1.04);background:#004dcc}
-.hero{text-align:center;padding:45px 18px;background:linear-gradient(135deg,#ffffff,#cfe5ff)}
-.hero h1{font-size:38px;font-weight:900}
-.hero span{color:#0066ff}
-.hero p{font-size:18px;color:#37516d;margin-top:10px}
-.section{padding:28px 15px}
-.title{text-align:center;color:#0066ff;font-size:32px;font-weight:900;margin-bottom:24px}
-.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:1200px;margin:auto}
-.card{background:white;border:1px solid #b7d7ff;border-radius:22px;padding:24px;text-align:center;box-shadow:0 10px 28px rgba(0,102,255,.14);animation:fadeZoom .6s}
-.card h3{font-size:25px;color:#005ee6;margin-bottom:15px}
-.card p{color:#465d78;line-height:1.7}
-.descBtn{background:#00a6ff}
-.chooseBtn{background:#0066ff}
-.admin{display:none;max-width:950px;margin:auto}
-input,textarea{width:100%;padding:13px;margin:8px 0;border:1px solid #9cc7ff;border-radius:12px;font-size:15px}
-textarea{min-height:95px}
-.admin-card{background:white;border:1px solid #b7d7ff;border-radius:16px;padding:16px;margin:12px 0;box-shadow:0 6px 18px rgba(0,102,255,.10)}
-.admin-card h3{color:#0066ff}
-.small{padding:9px 14px;border-radius:12px}
-.green{background:#18b96b}
-.red{background:#ff3b3b}
-.popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:999;justify-content:center;align-items:center;padding:16px}
-.box{background:white;color:#0b1f3a;width:100%;max-width:430px;border-radius:24px;padding:24px;text-align:center;box-shadow:0 15px 45px rgba(0,0,0,.25);animation:fadeZoom .3s}
-.box h2{font-size:28px;color:#005ee6;margin-bottom:14px}
-.box p{text-align:left;line-height:1.8;color:#263b55;font-size:16px}
-.planBtn{display:block;width:100%;background:#eaf4ff;color:#0b1f3a;border:1px solid #8fc4ff;padding:14px;border-radius:14px;margin:10px 0;font-weight:900}
-.planBtn:hover{background:#0066ff;color:white}
-footer{text-align:center;padding:25px;background:#fff;color:#3c5572;margin-top:20px}
-@keyframes fadeZoom{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+body{font-family:Arial;background:#eef6ff;margin:0;color:#0b1f3a}
+header{background:#fff;padding:15px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 15px #cfe3ff}
+.logo{color:#0066ff;font-weight:900;font-size:21px}
+button{background:#0066ff;color:white;border:0;padding:11px 16px;border-radius:22px;margin:5px;cursor:pointer;font-weight:900}
+button:hover{background:#004dcc}
+.hero{text-align:center;padding:40px 15px;background:linear-gradient(135deg,#fff,#d8ebff)}
+.joinBtn{display:inline-block;margin-top:15px;background:#25D366;color:white;padding:13px 20px;border-radius:25px;text-decoration:none;font-weight:900}
+.section{padding:20px}
+.title{text-align:center;color:#0066ff}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.card{background:white;padding:20px;border-radius:18px;text-align:center;box-shadow:0 8px 20px rgba(0,102,255,.14)}
+.card h3{color:#0066ff}
+.popup{display:none;position:fixed;inset:0;background:#0008;justify-content:center;align-items:center;padding:15px;z-index:99}
+.box{background:white;padding:22px;border-radius:18px;width:90%;max-width:430px;text-align:center;max-height:90vh;overflow:auto}
+.planBtn{display:block;width:100%;margin:8px 0;padding:12px;background:#eaf4ff;color:#0b1f3a;border:1px solid #9cc7ff;border-radius:12px}
+input,textarea{width:100%;padding:12px;margin:7px 0;border:1px solid #9cc7ff;border-radius:10px}
+.admin{display:none;padding:20px}
+.admin-card{background:#fff;padding:15px;border-radius:15px;margin:12px 0;box-shadow:0 5px 15px #cfe3ff}
+.green{background:#25D366}
+.red{background:#ff3333}
+.contactBox{background:#fff;max-width:430px;margin:25px auto;padding:22px;border-radius:20px;text-align:center}
+.contactBox a{display:inline-block;background:#25D366;color:white;padding:12px 20px;border-radius:25px;text-decoration:none;font-weight:900}
+footer{text-align:center;background:#fff;padding:20px}
+.legal p{cursor:pointer;color:#0066ff;margin:10px}
 </style>
 </head>
-
 <body>
 
 <header>
   <div class="logo">👑 MR.YOGI PREMIUM</div>
-  <button onclick="openAdminLogin()">Admin</button>
+  <button onclick="openLogin()">Admin</button>
 </header>
 
 <section class="hero">
-  <h1>Premium OTT & Software Plans <span>Best Price</span></h1>
-  <p>Instant Activation • Trusted Service • WhatsApp Orders • 24/7 Support</p>
+  <h1>Premium OTT & Software Plans</h1>
+  <p>Instant Activation • Trusted Service • WhatsApp Orders</p>
+  <a class="joinBtn" href="https://chat.whatsapp.com/EcUM0d0ipZVFCvzjCtPrlE" target="_blank">🔥 Join WhatsApp Group</a>
 </section>
 
 <section class="section" id="customerPage">
@@ -60,17 +48,20 @@ footer{text-align:center;padding:25px;background:#fff;color:#3c5572;margin-top:2
   <div class="plans" id="plansArea"></div>
 </section>
 
-<section class="section admin" id="adminPage">
+<section class="admin" id="adminPage">
   <h2 class="title">Admin Panel</h2>
-
   <input id="serviceName" placeholder="Service Name">
   <textarea id="serviceDesc" placeholder="Description / Features"></textarea>
   <textarea id="servicePlans" placeholder="Plans - one per line"></textarea>
-
   <button onclick="saveService()">Save / Update</button>
   <button class="green" onclick="showWebsite()">Back Website</button>
-
   <div id="adminList"></div>
+</section>
+
+<section class="contactBox">
+  <h2>📞 Contact Us</h2>
+  <p>For orders, support and activation contact us on WhatsApp.</p>
+  <a href="https://wa.me/918618388937" target="_blank">🟢 WhatsApp: 8618388937</a>
 </section>
 
 <div class="popup" id="loginPopup">
@@ -79,7 +70,7 @@ footer{text-align:center;padding:25px;background:#fff;color:#3c5572;margin-top:2
     <input id="adminUser" placeholder="Username">
     <input id="adminPass" type="password" placeholder="Password">
     <button onclick="adminLogin()">Login</button>
-    <button class="red" onclick="closeAllPopups()">Close</button>
+    <button class="red" onclick="closePopup()">Close</button>
   </div>
 </div>
 
@@ -87,15 +78,13 @@ footer{text-align:center;padding:25px;background:#fff;color:#3c5572;margin-top:2
   <div class="box">
     <h2 id="popupTitle"></h2>
     <div id="popupContent"></div>
-    <button class="red" onclick="closeAllPopups()">Close</button>
+    <button class="red" onclick="closePopup()">Close</button>
   </div>
 </div>
 
 <footer>
   <b>MR.YOGI PREMIUM</b><br>
-  Premium Accounts • Trusted Service • Best Prices<br>
-  WhatsApp: 8618388937
-
+  Premium Accounts • Trusted Service • Best Prices
   <div class="legal">
     <h3>Legal</h3>
     <p onclick="openLegal('Privacy Policy')">Privacy Policy</p>
@@ -106,214 +95,159 @@ footer{text-align:center;padding:25px;background:#fff;color:#3c5572;margin-top:2
 </footer>
 
 <script>
-const whatsappNumber = "918618388937";
-  <script>
-
-function openLegal(type){
-  let text = "";
-
-  if(type === "Privacy Policy"){
-    text = "We respect your privacy. Customer details are used only for activation and support.";
-  }
-
-  if(type === "Terms of Service"){
-    text = "Do not change email, password, or profile details. Misuse cancels warranty.";
-  }
-
-  if(type === "Refund Policy"){
-    text = "Refund only if service not working. No refund for misuse.";
-  }
-
-  if(type === "Security Policy"){
-    text = "Keep your account safe. Do not share login details.";
-  }
-
-  document.getElementById("popupTitle").innerText = type;
-  document.getElementById("popupContent").innerHTML =
-    `<p style="line-height:1.8;text-align:left">${text}</p>`;
-  document.getElementById("mainPopup").style.display = "flex";
-}
-
-const whatsappNumber = "918618388937";
+const number = "918618388937";
 let editIndex = null;
+let selectedService = "";
+let selectedPlan = "";
 
-let services = JSON.parse(localStorage.getItem("mrYogiPlans")) || [
-{
-name:"Netflix Premium",
-desc:"Premium Netflix access with 4K UHD quality. 1 device login, mobile/TV/laptop support, smooth streaming experience, no logout issues, and fast support from MR.YOGI PREMIUM.",
-plans:["1 Month – ₹150 | 1 Device | 4K UHD","3 Months – ₹399 | 1 Device","6 Months – ₹699 | Best Value","12 Months – ₹1250 | Maximum Savings"]
-},
-{
-name:"Prime Video",
-desc:"Prime Video plans with 1 device and 5 devices options. Personal mail access plans available, ads-free option available, HD/4K streaming support, and instant activation.",
-plans:["1 Month – ₹49 | 1 Device","3 Months – ₹129 | 1 Device","12 Months – ₹320 | 1 Device","1 Month – ₹99 | 5 Devices Personal Mail","Ads-Free 1 Month – ₹129 | 5 Devices","6 Months Normal – ₹299 | 5 Devices","6 Months Ads-Free – ₹349 | 5 Devices"]
-},
-{
-name:"JioHotstar 1080p",
-desc:"Budget-friendly JioHotstar subscription with Full HD 1080p streaming, smooth playback, instant activation, and support for entertainment, movies, shows, and sports content.",
-plans:["1 Month – ₹39 | 1080p","2 Months – ₹75 | 1080p","3 Months – ₹110 | 1080p","6 Months – ₹220 | 1080p","12 Months – ₹359 | 1080p"]
-},
-{
-name:"SonyLIV 4K Premium",
-desc:"SonyLIV 4K Premium subscription with shared and private options. Enjoy premium shows, sports, movies, secure access, smooth streaming, and private activation on your number option.",
-plans:["1 Month – ₹69 | Shared","3 Months – ₹199 | Shared","6 Months – ₹269 | Shared","12 Months – ₹320 | Shared","12 Months – ₹549 | Private | On Your Number"]
-},
-{
-name:"ZEE5 Full HD",
-desc:"ZEE5 Full HD subscription with 1080p quality. Works on supported devices, smooth streaming, instant activation, and special private activation on your number available.",
-plans:["1 Month – ₹49 | Full HD","3 Months – ₹129 | Full HD","6 Months – ₹169 | Full HD","12 Months – ₹210 | Full HD","12 Months – ₹349 | Private | On Your Number | 1080p"]
-},
-{
-name:"YouTube Premium",
-desc:"YouTube Premium activation on your mail. Enjoy ad-free YouTube, background play, video downloads, YouTube Music Premium, and smooth premium experience.",
-plans:["1 Month – ₹49 | Activation on Your Mail"]
-},
-{
-name:"Adobe Creative Cloud",
-desc:"Original License Pro Plan. 1 month validity with activation on your mail. Includes 20+ Adobe apps for Windows, Mac and iPad, 80GB cloud storage, 2 device support, 10000 AI Fill credits per month, private account with 2FA, direct billing, 24/7 Adobe support, full warranty and replacement guarantee.",
-plans:["1 Month – ₹299 | Original License | On Your Mail Activation"]
-}
+let services = JSON.parse(localStorage.getItem("mrYogiServices")) || [
+{name:"Netflix Premium",desc:"4K UHD quality, 1 device login, mobile/TV/laptop support, smooth streaming and fast support.",plans:["1 Month – ₹150 | 1 Device | 4K UHD","3 Months – ₹399 | 1 Device","6 Months – ₹699 | Best Value","12 Months – ₹1250 | Maximum Savings"]},
+{name:"Prime Video",desc:"1 device and 5 devices personal mail plans, HD/4K streaming, ads-free options available.",plans:["1 Month – ₹49 | 1 Device","3 Months – ₹129 | 1 Device","12 Months – ₹320 | 1 Device","1 Month – ₹99 | 5 Devices Personal Mail","Ads-Free 1 Month – ₹129","6 Months Normal – ₹299","6 Months Ads-Free – ₹349"]},
+{name:"JioHotstar 1080p",desc:"Full HD 1080p streaming, instant activation, smooth playback for movies, shows and sports.",plans:["1 Month – ₹39","2 Months – ₹75","3 Months – ₹110","6 Months – ₹220","12 Months – ₹359"]},
+{name:"SonyLIV 4K Premium",desc:"4K premium access, shared and private plans, secure access and smooth streaming.",plans:["1 Month – ₹69 Shared","3 Months – ₹199 Shared","6 Months – ₹269 Shared","12 Months – ₹320 Shared","12 Months Private – ₹549 On Your Number"]},
+{name:"ZEE5 Full HD",desc:"Full HD 1080p streaming, supported devices, instant activation and private number plan available.",plans:["1 Month – ₹49","3 Months – ₹129","6 Months – ₹169","12 Months – ₹210","12 Months Private – ₹349 On Your Number"]},
+{name:"YouTube Premium",desc:"Activation on your mail, ad-free YouTube, background play, downloads and YouTube Music.",plans:["1 Month – ₹49 | Activation on Your Mail"]},
+{name:"Adobe Creative Cloud",desc:"Original License Pro Plan, 20+ Adobe apps, 80GB cloud, 2 devices, AI credits, 2FA, warranty and replacement.",plans:["1 Month – ₹299 | Original License | On Your Mail Activation"]}
 ];
 
-function saveData(){
-  localStorage.setItem("mrYogiPlans", JSON.stringify(services));
-}
+function saveData(){localStorage.setItem("mrYogiServices", JSON.stringify(services));}
 
 function renderWebsite(){
-  let html = "";
+  let html="";
   services.forEach((s,i)=>{
-    html += `
-    <div class="card">
+    html+=`<div class="card">
       <h3>${s.name}</h3>
       <p>Premium Access Available</p>
-      <button class="descBtn" onclick="showDescription(${i})">Description</button>
-      <button class="chooseBtn" onclick="showPlans(${i})">Choose Plan</button>
+      <button onclick="showDescription(${i})">Description</button>
+      <button onclick="showPlans(${i})">Choose Plan</button>
     </div>`;
   });
-  document.getElementById("plansArea").innerHTML = html;
+  document.getElementById("plansArea").innerHTML=html;
 }
+renderWebsite();
 
 function showDescription(i){
-  let s = services[i];
-  document.getElementById("popupTitle").innerText = s.name + " Features";
-  document.getElementById("popupContent").innerHTML = `<p>${s.desc}</p>`;
-  document.getElementById("mainPopup").style.display = "flex";
+  let s=services[i];
+  popupTitle.innerText=s.name+" Description";
+  popupContent.innerHTML=`<p style="text-align:left;line-height:1.8">${s.desc}</p>`;
+  mainPopup.style.display="flex";
 }
 
 function showPlans(i){
-  let s = services[i];
-  document.getElementById("popupTitle").innerText = s.name + " Plans";
-  let html = "";
-  s.plans.forEach(plan=>{
-    html += `<button class="planBtn" onclick="orderNow('${safeText(s.name)}','${safeText(plan)}')">${plan}</button>`;
+  let s=services[i];
+  popupTitle.innerText=s.name+" Plans";
+  let html="";
+  s.plans.forEach(p=>{
+    html+=`<button class="planBtn" onclick="openOrderForm('${safe(s.name)}','${safe(p)}')">${p}</button>`;
   });
-  document.getElementById("popupContent").innerHTML = html;
-  document.getElementById("mainPopup").style.display = "flex";
+  popupContent.innerHTML=html;
+  mainPopup.style.display="flex";
 }
 
-function safeText(text){
-  return text.replace(/'/g, "\\'");
+function openOrderForm(service,plan){
+  selectedService=service;
+  selectedPlan=plan;
+  popupTitle.innerText="Complete Your Order";
+  popupContent.innerHTML=`
+    <p><b>Product:</b> ${service}<br><b>Plan:</b> ${plan}</p>
+    <input id="custName" placeholder="Your Name">
+    <input id="custMail" placeholder="Your Mail">
+    <input id="custNum" placeholder="WhatsApp Number">
+    <button class="green" onclick="sendOrder()">Submit Order</button>`;
 }
 
-function orderNow(service, plan){
-  let msg = `Hi MR.YOGI Premium, I want ${service} plan: ${plan}`;
-  window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, "_blank");
+function sendOrder(){
+  let name=custName.value.trim();
+  let mail=custMail.value.trim();
+  let num=custNum.value.trim();
+  if(!name || !mail || !num){alert("Fill all details");return;}
+  let id="ORD"+Date.now().toString().slice(-6);
+  let msg=`Hello,
+I want to buy:
+
+Order ID: ${id}
+Product: ${selectedService}
+Plan: ${selectedPlan}
+
+Name: ${name}
+Mail: ${mail}
+Number: ${num}
+
+Please assist with payment.`;
+  window.open(`https://wa.me/${number}?text=${encodeURIComponent(msg)}`,"_blank");
 }
 
-function openAdminLogin(){
-  document.getElementById("loginPopup").style.display = "flex";
-}
-
+function openLogin(){loginPopup.style.display="flex";}
 function adminLogin(){
-  let u = document.getElementById("adminUser").value.trim();
-  let p = document.getElementById("adminPass").value.trim();
-
-  if(u === "Admin" && p === "yogi19001"){
-    closeAllPopups();
-    document.getElementById("customerPage").style.display = "none";
-    document.getElementById("adminPage").style.display = "block";
+  let u=adminUser.value.trim();
+  let p=adminPass.value.trim();
+  if(u.toLowerCase()==="admin" && p==="yogi19001"){
+    closePopup();
+    customerPage.style.display="none";
+    adminPage.style.display="block";
     renderAdmin();
-  }else{
-    alert("Wrong username or password");
-  }
-}
-
-function closeAllPopups(){
-  document.getElementById("loginPopup").style.display = "none";
-  document.getElementById("mainPopup").style.display = "none";
+  }else alert("Wrong username or password");
 }
 
 function showWebsite(){
-  document.getElementById("adminPage").style.display = "none";
-  document.getElementById("customerPage").style.display = "block";
+  adminPage.style.display="none";
+  customerPage.style.display="block";
   renderWebsite();
 }
 
 function saveService(){
-  let name = document.getElementById("serviceName").value.trim();
-  let desc = document.getElementById("serviceDesc").value.trim();
-  let plans = document.getElementById("servicePlans").value.split("\n").map(x=>x.trim()).filter(x=>x);
-
-  if(!name || !desc || plans.length === 0){
-    alert("Please fill service name, description and plans");
-    return;
-  }
-
-  let data = {name, desc, plans};
-
-  if(editIndex === null){
-    services.push(data);
-  }else{
-    services[editIndex] = data;
-    editIndex = null;
-  }
-
-  saveData();
-  clearForm();
-  renderWebsite();
-  renderAdmin();
+  let n=serviceName.value.trim();
+  let d=serviceDesc.value.trim();
+  let p=servicePlans.value.split("\n").map(x=>x.trim()).filter(x=>x);
+  if(!n || !d || p.length===0){alert("Fill all fields");return;}
+  if(editIndex===null){services.push({name:n,desc:d,plans:p});}
+  else{services[editIndex]={name:n,desc:d,plans:p};editIndex=null;}
+  saveData();clearForm();renderWebsite();renderAdmin();
 }
 
 function renderAdmin(){
-  let html = "";
+  let html="";
   services.forEach((s,i)=>{
-    html += `
-    <div class="admin-card">
+    html+=`<div class="admin-card">
       <h3>${s.name}</h3>
       <p><b>Description:</b> ${s.desc}</p>
       <p><b>Plans:</b><br>${s.plans.join("<br>")}</p>
-      <button class="small green" onclick="editService(${i})">Edit</button>
-      <button class="small red" onclick="deleteService(${i})">Delete</button>
+      <button class="green" onclick="editService(${i})">Edit</button>
+      <button class="red" onclick="deleteService(${i})">Delete</button>
     </div>`;
   });
-  document.getElementById("adminList").innerHTML = html;
+  adminList.innerHTML=html;
 }
 
 function editService(i){
-  editIndex = i;
-  document.getElementById("serviceName").value = services[i].name;
-  document.getElementById("serviceDesc").value = services[i].desc;
-  document.getElementById("servicePlans").value = services[i].plans.join("\n");
-  window.scrollTo({top:0, behavior:"smooth"});
+  editIndex=i;
+  serviceName.value=services[i].name;
+  serviceDesc.value=services[i].desc;
+  servicePlans.value=services[i].plans.join("\n");
+  window.scrollTo({top:0,behavior:"smooth"});
 }
 
 function deleteService(i){
   if(confirm("Delete this plan?")){
     services.splice(i,1);
-    saveData();
-    renderWebsite();
-    renderAdmin();
+    saveData();renderWebsite();renderAdmin();
   }
 }
 
-function clearForm(){
-  document.getElementById("serviceName").value = "";
-  document.getElementById("serviceDesc").value = "";
-  document.getElementById("servicePlans").value = "";
+function clearForm(){serviceName.value="";serviceDesc.value="";servicePlans.value="";}
+function closePopup(){loginPopup.style.display="none";mainPopup.style.display="none";}
+function safe(t){return t.replace(/'/g,"\\'");}
+
+function openLegal(type){
+  let text="";
+  if(type==="Privacy Policy") text="Customer name, mail, number and order details are used only for order activation and support.";
+  if(type==="Terms of Service") text="Do not misuse accounts or change login/recovery details. Misuse cancels warranty.";
+  if(type==="Refund Policy") text="Refund or replacement is provided only if service is not working and issue is verified.";
+  if(type==="Security Policy") text="Keep your account and login details safe. Do not share with unknown persons.";
+  popupTitle.innerText=type;
+  popupContent.innerHTML=`<p style="text-align:left;line-height:1.8">${text}</p>`;
+  mainPopup.style.display="flex";
 }
-
-renderWebsite();
 </script>
-
 </body>
 </html>
