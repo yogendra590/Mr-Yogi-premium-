@@ -6,189 +6,56 @@
 
 <style>
 *{box-sizing:border-box}
-body{
-  font-family:Arial, sans-serif;
-  background:#f7f2ff;
-  margin:0;
-  color:#24113d;
-}
-header{
-  background:white;
-  padding:15px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow:0 5px 18px rgba(120,60,190,.18);
-  position:sticky;
-  top:0;
-  z-index:50;
-}
-.logo{
-  color:#7b2cff;
-  font-weight:900;
-  font-size:22px;
-}
-button{
-  background:#7b2cff;
-  color:white;
-  border:0;
-  padding:12px 17px;
-  border-radius:24px;
-  margin:5px;
-  cursor:pointer;
-  font-weight:900;
-}
+body{font-family:Arial,sans-serif;background:#f7f2ff;margin:0;color:#24113d}
+header{background:white;padding:14px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 5px 18px rgba(120,60,190,.18);position:sticky;top:0;z-index:50}
+.logoBox{display:flex;align-items:center;gap:10px;font-weight:900;color:#7b2cff}
+.logoBox img{height:48px;max-width:150px;object-fit:contain}
+button{background:#7b2cff;color:white;border:0;padding:12px 17px;border-radius:24px;margin:5px;cursor:pointer;font-weight:900}
 button:hover{background:#5a16d6}
-.hero{
-  text-align:center;
-  padding:45px 15px;
-  background:linear-gradient(135deg,#fff,#eadcff);
-}
+.hero{text-align:center;padding:45px 15px;background:linear-gradient(135deg,#fff,#eadcff)}
 .hero h1{font-size:36px;margin-bottom:8px}
 .tagline{color:#7b2cff;font-weight:900;font-size:20px}
-.joinBtn{
-  display:inline-block;
-  margin-top:18px;
-  background:#25D366;
-  color:white;
-  padding:13px 22px;
-  border-radius:30px;
-  text-decoration:none;
-  font-weight:900;
-}
+.joinBtn{display:inline-block;margin-top:18px;background:#25D366;color:white;padding:13px 22px;border-radius:30px;text-decoration:none;font-weight:900}
 .section{padding:22px}
 .title{text-align:center;color:#7b2cff}
-.steps{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:15px;
-  max-width:1000px;
-  margin:20px auto;
-}
-.step{
-  background:white;
-  border-radius:18px;
-  padding:20px;
-  text-align:center;
-  box-shadow:0 8px 22px rgba(120,60,190,.14);
-}
-.step b{
-  background:#7b2cff;
-  color:white;
-  padding:10px 15px;
-  border-radius:50%;
-}
-.plans{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:18px;
-}
-.card{
-  background:white;
-  padding:18px;
-  border-radius:22px;
-  text-align:center;
-  box-shadow:0 8px 24px rgba(120,60,190,.15);
-  border:1px solid #eadcff;
-}
-.card img{
-  width:100%;
-  aspect-ratio:1/1;
-  object-fit:cover;
-  border-radius:18px;
-  margin-bottom:12px;
-  background:#eee;
-}
-.card h3{
-  color:#7b2cff;
-  font-size:25px;
-  font-weight:900;
-}
+.steps,.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.step,.card,.feedbackBox,.contactBox{background:white;border-radius:22px;padding:22px;text-align:center;box-shadow:0 8px 24px rgba(120,60,190,.15)}
+.step b{background:#7b2cff;color:white;padding:10px 15px;border-radius:50%}
+.card img{width:82px;height:82px;object-fit:cover;border-radius:18px;margin-bottom:12px;background:#eee}
+.card h3{color:#7b2cff;font-size:25px;font-weight:900}
 .card p{line-height:1.6;color:#4d3b63}
-.popup{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.65);
-  justify-content:center;
-  align-items:center;
-  padding:15px;
-  z-index:99;
-}
-.box{
-  background:white;
-  color:#24113d;
-  padding:22px;
-  border-radius:20px;
-  width:90%;
-  max-width:450px;
-  text-align:center;
-  max-height:90vh;
-  overflow:auto;
-}
-.planBtn{
-  display:block;
-  width:100%;
-  margin:8px 0;
-  padding:13px;
-  background:#f0e6ff;
-  color:#24113d;
-  border:1px solid #d4b8ff;
-  border-radius:14px;
-}
+.popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);justify-content:center;align-items:center;padding:15px;z-index:99}
+.box{background:white;color:#24113d;padding:22px;border-radius:20px;width:90%;max-width:460px;text-align:center;max-height:90vh;overflow:auto}
+.planBtn{display:block;width:100%;margin:8px 0;padding:13px;background:#f0e6ff;color:#24113d;border:1px solid #d4b8ff;border-radius:14px}
 .planBtn:hover{background:#7b2cff;color:white}
-input,textarea{
-  width:100%;
-  padding:12px;
-  margin:7px 0;
-  border:1px solid #d4b8ff;
-  border-radius:12px;
-}
+input,textarea,select{width:100%;padding:12px;margin:7px 0;border:1px solid #d4b8ff;border-radius:12px}
 textarea{min-height:90px}
 .admin{display:none;padding:20px}
-.admin-card{
-  background:white;
-  padding:15px;
-  border-radius:15px;
-  margin:12px 0;
-  box-shadow:0 5px 18px rgba(120,60,190,.13);
-}
+.admin-card,.feedbackCard{background:white;padding:15px;border-radius:15px;margin:12px 0;box-shadow:0 5px 18px rgba(120,60,190,.13)}
+.feedbackCard{text-align:left;background:#f7f2ff}
+.stars{font-size:22px;color:#ffb400}
 .green{background:#25D366}
 .red{background:#ff3333}
-.contactBox{
-  background:white;
-  max-width:430px;
-  margin:25px auto;
-  padding:22px;
-  border-radius:22px;
-  text-align:center;
-  box-shadow:0 8px 24px rgba(120,60,190,.15);
-}
-.contactBox a{
-  display:inline-block;
-  background:#25D366;
-  color:white;
-  padding:12px 20px;
-  border-radius:25px;
-  text-decoration:none;
-  font-weight:900;
-}
+.contactBox{max-width:430px;margin:25px auto}
+.contactBox a{display:inline-block;background:#25D366;color:white;padding:12px 20px;border-radius:25px;text-decoration:none;font-weight:900}
 footer{text-align:center;background:white;padding:22px}
 .legal p{cursor:pointer;color:#7b2cff;margin:10px}
-.couponBox{
-  background:white;
-  border:1px solid #eadcff;
-  border-radius:18px;
-  padding:15px;
-  margin-top:20px;
-}
+.couponBox{background:white;border:1px solid #eadcff;border-radius:18px;padding:15px;margin-top:20px}
+
+.orderSteps{display:flex;justify-content:center;align-items:center;gap:12px;margin:10px 0 20px}
+.stepCircle{width:48px;height:48px;border-radius:50%;background:#1a1a1a;color:white;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900}
+.stepCircle.active{background:#7b2cff}
+.stepLine{width:55px;height:3px;background:#bfa3ff}
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">👑 MR.YOGI PREMIUM</div>
+  <div class="logoBox">
+    <img src="logo.png" onerror="this.style.display='none'">
+    <span>MR.YOGI PREMIUM</span>
+  </div>
   <button onclick="openLogin()">Admin</button>
 </header>
 
@@ -202,10 +69,10 @@ footer{text-align:center;background:white;padding:22px}
 <section class="section">
   <h2 class="title">🛒 How to Purchase?</h2>
   <div class="steps">
-    <div class="step"><b>1</b><h3>Choose Product</h3><p>Select your favorite OTT or software plan.</p></div>
-    <div class="step"><b>2</b><h3>Select Plan</h3><p>Tap Choose Plan and pick your required duration.</p></div>
-    <div class="step"><b>3</b><h3>Send Order</h3><p>Enter your details and send order on WhatsApp.</p></div>
-    <div class="step"><b>4</b><h3>Instant Activation</h3><p>Pay and get fast activation/support.</p></div>
+    <div class="step"><b>1</b><h3>Choose Product</h3><p>Select OTT or software plan.</p></div>
+    <div class="step"><b>2</b><h3>Select Plan</h3><p>Tap Choose Plan and pick duration.</p></div>
+    <div class="step"><b>3</b><h3>Send Order</h3><p>Enter details and send order on WhatsApp.</p></div>
+    <div class="step"><b>4</b><h3>Instant Activation</h3><p>Pay and get fast activation.</p></div>
   </div>
 </section>
 
@@ -219,7 +86,7 @@ footer{text-align:center;background:white;padding:22px}
 
   <h3>Manage Products</h3>
   <input id="serviceName" placeholder="Product Name">
-  <input id="serviceImg" placeholder="Image URL (1080×1080 square image best)">
+  <input id="serviceImg" placeholder="Image URL / Logo URL">
   <textarea id="serviceDesc" placeholder="Description / Features"></textarea>
   <textarea id="servicePlans" placeholder="Plans - one per line"></textarea>
 
@@ -235,6 +102,24 @@ footer{text-align:center;background:white;padding:22px}
   </div>
 
   <div id="adminList"></div>
+</section>
+
+<section class="section">
+  <div class="feedbackBox">
+    <h2 class="title">⭐ Customer Feedback</h2>
+    <input id="fbName" placeholder="Customer Name">
+    <input id="fbProduct" placeholder="Product Name (Optional)">
+    <textarea id="fbText" placeholder="Write your feedback"></textarea>
+    <select id="fbRating">
+      <option value="5">⭐⭐⭐⭐⭐ 5 Stars</option>
+      <option value="4">⭐⭐⭐⭐ 4 Stars</option>
+      <option value="3">⭐⭐⭐ 3 Stars</option>
+      <option value="2">⭐⭐ 2 Stars</option>
+      <option value="1">⭐ 1 Star</option>
+    </select>
+    <button onclick="saveFeedback()">Submit Feedback</button>
+    <div id="feedbackList"></div>
+  </div>
 </section>
 
 <section class="contactBox">
@@ -282,53 +167,22 @@ let selectedService = "";
 let selectedPlan = "";
 
 let services = JSON.parse(localStorage.getItem("mrYogiServices")) || [
-{
-name:"Netflix Premium",
-img:"https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?auto=format&fit=crop&w=1080&q=80",
-desc:"4K UHD quality, 1 device login, mobile/TV/laptop support, smooth streaming and fast support.",
-plans:["1 Month – ₹150 | 1 Device | 4K UHD","3 Months – ₹399 | 1 Device","6 Months – ₹699 | Best Value","12 Months – ₹1250 | Maximum Savings"]
-},
-{
-name:"Prime Video",
-img:"https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=1080&q=80",
-desc:"1 device and 5 devices personal mail plans, HD/4K streaming, ads-free options available.",
-plans:["1 Month – ₹49 | 1 Device","3 Months – ₹129 | 1 Device","12 Months – ₹320 | 1 Device","1 Month – ₹99 | 5 Devices Personal Mail","Ads-Free 1 Month – ₹129","6 Months Normal – ₹299","6 Months Ads-Free – ₹349"]
-},
-{
-name:"JioHotstar 1080p",
-img:"https://images.unsplash.com/photo-1601944177325-f8867652837f?auto=format&fit=crop&w=1080&q=80",
-desc:"Full HD 1080p streaming, instant activation, smooth playback for movies, shows and sports.",
-plans:["1 Month – ₹39","2 Months – ₹75","3 Months – ₹110","6 Months – ₹220","12 Months – ₹359"]
-},
-{
-name:"SonyLIV 4K Premium",
-img:"https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&w=1080&q=80",
-desc:"4K premium access, shared and private plans, secure access and smooth streaming.",
-plans:["1 Month – ₹69 Shared","3 Months – ₹199 Shared","6 Months – ₹269 Shared","12 Months – ₹320 Shared","12 Months Private – ₹549 On Your Number"]
-},
-{
-name:"ZEE5 Full HD",
-img:"https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1080&q=80",
-desc:"Full HD 1080p streaming, supported devices, instant activation and private number plan available.",
-plans:["1 Month – ₹49","3 Months – ₹129","6 Months – ₹169","12 Months – ₹210","12 Months Private – ₹349 On Your Number"]
-},
-{
-name:"YouTube Premium",
-img:"https://images.unsplash.com/photo-1611162616475-46b635cb6868?auto=format&fit=crop&w=1080&q=80",
-desc:"Activation on your mail, ad-free YouTube, background play, downloads and YouTube Music.",
-plans:["1 Month – ₹49 | Activation on Your Mail"]
-},
-{
-name:"Adobe Creative Cloud",
-img:"https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=1080&q=80",
-desc:"Original License Pro Plan. 20+ Adobe apps, 80GB cloud storage, 2 device support, 10000 AI Fill credits/month, private account with 2FA, warranty and replacement.",
-plans:["1 Month – ₹299 | Original License | On Your Mail Activation"]
-}
+{name:"Netflix Premium",img:"https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",desc:"4K UHD quality, 1 device login, mobile/TV/laptop support, smooth streaming and fast support.",plans:["1 Month – ₹150 | 1 Device | 4K UHD","3 Months – ₹399 | 1 Device","6 Months – ₹699 | Best Value","12 Months – ₹1250 | Maximum Savings"]},
+{name:"Prime Video",img:"https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png",desc:"1 device and 5 devices personal mail plans, HD/4K streaming, ads-free options available.",plans:["1 Month – ₹49 | 1 Device","3 Months – ₹129 | 1 Device","12 Months – ₹320 | 1 Device","1 Month – ₹99 | 5 Devices Personal Mail","Ads-Free 1 Month – ₹129","6 Months Normal – ₹299","6 Months Ads-Free – ₹349"]},
+{name:"JioHotstar 1080p",img:"https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=JioHotstar",desc:"Full HD 1080p streaming, instant activation, smooth playback for movies, shows and sports.",plans:["1 Month – ₹39","2 Months – ₹75","3 Months – ₹110","6 Months – ₹220","12 Months – ₹359"]},
+{name:"SonyLIV 4K Premium",img:"https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=SonyLIV",desc:"4K premium access, shared and private plans, secure access and smooth streaming.",plans:["1 Month – ₹69 Shared","3 Months – ₹199 Shared","6 Months – ₹269 Shared","12 Months – ₹320 Shared","12 Months Private – ₹549 On Your Number"]},
+{name:"ZEE5 Full HD",img:"https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=ZEE5",desc:"Full HD 1080p streaming, supported devices, instant activation and private number plan available.",plans:["1 Month – ₹49","3 Months – ₹129","6 Months – ₹169","12 Months – ₹210","12 Months Private – ₹349 On Your Number"]},
+{name:"YouTube Premium",img:"https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Premium_logo.png",desc:"Activation on your mail, ad-free YouTube, background play, downloads and YouTube Music.",plans:["1 Month – ₹49 | Activation on Your Mail"]},
+{name:"Adobe Creative Cloud",img:"https://upload.wikimedia.org/wikipedia/commons/7/75/Adobe_Creative_Cloud_rainbow_icon.svg",desc:"Original License Pro Plan. 20+ Adobe apps, 80GB cloud storage, 2 device support, 10000 AI Fill credits/month, private account with 2FA, warranty and replacement.",plans:["1 Month – ₹299 | Original License | On Your Mail Activation"]}
 ];
 
 let coupons = JSON.parse(localStorage.getItem("mrYogiCoupons")) || [
 {code:"YOGI10", discount:"₹10 OFF"},
 {code:"MRPREMIUM", discount:"Special Discount"}
+];
+
+let feedbacks = JSON.parse(localStorage.getItem("mrYogiFeedbacks")) || [
+{name:"Yogi", product:"Netflix Premium", text:"Fast activation and trusted service.", rating:"5"}
 ];
 
 function saveData(){localStorage.setItem("mrYogiServices", JSON.stringify(services));}
@@ -339,7 +193,7 @@ function renderWebsite(){
   services.forEach((s,i)=>{
     html+=`
     <div class="card">
-      <img src="${s.img}" onerror="this.src='https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=MR.YOGI+PREMIUM'">
+      <img src="${s.img}" onerror="this.src='https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=MR.YOGI'">
       <h3>${s.name}</h3>
       <p>✔ Premium Access Available<br>✔ Instant Activation<br>✔ Trusted Support</p>
       <button onclick="showDescription(${i})">Description</button>
@@ -373,6 +227,11 @@ function openOrderForm(service,plan){
   selectedPlan=plan;
   popupTitle.innerText="Complete Your Order";
   popupContent.innerHTML=`
+    <div class="orderSteps">
+      <div class="stepCircle active">1</div><div class="stepLine"></div>
+      <div class="stepCircle">2</div><div class="stepLine"></div>
+      <div class="stepCircle">3</div>
+    </div>
     <p style="text-align:left"><b>📦 Product:</b> ${service}<br><b>📋 Plan:</b> ${plan}</p>
     <input id="custName" placeholder="Your Name">
     <input id="custMail" placeholder="Your Mail">
@@ -391,7 +250,6 @@ function sendOrder(){
 
   let couponText="Not Applied";
   let foundCoupon=coupons.find(c=>c.code.toUpperCase()===coupon);
-
   if(coupon && foundCoupon) couponText=foundCoupon.code+" - "+foundCoupon.discount;
   else if(coupon) couponText=coupon+" - Invalid Coupon";
 
@@ -465,7 +323,7 @@ function renderAdmin(){
     html+=`
     <div class="admin-card">
       <h3>${s.name}</h3>
-      <img src="${s.img}" style="width:90px;height:90px;object-fit:cover;border-radius:12px">
+      <img src="${s.img}" style="width:70px;height:70px;object-fit:cover;border-radius:12px">
       <p><b>Image URL:</b><br>${s.img}</p>
       <p><b>Description:</b> ${s.desc}</p>
       <p><b>Plans:</b><br>${s.plans.join("<br>")}</p>
@@ -497,9 +355,7 @@ function deleteService(i){
 function saveCoupon(){
   let code=couponCode.value.trim().toUpperCase();
   let discount=couponDiscount.value.trim();
-
   if(!code || !discount){alert("Enter coupon code and discount");return;}
-
   coupons.push({code:code, discount:discount});
   saveCouponData();
   couponCode.value="";
@@ -524,6 +380,41 @@ function deleteCoupon(i){
   saveCouponData();
   renderCoupons();
 }
+
+function saveFeedback(){
+  let name = fbName.value.trim();
+  let product = fbProduct.value.trim();
+  let text = fbText.value.trim();
+  let rating = fbRating.value;
+
+  if(!name || !text){alert("Please enter name and feedback");return;}
+
+  feedbacks.unshift({name:name,product:product || "Not Mentioned",text:text,rating:rating});
+  localStorage.setItem("mrYogiFeedbacks", JSON.stringify(feedbacks));
+
+  fbName.value="";
+  fbProduct.value="";
+  fbText.value="";
+  fbRating.value="5";
+
+  renderFeedback();
+}
+
+function renderFeedback(){
+  let html="";
+  feedbacks.forEach(f=>{
+    let stars = "⭐".repeat(Number(f.rating));
+    html += `
+      <div class="feedbackCard">
+        <b>${f.name}</b><br>
+        <small>Product: ${f.product}</small>
+        <div class="stars">${stars}</div>
+        <p>${f.text}</p>
+      </div>`;
+  });
+  feedbackList.innerHTML = html;
+}
+renderFeedback();
 
 function clearForm(){
   serviceName.value="";
