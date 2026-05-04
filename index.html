@@ -1,59 +1,248 @@
-<section id="plans">
-  <h2 class="title">🔥 Our Premium Plans</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MR.YOGI PREMIUM</title>
 
-  <div class="cards">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#07111f;color:white}
+header{background:#0b1628;padding:18px;position:sticky;top:0;z-index:99}
+.logo{font-size:24px;font-weight:900;color:#00ff99}
+.hero{text-align:center;padding:45px 18px;background:linear-gradient(135deg,#07111f,#12345a)}
+.hero h1{font-size:34px;margin-bottom:12px}
+.hero span{color:#00ff99}
+.hero p{color:#dbe7ff;margin-bottom:20px}
+.btn,.order{display:inline-block;background:#25D366;color:#001b0d;padding:13px 22px;border-radius:30px;text-decoration:none;font-weight:900;margin-top:12px;border:0;cursor:pointer}
+.section{padding:30px 15px}
+.title{text-align:center;color:#00ff99;font-size:27px;margin-bottom:25px}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;max-width:1200px;margin:auto}
+.card{background:#0d1d33;border:1px solid #25486d;border-radius:18px;padding:20px;box-shadow:0 0 18px rgba(0,255,153,.12)}
+.card h3{color:#ffcc00;margin-bottom:12px;font-size:22px}
+.card p{line-height:1.8;color:#d8e6f8}
+.price{font-size:30px;font-weight:900;color:#00ff99}
+.badge{color:#00ff99;font-weight:900;margin:10px 0}
+footer{text-align:center;background:#050b14;padding:25px;color:#b8c8dc}
+.float{position:fixed;right:15px;bottom:15px;background:#25D366;color:white;padding:15px 18px;border-radius:50px;text-decoration:none;font-weight:900}
 
-    <!-- NETFLIX -->
-    <div class="card">
-      <h3>Netflix Premium</h3>
-      <p>✔ 4K Ultra HD Streaming</p>
-      <p>✔ Works on TV • Mobile • Laptop</p>
-      <p>✔ Smooth & Buffer-Free Experience</p>
-      <p>✔ Instant Activation</p>
+/* Popup */
+.popup{
+display:none;
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,.78);
+justify-content:center;
+align-items:center;
+z-index:999;
+padding:15px;
+}
+.popup-box{
+background:#0d1d33;
+border:1px solid #00ff99;
+border-radius:18px;
+padding:22px;
+width:100%;
+max-width:380px;
+text-align:center;
+box-shadow:0 0 25px rgba(0,255,153,.25);
+}
+.popup-box h2{color:#00ff99;margin-bottom:8px}
+.popup-box p{color:#d8e6f8;margin-bottom:15px}
+.popup-plan{
+display:block;
+width:100%;
+background:#142b49;
+color:white;
+border:1px solid #25486d;
+padding:12px;
+border-radius:12px;
+margin:8px 0;
+font-weight:800;
+cursor:pointer;
+}
+.popup-plan:hover{background:#25D366;color:#001b0d}
+.close-btn{
+background:#ff4444;
+color:white;
+border:0;
+padding:11px 20px;
+border-radius:25px;
+font-weight:900;
+margin-top:12px;
+cursor:pointer;
+}
+</style>
+</head>
 
-      <div class="price">₹99 / Month</div>
+<body>
 
-      <a href="https://wa.me/918618388937?text=I%20want%20Netflix%20Premium" class="btn btn-red">Buy Now</a>
-    </div>
+<header>
+  <div class="logo">👑 MR.YOGI PREMIUM</div>
+</header>
 
-    <!-- PRIME -->
-    <div class="card">
-      <h3>Prime Video</h3>
-      <p>✔ Private Access (No Sharing Issues)</p>
-      <p>✔ 4K UHD Quality</p>
-      <p>✔ Fast Delivery</p>
-      <p>✔ Multi-Device Support</p>
-
-      <div class="price">₹49 / Month</div>
-
-      <a href="https://wa.me/918618388937?text=I%20want%20Prime%20Video" class="btn btn-red">Buy Now</a>
-    </div>
-
-    <!-- CHATGPT -->
-    <div class="card">
-      <h3>ChatGPT Plus</h3>
-      <p>✔ Faster Responses ⚡</p>
-      <p>✔ Premium AI Access</p>
-      <p>✔ Activation on Fresh Mail</p>
-      <p>✔ 100% Working & Secure</p>
-
-      <div class="price">₹199 / Month</div>
-
-      <a href="https://wa.me/918618388937?text=I%20want%20ChatGPT%20Plus" class="btn btn-red">Buy Now</a>
-    </div>
-
-    <!-- AI TOOLS -->
-    <div class="card">
-      <h3>All AI Tools Pack</h3>
-      <p>✔ 50+ Premium AI Tools</p>
-      <p>✔ Video • Image • Voice AI</p>
-      <p>✔ Unlimited Creativity</p>
-      <p>✔ Best Value Deal</p>
-
-      <div class="price">DM for Price</div>
-
-      <a href="https://wa.me/918618388937?text=I%20want%20AI%20Tools" class="btn btn-red">Buy Now</a>
-    </div>
-
-  </div>
+<section class="hero">
+  <h1>Premium OTT Plans <span>Best Price</span></h1>
+  <p>Instant Activation • Trusted Service • Secure Access • 24/7 Support</p>
+  <a class="btn" href="https://wa.me/918618388937?text=Hi%20MR.YOGI%20Premium,%20please%20send%20me%20all%20plans%20and%20prices">
+    WhatsApp Order
+  </a>
 </section>
+
+<section class="section">
+<h2 class="title">🔥 All Premium Plans</h2>
+
+<div class="plans">
+
+<div class="card">
+<h3>🔥 Netflix Premium</h3>
+<p>4K UHD Quality • 1 Device • Mobile, TV, Laptop</p>
+<p><b>Plans:</b><br>1 Month ₹150<br>3 Months ₹399<br>6 Months ₹699<br>12 Months ₹1250</p>
+<p><b>Benefits:</b><br>✔️ No Logout Issues<br>✔️ 4K Ultra HD<br>✔️ Smooth Streaming</p>
+<button class="order" onclick="openPopup('Netflix Premium', netflixPlans)">Choose Plan</button>
+</div>
+
+<div class="card">
+<h3>🔰 JioHotstar 1080p</h3>
+<p>Full HD 1080p • Instant Activation • Smooth Streaming</p>
+<p><b>Plans:</b><br>1 Month ₹39<br>2 Months ₹75<br>3 Months ₹110<br>6 Months ₹220<br>12 Months ₹359</p>
+<button class="order" onclick="openPopup('JioHotstar 1080p', hotstarPlans)">Choose Plan</button>
+</div>
+
+<div class="card">
+<h3>🔰 SonyLIV 4K Premium</h3>
+<p>4K Premium • Shared & Private Plans • Secure Access</p>
+<p><b>Plans:</b><br>1 Month ₹69 Shared<br>3 Months ₹199 Shared<br>6 Months ₹269 Shared<br>12 Months ₹320 Shared</p>
+<p class="badge">⭐ Private 12 Months ₹549</p>
+<button class="order" onclick="openPopup('SonyLIV 4K Premium', sonyPlans)">Choose Plan</button>
+</div>
+
+<div class="card">
+<h3>🍿 ZEE5 Full HD</h3>
+<p>Full HD 1080p • Mobile, TV, Laptop • Instant Activation</p>
+<p><b>Plans:</b><br>1 Month ₹49<br>3 Months ₹129<br>6 Months ₹169<br>12 Months ₹210</p>
+<p class="badge">⭐ Private 12 Months ₹349</p>
+<button class="order" onclick="openPopup('ZEE5 Full HD', zeePlans)">Choose Plan</button>
+</div>
+
+<div class="card">
+<h3>🔥 Prime Video</h3>
+<p><b>1 Device:</b><br>1 Month ₹49<br>3 Months ₹129<br>12 Months ₹320</p>
+<p><b>5 Devices Personal Mail:</b><br>1 Month ₹99<br>Ads-Free 1 Month ₹129<br>6 Months Normal ₹299<br>6 Months Ads-Free ₹349</p>
+<p class="badge">🔥 Most Popular: 5 Devices Ads-Free</p>
+<button class="order" onclick="openPopup('Prime Video', primePlans)">Choose Plan</button>
+</div>
+
+<div class="card">
+<h3 style="color:#ff4444;">🔥 YouTube Premium</h3>
+<p>Activation on Your Mail</p>
+<p class="price">₹49</p>
+<p><b>Features:</b><br>✔️ Ad-Free YouTube<br>✔️ Background Play<br>✔️ YouTube Music<br>✔️ Instant Activation</p>
+<button class="order" onclick="openPopup('YouTube Premium', youtubePlans)">Choose Plan</button>
+</div>
+
+</div>
+</section>
+
+<footer>
+<h3>MR.YOGI PREMIUM</h3>
+<p>Premium Accounts • Trusted Service • Best Prices</p>
+<p>WhatsApp: 8618388937</p>
+</footer>
+
+<a class="float" href="https://wa.me/918618388937?text=Hi%20MR.YOGI%20Premium,%20I%20want%20to%20order">
+WhatsApp
+</a>
+
+<!-- Popup -->
+<div id="popup" class="popup">
+  <div class="popup-box">
+    <h2 id="popupTitle">Select Plan</h2>
+    <p>Choose your plan and order on WhatsApp</p>
+    <div id="popupPlans"></div>
+    <button class="close-btn" onclick="closePopup()">Close</button>
+  </div>
+</div>
+
+<script>
+const whatsappNumber = "918618388937";
+let selectedService = "";
+
+const netflixPlans = [
+  "1 Month – ₹150 | 1 Device | 4K UHD",
+  "3 Months – ₹399 | 1 Device",
+  "6 Months – ₹699 | Best Value",
+  "12 Months – ₹1250 | Maximum Savings"
+];
+
+const hotstarPlans = [
+  "1 Month – ₹39 | 1080p",
+  "2 Months – ₹75 | 1080p",
+  "3 Months – ₹110 | 1080p",
+  "6 Months – ₹220 | 1080p",
+  "12 Months – ₹359 | 1080p"
+];
+
+const sonyPlans = [
+  "1 Month – ₹69 | Shared",
+  "3 Months – ₹199 | Shared",
+  "6 Months – ₹269 | Shared",
+  "12 Months – ₹320 | Shared",
+  "12 Months – ₹549 | Private | On Your Number"
+];
+
+const zeePlans = [
+  "1 Month – ₹49 | Full HD",
+  "3 Months – ₹129 | Full HD",
+  "6 Months – ₹169 | Full HD",
+  "12 Months – ₹210 | Full HD",
+  "12 Months – ₹349 | Private | On Your Number | 1080p"
+];
+
+const primePlans = [
+  "1 Month – ₹49 | 1 Device",
+  "3 Months – ₹129 | 1 Device",
+  "12 Months – ₹320 | 1 Device",
+  "1 Month – ₹99 | 5 Devices | Personal Mail",
+  "Ads-Free 1 Month – ₹129 | 5 Devices",
+  "6 Months Normal – ₹299 | 5 Devices",
+  "6 Months Ads-Free – ₹349 | 5 Devices"
+];
+
+const youtubePlans = [
+  "1 Month – ₹49 | Activation on Your Mail"
+];
+
+function openPopup(service, plans){
+  selectedService = service;
+  document.getElementById("popupTitle").innerText = service + " Plans";
+  const popupPlans = document.getElementById("popupPlans");
+  popupPlans.innerHTML = "";
+
+  plans.forEach(plan => {
+    const btn = document.createElement("button");
+    btn.className = "popup-plan";
+    btn.innerText = plan;
+    btn.onclick = function(){
+      orderNow(plan);
+    };
+    popupPlans.appendChild(btn);
+  });
+
+  document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup(){
+  document.getElementById("popup").style.display = "none";
+}
+
+function orderNow(plan){
+  const message = `Hi MR.YOGI Premium, I want ${selectedService} plan: ${plan}`;
+  const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>
