@@ -5,35 +5,177 @@
 <title>MR.YOGI PREMIUM</title>
 
 <style>
-body{font-family:Arial;background:#eef6ff;margin:0;color:#0b1f3a}
-header{background:#fff;padding:15px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 15px #cfe3ff}
-.logo{color:#0066ff;font-weight:900;font-size:22px}
-button{background:#0066ff;color:white;border:0;padding:11px 16px;border-radius:22px;margin:5px;cursor:pointer;font-weight:900}
-button:hover{background:#004dcc}
-.hero{text-align:center;padding:40px 15px;background:linear-gradient(135deg,#fff,#d8ebff)}
-.hero h1{font-size:34px}
-.joinBtn{display:inline-block;margin-top:15px;background:#25D366;color:white;padding:13px 20px;border-radius:25px;text-decoration:none;font-weight:900}
-.section{padding:20px}
-.title{text-align:center;color:#0066ff}
-.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
-.card{background:white;padding:20px;border-radius:18px;text-align:center;box-shadow:0 8px 20px rgba(0,102,255,.14)}
-..card h3{
-  color:#0066ff;
-  font-size:28px;
+body{
+  font-family:Arial, sans-serif;
+  background:#0b0b0b;
+  margin:0;
+  color:white;
+}
+header{
+  background:#111;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #222;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+.logo{
+  color:#e50914;
+  font-weight:900;
+  font-size:22px;
+}
+button{
+  background:#e50914;
+  color:white;
+  border:0;
+  padding:11px 16px;
+  border-radius:22px;
+  margin:5px;
+  cursor:pointer;
+  font-weight:900;
+  box-shadow:0 0 10px rgba(229,9,20,.35);
+}
+button:hover{background:#b20710;transform:scale(1.04)}
+.hero{
+  text-align:center;
+  padding:60px 15px;
+  background:
+    linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.95)),
+    url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1400&q=80");
+  background-size:cover;
+  background-position:center;
+}
+.hero h1{font-size:38px;margin-bottom:8px}
+.tagline{color:#e50914;font-weight:900;font-size:20px}
+.joinBtn{
+  display:inline-block;
+  margin-top:18px;
+  background:#25D366;
+  color:white;
+  padding:13px 22px;
+  border-radius:30px;
+  text-decoration:none;
   font-weight:900;
 }
-.popup{display:none;position:fixed;inset:0;background:#0008;justify-content:center;align-items:center;padding:15px;z-index:99}
-.box{background:white;padding:22px;border-radius:18px;width:90%;max-width:430px;text-align:center;max-height:90vh;overflow:auto}
-.planBtn{display:block;width:100%;margin:8px 0;padding:12px;background:#eaf4ff;color:#0b1f3a;border:1px solid #9cc7ff;border-radius:12px}
-input,textarea{width:100%;padding:12px;margin:7px 0;border:1px solid #9cc7ff;border-radius:10px}
+.section{padding:22px}
+.title{text-align:center;color:#e50914}
+.plans{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:16px;
+}
+.card{
+  background:#1a1a1a;
+  padding:22px;
+  border-radius:18px;
+  text-align:center;
+  border:1px solid #222;
+  box-shadow:0 8px 22px rgba(229,9,20,.12);
+}
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 12px 30px rgba(229,9,20,.25);
+}
+.card img{
+  width:70px;
+  height:70px;
+  object-fit:contain;
+  margin-bottom:8px;
+}
+.card h3{
+  color:#e50914;
+  font-size:25px;
+  font-weight:900;
+}
+.card p{color:#ddd;line-height:1.6}
+.popup{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  justify-content:center;
+  align-items:center;
+  padding:15px;
+  z-index:99;
+}
+.box{
+  background:#111;
+  color:white;
+  padding:22px;
+  border-radius:18px;
+  width:90%;
+  max-width:440px;
+  text-align:center;
+  max-height:90vh;
+  overflow:auto;
+  border:1px solid #333;
+}
+.planBtn{
+  display:block;
+  width:100%;
+  margin:8px 0;
+  padding:12px;
+  background:#1a1a1a;
+  color:white;
+  border:1px solid #333;
+  border-radius:12px;
+}
+.planBtn:hover{background:#e50914}
+input,textarea{
+  width:100%;
+  padding:12px;
+  margin:7px 0;
+  border:1px solid #333;
+  border-radius:10px;
+  background:#0b0b0b;
+  color:white;
+  box-sizing:border-box;
+}
 .admin{display:none;padding:20px}
-.admin-card{background:#fff;padding:15px;border-radius:15px;margin:12px 0;box-shadow:0 5px 15px #cfe3ff}
+.admin-card{
+  background:#111;
+  padding:15px;
+  border-radius:15px;
+  margin:12px 0;
+  border:1px solid #333;
+}
 .green{background:#25D366}
 .red{background:#ff3333}
-.contactBox{background:#fff;max-width:430px;margin:25px auto;padding:22px;border-radius:20px;text-align:center}
-.contactBox a{display:inline-block;background:#25D366;color:white;padding:12px 20px;border-radius:25px;text-decoration:none;font-weight:900}
-footer{text-align:center;background:#fff;padding:20px}
-.legal p{cursor:pointer;color:#0066ff;margin:10px}
+.contactBox{
+  background:#111;
+  max-width:430px;
+  margin:25px auto;
+  padding:22px;
+  border-radius:20px;
+  text-align:center;
+  border:1px solid #333;
+}
+.contactBox a{
+  display:inline-block;
+  background:#25D366;
+  color:white;
+  padding:12px 20px;
+  border-radius:25px;
+  text-decoration:none;
+  font-weight:900;
+}
+footer{
+  text-align:center;
+  background:#111;
+  padding:20px;
+  border-top:1px solid #222;
+}
+.legal p{cursor:pointer;color:#e50914;margin:10px}
+.couponBox{
+  background:#111;
+  border:1px solid #333;
+  border-radius:15px;
+  padding:15px;
+  margin-top:20px;
+}
 </style>
 </head>
 
@@ -45,8 +187,9 @@ footer{text-align:center;background:#fff;padding:20px}
 </header>
 
 <section class="hero">
-  <h1>Premium OTT & Software Plans</h1>
-  <p>Instant Activation • Trusted Service • WhatsApp Orders</p>
+  <h1>🔥 Premium OTT & Software Plans</h1>
+  <div class="tagline">🇮🇳 INDIA'S #1 Subscription Store · Since 2024</div>
+  <p>⚡ Instant Activation • 🔐 Trusted Service • 💬 WhatsApp Orders</p>
   <a class="joinBtn" href="https://chat.whatsapp.com/EcUM0d0ipZVFCvzjCtPrlE" target="_blank">🔥 Join WhatsApp Group</a>
 </section>
 
@@ -58,12 +201,20 @@ footer{text-align:center;background:#fff;padding:20px}
 <section class="admin" id="adminPage">
   <h2 class="title">Admin Panel</h2>
 
+  <h3>Manage Plans</h3>
   <input id="serviceName" placeholder="Service Name">
   <textarea id="serviceDesc" placeholder="Description / Features"></textarea>
   <textarea id="servicePlans" placeholder="Plans - one per line"></textarea>
-
-  <button onclick="saveService()">Save / Update</button>
+  <button onclick="saveService()">Save / Update Plan</button>
   <button class="green" onclick="showWebsite()">Back Website</button>
+
+  <div class="couponBox">
+    <h3>Manage Coupon Codes</h3>
+    <input id="couponCode" placeholder="Coupon Code e.g YOGI10">
+    <input id="couponDiscount" placeholder="Discount Text e.g ₹10 OFF / 10% OFF">
+    <button class="green" onclick="saveCoupon()">Add Coupon</button>
+    <div id="couponList"></div>
+  </div>
 
   <div id="adminList"></div>
 </section>
@@ -94,6 +245,7 @@ footer{text-align:center;background:#fff;padding:20px}
 
 <footer>
   <b>MR.YOGI PREMIUM</b><br>
+  🇮🇳 INDIA'S #1 Subscription Store · Since 2024<br>
   Premium Accounts • Trusted Service • Best Prices
 
   <div class="legal">
@@ -114,78 +266,59 @@ let selectedPlan = "";
 let services = JSON.parse(localStorage.getItem("mrYogiServices")) || [
 {
 name:"Netflix Premium",
+img:"https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
 desc:"4K UHD quality, 1 device login, mobile/TV/laptop support, smooth streaming and fast support.",
-plans:[
-"1 Month – ₹150 | 1 Device | 4K UHD",
-"3 Months – ₹399 | 1 Device",
-"6 Months – ₹699 | Best Value",
-"12 Months – ₹1250 | Maximum Savings"
-]
+plans:["1 Month – ₹150 | 1 Device | 4K UHD","3 Months – ₹399 | 1 Device","6 Months – ₹699 | Best Value","12 Months – ₹1250 | Maximum Savings"]
 },
 {
 name:"Prime Video",
+img:"https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png",
 desc:"1 device and 5 devices personal mail plans, HD/4K streaming, ads-free options available.",
-plans:[
-"1 Month – ₹49 | 1 Device",
-"3 Months – ₹129 | 1 Device",
-"12 Months – ₹320 | 1 Device",
-"1 Month – ₹99 | 5 Devices Personal Mail",
-"Ads-Free 1 Month – ₹129",
-"6 Months Normal – ₹299",
-"6 Months Ads-Free – ₹349"
-]
+plans:["1 Month – ₹49 | 1 Device","3 Months – ₹129 | 1 Device","12 Months – ₹320 | 1 Device","1 Month – ₹99 | 5 Devices Personal Mail","Ads-Free 1 Month – ₹129","6 Months Normal – ₹299","6 Months Ads-Free – ₹349"]
 },
 {
 name:"JioHotstar 1080p",
+img:"https://upload.wikimedia.org/wikipedia/commons/1/1e/JioHotstar_logo.svg",
 desc:"Full HD 1080p streaming, instant activation, smooth playback for movies, shows and sports.",
-plans:[
-"1 Month – ₹39",
-"2 Months – ₹75",
-"3 Months – ₹110",
-"6 Months – ₹220",
-"12 Months – ₹359"
-]
+plans:["1 Month – ₹39","2 Months – ₹75","3 Months – ₹110","6 Months – ₹220","12 Months – ₹359"]
 },
 {
 name:"SonyLIV 4K Premium",
+img:"https://upload.wikimedia.org/wikipedia/commons/4/4e/SonyLIV_Logo.png",
 desc:"4K premium access, shared and private plans, secure access and smooth streaming.",
-plans:[
-"1 Month – ₹69 Shared",
-"3 Months – ₹199 Shared",
-"6 Months – ₹269 Shared",
-"12 Months – ₹320 Shared",
-"12 Months Private – ₹549 On Your Number"
-]
+plans:["1 Month – ₹69 Shared","3 Months – ₹199 Shared","6 Months – ₹269 Shared","12 Months – ₹320 Shared","12 Months Private – ₹549 On Your Number"]
 },
 {
 name:"ZEE5 Full HD",
+img:"https://upload.wikimedia.org/wikipedia/commons/5/5a/Zee5-official-logo.jpeg",
 desc:"Full HD 1080p streaming, supported devices, instant activation and private number plan available.",
-plans:[
-"1 Month – ₹49",
-"3 Months – ₹129",
-"6 Months – ₹169",
-"12 Months – ₹210",
-"12 Months Private – ₹349 On Your Number"
-]
+plans:["1 Month – ₹49","3 Months – ₹129","6 Months – ₹169","12 Months – ₹210","12 Months Private – ₹349 On Your Number"]
 },
 {
 name:"YouTube Premium",
+img:"https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Premium_logo.png",
 desc:"Activation on your mail, ad-free YouTube, background play, downloads and YouTube Music.",
-plans:[
-"1 Month – ₹49 | Activation on Your Mail"
-]
+plans:["1 Month – ₹49 | Activation on Your Mail"]
 },
 {
 name:"Adobe Creative Cloud",
+img:"https://upload.wikimedia.org/wikipedia/commons/7/75/Adobe_Creative_Cloud_rainbow_icon.svg",
 desc:"Original License Pro Plan. 20+ Adobe apps, 80GB cloud storage, 2 device support, 10000 AI Fill credits/month, private account with 2FA, warranty and replacement.",
-plans:[
-"1 Month – ₹299 | Original License | On Your Mail Activation"
-]
+plans:["1 Month – ₹299 | Original License | On Your Mail Activation"]
 }
+];
+
+let coupons = JSON.parse(localStorage.getItem("mrYogiCoupons")) || [
+{code:"YOGI10", discount:"₹10 OFF"},
+{code:"MRPREMIUM", discount:"Special Discount"}
 ];
 
 function saveData(){
   localStorage.setItem("mrYogiServices", JSON.stringify(services));
+}
+
+function saveCouponData(){
+  localStorage.setItem("mrYogiCoupons", JSON.stringify(coupons));
 }
 
 function renderWebsite(){
@@ -193,8 +326,9 @@ function renderWebsite(){
   services.forEach((s,i)=>{
     html+=`
     <div class="card">
+      <img src="${s.img || 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg'}">
       <h3>${s.name}</h3>
-      <p>Premium Access Available</p>
+      <p>✔ Premium Access Available<br>✔ Instant Activation<br>✔ Trusted Support</p>
       <button onclick="showDescription(${i})">Description</button>
       <button onclick="showPlans(${i})">Choose Plan</button>
     </div>`;
@@ -230,6 +364,7 @@ function openOrderForm(service,plan){
     <input id="custName" placeholder="Your Name">
     <input id="custMail" placeholder="Your Mail">
     <input id="custNum" placeholder="WhatsApp Number">
+    <input id="custCoupon" placeholder="Coupon Code Optional">
     <button class="green" onclick="sendOrder()">Submit Order</button>`;
 }
 
@@ -237,10 +372,20 @@ function sendOrder(){
   let name=custName.value.trim();
   let mail=custMail.value.trim();
   let num=custNum.value.trim();
+  let coupon=custCoupon.value.trim().toUpperCase();
 
   if(!name || !mail || !num){
     alert("Fill all details");
     return;
+  }
+
+  let couponText="Not Applied";
+  let foundCoupon=coupons.find(c=>c.code.toUpperCase()===coupon);
+
+  if(coupon && foundCoupon){
+    couponText=foundCoupon.code+" - "+foundCoupon.discount;
+  }else if(coupon){
+    couponText=coupon+" - Invalid Coupon";
   }
 
   let id="ORD"+Date.now().toString().slice(-6);
@@ -251,6 +396,7 @@ I want to buy:
 🆔 Order ID: ${id}
 📦 Product: ${selectedService}
 📋 Plan: ${selectedPlan}
+🎟 Coupon: ${couponText}
 
 👤 Name: ${name}
 📧 Mail: ${mail}
@@ -274,6 +420,7 @@ function adminLogin(){
     customerPage.style.display="none";
     adminPage.style.display="block";
     renderAdmin();
+    renderCoupons();
   }else{
     alert("Wrong username or password");
   }
@@ -295,10 +442,12 @@ function saveService(){
     return;
   }
 
+  let oldImg = editIndex!==null ? services[editIndex].img : "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg";
+
   if(editIndex===null){
-    services.push({name:n,desc:d,plans:p});
+    services.push({name:n,desc:d,plans:p,img:oldImg});
   }else{
-    services[editIndex]={name:n,desc:d,plans:p};
+    services[editIndex]={name:n,desc:d,plans:p,img:oldImg};
     editIndex=null;
   }
 
@@ -338,6 +487,40 @@ function deleteService(i){
     renderWebsite();
     renderAdmin();
   }
+}
+
+function saveCoupon(){
+  let code=couponCode.value.trim().toUpperCase();
+  let discount=couponDiscount.value.trim();
+
+  if(!code || !discount){
+    alert("Enter coupon code and discount");
+    return;
+  }
+
+  coupons.push({code:code, discount:discount});
+  saveCouponData();
+  couponCode.value="";
+  couponDiscount.value="";
+  renderCoupons();
+}
+
+function renderCoupons(){
+  let html="<h4>Active Coupons</h4>";
+  coupons.forEach((c,i)=>{
+    html+=`
+    <div class="admin-card">
+      <b>${c.code}</b> - ${c.discount}<br>
+      <button class="red" onclick="deleteCoupon(${i})">Delete Coupon</button>
+    </div>`;
+  });
+  couponList.innerHTML=html;
+}
+
+function deleteCoupon(i){
+  coupons.splice(i,1);
+  saveCouponData();
+  renderCoupons();
 }
 
 function clearForm(){
