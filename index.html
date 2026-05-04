@@ -95,9 +95,45 @@ footer{text-align:center;padding:25px;background:#fff;color:#3c5572;margin-top:2
   <b>MR.YOGI PREMIUM</b><br>
   Premium Accounts • Trusted Service • Best Prices<br>
   WhatsApp: 8618388937
+
+  <div class="legal">
+    <h3>Legal</h3>
+    <p onclick="openLegal('Privacy Policy')">Privacy Policy</p>
+    <p onclick="openLegal('Terms of Service')">Terms of Service</p>
+    <p onclick="openLegal('Refund Policy')">Refund Policy</p>
+    <p onclick="openLegal('Security Policy')">Security Policy</p>
+  </div>
 </footer>
 
 <script>
+const whatsappNumber = "918618388937";
+  <script>
+
+function openLegal(type){
+  let text = "";
+
+  if(type === "Privacy Policy"){
+    text = "We respect your privacy. Customer details are used only for activation and support.";
+  }
+
+  if(type === "Terms of Service"){
+    text = "Do not change email, password, or profile details. Misuse cancels warranty.";
+  }
+
+  if(type === "Refund Policy"){
+    text = "Refund only if service not working. No refund for misuse.";
+  }
+
+  if(type === "Security Policy"){
+    text = "Keep your account safe. Do not share login details.";
+  }
+
+  document.getElementById("popupTitle").innerText = type;
+  document.getElementById("popupContent").innerHTML =
+    `<p style="line-height:1.8;text-align:left">${text}</p>`;
+  document.getElementById("mainPopup").style.display = "flex";
+}
+
 const whatsappNumber = "918618388937";
 let editIndex = null;
 
