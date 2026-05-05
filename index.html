@@ -1,57 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MR.YOGI PREMIUM – OTT & AI Subscriptions</title>
-<meta name="description" content="Buy OTT, AI and software subscriptions at best price. Instant activation and trusted support.">
+<meta name="description" content="Premium OTT, AI and software subscriptions at best price. Instant activation and trusted support.">
 <meta name="keywords" content="Netflix, Prime Video, ChatGPT Plus, OTT subscription, AI tools, MR YOGI PREMIUM">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 *{box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f7f2ff;margin:0;color:#24113d}
-.banner{background:linear-gradient(90deg,#7b2cff,#ff4fd8);color:white;font-weight:900;padding:10px;overflow:hidden;white-space:nowrap}
-.banner span{display:inline-block;padding-left:100%;animation:move 14s linear infinite}
-@keyframes move{100%{transform:translateX(-100%)}}
-header{background:white;text-align:center;padding:16px;box-shadow:0 5px 18px #eadcff;position:sticky;top:0;z-index:10}
-.logo{font-size:24px;font-weight:900;color:#7b2cff}
-.hero{text-align:center;padding:42px 15px;background:linear-gradient(135deg,#fff,#eadcff)}
+body{font-family:Arial;margin:0;background:#f7f2ff;color:#24113d}
+.banner{background:linear-gradient(90deg,#7b2cff,#ff4fd8);color:#fff;font-weight:900;padding:10px;overflow:hidden;white-space:nowrap}
+.banner span{display:inline-block;padding-left:100%;animation:marquee 14s linear infinite}
+@keyframes marquee{100%{transform:translateX(-100%)}}
+header{background:#fff;text-align:center;padding:16px;box-shadow:0 5px 18px #eadcff;position:sticky;top:0;z-index:10}
+.logo{font-size:25px;font-weight:900;color:#7b2cff}
+.hero{text-align:center;padding:35px 15px;background:linear-gradient(135deg,#fff,#eadcff)}
 .hero h1{font-size:30px}
-.badges span{background:white;color:#7b2cff;padding:9px 14px;border-radius:20px;margin:5px;display:inline-block;font-weight:900}
+.badge{display:inline-block;background:#fff;color:#7b2cff;padding:9px 14px;border-radius:20px;margin:5px;font-weight:900}
 .section{padding:20px}
 .title{text-align:center;color:#7b2cff;font-size:28px}
 .search{width:92%;max-width:430px;display:block;margin:10px auto 24px;padding:13px;border-radius:25px;border:1px solid #d4b8ff}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;max-width:1200px;margin:auto}
-.card,.box{background:white;border-radius:24px;padding:18px;text-align:center;box-shadow:0 8px 25px rgba(123,44,255,.15)}
+.card,.box{background:#fff;border-radius:24px;padding:18px;text-align:center;box-shadow:0 8px 25px rgba(123,44,255,.15)}
 .card{max-width:260px;width:100%;margin:auto;min-height:285px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.card img{width:75px;height:75px;object-fit:contain;background:#f1e7ff;border-radius:16px;padding:8px}
+.card img{width:78px;height:78px;object-fit:contain;background:#f1e7ff;border-radius:16px;padding:8px}
 .card h3{color:#7b2cff;font-size:21px}
-button{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:white;border:0;padding:10px 14px;border-radius:25px;margin:5px;font-weight:900;cursor:pointer}
+button{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:#fff;border:0;padding:10px 14px;border-radius:25px;margin:5px;font-weight:900;cursor:pointer}
 button:disabled{opacity:.5;cursor:not-allowed}
 .green{background:#25D366}.red{background:#ff3333}
-.inStock{background:#e7fff1;color:#0b9b4b;padding:8px 12px;border-radius:18px;font-weight:900}
-.outStock{background:#ffe8e8;color:#d10000;padding:8px 12px;border-radius:18px;font-weight:900}
+.inStock,.outStock{padding:8px 12px;border-radius:18px;font-weight:900}
+.inStock{background:#e7fff1;color:#0b9b4b}.outStock{background:#ffe8e8;color:#d10000}
 @media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr);gap:14px}.card{padding:14px}.card h3{font-size:19px}}
 .popup{display:none;position:fixed;inset:0;background:#0009;align-items:center;justify-content:center;z-index:99;padding:15px}
-.popupBox{background:white;border-radius:22px;padding:22px;width:95%;max-width:500px;max-height:90vh;overflow:auto;text-align:center}
+.popupBox{background:#fff;border-radius:22px;padding:22px;width:95%;max-width:500px;max-height:90vh;overflow:auto;text-align:center}
 input,textarea,select{width:100%;padding:12px;margin:8px 0;border:1px solid #d4b8ff;border-radius:12px}
 textarea{min-height:90px}
 .planBtn{width:100%;background:#f0e6ff;color:#24113d;border:1px solid #d4b8ff;border-radius:14px}
 .why{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;max-width:1000px;margin:auto}
-.why div{background:linear-gradient(135deg,#7b2cff,#b388ff);color:white;padding:20px;border-radius:18px;text-align:center;font-size:28px;font-weight:900}
+.why div{background:linear-gradient(135deg,#7b2cff,#b388ff);color:#fff;padding:20px;border-radius:18px;text-align:center;font-size:28px;font-weight:900}
 .why h3{font-size:14px}
 .feedbackCard,.adminCard{background:#f7f2ff;border:1px solid #eadcff;border-radius:16px;padding:14px;margin:10px 0;text-align:left}
 .stars,#overallRating{color:#ffb400;font-weight:900;font-size:20px}
 #overallRating{background:#fff3cd;color:#24113d;display:inline-block;padding:9px 16px;border-radius:22px;margin:10px}
 .admin{display:none;background:#fbf8ff;padding:20px}
 .adminImg{width:80px;height:80px;object-fit:contain;background:#f1e7ff;border-radius:14px;padding:8px;cursor:pointer}
-.contact{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:white;max-width:430px;margin:30px auto;padding:25px;border-radius:25px;text-align:center}
-.contact a,.floatWA{background:#25D366;color:white;text-decoration:none;font-weight:900;border-radius:30px;padding:13px 20px;display:inline-block}
+.contact{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:#fff;max-width:430px;margin:30px auto;padding:25px;border-radius:25px;text-align:center}
+.contact a,.floatWA{background:#25D366;color:#fff;text-decoration:none;font-weight:900;border-radius:30px;padding:13px 20px;display:inline-block}
 .floatWA{position:fixed;right:15px;bottom:20px;z-index:999}
-footer{background:white;padding:25px;margin-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap}
-.thank{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;color:#7b2cff;padding:22px 28px;border-radius:22px;box-shadow:0 15px 35px #0005;z-index:9999;font-weight:900}
+footer{background:#fff;padding:25px;margin-top:20px;text-align:center}
+.thank{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;color:#7b2cff;padding:22px 28px;border-radius:22px;box-shadow:0 15px 35px #0005;z-index:9999;font-weight:900}
 </style>
 </head>
+
 <body>
 
 <div class="banner"><span>WELCOME TO MR.YOGI PREMIUM — Premium OTT • AI • Software Deals | Instant Activation</span></div>
@@ -59,8 +60,8 @@ footer{background:white;padding:25px;margin-top:20px;display:flex;justify-conten
 
 <section class="hero">
 <h1>India’s No.1 OTT & AI Store</h1>
-<p>Premium OTT, AI and software subscriptions at best prices with instant activation and trusted support.</p>
-<div class="badges"><span>Since 2024</span><span>100+ Happy Clients</span><span>24×7 Support</span></div>
+<p>Premium subscriptions at best prices with instant activation and trusted support.</p>
+<span class="badge">Since 2024</span><span class="badge">100+ Happy Clients</span><span class="badge">24×7 Support</span>
 </section>
 
 <section class="section" id="customerPage">
@@ -108,34 +109,37 @@ footer{background:white;padding:25px;margin-top:20px;display:flex;justify-conten
 <a href="https://wa.me/918618388937" target="_blank">WhatsApp: 8618388937</a>
 </section>
 
-<footer>
-<div>
-<h3>Legal</h3>
-<p onclick="openLegal('Privacy Policy')">Privacy Policy</p>
-<p onclick="openLegal('Terms of Service')">Terms of Service</p>
-<p onclick="openLegal('Refund Policy')">Refund Policy</p>
-</div>
-<div><p>© 2026 MR.YOGI PREMIUM. All rights reserved.</p></div>
-</footer>
-
 <section class="admin" id="adminPage">
 <h2 class="title">Admin Panel</h2>
+
+<h3>Add / Edit Product</h3>
 <input id="serviceName" placeholder="Product Name">
 <input id="serviceImg" placeholder="Image URL">
 <input type="file" id="adminImageFile" accept="image/*" onchange="adminUploadImage(event)">
 <select id="serviceStatus"><option value="in">Product In Stock</option><option value="out">Product Out of Stock</option></select>
 <textarea id="serviceDesc" placeholder="Description"></textarea>
-<textarea id="servicePlans" placeholder='Plans JSON example:
+<textarea id="servicePlans" placeholder='Plans JSON:
 [{"name":"1 Month ₹150","stock":"in"},{"name":"3 Months ₹399","stock":"out"}]'></textarea>
 <button onclick="saveProduct()">Save / Update Product</button>
 <button class="green" onclick="showWebsite()">Back Website</button>
 
-<h3>Orders</h3><button onclick="loadOrders()">Refresh Orders</button><div id="adminOrders"></div>
-<h3>Feedback</h3><button onclick="loadFeedbacks()">Refresh Feedback</button><div id="adminFeedback"></div>
-<h3>Products</h3><div id="adminProducts"></div>
+<h3>Orders</h3>
+<button onclick="loadOrders()">Refresh Orders</button>
+<div id="adminOrders"></div>
+
+<h3>Feedback</h3>
+<button onclick="loadFeedbacks()">Refresh Feedback</button>
+<div id="adminFeedback"></div>
+
+<h3>Products</h3>
+<div id="adminProducts"></div>
 </section>
 
-<div style="text-align:center;padding:15px"><button onclick="openLogin()">Admin Panel</button></div>
+<footer>
+<p>© 2026 MR.YOGI PREMIUM. All rights reserved.</p>
+<button onclick="openLogin()">Admin Panel</button>
+</footer>
+
 <a class="floatWA" href="https://wa.me/918618388937" target="_blank">WhatsApp</a>
 <input type="file" id="quickImgInput" accept="image/*" style="display:none" onchange="saveQuickImage(event)">
 <div class="thank" id="thankPopup">🙏 Thank you for feedback!</div>
@@ -149,7 +153,8 @@ footer{background:white;padding:25px;margin-top:20px;display:flex;justify-conten
 </div></div>
 
 <div class="popup" id="mainPopup"><div class="popupBox">
-<h2 id="popupTitle"></h2><div id="popupContent"></div>
+<h2 id="popupTitle"></h2>
+<div id="popupContent"></div>
 <button class="red" onclick="closePopup()">Close</button>
 </div></div>
 
@@ -158,127 +163,295 @@ const supabaseUrl="https://xztufpmubkflgeoioykg.supabase.co";
 const supabaseKey="sb_publishable_iTghesB-67gkTbOjGrhAHQ_a9e5AGR9";
 const db=window.supabase.createClient(supabaseUrl,supabaseKey);
 const waNumber="918618388937";
+
 let services=[],feedbacks=[],editId=null,quickId=null,selectedService="",selectedPlan="",showAllFeedback=false;
 
 async function loadProducts(){
- let {data,error}=await db.from("products").select("*").order("id",{ascending:true});
- if(error||!data||data.length===0){
-  services=[
-   {id:null,name:"Netflix Premium",img:"https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",status:"in",desc:"4K UHD streaming, instant activation.",plans:[{name:"1 Month ₹150",stock:"in"},{name:"3 Months ₹399",stock:"out"},{name:"6 Months ₹699",stock:"in"},{name:"12 Months ₹1250",stock:"in"}]},
-   {id:null,name:"Prime Video",img:"https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png",status:"in",desc:"Prime Video HD/4K streaming.",plans:[{name:"1 Month ₹49",stock:"in"},{name:"3 Months ₹129",stock:"in"},{name:"12 Months ₹320",stock:"in"}]},
-   {id:null,name:"ChatGPT Plus",img:"https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",status:"in",desc:"ChatGPT Plus fresh mail activation.",plans:[{name:"1 Month ₹199",stock:"in"}]}
-  ];
- }else services=data;
- renderWebsite(); renderAdminProducts();
+ const {data,error}=await db.from("products").select("*").order("id",{ascending:true});
+ if(error){alert("Products error: "+error.message);return}
+ services=data||[];
+ renderWebsite();
+ renderAdminProducts();
 }
-loadProducts();
 
 function renderWebsite(){
+ if(!services.length){
+  plansArea.innerHTML="<p>No products found. Add products in admin panel.</p>";
+  return;
+ }
  plansArea.innerHTML=services.map((s,i)=>{
- let out=s.status==="out";
- return `<div class="card">
- <img src="${s.img}" onerror="this.src='https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=MR.YOGI'">
- <h3>${s.name}</h3>
- <span class="${out?'outStock':'inStock'}">${out?'Out of Stock':'In Stock'}</span><br>
- <button onclick="showDesc(${i})">Description</button>
- <button ${out?'disabled':`onclick="showPlans(${i})"`}>${out?'Unavailable':'Choose Plan'}</button>
- </div>`;
+  let out=s.status==="out";
+  return `<div class="card">
+   <img src="${s.img}" onerror="this.src='https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=MR.YOGI'">
+   <h3>${s.name}</h3>
+   <span class="${out?'outStock':'inStock'}">${out?'Out of Stock':'In Stock'}</span><br>
+   <button onclick="showDesc(${i})">Description</button>
+   <button ${out?'disabled':`onclick="showPlans(${i})"`}>${out?'Unavailable':'Choose Plan'}</button>
+  </div>`;
  }).join("");
 }
 
-function showDesc(i){popupTitle.innerText=services[i].name;popupContent.innerHTML=`<p>${services[i].desc||""}</p>`;mainPopup.style.display="flex"}
+function showDesc(i){
+ popupTitle.innerText=services[i].name;
+ popupContent.innerHTML=`<p style="text-align:left;line-height:1.7">${services[i].desc||""}</p>`;
+ mainPopup.style.display="flex";
+}
+
 function showPlans(i){
  let s=services[i],plans=Array.isArray(s.plans)?s.plans:[];
  popupTitle.innerText=s.name+" Plans";
  popupContent.innerHTML=plans.map(p=>{
   let out=p.stock==="out";
-  return `<button class="planBtn" ${out?'disabled':`onclick="openOrder('${safe(s.name)}','${safe(p.name)}')"`}>${p.name}<br><small style="color:${out?'red':'green'}">${out?'This plan is out of stock':'Available'}</small></button>`;
+  return `<button class="planBtn" ${out?'disabled':`onclick="openOrder('${safe(s.name)}','${safe(p.name)}')"`}>
+   ${p.name}<br><small style="color:${out?'red':'green'}">${out?'This plan is out of stock':'Available'}</small>
+  </button>`;
  }).join("");
  mainPopup.style.display="flex";
 }
+
 function openOrder(service,plan){
  selectedService=service; selectedPlan=plan;
  popupTitle.innerText="Complete Your Order";
- popupContent.innerHTML=`<p><b>PRODUCT:</b> ${service}<br><b>PLAN:</b> ${plan}</p>
- <input id="custName" placeholder="Name"><input id="custMail" placeholder="Email"><input id="custNum" placeholder="Phone"><input id="custCoupon" placeholder="Coupon Optional">
+ popupContent.innerHTML=`
+ <p><b>PRODUCT:</b> ${service}<br><b>PLAN:</b> ${plan}</p>
+ <input id="custName" placeholder="Name">
+ <input id="custMail" placeholder="Email">
+ <input id="custNum" placeholder="Phone">
+ <input id="custCoupon" placeholder="Coupon Optional">
  <button class="green" onclick="sendOrder()">Submit Order</button>`;
 }
+
 async function sendOrder(){
- let name=custName.value.trim(),email=custMail.value.trim(),phone=custNum.value.trim();
+ let name=custName.value.trim(),email=custMail.value.trim(),phone=custNum.value.trim(),coupon=custCoupon.value.trim();
  if(!name||!email||!phone){alert("Fill all details");return}
- await db.from("orders").insert([{name,email,phone,product:selectedService+" - "+selectedPlan}]);
- let inv="INV"+Date.now().toString().slice(-6),ord="ORD"+Date.now().toString().slice(-6),date=new Date().toLocaleDateString();
- let msg=`*INVOICE - MR.YOGI PREMIUM*\n\n*DATE:* ${date}\n*INVOICE NO:* ${inv}\n*ORDER ID:* ${ord}\n\n*PRODUCT:* ${selectedService}\n*PLAN:* ${selectedPlan}\n\n*NAME:* ${name}\n*MAIL:* ${email}\n*NUMBER:* ${phone}\n\n*STATUS:* Payment Pending`;
+
+ const {error}=await db.from("orders").insert([{name,email,phone,product:selectedService+" - "+selectedPlan}]);
+ if(error){alert("Order error: "+error.message);return}
+
+ let inv="INV"+Date.now().toString().slice(-6);
+ let ord="ORD"+Date.now().toString().slice(-6);
+ let date=new Date().toLocaleDateString();
+
+ let msg=`*INVOICE - MR.YOGI PREMIUM*
+
+*DATE:* ${date}
+*INVOICE NO:* ${inv}
+*ORDER ID:* ${ord}
+
+*PRODUCT:* ${selectedService}
+*PLAN:* ${selectedPlan}
+*COUPON:* ${coupon || "Not Applied"}
+
+*NAME:* ${name}
+*MAIL:* ${email}
+*NUMBER:* ${phone}
+
+*STATUS:* Payment Pending
+
+Please assist with payment.`;
+
  window.location.href=`https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
 }
 
 async function loadFeedbacks(){
- let {data}=await db.from("feedback").select("*").order("id",{ascending:false});
- feedbacks=data||[]; renderFeedback(); renderAdminFeedback();
+ const {data,error}=await db.from("feedback").select("*").order("id",{ascending:false});
+ if(error){alert("Feedback load error: "+error.message);return}
+ feedbacks=data||[];
+ renderFeedback();
+ renderAdminFeedback();
 }
-loadFeedbacks();
 
 async function saveFeedback(){
- let name=fbName.value.trim(),feedback=fbText.value.trim(),rating=Number(fbRating.value),product=fbProduct.value.trim();
+ let name=fbName.value.trim();
+ let product=fbProduct.value.trim() || "Not Mentioned";
+ let feedback=fbText.value.trim();
+ let rating=Number(fbRating.value);
+
  if(!name||!feedback){alert("Enter name and feedback");return}
- await db.from("feedback").insert([{name,feedback,rating,product}]);
+
+ const {error}=await db.from("feedback").insert([{name,product,feedback,rating}]);
+ if(error){alert("Feedback error: "+error.message);return}
+
  fbName.value="";fbProduct.value="";fbText.value="";fbRating.value="5";
- thankPopup.style.display="block";setTimeout(()=>thankPopup.style.display="none",1800);
+ thankPopup.style.display="block";
+ setTimeout(()=>thankPopup.style.display="none",1800);
  loadFeedbacks();
 }
+
 function renderFeedback(){
  let list=showAllFeedback?feedbacks:feedbacks.slice(0,3);
- feedbackList.innerHTML=list.map(f=>`<div class="feedbackCard"><b>${f.name}</b><br><small>${f.product||""}</small><div class="stars">${stars(f.rating)} <b>${Number(f.rating||5)}/5</b></div><p>${f.feedback||""}</p></div>`).join("");
+ feedbackList.innerHTML=list.map(f=>`
+ <div class="feedbackCard">
+  <b>${f.name}</b><br>
+  <small>${f.product||""}</small>
+  <div class="stars">${stars(f.rating)} <b>${Number(f.rating||5)}/5</b></div>
+  <p>${f.feedback||""}</p>
+ </div>`).join("");
+
  viewFeedbackBtn.style.display=feedbacks.length>3?"inline-block":"none";
  viewFeedbackBtn.innerText=showAllFeedback?"Show Less Feedback":"View All Feedback";
  updateRating();
 }
+
 function toggleFeedback(){showAllFeedback=!showAllFeedback;renderFeedback()}
+
 function updateRating(){
  if(!feedbacks.length){overallRating.innerText="No ratings yet";return}
  let avg=(feedbacks.reduce((a,f)=>a+Number(f.rating||5),0)/feedbacks.length).toFixed(1);
  overallRating.innerHTML=`${stars(avg)} ${avg}/5 (${feedbacks.length} Reviews)`;
 }
-function stars(r){r=Number(r||5);return "⭐".repeat(Math.floor(r))+(r%1!==0?"✨":"")}
 
-function searchProducts(){let q=searchBox.value.toLowerCase();document.querySelectorAll(".card").forEach(c=>c.style.display=c.innerText.toLowerCase().includes(q)?"flex":"none")}
+function stars(r){
+ r=Number(r||5);
+ return "⭐".repeat(Math.floor(r))+(r%1!==0?"✨":"");
+}
+
+function searchProducts(){
+ let q=searchBox.value.toLowerCase();
+ document.querySelectorAll(".card").forEach(c=>c.style.display=c.innerText.toLowerCase().includes(q)?"flex":"none");
+}
+
 function openLogin(){loginPopup.style.display="flex"}
 function closePopup(){loginPopup.style.display="none";mainPopup.style.display="none"}
+
 function adminLogin(){
- if(adminUser.value.trim().toLowerCase()==="admin"&&adminPass.value.trim()==="yogi19001"){
-  closePopup();customerPage.style.display="none";adminPage.style.display="block";loadOrders();loadFeedbacks();loadProducts();
+ if(adminUser.value.trim().toLowerCase()==="admin" && adminPass.value.trim()==="yogi19001"){
+  closePopup();
+  customerPage.style.display="none";
+  adminPage.style.display="block";
+  loadOrders();loadFeedbacks();loadProducts();
  }else alert("Wrong username or password");
 }
-function showWebsite(){adminPage.style.display="none";customerPage.style.display="block";loadProducts();loadFeedbacks()}
+
+function showWebsite(){
+ adminPage.style.display="none";
+ customerPage.style.display="block";
+ loadProducts();loadFeedbacks();
+}
 
 async function saveProduct(){
- let name=serviceName.value.trim(),img=serviceImg.value.trim(),status=serviceStatus.value,desc=serviceDesc.value.trim();
- let plans; try{plans=JSON.parse(servicePlans.value)}catch(e){alert("Plans JSON wrong");return}
+ let name=serviceName.value.trim();
+ let img=serviceImg.value.trim();
+ let status=serviceStatus.value;
+ let desc=serviceDesc.value.trim();
+ let plans;
+
+ try{plans=JSON.parse(servicePlans.value)}
+ catch(e){alert("Plans JSON wrong. Example: [{\"name\":\"1 Month ₹150\",\"stock\":\"in\"}]");return}
+
+ if(!name||!img||!desc||!Array.isArray(plans)){alert("Fill all product fields correctly");return}
+
+ let error;
  if(editId){
-  await db.from("products").update({name,img,status,desc,plans}).eq("id",editId); editId=null;
- }else await db.from("products").insert([{name,img,status,desc,plans}]);
- serviceName.value=serviceImg.value=serviceDesc.value=servicePlans.value=""; serviceStatus.value="in"; loadProducts();
+  ({error}=await db.from("products").update({name,img,status,desc,plans}).eq("id",editId));
+  editId=null;
+ }else{
+  ({error}=await db.from("products").insert([{name,img,status,desc,plans}]));
+ }
+ if(error){alert("Product save error: "+error.message);return}
+
+ serviceName.value="";serviceImg.value="";serviceDesc.value="";servicePlans.value="";serviceStatus.value="in";
+ loadProducts();
 }
+
 function renderAdminProducts(){
- adminProducts.innerHTML=services.map((s,i)=>`<div class="adminCard"><h3>${s.name}</h3><img src="${s.img}" class="adminImg" onclick="quickImage(${i})"><p>${s.status}</p><button onclick="editProduct(${i})">Edit</button><button class="red" onclick="deleteProduct(${s.id})">Delete</button></div>`).join("");
+ adminProducts.innerHTML=services.map((s,i)=>`
+ <div class="adminCard">
+  <h3>${s.name}</h3>
+  <img src="${s.img}" class="adminImg" onclick="quickImage(${i})">
+  <p style="color:#7b2cff;font-weight:900">Tap image to change</p>
+  <p><b>Status:</b> ${s.status}</p>
+  <p><b>Plans:</b><br>${(Array.isArray(s.plans)?s.plans:[]).map(p=>`${p.name} - ${p.stock}`).join("<br>")}</p>
+  <button onclick="editProduct(${i})">Edit</button>
+  <button class="red" onclick="deleteProduct(${s.id})">Delete</button>
+ </div>`).join("");
 }
-function editProduct(i){let s=services[i];editId=s.id;serviceName.value=s.name;serviceImg.value=s.img;serviceStatus.value=s.status;serviceDesc.value=s.desc;servicePlans.value=JSON.stringify(s.plans,null,2);adminPage.scrollIntoView()}
-async function deleteProduct(id){if(!id)return alert("Default product cannot delete from DB");if(confirm("Delete product?")){await db.from("products").delete().eq("id",id);loadProducts()}}
-function adminUploadImage(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=x=>serviceImg.value=x.target.result;r.readAsDataURL(f)}
-function quickImage(i){quickId=i;quickImgInput.click()}
-async function saveQuickImage(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=async x=>{let s=services[quickId];if(s.id){await db.from("products").update({img:x.target.result}).eq("id",s.id);loadProducts()}};r.readAsDataURL(f)}
+
+function editProduct(i){
+ let s=services[i];
+ editId=s.id;
+ serviceName.value=s.name||"";
+ serviceImg.value=s.img||"";
+ serviceStatus.value=s.status||"in";
+ serviceDesc.value=s.desc||"";
+ servicePlans.value=JSON.stringify(s.plans||[],null,2);
+ adminPage.scrollIntoView();
+}
+
+async function deleteProduct(id){
+ if(!confirm("Delete product?"))return;
+ const {error}=await db.from("products").delete().eq("id",id);
+ if(error){alert("Delete product error: "+error.message);return}
+ loadProducts();
+}
+
+function adminUploadImage(e){
+ let f=e.target.files[0]; if(!f)return;
+ let r=new FileReader();
+ r.onload=x=>serviceImg.value=x.target.result;
+ r.readAsDataURL(f);
+}
+
+function quickImage(i){
+ quickId=i;
+ quickImgInput.click();
+}
+
+async function saveQuickImage(e){
+ let f=e.target.files[0]; if(!f)return;
+ let r=new FileReader();
+ r.onload=async x=>{
+  let s=services[quickId];
+  const {error}=await db.from("products").update({img:x.target.result}).eq("id",s.id);
+  if(error){alert("Image update error: "+error.message);return}
+  alert("Image changed successfully");
+  loadProducts();
+ };
+ r.readAsDataURL(f);
+}
 
 async function loadOrders(){
- let {data}=await db.from("orders").select("*").order("id",{ascending:false});
- adminOrders.innerHTML=(data||[]).map(o=>`<div class="adminCard"><b>${o.name}</b><br>${o.email||""}<br>${o.phone||""}<br>${o.product||""}<br><button class="red" onclick="deleteOrder(${o.id})">Delete Order</button></div>`).join("");
+ const {data,error}=await db.from("orders").select("*").order("id",{ascending:false});
+ if(error){adminOrders.innerHTML="Orders error: "+error.message;return}
+ adminOrders.innerHTML=(data||[]).map(o=>`
+ <div class="adminCard">
+  <b>Order #${o.id}</b><br>
+  <b>Name:</b> ${o.name||""}<br>
+  <b>Email:</b> ${o.email||""}<br>
+  <b>Phone:</b> ${o.phone||""}<br>
+  <b>Product:</b> ${o.product||""}<br>
+  <button class="red" onclick="deleteOrder(${o.id})">Delete Order</button>
+ </div>`).join("");
 }
-async function deleteOrder(id){if(confirm("Delete order?")){await db.from("orders").delete().eq("id",id);loadOrders()}}
+
+async function deleteOrder(id){
+ if(!confirm("Delete order?"))return;
+ const {error}=await db.from("orders").delete().eq("id",id);
+ if(error){alert("Delete order error: "+error.message);return}
+ loadOrders();
+}
+
 function renderAdminFeedback(){
- adminFeedback.innerHTML=feedbacks.map(f=>`<div class="adminCard"><b>${f.name}</b> ${stars(f.rating)} ${f.rating}/5<p>${f.feedback}</p><button class="red" onclick="deleteFeedback(${f.id})">Delete Feedback</button></div>`).join("");
+ adminFeedback.innerHTML=feedbacks.map(f=>`
+ <div class="adminCard">
+  <b>${f.name}</b><br>
+  <small>${f.product||""}</small>
+  <div class="stars">${stars(f.rating)} ${f.rating}/5</div>
+  <p>${f.feedback||""}</p>
+  <button class="red" onclick="deleteFeedback(${f.id})">Delete Feedback</button>
+ </div>`).join("");
 }
-async function deleteFeedback(id){if(confirm("Delete feedback?")){await db.from("feedback").delete().eq("id",id);loadFeedbacks()}}
-function openLegal(t){popupTitle.innerText=t;popupContent.innerHTML="<p>Customer data is used only for order activation and support.</p>";mainPopup.style.display="flex"}
+
+async function deleteFeedback(id){
+ if(!confirm("Delete feedback?"))return;
+ const {error}=await db.from("feedback").delete().eq("id",id);
+ if(error){alert("Delete feedback error: "+error.message);return}
+ loadFeedbacks();
+}
+
 function safe(t){return String(t).replace(/'/g,"\\'")}
+loadProducts();
+loadFeedbacks();
 </script>
 
 </body>
