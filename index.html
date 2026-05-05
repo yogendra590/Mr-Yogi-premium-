@@ -1,55 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MR.YOGI PREMIUM – OTT & AI Subscriptions</title>
-<meta name="description" content="Premium OTT, AI and software subscriptions at best price. Instant activation and trusted support.">
-<meta name="keywords" content="Netflix, Prime Video, ChatGPT Plus, OTT subscription, AI tools, MR YOGI PREMIUM">
+<meta name="description" content="Premium OTT, AI and software subscriptions at best price. Instant activation, trusted support and premium plans.">
+<meta name="keywords" content="MR YOGI PREMIUM, Netflix, Prime Video, ChatGPT Plus, OTT subscriptions, AI tools, software deals">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box}
-body{font-family:Arial;margin:0;background:#f7f2ff;color:#24113d}
-.banner{background:linear-gradient(90deg,#7b2cff,#ff4fd8);color:#fff;font-weight:900;padding:10px;overflow:hidden;white-space:nowrap}
+body{margin:0;font-family:Arial,sans-serif;background:#f7f2ff;color:#24113d}
+.banner{background:linear-gradient(90deg,#7b2cff,#ff4fd8);color:white;font-weight:900;padding:10px;overflow:hidden;white-space:nowrap}
 .banner span{display:inline-block;padding-left:100%;animation:marquee 14s linear infinite}
 @keyframes marquee{100%{transform:translateX(-100%)}}
-header{background:#fff;text-align:center;padding:16px;box-shadow:0 5px 18px #eadcff;position:sticky;top:0;z-index:10}
+header{background:white;text-align:center;padding:16px;box-shadow:0 5px 18px #eadcff;position:sticky;top:0;z-index:10}
 .logo{font-size:25px;font-weight:900;color:#7b2cff}
-.hero{text-align:center;padding:35px 15px;background:linear-gradient(135deg,#fff,#eadcff)}
+.hero{text-align:center;padding:40px 15px;background:linear-gradient(135deg,#fff,#eadcff)}
 .hero h1{font-size:30px}
-.badge{display:inline-block;background:#fff;color:#7b2cff;padding:9px 14px;border-radius:20px;margin:5px;font-weight:900}
+.badge{display:inline-block;background:white;color:#7b2cff;padding:9px 14px;border-radius:20px;margin:5px;font-weight:900}
 .section{padding:20px}
 .title{text-align:center;color:#7b2cff;font-size:28px}
 .search{width:92%;max-width:430px;display:block;margin:10px auto 24px;padding:13px;border-radius:25px;border:1px solid #d4b8ff}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;max-width:1200px;margin:auto}
-.card,.box{background:#fff;border-radius:24px;padding:18px;text-align:center;box-shadow:0 8px 25px rgba(123,44,255,.15)}
-.card{max-width:260px;width:100%;margin:auto;min-height:285px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.card,.box{background:white;border-radius:24px;padding:18px;text-align:center;box-shadow:0 8px 25px rgba(123,44,255,.15);animation:fadeUp .5s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.card{max-width:260px;width:100%;margin:auto;min-height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.card:hover{transform:translateY(-6px) scale(1.02);transition:.25s}
 .card img{width:78px;height:78px;object-fit:contain;background:#f1e7ff;border-radius:16px;padding:8px}
 .card h3{color:#7b2cff;font-size:21px}
-button{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:#fff;border:0;padding:10px 14px;border-radius:25px;margin:5px;font-weight:900;cursor:pointer}
+button{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:white;border:0;padding:11px 15px;border-radius:25px;margin:5px;font-weight:900;cursor:pointer}
+button:hover{transform:scale(1.04)}
 button:disabled{opacity:.5;cursor:not-allowed}
 .green{background:#25D366}.red{background:#ff3333}
 .inStock,.outStock{padding:8px 12px;border-radius:18px;font-weight:900}
 .inStock{background:#e7fff1;color:#0b9b4b}.outStock{background:#ffe8e8;color:#d10000}
-@media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr);gap:14px}.card{padding:14px}.card h3{font-size:19px}}
+@media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr);gap:14px}.card{padding:14px}.card h3{font-size:19px}button{font-size:13px;padding:10px 12px}}
 .popup{display:none;position:fixed;inset:0;background:#0009;align-items:center;justify-content:center;z-index:99;padding:15px}
-.popupBox{background:#fff;border-radius:22px;padding:22px;width:95%;max-width:500px;max-height:90vh;overflow:auto;text-align:center}
+.popupBox{background:white;border-radius:22px;padding:22px;width:95%;max-width:500px;max-height:90vh;overflow:auto;text-align:center;animation:pop .25s ease}
+@keyframes pop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
 input,textarea,select{width:100%;padding:12px;margin:8px 0;border:1px solid #d4b8ff;border-radius:12px}
 textarea{min-height:90px}
 .planBtn{width:100%;background:#f0e6ff;color:#24113d;border:1px solid #d4b8ff;border-radius:14px}
 .why{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;max-width:1000px;margin:auto}
-.why div{background:linear-gradient(135deg,#7b2cff,#b388ff);color:#fff;padding:20px;border-radius:18px;text-align:center;font-size:28px;font-weight:900}
+.why div{background:linear-gradient(135deg,#7b2cff,#b388ff);color:white;padding:20px;border-radius:18px;text-align:center;font-size:28px;font-weight:900}
 .why h3{font-size:14px}
 .feedbackCard,.adminCard{background:#f7f2ff;border:1px solid #eadcff;border-radius:16px;padding:14px;margin:10px 0;text-align:left}
 .stars,#overallRating{color:#ffb400;font-weight:900;font-size:20px}
 #overallRating{background:#fff3cd;color:#24113d;display:inline-block;padding:9px 16px;border-radius:22px;margin:10px}
 .admin{display:none;background:#fbf8ff;padding:20px}
 .adminImg{width:80px;height:80px;object-fit:contain;background:#f1e7ff;border-radius:14px;padding:8px;cursor:pointer}
-.contact{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:#fff;max-width:430px;margin:30px auto;padding:25px;border-radius:25px;text-align:center}
-.contact a,.floatWA{background:#25D366;color:#fff;text-decoration:none;font-weight:900;border-radius:30px;padding:13px 20px;display:inline-block}
+.contact{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:white;max-width:430px;margin:30px auto;padding:25px;border-radius:25px;text-align:center}
+.contact a,.floatWA{background:#25D366;color:white;text-decoration:none;font-weight:900;border-radius:30px;padding:13px 20px;display:inline-block}
 .floatWA{position:fixed;right:15px;bottom:20px;z-index:999}
-footer{background:#fff;padding:25px;margin-top:20px;text-align:center}
-.thank{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;color:#7b2cff;padding:22px 28px;border-radius:22px;box-shadow:0 15px 35px #0005;z-index:9999;font-weight:900}
+footer{background:white;padding:25px;margin-top:20px;text-align:center}
+.thank{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;color:#7b2cff;padding:22px 28px;border-radius:22px;box-shadow:0 15px 35px #0005;z-index:9999;font-weight:900}
 </style>
 </head>
 
@@ -59,9 +64,9 @@ footer{background:#fff;padding:25px;margin-top:20px;text-align:center}
 <header><div class="logo">MR.YOGI PREMIUM</div></header>
 
 <section class="hero">
-<h1>India’s No.1 OTT & AI Store</h1>
-<p>Premium subscriptions at best prices with instant activation and trusted support.</p>
-<span class="badge">Since 2024</span><span class="badge">100+ Happy Clients</span><span class="badge">24×7 Support</span>
+<h1>Full Mobile + Laptop Perfect Premium Store</h1>
+<p>OTT • AI • Software subscriptions with smooth UI, animations, WhatsApp invoice and admin panel.</p>
+<span class="badge">Since 2024</span><span class="badge">1000+ Happy Clients</span><span class="badge">24×7 Support</span>
 </section>
 
 <section class="section" id="customerPage">
@@ -89,9 +94,7 @@ footer{background:#fff;padding:25px;margin-top:20px;text-align:center}
 <input id="fbProduct" placeholder="Product Name Optional">
 <select id="fbRating">
 <option value="5">⭐⭐⭐⭐⭐ 5/5</option>
-<option value="4.5">⭐⭐⭐⭐✨ 4.5/5</option>
 <option value="4">⭐⭐⭐⭐ 4/5</option>
-<option value="3.5">⭐⭐⭐✨ 3.5/5</option>
 <option value="3">⭐⭐⭐ 3/5</option>
 <option value="2">⭐⭐ 2/5</option>
 <option value="1">⭐ 1/5</option>
@@ -117,13 +120,13 @@ footer{background:#fff;padding:25px;margin-top:20px;text-align:center}
 <input id="serviceImg" placeholder="Image URL">
 <input type="file" id="adminImageFile" accept="image/*" onchange="adminUploadImage(event)">
 <select id="serviceStatus"><option value="in">Product In Stock</option><option value="out">Product Out of Stock</option></select>
-<textarea id="serviceDesc" placeholder="Description"></textarea>
+<textarea id="serviceDesc" placeholder="Plan Details / Description"></textarea>
 <textarea id="servicePlans" placeholder='Plans JSON:
 [{"name":"1 Month ₹150","stock":"in"},{"name":"3 Months ₹399","stock":"out"}]'></textarea>
 <button onclick="saveProduct()">Save / Update Product</button>
 <button class="green" onclick="showWebsite()">Back Website</button>
 
-<h3>Orders</h3>
+<h3>🛒 Orders Table</h3>
 <button onclick="loadOrders()">Refresh Orders</button>
 <div id="adminOrders"></div>
 
@@ -185,21 +188,21 @@ function renderWebsite(){
    <img src="${s.img}" onerror="this.src='https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=MR.YOGI'">
    <h3>${s.name}</h3>
    <span class="${out?'outStock':'inStock'}">${out?'Out of Stock':'In Stock'}</span><br>
-   <button onclick="showDesc(${i})">Description</button>
-   <button ${out?'disabled':`onclick="showPlans(${i})"`}>${out?'Unavailable':'Choose Plan'}</button>
+   <button onclick="showDesc(${i})">Plan Details</button>
+   <button ${out?'disabled':`onclick="showPlans(${i})"`}>${out?'Unavailable':'Order Now'}</button>
   </div>`;
  }).join("");
 }
 
 function showDesc(i){
- popupTitle.innerText=services[i].name;
+ popupTitle.innerText=services[i].name+" Plan Details";
  popupContent.innerHTML=`<p style="text-align:left;line-height:1.7">${services[i].desc||""}</p>`;
  mainPopup.style.display="flex";
 }
 
 function showPlans(i){
  let s=services[i],plans=Array.isArray(s.plans)?s.plans:[];
- popupTitle.innerText=s.name+" Plans";
+ popupTitle.innerText=s.name+" - Order Now";
  popupContent.innerHTML=plans.map(p=>{
   let out=p.stock==="out";
   return `<button class="planBtn" ${out?'disabled':`onclick="openOrder('${safe(s.name)}','${safe(p.name)}')"`}>
@@ -211,7 +214,7 @@ function showPlans(i){
 
 function openOrder(service,plan){
  selectedService=service; selectedPlan=plan;
- popupTitle.innerText="Complete Your Order";
+ popupTitle.innerText="Order Now";
  popupContent.innerHTML=`
  <p><b>PRODUCT:</b> ${service}<br><b>PLAN:</b> ${plan}</p>
  <input id="custName" placeholder="Name">
@@ -359,7 +362,7 @@ function renderAdminProducts(){
  <div class="adminCard">
   <h3>${s.name}</h3>
   <img src="${s.img}" class="adminImg" onclick="quickImage(${i})">
-  <p style="color:#7b2cff;font-weight:900">Tap image to change</p>
+  <p style="color:#7b2cff;font-weight:900">Admin Only: Tap image to change</p>
   <p><b>Status:</b> ${s.status}</p>
   <p><b>Plans:</b><br>${(Array.isArray(s.plans)?s.plans:[]).map(p=>`${p.name} - ${p.stock}`).join("<br>")}</p>
   <button onclick="editProduct(${i})">Edit</button>
