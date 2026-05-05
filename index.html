@@ -3,695 +3,282 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>MR.YOGI PREMIUM – OTT & AI Subscriptions at Best Price</title>
-<meta name="description" content="Buy Netflix, Prime Video, JioHotstar, SonyLIV, ZEE5, YouTube Premium, ChatGPT Plus, Adobe and AI tools at best price in India. Instant activation, trusted support and premium subscription deals.">
-<meta name="keywords" content="MR YOGI PREMIUM, OTT subscription India, Netflix cheap India, Prime Video low price, JioHotstar cheap, YouTube Premium cheap, ChatGPT Plus cheap, AI tools subscription, software deals India">
-<meta name="author" content="MR.YOGI PREMIUM">
-
+<title>MR.YOGI PREMIUM – OTT & AI Subscriptions</title>
+<meta name="description" content="Buy OTT, AI and software subscriptions at best price. Instant activation and trusted support.">
+<meta name="keywords" content="Netflix, Prime Video, ChatGPT Plus, OTT subscription, AI tools, MR YOGI PREMIUM">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
 body{font-family:Arial,sans-serif;background:#f7f2ff;margin:0;color:#24113d}
-
-.offerBanner{background:linear-gradient(90deg,#7b2cff,#ff4fd8);color:white;font-weight:900;padding:10px 0;overflow:hidden;white-space:nowrap}
-.offerBanner span{display:inline-block;padding-left:100%;animation:marquee 14s linear infinite}
-@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
-
-header{background:white;padding:15px;text-align:center;box-shadow:0 5px 18px rgba(120,60,190,.18);position:sticky;top:0;z-index:50}
-.logoBox{font-size:24px;font-weight:900;color:#7b2cff;letter-spacing:.5px}
-
-button{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:white;border:0;padding:10px 13px;border-radius:25px;margin:5px;font-weight:900;cursor:pointer;font-size:13px;transition:.25s}
-button:hover{transform:scale(1.04);box-shadow:0 8px 20px rgba(123,44,255,.25)}
-button:disabled{opacity:.55;cursor:not-allowed;box-shadow:none}
-
-.hero{text-align:center;padding:48px 15px;background:linear-gradient(135deg,#fff,#eadcff)}
-.hero h1{font-size:30px;margin-bottom:8px;color:#24113d}
-.hero p{max-width:760px;margin:10px auto;line-height:1.6;color:#4d3b63}
-.tagline{color:#7b2cff;font-weight:900;font-size:19px}
-.joinBtn{display:inline-block;background:#25D366;color:white;padding:13px 22px;border-radius:30px;text-decoration:none;font-weight:900;margin-top:12px;box-shadow:0 8px 22px rgba(37,211,102,.28)}
-.trustRow{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
-.trustBadge{background:white;color:#7b2cff;padding:9px 14px;border-radius:22px;font-weight:900;box-shadow:0 6px 16px rgba(123,44,255,.12);font-size:13px}
-
+.banner{background:linear-gradient(90deg,#7b2cff,#ff4fd8);color:white;font-weight:900;padding:10px;overflow:hidden;white-space:nowrap}
+.banner span{display:inline-block;padding-left:100%;animation:move 14s linear infinite}
+@keyframes move{100%{transform:translateX(-100%)}}
+header{background:white;text-align:center;padding:16px;box-shadow:0 5px 18px #eadcff;position:sticky;top:0;z-index:10}
+.logo{font-size:24px;font-weight:900;color:#7b2cff}
+.hero{text-align:center;padding:42px 15px;background:linear-gradient(135deg,#fff,#eadcff)}
+.hero h1{font-size:30px}
+.badges span{background:white;color:#7b2cff;padding:9px 14px;border-radius:20px;margin:5px;display:inline-block;font-weight:900}
 .section{padding:20px}
-.title{text-align:center;color:#7b2cff;font-size:28px;font-weight:900}
-.searchBox{width:92%;max-width:430px;margin:10px auto 25px;display:block;padding:13px;border-radius:25px;border:1px solid #d4b8ff;box-shadow:0 5px 15px rgba(0,0,0,.1)}
-
-.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;max-width:1200px;margin:auto}
-.card,.boxCard{background:white;border-radius:24px;padding:18px;text-align:center;box-shadow:0 8px 25px rgba(123,44,255,.15)}
-.card{transition:.3s;max-width:260px;margin:auto;width:100%;min-height:285px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.card:hover{transform:translateY(-6px) scale(1.02)}
-.card img{width:75px;height:75px;object-fit:contain;border-radius:16px;background:#f1e7ff;padding:8px;margin-bottom:10px}
-.card h3{font-size:21px;color:#7b2cff;margin:10px 0}
-.statusBadge{display:inline-block;padding:8px 12px;border-radius:20px;font-weight:900;margin:8px 0 10px;font-size:12px}
-.inStock{background:#e7fff1;color:#0b9b4b}
-.outStock{background:#ffe8e8;color:#d10000}
-
-@media(max-width:600px){
-  .plans{grid-template-columns:repeat(2,1fr);gap:14px}
-  .card{padding:15px;min-height:275px}
-  .card img{width:70px;height:70px}
-  .card h3{font-size:20px}
-  button{padding:10px 12px;font-size:13px}
-}
-
-.whyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;max-width:1000px;margin:auto}
-.whyCard{background:linear-gradient(135deg,#7b2cff,#b388ff);color:white;padding:20px;border-radius:18px;text-align:center;font-size:28px;font-weight:900;box-shadow:0 10px 25px rgba(123,44,255,.3)}
-.whyCard h3{font-size:14px;margin-top:10px}
-
+.title{text-align:center;color:#7b2cff;font-size:28px}
+.search{width:92%;max-width:430px;display:block;margin:10px auto 24px;padding:13px;border-radius:25px;border:1px solid #d4b8ff}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;max-width:1200px;margin:auto}
+.card,.box{background:white;border-radius:24px;padding:18px;text-align:center;box-shadow:0 8px 25px rgba(123,44,255,.15)}
+.card{max-width:260px;width:100%;margin:auto;min-height:285px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.card img{width:75px;height:75px;object-fit:contain;background:#f1e7ff;border-radius:16px;padding:8px}
+.card h3{color:#7b2cff;font-size:21px}
+button{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:white;border:0;padding:10px 14px;border-radius:25px;margin:5px;font-weight:900;cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}
+.green{background:#25D366}.red{background:#ff3333}
+.inStock{background:#e7fff1;color:#0b9b4b;padding:8px 12px;border-radius:18px;font-weight:900}
+.outStock{background:#ffe8e8;color:#d10000;padding:8px 12px;border-radius:18px;font-weight:900}
+@media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr);gap:14px}.card{padding:14px}.card h3{font-size:19px}}
 .popup{display:none;position:fixed;inset:0;background:#0009;align-items:center;justify-content:center;z-index:99;padding:15px}
-.popupBox{background:white;border-radius:22px;padding:22px;width:95%;max-width:480px;max-height:90vh;overflow:auto;text-align:center;color:#24113d;box-shadow:0 20px 40px rgba(0,0,0,.25)}
-
-input,textarea,select{width:100%;padding:12px;margin:8px 0;border:1px solid #d4b8ff;border-radius:12px;outline:none}
-input:focus,textarea:focus,select:focus{border-color:#7b2cff;box-shadow:0 0 0 3px rgba(123,44,255,.08)}
+.popupBox{background:white;border-radius:22px;padding:22px;width:95%;max-width:500px;max-height:90vh;overflow:auto;text-align:center}
+input,textarea,select{width:100%;padding:12px;margin:8px 0;border:1px solid #d4b8ff;border-radius:12px}
 textarea{min-height:90px}
-
-.planBtn{display:block;width:100%;background:#f0e6ff;color:#24113d;border:1px solid #d4b8ff;margin:8px 0;border-radius:14px;text-align:center}
-.planBtn:hover{background:#7b2cff;color:white}
-.green{background:#25D366}
-.red{background:#ff3333}
-
-.admin{display:none;padding:22px;background:#fbf8ff}
-.adminCard{background:white;border-radius:18px;padding:15px;margin:12px 0;box-shadow:0 5px 18px #eadcff}
-.adminImg{width:80px;height:80px;object-fit:contain;cursor:pointer;background:#f1e7ff;padding:8px;border-radius:14px}
-
-.feedbackCard{background:linear-gradient(135deg,#ffffff,#f4eaff);border:1px solid #eadcff;border-radius:18px;padding:16px;margin:12px 0;text-align:left;box-shadow:0 8px 20px rgba(123,44,255,.12)}
-.feedbackCard b{color:#7b2cff;font-size:17px}
-.feedbackCard small{color:#555;font-weight:700}
-.stars{color:#ffb400;font-size:22px;margin:8px 0}
-#overallRating{background:linear-gradient(135deg,#fff3cd,#fff);color:#24113d;display:inline-block;padding:10px 18px;border-radius:25px;box-shadow:0 8px 20px rgba(0,0,0,.12);font-weight:900;margin:10px 0 18px}
-
-.thankPopup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;color:#7b2cff;padding:22px 28px;border-radius:22px;box-shadow:0 15px 35px rgba(0,0,0,.25);font-weight:900;font-size:20px;display:none;z-index:99999;text-align:center}
-
-.contactBox{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:white;max-width:430px;margin:30px auto;padding:25px;border-radius:25px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.2)}
-.contactBox a{background:white;color:#7b2cff;padding:12px 20px;border-radius:25px;text-decoration:none;font-weight:900;display:inline-block;margin-top:10px}
-.floatWhatsApp{position:fixed;right:16px;bottom:20px;background:#25D366;color:white;padding:14px 18px;border-radius:50px;text-decoration:none;font-weight:900;box-shadow:0 8px 25px rgba(37,211,102,.35);z-index:9999}
-
-footer{display:flex;justify-content:space-between;flex-wrap:wrap;background:white;padding:25px;margin-top:20px}
-.footerLeft h3{color:#7b2cff}
-.footerLeft p{cursor:pointer;color:#7b2cff;margin:8px 0;font-weight:700}
-.footerRight{max-width:350px;color:#555;font-weight:600}
-.couponBox{background:white;border:1px solid #eadcff;border-radius:18px;padding:15px;margin-top:20px}
-.adminBtnBox{text-align:center;padding:15px}
+.planBtn{width:100%;background:#f0e6ff;color:#24113d;border:1px solid #d4b8ff;border-radius:14px}
+.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;max-width:1000px;margin:auto}
+.why div{background:linear-gradient(135deg,#7b2cff,#b388ff);color:white;padding:20px;border-radius:18px;text-align:center;font-size:28px;font-weight:900}
+.why h3{font-size:14px}
+.feedbackCard,.adminCard{background:#f7f2ff;border:1px solid #eadcff;border-radius:16px;padding:14px;margin:10px 0;text-align:left}
+.stars,#overallRating{color:#ffb400;font-weight:900;font-size:20px}
+#overallRating{background:#fff3cd;color:#24113d;display:inline-block;padding:9px 16px;border-radius:22px;margin:10px}
+.admin{display:none;background:#fbf8ff;padding:20px}
+.adminImg{width:80px;height:80px;object-fit:contain;background:#f1e7ff;border-radius:14px;padding:8px;cursor:pointer}
+.contact{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:white;max-width:430px;margin:30px auto;padding:25px;border-radius:25px;text-align:center}
+.contact a,.floatWA{background:#25D366;color:white;text-decoration:none;font-weight:900;border-radius:30px;padding:13px 20px;display:inline-block}
+.floatWA{position:fixed;right:15px;bottom:20px;z-index:999}
+footer{background:white;padding:25px;margin-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap}
+.thank{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;color:#7b2cff;padding:22px 28px;border-radius:22px;box-shadow:0 15px 35px #0005;z-index:9999;font-weight:900}
 </style>
 </head>
-
 <body>
 
-<div class="offerBanner">
-  <span>WELCOME TO MR.YOGI PREMIUM — Premium OTT • AI • Software Deals | Instant Activation</span>
-</div>
-
-<header>
-  <div class="logoBox">MR.YOGI PREMIUM</div>
-</header>
+<div class="banner"><span>WELCOME TO MR.YOGI PREMIUM — Premium OTT • AI • Software Deals | Instant Activation</span></div>
+<header><div class="logo">MR.YOGI PREMIUM</div></header>
 
 <section class="hero">
-  <h1>MR.YOGI PREMIUM – India’s No 1 OTT & AI Store</h1>
-  <div class="tagline">Premium OTT • AI • Software Subscriptions</div>
-  <p>Buy Netflix, Prime Video, JioHotstar, YouTube Premium, Adobe, ChatGPT Plus and AI tools at best prices with instant activation, trusted support and premium service.</p>
-  <a class="joinBtn" href="https://chat.whatsapp.com/EcUM0d0ipZVFCvzjCtPrlE" target="_blank">Join WhatsApp Group</a>
-  <div class="trustRow">
-    <span class="trustBadge">100+ Happy Clients</span>
-    <span class="trustBadge">Since 2024</span>
-    <span class="trustBadge">24×7 Support</span>
-  </div>
+<h1>India’s No.1 OTT & AI Store</h1>
+<p>Premium OTT, AI and software subscriptions at best prices with instant activation and trusted support.</p>
+<div class="badges"><span>Since 2024</span><span>100+ Happy Clients</span><span>24×7 Support</span></div>
 </section>
 
 <section class="section" id="customerPage">
-  <h2 class="title">All Premium Plans</h2>
-  <input class="searchBox" id="searchBox" placeholder="Search products..." onkeyup="searchProducts()">
-  <div class="plans" id="plansArea"></div>
+<h2 class="title">All Premium Plans</h2>
+<input class="search" id="searchBox" placeholder="Search products..." onkeyup="searchProducts()">
+<div class="grid" id="plansArea"></div>
 </section>
 
 <section class="section">
-  <h2 class="title">WHY CHOOSE US</h2>
-  <div class="whyGrid">
-    <div class="whyCard">⚡<h3>Instant Activation</h3></div>
-    <div class="whyCard">💬<h3>24×7 Support</h3></div>
-    <div class="whyCard">🔐<h3>Safe & Secure</h3></div>
-    <div class="whyCard">🚀<h3>Fast Delivery</h3></div>
-    <div class="whyCard">💎<h3>Premium Quality</h3></div>
-  </div>
+<h2 class="title">WHY CHOOSE US</h2>
+<div class="why">
+<div>⚡<h3>Instant Activation</h3></div>
+<div>💬<h3>24×7 Support</h3></div>
+<div>🔐<h3>Safe & Secure</h3></div>
+<div>🚀<h3>Fast Delivery</h3></div>
+<div>💎<h3>Premium Quality</h3></div>
+</div>
 </section>
 
 <section class="section">
-  <div class="boxCard">
-    <h2 class="title">Real Feedback from Our Happy Customers</h2>
-    <div id="overallRating">Loading Rating...</div>
-    <p>Discover genuine experiences from clients enjoying our premium subscriptions.</p>
-
-    <input id="fbName" placeholder="Customer Name">
-    <input id="fbProduct" placeholder="Product Name Optional">
-    <select id="fbRating">
-      <option value="5">⭐⭐⭐⭐⭐ 5/5</option>
-      <option value="4.5">⭐⭐⭐⭐✨ 4.5/5</option>
-      <option value="4">⭐⭐⭐⭐ 4/5</option>
-      <option value="3.5">⭐⭐⭐✨ 3.5/5</option>
-      <option value="3">⭐⭐⭐ 3/5</option>
-      <option value="2">⭐⭐ 2/5</option>
-      <option value="1">⭐ 1/5</option>
-    </select>
-    <textarea id="fbText" placeholder="Write feedback"></textarea>
-
-    <button onclick="saveFeedback()">Submit Feedback</button>
-    <div id="feedbackList"></div>
-    <button onclick="toggleFeedback()" id="viewFeedbackBtn">View All Feedback</button>
-  </div>
+<div class="box">
+<h2 class="title">Real Feedback from Our Happy Customers</h2>
+<div id="overallRating">Loading Rating...</div>
+<input id="fbName" placeholder="Customer Name">
+<input id="fbProduct" placeholder="Product Name Optional">
+<select id="fbRating">
+<option value="5">⭐⭐⭐⭐⭐ 5/5</option>
+<option value="4.5">⭐⭐⭐⭐✨ 4.5/5</option>
+<option value="4">⭐⭐⭐⭐ 4/5</option>
+<option value="3.5">⭐⭐⭐✨ 3.5/5</option>
+<option value="3">⭐⭐⭐ 3/5</option>
+<option value="2">⭐⭐ 2/5</option>
+<option value="1">⭐ 1/5</option>
+</select>
+<textarea id="fbText" placeholder="Write feedback"></textarea>
+<button onclick="saveFeedback()">Submit Feedback</button>
+<div id="feedbackList"></div>
+<button onclick="toggleFeedback()" id="viewFeedbackBtn">View All Feedback</button>
+</div>
 </section>
 
-<section class="contactBox">
-  <h2>CONTACT US</h2>
-  <p>For orders, support and activation</p>
-  <a href="https://wa.me/918618388937" target="_blank">Chat on WhatsApp: 8618388937</a>
+<section class="contact">
+<h2>CONTACT US</h2>
+<p>For orders, support and activation</p>
+<a href="https://wa.me/918618388937" target="_blank">WhatsApp: 8618388937</a>
 </section>
-
-<div class="popup" id="loginPopup">
-  <div class="popupBox">
-    <h2>Admin Login</h2>
-    <input id="adminUser" placeholder="Username">
-    <input id="adminPass" type="password" placeholder="Password">
-    <button onclick="adminLogin()">Login</button>
-    <button class="red" onclick="closePopup()">Close</button>
-  </div>
-</div>
-
-<div class="popup" id="mainPopup">
-  <div class="popupBox">
-    <h2 id="popupTitle"></h2>
-    <div id="popupContent"></div>
-    <button class="red" onclick="closePopup()">Close</button>
-  </div>
-</div>
-
-<div class="thankPopup" id="thankPopup">🙏 Thank you for feedback!</div>
 
 <footer>
-  <div class="footerLeft">
-    <h3>Legal</h3>
-    <p onclick="openLegal('Privacy Policy')">Privacy Policy</p>
-    <p onclick="openLegal('Terms of Service')">Terms of Service</p>
-    <p onclick="openLegal('Refund Policy')">Refund Policy</p>
-    <p onclick="openLegal('Security Policy')">Security Policy</p>
-  </div>
-  <div class="footerRight">
-    <p>Premium subscription services with instant activation and trusted support.</p>
-    <p>© 2026 MR.YOGI PREMIUM. All rights reserved.</p>
-  </div>
+<div>
+<h3>Legal</h3>
+<p onclick="openLegal('Privacy Policy')">Privacy Policy</p>
+<p onclick="openLegal('Terms of Service')">Terms of Service</p>
+<p onclick="openLegal('Refund Policy')">Refund Policy</p>
+</div>
+<div><p>© 2026 MR.YOGI PREMIUM. All rights reserved.</p></div>
 </footer>
 
 <section class="admin" id="adminPage">
-  <h2 class="title">Admin Panel</h2>
+<h2 class="title">Admin Panel</h2>
+<input id="serviceName" placeholder="Product Name">
+<input id="serviceImg" placeholder="Image URL">
+<input type="file" id="adminImageFile" accept="image/*" onchange="adminUploadImage(event)">
+<select id="serviceStatus"><option value="in">Product In Stock</option><option value="out">Product Out of Stock</option></select>
+<textarea id="serviceDesc" placeholder="Description"></textarea>
+<textarea id="servicePlans" placeholder='Plans JSON example:
+[{"name":"1 Month ₹150","stock":"in"},{"name":"3 Months ₹399","stock":"out"}]'></textarea>
+<button onclick="saveProduct()">Save / Update Product</button>
+<button class="green" onclick="showWebsite()">Back Website</button>
 
-  <h3>Manage Products</h3>
-  <input id="serviceName" placeholder="Product Name">
-  <input id="serviceImg" placeholder="Image URL">
-  <input type="file" id="adminImageFile" accept="image/*" onchange="adminUploadImage(event)">
-  <select id="serviceStatus">
-    <option value="in">Product In Stock</option>
-    <option value="out">Product Out of Stock</option>
-  </select>
-  <textarea id="serviceDesc" placeholder="Description"></textarea>
-  <textarea id="servicePlans" placeholder="Format:
-1 Month – ₹150 | in
-3 Months – ₹399 | out"></textarea>
-  <button onclick="saveService()">Save / Update Product</button>
-  <button class="green" onclick="showWebsite()">Back Website</button>
-
-  <div class="couponBox">
-    <h3>Manage Coupons</h3>
-    <input id="couponCode" placeholder="Coupon Code">
-    <input id="couponDiscount" placeholder="Discount Text">
-    <button onclick="saveCoupon()">Add Coupon</button>
-    <div id="couponList"></div>
-  </div>
-
-  <h3>Manage Feedback</h3>
-  <div id="adminFeedbackList"></div>
-
-  <h3>Manage Product List</h3>
-  <div id="adminList"></div>
+<h3>Orders</h3><button onclick="loadOrders()">Refresh Orders</button><div id="adminOrders"></div>
+<h3>Feedback</h3><button onclick="loadFeedbacks()">Refresh Feedback</button><div id="adminFeedback"></div>
+<h3>Products</h3><div id="adminProducts"></div>
 </section>
 
-<div class="adminBtnBox">
-  <button type="button" onclick="openLogin()">Admin Panel</button>
-</div>
-
-<a class="floatWhatsApp" href="https://wa.me/918618388937" target="_blank">WhatsApp</a>
+<div style="text-align:center;padding:15px"><button onclick="openLogin()">Admin Panel</button></div>
+<a class="floatWA" href="https://wa.me/918618388937" target="_blank">WhatsApp</a>
 <input type="file" id="quickImgInput" accept="image/*" style="display:none" onchange="saveQuickImage(event)">
+<div class="thank" id="thankPopup">🙏 Thank you for feedback!</div>
+
+<div class="popup" id="loginPopup"><div class="popupBox">
+<h2>Admin Login</h2>
+<input id="adminUser" placeholder="Username">
+<input id="adminPass" type="password" placeholder="Password">
+<button onclick="adminLogin()">Login</button>
+<button class="red" onclick="closePopup()">Close</button>
+</div></div>
+
+<div class="popup" id="mainPopup"><div class="popupBox">
+<h2 id="popupTitle"></h2><div id="popupContent"></div>
+<button class="red" onclick="closePopup()">Close</button>
+</div></div>
 
 <script>
-const number="918618388937";
-const DATA_VERSION="2026-05-05-final-plans-v2";
-let editIndex=null, selectedService="", selectedPlan="", showAllFeedback=false, quickImageIndex=null;
+const supabaseUrl="https://xztufpmubkflgeoioykg.supabase.co";
+const supabaseKey="sb_publishable_iTghesB-67gkTbOjGrhAHQ_a9e5AGR9";
+const db=window.supabase.createClient(supabaseUrl,supabaseKey);
+const waNumber="918618388937";
+let services=[],feedbacks=[],editId=null,quickId=null,selectedService="",selectedPlan="",showAllFeedback=false;
 
-const defaultServices=[
-{name:"Netflix Premium",status:"in",img:"https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",desc:"Premium Netflix streaming with 4K UHD quality, smooth experience and trusted support.",plans:[
-{name:"1 Month – ₹150 | 1 Device | 4K UHD",stock:"in"},
-{name:"3 Months – ₹399 | 1 Device",stock:"out"},
-{name:"6 Months – ₹699 | Best Value",stock:"out"},
-{name:"12 Months – ₹1250 | Maximum Savings",stock:"in"}
-]},
-{name:"Prime Video",status:"in",img:"https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png",desc:"Prime Video HD/4K plans, personal mail and multi-device options available with instant activation.",plans:[
-{name:"1 Month – ₹49 | 1 Device",stock:"in"},
-{name:"3 Months – ₹129 | 1 Device",stock:"in"},
-{name:"12 Months – ₹320 | 1 Device",stock:"in"},
-{name:"1 Month – ₹99 | 5 Devices Personal Mail",stock:"in"},
-{name:"Ads-Free 1 Month – ₹129",stock:"in"},
-{name:"6 Months Normal – ₹299",stock:"in"},
-{name:"6 Months Ads-Free – ₹349",stock:"in"}
-]},
-{name:"JioHotstar 1080p",status:"in",img:"https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=JioHotstar",desc:"Full HD 1080p streaming, instant activation, smooth playback for movies, shows and sports.",plans:[
-{name:"1 Month – ₹39",stock:"in"},
-{name:"2 Months – ₹75",stock:"in"},
-{name:"3 Months – ₹110",stock:"in"},
-{name:"6 Months – ₹220",stock:"in"},
-{name:"12 Months – ₹359",stock:"in"}
-]},
-{name:"SonyLIV 4K Premium",status:"in",img:"https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=SonyLIV",desc:"4K premium access, shared and private plans, secure access and smooth streaming.",plans:[
-{name:"1 Month – ₹69 Shared",stock:"in"},
-{name:"3 Months – ₹199 Shared",stock:"in"},
-{name:"6 Months – ₹269 Shared",stock:"in"},
-{name:"12 Months – ₹320 Shared",stock:"in"},
-{name:"12 Months Private – ₹549 On Your Number",stock:"in"}
-]},
-{name:"ZEE5 Full HD",status:"in",img:"https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=ZEE5",desc:"Full HD 1080p streaming, supported devices, instant activation and private number plan available.",plans:[
-{name:"1 Month – ₹49",stock:"in"},
-{name:"3 Months – ₹129",stock:"in"},
-{name:"6 Months – ₹169",stock:"in"},
-{name:"12 Months – ₹210",stock:"in"},
-{name:"12 Months Private – ₹349 On Your Number",stock:"in"}
-]},
-{name:"YouTube Premium",status:"in",img:"https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Premium_logo.png",desc:"Activation on your mail, ad-free YouTube, background play, downloads and YouTube Music.",plans:[
-{name:"1 Month – ₹49 | Activation on Your Mail",stock:"in"},
-{name:"3 Months – ₹179 | Activation on Your Mail",stock:"in"}
-]},
-{name:"ChatGPT Plus",status:"in",img:"https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",desc:"ChatGPT Plus activation on fresh mail with premium AI access and faster responses.",plans:[
-{name:"1 Month – ₹199 | Fresh Mail Activation",stock:"in"}
-]},
-{name:"Adobe Creative Cloud",status:"out",img:"https://upload.wikimedia.org/wikipedia/commons/7/75/Adobe_Creative_Cloud_rainbow_icon.svg",desc:"Original License Pro Plan, 20+ Adobe apps, cloud storage and warranty.",plans:[
-{name:"1 Month – ₹299 | Original License | On Your Mail Activation",stock:"out"}
-]},
-{name:"CapCut Pro",status:"in",img:"https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=CapCut",desc:"CapCut Pro premium access for video editing, reels, shorts and social content.",plans:[
-{name:"365 Days Team Account – Price DM",stock:"in"}
-]},
-{name:"Kapwing AI",status:"in",img:"https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=Kapwing",desc:"AI video editing and content creation tools with private access and full warranty.",plans:[
-{name:"1 Month Private Access – Price DM",stock:"in"}
-]},
-{name:"ElevenLabs Creator",status:"in",img:"https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=11Labs",desc:"ElevenLabs Creator plan with voice generation credits and premium AI voice features.",plans:[
-{name:"1 Month | 131K Credits – ₹999",stock:"in"}
-]},
-{name:"Coursera Plus",status:"in",img:"https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=Coursera",desc:"Coursera Plus premium yearly learning plan with courses and certificates.",plans:[
-{name:"12 Months – ₹1200",stock:"in"}
-]},
-{name:"Microsoft 365",status:"in",img:"https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=Office+365",desc:"Microsoft Office 365 premium access with mail activation and warranty.",plans:[
-{name:"Lifetime on Mail + 1 Year Warranty – Price DM",stock:"in"}
-]},
-{name:"Apify Credits",status:"in",img:"https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=Apify",desc:"Apify credits plan for scraping, automation, API usage and real-time data extraction.",plans:[
-{name:"$600 Credits | 4 Months – Price DM",stock:"in"}
-]},
-{name:"A2E AI",status:"in",img:"https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=A2E+AI",desc:"AI video tools including Nano Banana Pro, Sora, Kling, Veo, voice cloning, TTS and upscaling.",plans:[
-{name:"1 Month | 1800 Credits + 60/day – ₹599",stock:"in"}
-]}
-];
-
-function loadServices(){
-  let savedVersion=localStorage.getItem("mrYogiDataVersion");
-  if(savedVersion!==DATA_VERSION){
-    localStorage.setItem("mrYogiServices",JSON.stringify(defaultServices));
-    localStorage.setItem("mrYogiDataVersion",DATA_VERSION);
-    return JSON.parse(JSON.stringify(defaultServices));
-  }
-  return JSON.parse(localStorage.getItem("mrYogiServices")) || JSON.parse(JSON.stringify(defaultServices));
+async function loadProducts(){
+ let {data,error}=await db.from("products").select("*").order("id",{ascending:true});
+ if(error||!data||data.length===0){
+  services=[
+   {id:null,name:"Netflix Premium",img:"https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",status:"in",desc:"4K UHD streaming, instant activation.",plans:[{name:"1 Month ₹150",stock:"in"},{name:"3 Months ₹399",stock:"out"},{name:"6 Months ₹699",stock:"in"},{name:"12 Months ₹1250",stock:"in"}]},
+   {id:null,name:"Prime Video",img:"https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png",status:"in",desc:"Prime Video HD/4K streaming.",plans:[{name:"1 Month ₹49",stock:"in"},{name:"3 Months ₹129",stock:"in"},{name:"12 Months ₹320",stock:"in"}]},
+   {id:null,name:"ChatGPT Plus",img:"https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",status:"in",desc:"ChatGPT Plus fresh mail activation.",plans:[{name:"1 Month ₹199",stock:"in"}]}
+  ];
+ }else services=data;
+ renderWebsite(); renderAdminProducts();
 }
-
-let services=loadServices();
-let coupons=JSON.parse(localStorage.getItem("mrYogiCoupons")) || [{code:"YOGI10",discount:"₹10 OFF"},{code:"MRPREMIUM",discount:"Special Discount"}];
-let feedbacks=JSON.parse(localStorage.getItem("mrYogiFeedbacks")) || [
-{name:"Yogi",product:"Prime Video",text:"Prime Video plan was activated quickly. Price is very good and support was fast.",rating:"5"},
-{name:"Ravi",product:"Netflix Premium",text:"Fast activation and smooth streaming. Trusted seller.",rating:"5"},
-{name:"Kiran",product:"YouTube Premium",text:"YouTube Premium activated on mail very fast. Good service.",rating:"5"}
-];
-
-function saveData(){localStorage.setItem("mrYogiServices",JSON.stringify(services))}
-function saveCoupons(){localStorage.setItem("mrYogiCoupons",JSON.stringify(coupons))}
-function saveFeedbacks(){localStorage.setItem("mrYogiFeedbacks",JSON.stringify(feedbacks))}
+loadProducts();
 
 function renderWebsite(){
-  let html="";
-  services.forEach((s,i)=>{
-    let out=s.status==="out";
-    html+=`<div class="card">
-      <img src="${s.img}" onerror="this.src='https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=MR.YOGI'">
-      <h3>${s.name}</h3>
-      <span class="statusBadge ${out?'outStock':'inStock'}">${out?'Out of Stock':'In Stock'}</span><br>
-      <button onclick="showDescription(${i})">Description</button>
-      <button ${out?'disabled':`onclick="showPlans(${i})"`}>${out?'Unavailable':'Choose Plan'}</button>
-    </div>`;
-  });
-  document.getElementById("plansArea").innerHTML=html;
-}
-renderWebsite();
-
-function searchProducts(){
-  let q=document.getElementById("searchBox").value.toLowerCase();
-  document.querySelectorAll(".card").forEach(c=>{
-    c.style.display=c.innerText.toLowerCase().includes(q)?"flex":"none";
-  });
+ plansArea.innerHTML=services.map((s,i)=>{
+ let out=s.status==="out";
+ return `<div class="card">
+ <img src="${s.img}" onerror="this.src='https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=MR.YOGI'">
+ <h3>${s.name}</h3>
+ <span class="${out?'outStock':'inStock'}">${out?'Out of Stock':'In Stock'}</span><br>
+ <button onclick="showDesc(${i})">Description</button>
+ <button ${out?'disabled':`onclick="showPlans(${i})"`}>${out?'Unavailable':'Choose Plan'}</button>
+ </div>`;
+ }).join("");
 }
 
-function showDescription(i){
-  let s=services[i];
-  document.getElementById("popupTitle").innerText=s.name+" Description";
-  document.getElementById("popupContent").innerHTML=`<p style="text-align:left;line-height:1.8">${s.desc}</p>`;
-  document.getElementById("mainPopup").style.display="flex";
-}
-
+function showDesc(i){popupTitle.innerText=services[i].name;popupContent.innerHTML=`<p>${services[i].desc||""}</p>`;mainPopup.style.display="flex"}
 function showPlans(i){
-  let s=services[i],html="";
-  document.getElementById("popupTitle").innerText=s.name+" Plans";
-  s.plans.forEach(p=>{
-    let out=p.stock==="out";
-    html+=`<button class="planBtn" ${out?'disabled':`onclick="openOrderForm('${safe(s.name)}','${safe(p.name)}')"`}>
-      ${p.name}<br><small style="color:${out?'red':'green'};font-weight:900">${out?'This plan is out of stock':'Available'}</small>
-    </button>`;
-  });
-  document.getElementById("popupContent").innerHTML=html;
-  document.getElementById("mainPopup").style.display="flex";
+ let s=services[i],plans=Array.isArray(s.plans)?s.plans:[];
+ popupTitle.innerText=s.name+" Plans";
+ popupContent.innerHTML=plans.map(p=>{
+  let out=p.stock==="out";
+  return `<button class="planBtn" ${out?'disabled':`onclick="openOrder('${safe(s.name)}','${safe(p.name)}')"`}>${p.name}<br><small style="color:${out?'red':'green'}">${out?'This plan is out of stock':'Available'}</small></button>`;
+ }).join("");
+ mainPopup.style.display="flex";
+}
+function openOrder(service,plan){
+ selectedService=service; selectedPlan=plan;
+ popupTitle.innerText="Complete Your Order";
+ popupContent.innerHTML=`<p><b>PRODUCT:</b> ${service}<br><b>PLAN:</b> ${plan}</p>
+ <input id="custName" placeholder="Name"><input id="custMail" placeholder="Email"><input id="custNum" placeholder="Phone"><input id="custCoupon" placeholder="Coupon Optional">
+ <button class="green" onclick="sendOrder()">Submit Order</button>`;
+}
+async function sendOrder(){
+ let name=custName.value.trim(),email=custMail.value.trim(),phone=custNum.value.trim();
+ if(!name||!email||!phone){alert("Fill all details");return}
+ await db.from("orders").insert([{name,email,phone,product:selectedService+" - "+selectedPlan}]);
+ let inv="INV"+Date.now().toString().slice(-6),ord="ORD"+Date.now().toString().slice(-6),date=new Date().toLocaleDateString();
+ let msg=`*INVOICE - MR.YOGI PREMIUM*\n\n*DATE:* ${date}\n*INVOICE NO:* ${inv}\n*ORDER ID:* ${ord}\n\n*PRODUCT:* ${selectedService}\n*PLAN:* ${selectedPlan}\n\n*NAME:* ${name}\n*MAIL:* ${email}\n*NUMBER:* ${phone}\n\n*STATUS:* Payment Pending`;
+ window.location.href=`https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
 }
 
-function openOrderForm(service,plan){
-  selectedService=service;
-  selectedPlan=plan;
-  document.getElementById("popupTitle").innerText="Order";
-  document.getElementById("popupContent").innerHTML=`
-    <p><b>PRODUCT:</b> ${service}<br><b>PLAN:</b> ${plan}</p>
-    <input id="custName" placeholder="Name">
-    <input id="custMail" placeholder="Mail">
-    <input id="custNum" placeholder="Number">
-    <input id="custCoupon" placeholder="Coupon">
-    <button class="green" onclick="sendOrder()">Submit</button>`;
+async function loadFeedbacks(){
+ let {data}=await db.from("feedback").select("*").order("id",{ascending:false});
+ feedbacks=data||[]; renderFeedback(); renderAdminFeedback();
 }
+loadFeedbacks();
 
-function sendOrder(){
-  let name=document.getElementById("custName").value.trim();
-  let mail=document.getElementById("custMail").value.trim();
-  let num=document.getElementById("custNum").value.trim();
-  let coupon=document.getElementById("custCoupon").value.trim().toUpperCase();
-
-  if(!name||!mail||!num){
-    alert("Fill all details");
-    return;
-  }
-
-  let couponText="Not Applied";
-  let found=coupons.find(c=>c.code.toUpperCase()===coupon);
-  if(coupon&&found) couponText=found.code+" - "+found.discount;
-  else if(coupon) couponText=coupon+" - Invalid Coupon";
-
-  let orderId="ORD"+Date.now().toString().slice(-6);
-  let invoiceNo="INV"+Date.now().toString().slice(-6);
-  let date=new Date().toLocaleDateString();
-
-  let msg=`*INVOICE - MR.YOGI PREMIUM*
-
-*DATE:* ${date}
-*INVOICE NO:* ${invoiceNo}
-*ORDER ID:* ${orderId}
-
-*PRODUCT:* ${selectedService}
-*PLAN:* ${selectedPlan}
-*COUPON:* ${couponText}
-
-*NAME:* ${name}
-*MAIL:* ${mail}
-*NUMBER:* ${num}
-
-*STATUS:* Payment Pending
-
-Please assist with payment.`;
-
-  window.location.href=`https://wa.me/${number}?text=${encodeURIComponent(msg)}`;
+async function saveFeedback(){
+ let name=fbName.value.trim(),feedback=fbText.value.trim(),rating=Number(fbRating.value),product=fbProduct.value.trim();
+ if(!name||!feedback){alert("Enter name and feedback");return}
+ await db.from("feedback").insert([{name,feedback,rating,product}]);
+ fbName.value="";fbProduct.value="";fbText.value="";fbRating.value="5";
+ thankPopup.style.display="block";setTimeout(()=>thankPopup.style.display="none",1800);
+ loadFeedbacks();
 }
-
-function openLogin(){
-  document.getElementById("loginPopup").style.display="flex";
-}
-
-function closePopup(){
-  document.getElementById("loginPopup").style.display="none";
-  document.getElementById("mainPopup").style.display="none";
-}
-
-function adminLogin(){
-  let user=document.getElementById("adminUser").value.trim().toLowerCase();
-  let pass=document.getElementById("adminPass").value.trim();
-
-  if(user==="admin" && pass==="yogi19001"){
-    closePopup();
-    document.getElementById("customerPage").style.display="none";
-    document.getElementById("adminPage").style.display="block";
-    document.getElementById("adminPage").scrollIntoView({behavior:"smooth"});
-    renderAdmin();
-    renderCoupons();
-    renderAdminFeedback();
-  }else{
-    alert("Wrong username or password");
-  }
-}
-
-function showWebsite(){
-  document.getElementById("adminPage").style.display="none";
-  document.getElementById("customerPage").style.display="block";
-  renderWebsite();
-  renderFeedback();
-}
-
-function adminUploadImage(e){
-  let file=e.target.files[0];
-  if(!file)return;
-  let reader=new FileReader();
-  reader.onload=x=>{document.getElementById("serviceImg").value=x.target.result};
-  reader.readAsDataURL(file);
-}
-
-function quickImageChange(i){
-  quickImageIndex=i;
-  document.getElementById("quickImgInput").click();
-}
-
-function saveQuickImage(e){
-  let file=e.target.files[0];
-  if(!file)return;
-  let reader=new FileReader();
-  reader.onload=x=>{
-    services[quickImageIndex].img=x.target.result;
-    saveData();
-    renderWebsite();
-    renderAdmin();
-    alert("Image changed successfully");
-  };
-  reader.readAsDataURL(file);
-}
-
-function saveService(){
-  let n=document.getElementById("serviceName").value.trim();
-  let img=document.getElementById("serviceImg").value.trim();
-  let status=document.getElementById("serviceStatus").value;
-  let d=document.getElementById("serviceDesc").value.trim();
-
-  let p=document.getElementById("servicePlans").value.split("\n").map(line=>{
-    let a=line.split("|");
-    return {name:a[0]?.trim(),stock:(a[1]?.trim()||"in")};
-  }).filter(x=>x.name);
-
-  if(!n||!img||!d||p.length===0){
-    alert("Fill all fields");
-    return;
-  }
-
-  if(editIndex===null){
-    services.push({name:n,img,status,desc:d,plans:p});
-  }else{
-    services[editIndex]={name:n,img,status,desc:d,plans:p};
-    editIndex=null;
-  }
-
-  saveData();
-  clearForm();
-  renderWebsite();
-  renderAdmin();
-}
-
-function renderAdmin(){
-  document.getElementById("adminList").innerHTML=services.map((s,i)=>`<div class="adminCard">
-    <h3>${s.name}</h3>
-    <img src="${s.img}" class="adminImg" onclick="quickImageChange(${i})">
-    <p style="font-size:12px;color:#7b2cff;font-weight:900">Tap image to change</p>
-    <p><b>Status:</b> ${s.status==="out"?"Out of Stock":"In Stock"}</p>
-    <p><b>Description:</b> ${s.desc}</p>
-    <p><b>Plans:</b><br>${s.plans.map(p=>`${p.name} - ${p.stock==="out"?"Out":"In"}`).join("<br>")}</p>
-    <button onclick="editService(${i})">Edit</button>
-    <button class="red" onclick="deleteService(${i})">Delete</button>
-  </div>`).join("");
-}
-
-function editService(i){
-  editIndex=i;
-  let s=services[i];
-  document.getElementById("serviceName").value=s.name;
-  document.getElementById("serviceImg").value=s.img;
-  document.getElementById("serviceStatus").value=s.status;
-  document.getElementById("serviceDesc").value=s.desc;
-  document.getElementById("servicePlans").value=s.plans.map(p=>`${p.name} | ${p.stock}`).join("\n");
-  document.getElementById("adminPage").scrollIntoView({behavior:"smooth"});
-}
-
-function deleteService(i){
-  if(confirm("Delete this product?")){
-    services.splice(i,1);
-    saveData();
-    renderWebsite();
-    renderAdmin();
-  }
-}
-
-function saveCoupon(){
-  let code=document.getElementById("couponCode").value.trim();
-  let discount=document.getElementById("couponDiscount").value.trim();
-
-  if(!code||!discount){
-    alert("Enter coupon");
-    return;
-  }
-
-  coupons.push({code:code.toUpperCase(),discount});
-  saveCoupons();
-  document.getElementById("couponCode").value="";
-  document.getElementById("couponDiscount").value="";
-  renderCoupons();
-}
-
-function renderCoupons(){
-  document.getElementById("couponList").innerHTML=coupons.map((c,i)=>`<div class="adminCard">
-    <b>${c.code}</b> - ${c.discount}<br>
-    <button class="red" onclick="deleteCoupon(${i})">Delete</button>
-  </div>`).join("");
-}
-
-function deleteCoupon(i){
-  coupons.splice(i,1);
-  saveCoupons();
-  renderCoupons();
-}
-
-function saveFeedback(){
-  let name=document.getElementById("fbName").value.trim();
-  let product=document.getElementById("fbProduct").value.trim();
-  let text=document.getElementById("fbText").value.trim();
-  let rating=document.getElementById("fbRating").value;
-
-  if(!name||!text){
-    alert("Enter name and feedback");
-    return;
-  }
-
-  feedbacks.unshift({name,product:product||"Not Mentioned",text,rating});
-  saveFeedbacks();
-
-  document.getElementById("fbName").value="";
-  document.getElementById("fbProduct").value="";
-  document.getElementById("fbText").value="";
-  document.getElementById("fbRating").value="5";
-
-  renderFeedback();
-
-  document.getElementById("thankPopup").style.display="block";
-  setTimeout(()=>document.getElementById("thankPopup").style.display="none",1800);
-}
-
 function renderFeedback(){
-  let list=showAllFeedback?feedbacks:feedbacks.slice(0,3);
-
-  document.getElementById("feedbackList").innerHTML=list.map(f=>{
-    let rating=Number(f.rating||5);
-    let stars="⭐".repeat(Math.floor(rating))+(rating%1!==0?"✨":"");
-    return `<div class="feedbackCard">
-      <b>${f.name}</b><br>
-      <small>${f.product}</small>
-      <div class="stars">${stars} <b>${rating}/5</b></div>
-      <p>${f.text}</p>
-    </div>`;
-  }).join("");
-
-  document.getElementById("viewFeedbackBtn").style.display=feedbacks.length>3?"inline-block":"none";
-  document.getElementById("viewFeedbackBtn").innerText=showAllFeedback?"Show Less Feedback":"View All Feedback";
-  updateOverallRating();
+ let list=showAllFeedback?feedbacks:feedbacks.slice(0,3);
+ feedbackList.innerHTML=list.map(f=>`<div class="feedbackCard"><b>${f.name}</b><br><small>${f.product||""}</small><div class="stars">${stars(f.rating)} <b>${Number(f.rating||5)}/5</b></div><p>${f.feedback||""}</p></div>`).join("");
+ viewFeedbackBtn.style.display=feedbacks.length>3?"inline-block":"none";
+ viewFeedbackBtn.innerText=showAllFeedback?"Show Less Feedback":"View All Feedback";
+ updateRating();
 }
-
-function toggleFeedback(){
-  showAllFeedback=!showAllFeedback;
-  renderFeedback();
+function toggleFeedback(){showAllFeedback=!showAllFeedback;renderFeedback()}
+function updateRating(){
+ if(!feedbacks.length){overallRating.innerText="No ratings yet";return}
+ let avg=(feedbacks.reduce((a,f)=>a+Number(f.rating||5),0)/feedbacks.length).toFixed(1);
+ overallRating.innerHTML=`${stars(avg)} ${avg}/5 (${feedbacks.length} Reviews)`;
 }
-renderFeedback();
+function stars(r){r=Number(r||5);return "⭐".repeat(Math.floor(r))+(r%1!==0?"✨":"")}
 
-function updateOverallRating(){
-  if(feedbacks.length===0){
-    document.getElementById("overallRating").innerHTML="No ratings yet";
-    return;
-  }
-
-  let total=feedbacks.reduce((sum,f)=>sum+Number(f.rating||5),0);
-  let avg=(total/feedbacks.length).toFixed(1);
-  let stars="⭐".repeat(Math.floor(avg))+(avg%1>=0.5?"✨":"");
-  document.getElementById("overallRating").innerHTML=`${stars} ${avg}/5 (${feedbacks.length} Reviews)`;
+function searchProducts(){let q=searchBox.value.toLowerCase();document.querySelectorAll(".card").forEach(c=>c.style.display=c.innerText.toLowerCase().includes(q)?"flex":"none")}
+function openLogin(){loginPopup.style.display="flex"}
+function closePopup(){loginPopup.style.display="none";mainPopup.style.display="none"}
+function adminLogin(){
+ if(adminUser.value.trim().toLowerCase()==="admin"&&adminPass.value.trim()==="yogi19001"){
+  closePopup();customerPage.style.display="none";adminPage.style.display="block";loadOrders();loadFeedbacks();loadProducts();
+ }else alert("Wrong username or password");
 }
+function showWebsite(){adminPage.style.display="none";customerPage.style.display="block";loadProducts();loadFeedbacks()}
 
+async function saveProduct(){
+ let name=serviceName.value.trim(),img=serviceImg.value.trim(),status=serviceStatus.value,desc=serviceDesc.value.trim();
+ let plans; try{plans=JSON.parse(servicePlans.value)}catch(e){alert("Plans JSON wrong");return}
+ if(editId){
+  await db.from("products").update({name,img,status,desc,plans}).eq("id",editId); editId=null;
+ }else await db.from("products").insert([{name,img,status,desc,plans}]);
+ serviceName.value=serviceImg.value=serviceDesc.value=servicePlans.value=""; serviceStatus.value="in"; loadProducts();
+}
+function renderAdminProducts(){
+ adminProducts.innerHTML=services.map((s,i)=>`<div class="adminCard"><h3>${s.name}</h3><img src="${s.img}" class="adminImg" onclick="quickImage(${i})"><p>${s.status}</p><button onclick="editProduct(${i})">Edit</button><button class="red" onclick="deleteProduct(${s.id})">Delete</button></div>`).join("");
+}
+function editProduct(i){let s=services[i];editId=s.id;serviceName.value=s.name;serviceImg.value=s.img;serviceStatus.value=s.status;serviceDesc.value=s.desc;servicePlans.value=JSON.stringify(s.plans,null,2);adminPage.scrollIntoView()}
+async function deleteProduct(id){if(!id)return alert("Default product cannot delete from DB");if(confirm("Delete product?")){await db.from("products").delete().eq("id",id);loadProducts()}}
+function adminUploadImage(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=x=>serviceImg.value=x.target.result;r.readAsDataURL(f)}
+function quickImage(i){quickId=i;quickImgInput.click()}
+async function saveQuickImage(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=async x=>{let s=services[quickId];if(s.id){await db.from("products").update({img:x.target.result}).eq("id",s.id);loadProducts()}};r.readAsDataURL(f)}
+
+async function loadOrders(){
+ let {data}=await db.from("orders").select("*").order("id",{ascending:false});
+ adminOrders.innerHTML=(data||[]).map(o=>`<div class="adminCard"><b>${o.name}</b><br>${o.email||""}<br>${o.phone||""}<br>${o.product||""}<br><button class="red" onclick="deleteOrder(${o.id})">Delete Order</button></div>`).join("");
+}
+async function deleteOrder(id){if(confirm("Delete order?")){await db.from("orders").delete().eq("id",id);loadOrders()}}
 function renderAdminFeedback(){
-  document.getElementById("adminFeedbackList").innerHTML=feedbacks.map((f,i)=>{
-    let rating=Number(f.rating||5);
-    let stars="⭐".repeat(Math.floor(rating))+(rating%1!==0?"✨":"");
-    return `<div class="adminCard">
-      <b>${f.name}</b> - ${f.product||"Not Mentioned"}
-      <div class="stars">${stars} ${rating}/5</div>
-      <p>${f.text}</p>
-      <button class="red" onclick="deleteFeedback(${i})">Delete Feedback</button>
-    </div>`;
-  }).join("");
+ adminFeedback.innerHTML=feedbacks.map(f=>`<div class="adminCard"><b>${f.name}</b> ${stars(f.rating)} ${f.rating}/5<p>${f.feedback}</p><button class="red" onclick="deleteFeedback(${f.id})">Delete Feedback</button></div>`).join("");
 }
-
-function deleteFeedback(i){
-  if(confirm("Delete this feedback?")){
-    feedbacks.splice(i,1);
-    saveFeedbacks();
-    renderFeedback();
-    renderAdminFeedback();
-  }
-}
-
-function openLegal(type){
-  let text="";
-  if(type==="Privacy Policy") text="Customer name, mail, number and order details are used only for order activation and support.";
-  if(type==="Terms of Service") text="Do not misuse accounts or change login/recovery details. Misuse cancels warranty.";
-  if(type==="Refund Policy") text="Refund or replacement is provided only if service is not working and issue is verified.";
-  if(type==="Security Policy") text="Keep your account and login details safe. Do not share with unknown persons.";
-
-  document.getElementById("popupTitle").innerText=type;
-  document.getElementById("popupContent").innerHTML=`<p style="text-align:left;line-height:1.8">${text}</p>`;
-  document.getElementById("mainPopup").style.display="flex";
-}
-
-function clearForm(){
-  document.getElementById("serviceName").value="";
-  document.getElementById("serviceImg").value="";
-  document.getElementById("serviceStatus").value="in";
-  document.getElementById("serviceDesc").value="";
-  document.getElementById("servicePlans").value="";
-}
-
-function safe(t){
-  return t.replace(/'/g,"\\'");
-}
+async function deleteFeedback(id){if(confirm("Delete feedback?")){await db.from("feedback").delete().eq("id",id);loadFeedbacks()}}
+function openLegal(t){popupTitle.innerText=t;popupContent.innerHTML="<p>Customer data is used only for order activation and support.</p>";mainPopup.style.display="flex"}
+function safe(t){return String(t).replace(/'/g,"\\'")}
 </script>
 
 </body>
