@@ -207,9 +207,33 @@ function renderWebsite(){
 }
 
 function showDesc(i){
- popupTitle.innerText=services[i].name+" Plan Details";
- popupContent.innerHTML=`<p style="text-align:left;line-height:1.7">${services[i].desc||""}</p>`;
- mainPopup.style.display="flex";
+  let s = services[i];
+  let lines = (s.desc || "").split("\n").map(l=>l.trim()).filter(l=>l);
+
+  let html = `<div class="descBox">`;
+
+  lines.forEach(line=>{
+    if(line.toLowerCase().startsWith("note")){
+      html += `<div class="noteLine">⚠ ${line}</div>`;
+    }else{
+      let parts = line.split(":");
+      if(parts.length >= 2){
+        html += `
+        <div class="descLine">
+          <span class="tick">✅</span>
+          <b>${parts[0]}:</b>
+          <span class="arrow">→</span>
+          <span class="value">${parts.slice(1).join(":").trim()}</span>
+        </div>`;
+      }
+    }
+  });
+
+  html += `</div>`;
+
+  popupTitle.innerText = s.name + " Plan Details";
+  popupContent.innerHTML = html;
+  mainPopup.style.display = "flex";
 }
 
 function showPlans(i){
