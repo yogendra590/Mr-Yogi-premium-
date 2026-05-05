@@ -13,9 +13,9 @@ body{font-family:Arial,sans-serif;background:#f7f2ff;margin:0;color:#24113d}
 header{background:white;padding:14px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 5px 18px rgba(120,60,190,.18);position:sticky;top:0;z-index:50}
 .logoBox{display:flex;align-items:center;gap:10px;font-weight:900;color:#7b2cff}
 .logoBox img{height:45px;max-width:140px;object-fit:contain}
-button{background:#7b2cff;color:white;border:0;padding:12px 17px;border-radius:24px;margin:5px;cursor:pointer;font-weight:900}
-button:hover{background:#5a16d6}
-.hero{text-align:center;padding:45px 15px;background:linear-gradient(135deg,#fff,#eadcff)}
+button{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:white;border:0;padding:12px 17px;border-radius:24px;margin:5px;cursor:pointer;font-weight:900}
+button:hover{transform:scale(1.04)}
+.hero{text-align:center;padding:50px 15px;background:linear-gradient(135deg,#fff,#eadcff)}
 .hero h1{font-size:36px;margin-bottom:8px}
 .tagline{color:#7b2cff;font-weight:900;font-size:20px}
 .joinBtn{display:inline-block;margin-top:18px;background:#25D366;color:white;padding:13px 22px;border-radius:30px;text-decoration:none;font-weight:900}
@@ -26,7 +26,10 @@ button:hover{background:#5a16d6}
 .card,.feedbackBox,.contactBox{background:white;border-radius:22px;padding:22px;text-align:center;box-shadow:0 8px 24px rgba(120,60,190,.15)}
 .card img{width:80px;height:80px;object-fit:contain;border-radius:16px;margin-bottom:12px;background:#f1e7ff;padding:8px}
 .card h3{color:#7b2cff;font-size:27px;font-weight:900}
-.card p{line-height:1.6;color:#4d3b63}
+.card:hover{transform:translateY(-5px);transition:.3s}
+.whyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;margin-top:20px}
+.whyCard{background:linear-gradient(135deg,#7b2cff,#b388ff);color:white;padding:20px;border-radius:18px;text-align:center;font-size:28px;font-weight:900;box-shadow:0 10px 25px rgba(123,44,255,.3)}
+.whyCard h3{font-size:14px;margin-top:10px}
 .popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);justify-content:center;align-items:center;padding:15px;z-index:99}
 .box{background:white;color:#24113d;padding:22px;border-radius:20px;width:90%;max-width:460px;text-align:center;max-height:90vh;overflow:auto}
 .planBtn{display:block;width:100%;margin:8px 0;padding:13px;background:#f0e6ff;color:#24113d;border:1px solid #d4b8ff;border-radius:14px}
@@ -41,21 +44,30 @@ textarea{min-height:90px}
 .red{background:#ff3333}
 .contactBox{max-width:430px;margin:25px auto}
 .contactBox a{display:inline-block;background:#25D366;color:white;padding:12px 20px;border-radius:25px;text-decoration:none;font-weight:900}
-footer{text-align:center;background:white;padding:22px}
-.legal p{cursor:pointer;color:#7b2cff;margin:10px}
+footer{display:flex;justify-content:space-between;flex-wrap:wrap;background:white;padding:25px;margin-top:20px}
+.footerLeft{text-align:left}
+.footerLeft h3{color:#7b2cff}
+.footerLeft p{cursor:pointer;color:#7b2cff;margin:8px 0;font-weight:700}
+.footerRight{max-width:320px;text-align:left;color:#555;font-weight:600}
 .couponBox{background:white;border:1px solid #eadcff;border-radius:18px;padding:15px;margin-top:20px}
 .orderSteps{display:flex;justify-content:center;align-items:center;gap:12px;margin:10px 0 20px}
 .stepCircle{width:48px;height:48px;border-radius:50%;background:#1a1a1a;color:white;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900}
 .stepCircle.active{background:#7b2cff}
 .stepLine{width:55px;height:3px;background:#bfa3ff}
 .recentOrder{position:fixed;left:15px;bottom:18px;background:white;color:#24113d;padding:14px 18px;border-radius:16px;box-shadow:0 8px 25px rgba(0,0,0,.18);font-weight:800;display:none;z-index:9999;max-width:280px;border-left:5px solid #7b2cff}
+.chatbot{position:fixed;right:15px;bottom:15px;z-index:9999}
+.chatBtn{background:#7b2cff;border-radius:50px;padding:14px 20px}
+.chatBox{display:none;background:white;width:310px;padding:15px;border-radius:18px;box-shadow:0 8px 25px rgba(0,0,0,.25)}
+.chatBox h3{color:#7b2cff;margin-top:0}
+#chatMessages{height:220px;overflow:auto;text-align:left;background:#f7f2ff;padding:10px;border-radius:12px;margin-bottom:10px}
+#chatMessages p{margin:8px 0;line-height:1.4}
 </style>
 </head>
 
 <body>
 
 <div class="offerBanner">
-  <span>🔥 WELCOME TO MR.YOGI PREMIUM — Premium OTT • AI • Software Deals | Instant Activation ⚡</span>
+  <span>Limited Time Offer - Today Only | Best Prices on OTT Plans | Instant Activation | Trusted Since 2024</span>
 </div>
 
 <header>
@@ -68,18 +80,28 @@ footer{text-align:center;background:white;padding:22px}
 
 <section class="hero">
   <h1>Premium OTT & Software Plans</h1>
-  <div class="tagline">🇮🇳 INDIA'S #1 Subscription Store · Since 2024</div>
-  <p>⚡ Instant Activation • 🔐 Trusted Service • 💬 WhatsApp Orders</p>
-  <a class="joinBtn" href="https://chat.whatsapp.com/EcUM0d0ipZVFCvzjCtPrlE" target="_blank">🔥 Join WhatsApp Group</a>
+  <div class="tagline">INDIA'S #1 Subscription Store · Since 2024</div>
+  <p>Instant Activation • Trusted Service • WhatsApp Orders</p>
+  <a class="joinBtn" href="https://chat.whatsapp.com/EcUM0d0ipZVFCvzjCtPrlE" target="_blank">Join WhatsApp Group</a>
 </section>
 
 <div class="liveBox">
-  <div id="liveView">👀 27 People viewing this right now</div>
-  <div id="liveOrders">⚡ 12 Orders today</div>
+  <div id="liveView">27 People viewing this right now</div>
 </div>
 
+<section class="section">
+  <h2 class="title">WHY CHOOSE US</h2>
+  <div class="whyGrid">
+    <div class="whyCard">⚡<h3>Instant Activation</h3></div>
+    <div class="whyCard">💬<h3>24×7 Support</h3></div>
+    <div class="whyCard">🔐<h3>Safe & Secure</h3></div>
+    <div class="whyCard">🚀<h3>Fast Delivery</h3></div>
+    <div class="whyCard">💎<h3>Premium Quality</h3></div>
+  </div>
+</section>
+
 <section class="section" id="customerPage">
-  <h2 class="title">🔥 All Premium Plans</h2>
+  <h2 class="title">All Premium Plans</h2>
   <div class="plans" id="plansArea"></div>
 </section>
 
@@ -108,7 +130,7 @@ footer{text-align:center;background:white;padding:22px}
 
 <section class="section">
   <div class="feedbackBox">
-    <h2 class="title">⭐ Real Feedback from Our Happy Customers</h2>
+    <h2 class="title">Real Feedback from Our Happy Customers</h2>
     <p>Discover genuine experiences from clients enjoying our premium subscriptions.</p>
 
     <input id="fbName" placeholder="Customer Name">
@@ -122,9 +144,9 @@ footer{text-align:center;background:white;padding:22px}
 </section>
 
 <section class="contactBox">
-  <h2>📞 Contact Us</h2>
+  <h2>Contact Us</h2>
   <p>For orders, support and activation contact us on WhatsApp.</p>
-  <a href="https://wa.me/918618388937" target="_blank">🟢 WhatsApp: 8618388937</a>
+  <a href="https://wa.me/918618388937" target="_blank">WhatsApp: 8618388937</a>
 </section>
 
 <div class="popup" id="loginPopup">
@@ -148,17 +170,31 @@ footer{text-align:center;background:white;padding:22px}
 <div id="recentOrder" class="recentOrder"></div>
 
 <footer>
-  <b>MR.YOGI PREMIUM</b><br>
-  Premium Accounts • Trusted Service • Best Prices
-
-  <div class="legal">
+  <div class="footerLeft">
     <h3>Legal</h3>
     <p onclick="openLegal('Privacy Policy')">Privacy Policy</p>
     <p onclick="openLegal('Terms of Service')">Terms of Service</p>
     <p onclick="openLegal('Refund Policy')">Refund Policy</p>
     <p onclick="openLegal('Security Policy')">Security Policy</p>
   </div>
+
+  <div class="footerRight">
+    <p>Premium subscription services with instant activation and trusted support.</p>
+    <p>© 2024 • All Rights Reserved</p>
+  </div>
 </footer>
+
+<div class="chatbot">
+  <button class="chatBtn" onclick="toggleChat()">Chat</button>
+  <div class="chatBox" id="chatBox">
+    <h3>MR.YOGI Assistant</h3>
+    <div id="chatMessages">
+      <p><b>Bot:</b> Hi, how can I help you?</p>
+    </div>
+    <input id="chatInput" placeholder="Type your question...">
+    <button onclick="sendChat()">Send</button>
+  </div>
+</div>
 
 <script>
 const number = "918618388937";
@@ -198,7 +234,6 @@ function renderWebsite(){
     <div class="card">
       <img src="${s.img}" onerror="this.src='https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=MR.YOGI'">
       <h3>${s.name}</h3>
-      <p>✔ Premium Access Available<br>✔ Instant Activation<br>✔ Trusted Support</p>
       <button onclick="showDescription(${i})">Description</button>
       <button onclick="showPlans(${i})">Choose Plan</button>
     </div>`;
@@ -235,7 +270,7 @@ function openOrderForm(service,plan){
       <div class="stepCircle">2</div><div class="stepLine"></div>
       <div class="stepCircle">3</div>
     </div>
-    <p style="text-align:left"><b>📦 Product:</b> ${service}<br><b>📋 Plan:</b> ${plan}</p>
+    <p style="text-align:left"><b>Product:</b> ${service}<br><b>Plan:</b> ${plan}</p>
     <input id="custName" placeholder="Your Name">
     <input id="custMail" placeholder="Your Mail">
     <input id="custNum" placeholder="WhatsApp Number">
@@ -260,23 +295,23 @@ function sendOrder(){
   let invoiceNo="INV"+Date.now().toString().slice(-6);
   let date=new Date().toLocaleDateString();
 
-  let msg=`🧾 INVOICE - MR.YOGI PREMIUM
+  let msg=`INVOICE - MR.YOGI PREMIUM
 
-🧾 Invoice No: ${invoiceNo}
-🆔 Order ID: ${orderId}
-📅 Date: ${date}
+Invoice No: ${invoiceNo}
+Order ID: ${orderId}
+Date: ${date}
 
-📦 Product: ${selectedService}
-📋 Plan: ${selectedPlan}
-🎟 Coupon: ${couponText}
+Product: ${selectedService}
+Plan: ${selectedPlan}
+Coupon: ${couponText}
 
-👤 Name: ${name}
-📧 Mail: ${mail}
-📱 Number: ${num}
+Name: ${name}
+Mail: ${mail}
+Number: ${num}
 
-⏳ Status: Payment Pending
+Status: Payment Pending
 
-💬 Please assist with payment.`;
+Please assist with payment.`;
 
   window.open(`https://wa.me/${number}?text=${encodeURIComponent(msg)}`,"_blank");
 }
@@ -286,7 +321,6 @@ function openLogin(){loginPopup.style.display="flex";}
 function adminLogin(){
   let u=adminUser.value.trim();
   let p=adminPass.value.trim();
-
   if(u.toLowerCase()==="admin" && p==="yogi19001"){
     closePopup();
     customerPage.style.display="none";
@@ -307,15 +341,9 @@ function saveService(){
   let img=serviceImg.value.trim();
   let d=serviceDesc.value.trim();
   let p=servicePlans.value.split("\n").map(x=>x.trim()).filter(x=>x);
-
-  if(!n || !img || !d || p.length===0){
-    alert("Fill product name, image URL, description and plans");
-    return;
-  }
-
+  if(!n || !img || !d || p.length===0){alert("Fill product name, image URL, description and plans");return;}
   if(editIndex===null) services.push({name:n,img:img,desc:d,plans:p});
   else{services[editIndex]={name:n,img:img,desc:d,plans:p};editIndex=null;}
-
   saveData(); clearForm(); renderWebsite(); renderAdmin();
 }
 
@@ -413,29 +441,58 @@ function toggleFeedback(){showAllFeedback=!showAllFeedback;renderFeedback();}
 renderFeedback();
 
 function updateLive(){
-  liveView.innerText="👀 "+(20+Math.floor(Math.random()*20))+" People viewing this right now";
-  liveOrders.innerText="⚡ "+(5+Math.floor(Math.random()*20))+" Orders today";
+  liveView.innerText=(20+Math.floor(Math.random()*20))+" People viewing this right now";
 }
 setInterval(updateLive,3000); updateLive();
 
 const fakeOrders=[
-  "Ravi just bought Netflix Premium 🎬",
-  "Kiran ordered Prime Video 🔥",
-  "Arjun purchased YouTube Premium ▶️",
-  "Sandeep bought JioHotstar 1080p 📺",
-  "Rahul ordered ZEE5 Full HD 🍿",
-  "Manoj purchased Adobe Creative Cloud 💻",
-  "Vinay bought SonyLIV 4K Premium ⚡"
+  "Ravi just bought Netflix Premium",
+  "Kiran ordered Prime Video",
+  "Arjun purchased YouTube Premium",
+  "Sandeep bought JioHotstar 1080p",
+  "Rahul ordered ZEE5 Full HD",
+  "Manoj purchased Adobe Creative Cloud",
+  "Vinay bought SonyLIV 4K Premium"
 ];
 
 function showRecentOrder(){
   let random=fakeOrders[Math.floor(Math.random()*fakeOrders.length)];
-  recentOrder.innerHTML=`✅ ${random}<br><small>Just now</small>`;
+  recentOrder.innerHTML=`${random}<br><small>Just now</small>`;
   recentOrder.style.display="block";
   setTimeout(()=>{recentOrder.style.display="none"},4000);
 }
 setInterval(showRecentOrder,9000);
 setTimeout(showRecentOrder,3000);
+
+function toggleChat(){
+  let box = document.getElementById("chatBox");
+  box.style.display = box.style.display === "block" ? "none" : "block";
+}
+
+function sendChat(){
+  let input = document.getElementById("chatInput");
+  let msg = input.value.trim();
+  if(!msg) return;
+  chatMessages.innerHTML += `<p><b>You:</b> ${msg}</p>`;
+  let reply = getBotReply(msg);
+  setTimeout(()=>{
+    chatMessages.innerHTML += `<p><b>Bot:</b> ${reply}</p>`;
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  },500);
+  input.value = "";
+}
+
+function getBotReply(msg){
+  let m = msg.toLowerCase();
+  if(m.includes("price") || m.includes("plan") || m.includes("cost")) return "Please tap Choose Plan on any product to see latest prices.";
+  if(m.includes("payment")) return "After selecting a plan, send your order on WhatsApp. Our team will assist you with payment.";
+  if(m.includes("activation") || m.includes("activate")) return "Most plans are activated instantly after payment confirmation.";
+  if(m.includes("support") || m.includes("issue")) return "We provide 24×7 customer support. Contact us on WhatsApp anytime.";
+  if(m.includes("coupon") || m.includes("discount")) return "You can enter a coupon code while placing the order. Valid coupons will be applied.";
+  if(m.includes("refund")) return "Refund or replacement is provided only if the service is not working and the issue is verified by support.";
+  if(m.includes("whatsapp") || m.includes("contact")) return "Contact us on WhatsApp: 8618388937";
+  return "Thanks for your message. For quick help, please WhatsApp us at 8618388937.";
+}
 
 function clearForm(){serviceName.value="";serviceImg.value="";serviceDesc.value="";servicePlans.value="";}
 function closePopup(){loginPopup.style.display="none";mainPopup.style.display="none";}
