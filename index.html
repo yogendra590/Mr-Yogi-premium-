@@ -53,7 +53,11 @@ textarea{min-height:90px}
 .contact{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:white;max-width:430px;margin:30px auto;padding:25px;border-radius:25px;text-align:center}
 .contact a,.floatWA{background:#25D366;color:white;text-decoration:none;font-weight:900;border-radius:30px;padding:13px 20px;display:inline-block}
 .floatWA{position:fixed;right:15px;bottom:20px;z-index:999}
-footer{background:white;padding:25px;margin-top:20px;text-align:center}
+.premiumFooter{background:#08080f;color:white;padding:28px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.premiumFooter h3{color:#b388ff;margin-top:0}
+.footerLinks{display:grid;grid-template-columns:repeat(2,minmax(140px,1fr));gap:12px 25px}
+.footerLinks p{margin:0;color:#d8d8e8;font-size:18px;cursor:pointer}
+.footerLinks p:hover{color:#ff4fd8}
 .thank{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;color:#7b2cff;padding:22px 28px;border-radius:22px;box-shadow:0 15px 35px #0005;z-index:9999;font-weight:900}
 </style>
 </head>
@@ -64,7 +68,7 @@ footer{background:white;padding:25px;margin-top:20px;text-align:center}
 <header><div class="logo">MR.YOGI PREMIUM</div></header>
 
 <section class="hero">
-<h1>Full Mobile + Laptop Perfect Premium Store</h1>
+<h1>Mr.Yogi Premium Store</h1>
 <p>OTT • AI • Software subscriptions with smooth UI, animations, WhatsApp invoice and admin panel.</p>
 <span class="badge">Since 2024</span><span class="badge">1000+ Happy Clients</span><span class="badge">24×7 Support</span>
 </section>
@@ -138,9 +142,20 @@ footer{background:white;padding:25px;margin-top:20px;text-align:center}
 <div id="adminProducts"></div>
 </section>
 
-<footer>
-<p>© 2026 MR.YOGI PREMIUM. All rights reserved.</p>
-<button onclick="openLogin()">Admin Panel</button>
+<footer class="premiumFooter">
+  <div>
+    <h3>MR.YOGI PREMIUM</h3>
+    <p>Premium OTT • AI • Software Deals</p>
+    <p>© 2026 MR.YOGI PREMIUM. All rights reserved.</p>
+    <button onclick="openLogin()">Admin Panel</button>
+  </div>
+
+  <div class="footerLinks">
+    <p onclick="openPolicy('Privacy Policy')">Privacy Policy</p>
+    <p onclick="openPolicy('Terms of Service')">Terms of Service</p>
+    <p onclick="openPolicy('Refund Policy')">Refund Policy</p>
+    <p onclick="openPolicy('Security Policy')">Security Policy</p>
+  </div>
 </footer>
 
 <a class="floatWA" href="https://wa.me/918618388937" target="_blank">WhatsApp</a>
@@ -178,10 +193,7 @@ async function loadProducts(){
 }
 
 function renderWebsite(){
- if(!services.length){
-  plansArea.innerHTML="<p>No products found. Add products in admin panel.</p>";
-  return;
- }
+ if(!services.length){plansArea.innerHTML="<p>No products found. Add products in admin panel.</p>";return}
  plansArea.innerHTML=services.map((s,i)=>{
   let out=s.status==="out";
   return `<div class="card">
@@ -304,10 +316,7 @@ function updateRating(){
  overallRating.innerHTML=`${stars(avg)} ${avg}/5 (${feedbacks.length} Reviews)`;
 }
 
-function stars(r){
- r=Number(r||5);
- return "⭐".repeat(Math.floor(r))+(r%1!==0?"✨":"");
-}
+function stars(r){r=Number(r||5);return "⭐".repeat(Math.floor(r))+(r%1!==0?"✨":"")}
 
 function searchProducts(){
  let q=searchBox.value.toLowerCase();
@@ -319,38 +328,22 @@ function closePopup(){loginPopup.style.display="none";mainPopup.style.display="n
 
 function adminLogin(){
  if(adminUser.value.trim().toLowerCase()==="admin" && adminPass.value.trim()==="yogi19001"){
-  closePopup();
-  customerPage.style.display="none";
-  adminPage.style.display="block";
+  closePopup();customerPage.style.display="none";adminPage.style.display="block";
   loadOrders();loadFeedbacks();loadProducts();
  }else alert("Wrong username or password");
 }
 
-function showWebsite(){
- adminPage.style.display="none";
- customerPage.style.display="block";
- loadProducts();loadFeedbacks();
-}
+function showWebsite(){adminPage.style.display="none";customerPage.style.display="block";loadProducts();loadFeedbacks()}
 
 async function saveProduct(){
- let name=serviceName.value.trim();
- let img=serviceImg.value.trim();
- let status=serviceStatus.value;
- let desc=serviceDesc.value.trim();
- let plans;
-
+ let name=serviceName.value.trim(),img=serviceImg.value.trim(),status=serviceStatus.value,desc=serviceDesc.value.trim(),plans;
  try{plans=JSON.parse(servicePlans.value)}
  catch(e){alert("Plans JSON wrong. Example: [{\"name\":\"1 Month ₹150\",\"stock\":\"in\"}]");return}
-
  if(!name||!img||!desc||!Array.isArray(plans)){alert("Fill all product fields correctly");return}
 
  let error;
- if(editId){
-  ({error}=await db.from("products").update({name,img,status,desc,plans}).eq("id",editId));
-  editId=null;
- }else{
-  ({error}=await db.from("products").insert([{name,img,status,desc,plans}]));
- }
+ if(editId){({error}=await db.from("products").update({name,img,status,desc,plans}).eq("id",editId));editId=null}
+ else{({error}=await db.from("products").insert([{name,img,status,desc,plans}]))}
  if(error){alert("Product save error: "+error.message);return}
 
  serviceName.value="";serviceImg.value="";serviceDesc.value="";servicePlans.value="";serviceStatus.value="in";
@@ -395,10 +388,7 @@ function adminUploadImage(e){
  r.readAsDataURL(f);
 }
 
-function quickImage(i){
- quickId=i;
- quickImgInput.click();
-}
+function quickImage(i){quickId=i;quickImgInput.click()}
 
 async function saveQuickImage(e){
  let f=e.target.files[0]; if(!f)return;
@@ -407,8 +397,7 @@ async function saveQuickImage(e){
   let s=services[quickId];
   const {error}=await db.from("products").update({img:x.target.result}).eq("id",s.id);
   if(error){alert("Image update error: "+error.message);return}
-  alert("Image changed successfully");
-  loadProducts();
+  alert("Image changed successfully");loadProducts();
  };
  r.readAsDataURL(f);
 }
@@ -450,6 +439,76 @@ async function deleteFeedback(id){
  const {error}=await db.from("feedback").delete().eq("id",id);
  if(error){alert("Delete feedback error: "+error.message);return}
  loadFeedbacks();
+}
+
+function openPolicy(title){
+  popupTitle.innerText = title;
+  let html = "";
+
+  if(title === "Privacy Policy"){
+    html = `<div style="text-align:left;line-height:1.7">
+      <h3>🔐 PRIVACY POLICY</h3>
+      <p><b>MR.YOGI PREMIUM</b><br><b>Effective Date:</b> May 5, 2026</p>
+      <p>We respect your privacy and are committed to protecting your personal information.</p>
+      <h4>Information We Collect</h4>
+      <p>Name, phone number, email, payment details secured via gateway, order and usage details.</p>
+      <h4>How We Use Your Data</h4>
+      <p>To process orders, deliver accounts/services, and provide customer support.</p>
+      <h4>Data Protection</h4>
+      <p>We do not sell or share your data with third parties.</p>
+      <h4>Cookies</h4>
+      <p>Our website may use cookies to improve user experience.</p>
+      <h4>Contact</h4>
+      <p>📞 8618388937</p>
+    </div>`;
+  }
+
+  if(title === "Terms of Service"){
+    html = `<div style="text-align:left;line-height:1.7">
+      <h3>📜 TERMS AND CONDITIONS</h3>
+      <p><b>MR.YOGI PREMIUM</b><br><b>Effective Date:</b> May 5, 2026</p>
+      <p>By using our services, you agree to the following:</p>
+      <h4>Service</h4>
+      <p>We provide OTT, AI tools and software subscriptions.</p>
+      <h4>Rules</h4>
+      <p>Do not change account details. Do not misuse shared accounts. Follow device/screen limits.</p>
+      <h4>Violations</h4>
+      <p>Breaking rules = No refund / No replacement.</p>
+      <h4>Changes</h4>
+      <p>We can update terms anytime without notice.</p>
+    </div>`;
+  }
+
+  if(title === "Refund Policy"){
+    html = `<div style="text-align:left;line-height:1.7">
+      <h3>💰 REFUND POLICY</h3>
+      <p><b>MR.YOGI PREMIUM</b></p>
+      <h4>❌ No Refund Policy</h4>
+      <p>No refund after successful delivery.</p>
+      <h4>✅ Replacement Only If:</h4>
+      <p>Account not working at delivery and report within warranty.</p>
+      <h4>❌ No Replacement If:</h4>
+      <p>User changed details, misuse detected, or device limit exceeded.</p>
+    </div>`;
+  }
+
+  if(title === "Security Policy"){
+    html = `<div style="text-align:left;line-height:1.7">
+      <h3>🛡️ SECURITY POLICY</h3>
+      <p><b>MR.YOGI PREMIUM</b></p>
+      <h4>Safe Payments</h4>
+      <p>We use secure payment methods such as UPI / Gateway.</p>
+      <h4>Account Safety</h4>
+      <p>Do not share login with others. Follow usage rules.</p>
+      <h4>Data Security</h4>
+      <p>Your data is protected and not shared publicly.</p>
+      <h4>Fraud Protection</h4>
+      <p>Any misuse or fraud will lead to account termination without refund.</p>
+    </div>`;
+  }
+
+  popupContent.innerHTML = html;
+  mainPopup.style.display = "flex";
 }
 
 function safe(t){return String(t).replace(/'/g,"\\'")}
