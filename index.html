@@ -12,58 +12,340 @@
 <style>
 *{box-sizing:border-box}
 body{font-family:Arial,sans-serif;background:#f7f2ff;margin:0;color:#24113d}
-.offerBanner{background:linear-gradient(90deg,#7b2cff,#ff4fd8);color:white;font-weight:900;padding:10px 0;overflow:hidden;white-space:nowrap}
-.offerBanner span{display:inline-block;padding-left:100%;animation:marquee 14s linear infinite}
-@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
-header{background:white;padding:15px;text-align:center;box-shadow:0 5px 18px rgba(120,60,190,.18);position:sticky;top:0;z-index:50}
-.logoBox{font-size:24px;font-weight:900;color:#7b2cff}
-button{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:white;border:0;padding:10px 13px;border-radius:25px;margin:5px;font-weight:900;cursor:pointer;font-size:13px}
+
+.offerBanner{
+  background:linear-gradient(90deg,#7b2cff,#ff4fd8);
+  color:white;
+  font-weight:900;
+  padding:10px 0;
+  overflow:hidden;
+  white-space:nowrap;
+}
+.offerBanner span{
+  display:inline-block;
+  padding-left:100%;
+  animation:marquee 14s linear infinite;
+}
+@keyframes marquee{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-100%)}
+}
+
+header{
+  background:white;
+  padding:15px;
+  text-align:center;
+  box-shadow:0 5px 18px rgba(120,60,190,.18);
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+.logoBox{
+  font-size:24px;
+  font-weight:900;
+  color:#7b2cff;
+}
+
+button{
+  background:linear-gradient(135deg,#7b2cff,#ff4fd8);
+  color:white;
+  border:0;
+  padding:10px 13px;
+  border-radius:25px;
+  margin:5px;
+  font-weight:900;
+  cursor:pointer;
+  font-size:13px;
+}
 button:hover{transform:scale(1.04)}
-.hero{text-align:center;padding:45px 15px;background:linear-gradient(135deg,#fff,#eadcff)}
-.hero h1{font-size:30px;margin-bottom:8px;color:#24113d}
-.hero p{max-width:750px;margin:10px auto;line-height:1.6;color:#4d3b63}
-.tagline{color:#7b2cff;font-weight:900;font-size:19px}
-.joinBtn,.waBtn{display:inline-block;background:#25D366;color:white;padding:13px 22px;border-radius:30px;text-decoration:none;font-weight:900;margin-top:12px}
-.liveBox{text-align:center;background:white;margin:15px auto;padding:12px;border-radius:16px;max-width:420px;box-shadow:0 8px 24px rgba(120,60,190,.15);font-weight:900}
+
+.hero{
+  text-align:center;
+  padding:45px 15px;
+  background:linear-gradient(135deg,#fff,#eadcff);
+}
+.hero h1{
+  font-size:30px;
+  margin-bottom:8px;
+  color:#24113d;
+}
+.hero p{
+  max-width:750px;
+  margin:10px auto;
+  line-height:1.6;
+  color:#4d3b63;
+}
+.tagline{
+  color:#7b2cff;
+  font-weight:900;
+  font-size:19px;
+}
+.joinBtn,.waBtn{
+  display:inline-block;
+  background:#25D366;
+  color:white;
+  padding:13px 22px;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:900;
+  margin-top:12px;
+}
+
+.liveBox{
+  text-align:center;
+  background:white;
+  margin:15px auto;
+  padding:12px;
+  border-radius:16px;
+  max-width:420px;
+  box-shadow:0 8px 24px rgba(120,60,190,.15);
+  font-weight:900;
+}
+
 .section{padding:20px}
-.title{text-align:center;color:#7b2cff;font-size:28px;font-weight:900}
-.searchBox{width:92%;max-width:430px;margin:10px auto 25px;display:block;padding:13px;border-radius:25px;border:1px solid #d4b8ff;box-shadow:0 5px 15px rgba(0,0,0,.1)}
-.plans{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-@media (min-width:768px){.plans{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}}
-.card,.boxCard{background:white;border-radius:24px;padding:16px;text-align:center;box-shadow:0 8px 25px rgba(123,44,255,.15)}
-.card{transition:.3s}
+.title{
+  text-align:center;
+  color:#7b2cff;
+  font-size:28px;
+  font-weight:900;
+}
+.searchBox{
+  width:92%;
+  max-width:430px;
+  margin:10px auto 25px;
+  display:block;
+  padding:13px;
+  border-radius:25px;
+  border:1px solid #d4b8ff;
+  box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+.plans{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+  max-width:1200px;
+  margin:auto;
+}
+
+.card,.boxCard{
+  background:white;
+  border-radius:24px;
+  padding:18px;
+  text-align:center;
+  box-shadow:0 8px 25px rgba(123,44,255,.15);
+}
+.card{
+  transition:.3s;
+  max-width:260px;
+  margin:auto;
+  width:100%;
+}
 .card:hover{transform:translateY(-6px) scale(1.02)}
-.card img{width:70px;height:70px;object-fit:contain;border-radius:16px;background:#f1e7ff;padding:8px;margin-bottom:10px}
-.card h3{font-size:20px;color:#7b2cff;margin:10px 0}
-.statusBadge{display:inline-block;padding:8px 12px;border-radius:20px;font-weight:900;margin:8px 0 10px;font-size:12px}
+.card img{
+  width:75px;
+  height:75px;
+  object-fit:contain;
+  border-radius:16px;
+  background:#f1e7ff;
+  padding:8px;
+  margin-bottom:10px;
+}
+.card h3{
+  font-size:21px;
+  color:#7b2cff;
+  margin:10px 0;
+}
+.statusBadge{
+  display:inline-block;
+  padding:8px 12px;
+  border-radius:20px;
+  font-weight:900;
+  margin:8px 0 10px;
+  font-size:12px;
+}
 .inStock{background:#e7fff1;color:#0b9b4b}
 .outStock{background:#ffe8e8;color:#d10000}
-.whyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px}
-.whyCard{background:linear-gradient(135deg,#7b2cff,#b388ff);color:white;padding:20px;border-radius:18px;text-align:center;font-size:28px;font-weight:900;box-shadow:0 10px 25px rgba(123,44,255,.3)}
+
+@media(max-width:600px){
+  .plans{
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+  }
+  .card{padding:15px}
+  .card img{width:70px;height:70px}
+  .card h3{font-size:20px}
+  button{padding:10px 12px;font-size:13px}
+}
+
+.whyGrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:15px;
+  max-width:1000px;
+  margin:auto;
+}
+.whyCard{
+  background:linear-gradient(135deg,#7b2cff,#b388ff);
+  color:white;
+  padding:20px;
+  border-radius:18px;
+  text-align:center;
+  font-size:28px;
+  font-weight:900;
+  box-shadow:0 10px 25px rgba(123,44,255,.3);
+}
 .whyCard h3{font-size:14px;margin-top:10px}
-.popup{display:none;position:fixed;inset:0;background:#0009;align-items:center;justify-content:center;z-index:99;padding:15px}
-.popupBox{background:white;border-radius:22px;padding:22px;width:95%;max-width:480px;max-height:90vh;overflow:auto;text-align:center;color:#24113d}
-input,textarea,select{width:100%;padding:12px;margin:8px 0;border:1px solid #d4b8ff;border-radius:12px}
+
+.popup{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#0009;
+  align-items:center;
+  justify-content:center;
+  z-index:99;
+  padding:15px;
+}
+.popupBox{
+  background:white;
+  border-radius:22px;
+  padding:22px;
+  width:95%;
+  max-width:480px;
+  max-height:90vh;
+  overflow:auto;
+  text-align:center;
+  color:#24113d;
+}
+
+input,textarea,select{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border:1px solid #d4b8ff;
+  border-radius:12px;
+}
 textarea{min-height:90px}
-.planBtn{display:block;width:100%;background:#f0e6ff;color:#24113d;border:1px solid #d4b8ff;margin:8px 0;border-radius:14px;text-align:center}
-.planBtn:hover{background:#7b2cff;color:white}
+
+.planBtn{
+  display:block;
+  width:100%;
+  background:#f0e6ff;
+  color:#24113d;
+  border:1px solid #d4b8ff;
+  margin:8px 0;
+  border-radius:14px;
+  text-align:center;
+}
+.planBtn:hover{
+  background:#7b2cff;
+  color:white;
+}
 .green{background:#25D366}
 .red{background:#ff3333}
-.admin{display:none;padding:22px;background:#fbf8ff}
-.adminCard{background:white;border-radius:18px;padding:15px;margin:12px 0;box-shadow:0 5px 18px #eadcff}
-.adminImg{width:80px;height:80px;object-fit:contain;cursor:pointer;background:#f1e7ff;padding:8px;border-radius:14px}
-.feedbackCard{text-align:left;background:#f7f2ff;padding:14px;border-radius:15px;margin:10px 0}
-.stars{font-size:22px;color:#ffb400}
-.contactBox{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:white;max-width:430px;margin:30px auto;padding:25px;border-radius:25px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.2)}
-.contactBox a{background:white;color:#7b2cff;padding:12px 20px;border-radius:25px;text-decoration:none;font-weight:900;display:inline-block;margin-top:10px}
-.floatWhatsApp{position:fixed;right:16px;bottom:20px;background:#25D366;color:white;padding:14px 18px;border-radius:50px;text-decoration:none;font-weight:900;box-shadow:0 8px 25px rgba(37,211,102,.35);z-index:9999}
-footer{display:flex;justify-content:space-between;flex-wrap:wrap;background:white;padding:25px;margin-top:20px}
+
+.admin{
+  display:none;
+  padding:22px;
+  background:#fbf8ff;
+}
+.adminCard{
+  background:white;
+  border-radius:18px;
+  padding:15px;
+  margin:12px 0;
+  box-shadow:0 5px 18px #eadcff;
+}
+.adminImg{
+  width:80px;
+  height:80px;
+  object-fit:contain;
+  cursor:pointer;
+  background:#f1e7ff;
+  padding:8px;
+  border-radius:14px;
+}
+
+.feedbackCard{
+  text-align:left;
+  background:#f7f2ff;
+  padding:14px;
+  border-radius:15px;
+  margin:10px 0;
+}
+.stars{
+  font-size:22px;
+  color:#ffb400;
+}
+
+.contactBox{
+  background:linear-gradient(135deg,#7b2cff,#ff4fd8);
+  color:white;
+  max-width:430px;
+  margin:30px auto;
+  padding:25px;
+  border-radius:25px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+.contactBox a{
+  background:white;
+  color:#7b2cff;
+  padding:12px 20px;
+  border-radius:25px;
+  text-decoration:none;
+  font-weight:900;
+  display:inline-block;
+  margin-top:10px;
+}
+.floatWhatsApp{
+  position:fixed;
+  right:16px;
+  bottom:20px;
+  background:#25D366;
+  color:white;
+  padding:14px 18px;
+  border-radius:50px;
+  text-decoration:none;
+  font-weight:900;
+  box-shadow:0 8px 25px rgba(37,211,102,.35);
+  z-index:9999;
+}
+
+footer{
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  background:white;
+  padding:25px;
+  margin-top:20px;
+}
 .footerLeft{text-align:left}
 .footerLeft h3{color:#7b2cff}
-.footerLeft p{cursor:pointer;color:#7b2cff;margin:8px 0;font-weight:700}
-.footerRight{max-width:350px;text-align:left;color:#555;font-weight:600}
-.couponBox{background:white;border:1px solid #eadcff;border-radius:18px;padding:15px;margin-top:20px}
-.adminBtnBox{text-align:center;padding:15px}
+.footerLeft p{
+  cursor:pointer;
+  color:#7b2cff;
+  margin:8px 0;
+  font-weight:700;
+}
+.footerRight{
+  max-width:350px;
+  text-align:left;
+  color:#555;
+  font-weight:600;
+}
+.couponBox{
+  background:white;
+  border:1px solid #eadcff;
+  border-radius:18px;
+  padding:15px;
+  margin-top:20px;
+}
+.adminBtnBox{
+  text-align:center;
+  padding:15px;
+}
 </style>
 </head>
 
@@ -123,7 +405,6 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;background:whit
   <p>For orders, support and activation</p>
   <a href="https://wa.me/918618388937" target="_blank">Chat on WhatsApp: 8618388937</a>
 </section>
-
 <div class="popup" id="loginPopup">
   <div class="popupBox">
     <h2>Admin Login</h2>
@@ -150,6 +431,7 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;background:whit
     <p onclick="openLegal('Refund Policy')">Refund Policy</p>
     <p onclick="openLegal('Security Policy')">Security Policy</p>
   </div>
+
   <div class="footerRight">
     <p>Premium subscription services with instant activation and trusted support.</p>
     <p>© 2026 MR.YOGI PREMIUM. All rights reserved.</p>
@@ -204,27 +486,9 @@ let selectedPlan="";
 let showAllFeedback=false;
 let quickImageIndex=null;
 
-let services=JSON.parse(localStorage.getItem("mrYogiServices"))||[
-{name:"Netflix Premium",status:"in",img:"https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",desc:"4K UHD quality, 1 device login, mobile/TV/laptop support, smooth streaming and fast support.",plans:[{name:"1 Month – ₹150 | 1 Device | 4K UHD",stock:"in"},{name:"3 Months – ₹399 | 1 Device",stock:"out"},{name:"6 Months – ₹699 | Best Value",stock:"out"},{name:"12 Months – ₹1250 | Maximum Savings",stock:"in"}]},
-{name:"Prime Video",status:"in",img:"https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png",desc:"Prime Video HD/4K plans, personal mail and multi-device options available.",plans:[{name:"1 Month – ₹49 | 1 Device",stock:"in"},{name:"3 Months – ₹129 | 1 Device",stock:"in"},{name:"12 Months – ₹320 | 1 Device",stock:"in"},{name:"1 Month – ₹99 | 5 Devices Personal Mail",stock:"in"},{name:"Ads-Free 1 Month – ₹129",stock:"in"},{name:"6 Months Normal – ₹299",stock:"in"},{name:"6 Months Ads-Free – ₹349",stock:"in"}]},
-{name:"JioHotstar 1080p",status:"in",img:"https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=JioHotstar",desc:"Full HD 1080p streaming, instant activation, smooth playback for movies, shows and sports.",plans:[{name:"1 Month – ₹39",stock:"in"},{name:"2 Months – ₹75",stock:"in"},{name:"3 Months – ₹110",stock:"in"},{name:"6 Months – ₹220",stock:"in"},{name:"12 Months – ₹359",stock:"in"}]},
-{name:"SonyLIV 4K Premium",status:"in",img:"https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=SonyLIV",desc:"4K premium access, shared and private plans, secure access and smooth streaming.",plans:[{name:"1 Month – ₹69 Shared",stock:"in"},{name:"3 Months – ₹199 Shared",stock:"in"},{name:"6 Months – ₹269 Shared",stock:"in"},{name:"12 Months – ₹320 Shared",stock:"in"},{name:"12 Months Private – ₹549 On Your Number",stock:"in"}]},
-{name:"ZEE5 Full HD",status:"in",img:"https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=ZEE5",desc:"Full HD 1080p streaming, supported devices, instant activation and private number plan available.",plans:[{name:"1 Month – ₹49",stock:"in"},{name:"3 Months – ₹129",stock:"in"},{name:"6 Months – ₹169",stock:"in"},{name:"12 Months – ₹210",stock:"in"},{name:"12 Months Private – ₹349 On Your Number",stock:"in"}]},
-{name:"YouTube Premium",status:"in",img:"https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Premium_logo.png",desc:"Activation on your mail, ad-free YouTube, background play, downloads and YouTube Music.",plans:[{name:"1 Month – ₹49 | Activation on Your Mail",stock:"in"}]},
-{name:"Adobe Creative Cloud",status:"out",img:"https://upload.wikimedia.org/wikipedia/commons/7/75/Adobe_Creative_Cloud_rainbow_icon.svg",desc:"Original License Pro Plan, 20+ Adobe apps, cloud storage and warranty.",plans:[{name:"1 Month – ₹299 | Original License | On Your Mail Activation",stock:"out"}]},
-{name:"ChatGPT Plus",status:"in",img:"https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",desc:"ChatGPT Plus activation on fresh mail with premium AI access and faster responses.",plans:[{name:"1 Month – ₹199 | Fresh Mail Activation",stock:"in"}]}
-];
-
-let coupons=JSON.parse(localStorage.getItem("mrYogiCoupons"))||[
-{code:"YOGI10",discount:"₹10 OFF"},
-{code:"MRPREMIUM",discount:"Special Discount"}
-];
-
-let feedbacks=JSON.parse(localStorage.getItem("mrYogiFeedbacks"))||[
-{name:"Yogi",product:"Prime Video",text:"Prime Video plan was activated quickly. Price is very good and support was fast.",rating:"5"},
-{name:"Ravi",product:"Netflix Premium",text:"Fast activation and smooth streaming. Trusted seller.",rating:"5"},
-{name:"Kiran",product:"YouTube Premium",text:"YouTube Premium activated on mail very fast. Good service.",rating:"5"}
-];
+let services=JSON.parse(localStorage.getItem("mrYogiServices"))||[];
+let coupons=JSON.parse(localStorage.getItem("mrYogiCoupons"))||[];
+let feedbacks=JSON.parse(localStorage.getItem("mrYogiFeedbacks"))||[];
 
 function saveData(){
   localStorage.setItem("mrYogiServices",JSON.stringify(services));
@@ -236,11 +500,11 @@ function renderWebsite(){
     let out=s.status==="out";
     html+=`
     <div class="card">
-      <img src="${s.img}" onerror="this.src='https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=MR.YOGI'">
+      <img src="${s.img}">
       <h3>${s.name}</h3>
       <span class="statusBadge ${out?'outStock':'inStock'}">${out?'Out of Stock':'In Stock'}</span><br>
       <button onclick="showDescription(${i})">Description</button>
-      <button ${out?'disabled style="opacity:.5;cursor:not-allowed"':`onclick="showPlans(${i})"`}>${out?'Unavailable':'Choose Plan'}</button>
+      <button ${out?'disabled style="opacity:.5"':`onclick="showPlans(${i})"`}>${out?'Unavailable':'Choose Plan'}</button>
     </div>`;
   });
   plansArea.innerHTML=html;
@@ -255,22 +519,21 @@ function searchProducts(){
 }
 
 function showDescription(i){
-  let s=services[i];
-  popupTitle.innerText=s.name+" Description";
-  popupContent.innerHTML=`<p style="text-align:left;line-height:1.8">${s.desc}</p>`;
+  popupTitle.innerText=services[i].name+" Description";
+  popupContent.innerHTML=`<p>${services[i].desc}</p>`;
   mainPopup.style.display="flex";
 }
 
 function showPlans(i){
   let s=services[i];
-  let html="";
   popupTitle.innerText=s.name+" Plans";
+  let html="";
   s.plans.forEach(p=>{
     let out=p.stock==="out";
     html+=`
-    <button class="planBtn" ${out?'disabled style="opacity:.5;cursor:not-allowed"':`onclick="openOrderForm('${safe(s.name)}','${safe(p.name)}')"`}>
-      ${p.name}<br>
-      <small style="color:${out?'red':'green'};font-weight:900">${out?'This plan is out of stock':'Available'}</small>
+    <button class="planBtn" ${out?'disabled':`onclick="openOrderForm('${s.name}','${p.name}')"`}>
+    ${p.name}<br>
+    <small style="color:${out?'red':'green'}">${out?'This plan is out of stock':'Available'}</small>
     </button>`;
   });
   popupContent.innerHTML=html;
@@ -291,24 +554,12 @@ function openOrderForm(service,plan){
 }
 
 function sendOrder(){
-  let name=custName.value.trim();
-  let mail=custMail.value.trim();
-  let num=custNum.value.trim();
-  let coupon=custCoupon.value.trim().toUpperCase();
-
-  if(!name||!mail||!num){
-    alert("Fill all details");
-    return;
-  }
-
-  let couponText="Not Applied";
-  let found=coupons.find(c=>c.code.toUpperCase()===coupon);
-  if(coupon&&found) couponText=found.code+" - "+found.discount;
-  else if(coupon) couponText=coupon+" - Invalid Coupon";
-
+  let name=custName.value;
+  let mail=custMail.value;
+  let num=custNum.value;
+  let date=new Date().toLocaleDateString();
   let orderId="ORD"+Date.now().toString().slice(-6);
   let invoiceNo="INV"+Date.now().toString().slice(-6);
-  let date=new Date().toLocaleDateString();
 
   let msg=`*INVOICE - MR.YOGI PREMIUM*
 
@@ -318,50 +569,37 @@ function sendOrder(){
 
 *PRODUCT:* ${selectedService}
 *PLAN:* ${selectedPlan}
-*COUPON:* ${couponText}
 
 *NAME:* ${name}
 *MAIL:* ${mail}
 *NUMBER:* ${num}
 
-*STATUS:* Payment Pending
+*STATUS:* Payment Pending`;
 
-Please assist with payment.`;
-
-  window.open(`https://wa.me/${number}?text=${encodeURIComponent(msg)}`,"_blank");
+  window.open(`https://wa.me/${number}?text=${encodeURIComponent(msg)}`);
 }
 
-function openLogin(){
-  loginPopup.style.display="flex";
-}
+function openLogin(){loginPopup.style.display="flex";}
+function closePopup(){loginPopup.style.display="none";mainPopup.style.display="none";}
 
 function adminLogin(){
-  if(adminUser.value.trim().toLowerCase()==="admin" && adminPass.value.trim()==="yogi19001"){
+  if(adminUser.value==="admin" && adminPass.value==="yogi19001"){
     closePopup();
     customerPage.style.display="none";
     adminPage.style.display="block";
-    adminPage.scrollIntoView({behavior:"smooth"});
     renderAdmin();
-    renderCoupons();
-  }else{
-    alert("Wrong username or password");
-  }
+  }else alert("Wrong login");
 }
 
 function showWebsite(){
   adminPage.style.display="none";
   customerPage.style.display="block";
-  renderWebsite();
 }
 
 function adminUploadImage(e){
-  let file=e.target.files[0];
-  if(!file)return;
   let reader=new FileReader();
-  reader.onload=x=>{
-    serviceImg.value=x.target.result;
-  };
-  reader.readAsDataURL(file);
+  reader.onload=x=>serviceImg.value=x.target.result;
+  reader.readAsDataURL(e.target.files[0]);
 }
 
 function quickImageChange(i){
@@ -370,184 +608,84 @@ function quickImageChange(i){
 }
 
 function saveQuickImage(e){
-  let file=e.target.files[0];
-  if(!file)return;
   let reader=new FileReader();
-  reader.onload=function(x){
+  reader.onload=x=>{
     services[quickImageIndex].img=x.target.result;
     saveData();
     renderWebsite();
     renderAdmin();
-    alert("Image changed successfully");
   };
-  reader.readAsDataURL(file);
+  reader.readAsDataURL(e.target.files[0]);
 }
 
 function saveService(){
-  let n=serviceName.value.trim();
-  let img=serviceImg.value.trim();
-  let status=serviceStatus.value;
-  let d=serviceDesc.value.trim();
+  let plans=servicePlans.value.split("\n").map(l=>{
+    let p=l.split("|");
+    return {name:p[0],stock:(p[1]||"in").trim()};
+  });
 
-  let p=servicePlans.value.split("\n").map(line=>{
-    let a=line.split("|");
-    return {name:a[0]?.trim(),stock:(a[1]?.trim()||"in")};
-  }).filter(x=>x.name);
-
-  if(!n||!img||!d||p.length===0){
-    alert("Fill all fields");
-    return;
-  }
-
-  if(editIndex===null){
-    services.push({name:n,img,status,desc:d,plans:p});
-  }else{
-    services[editIndex]={name:n,img,status,desc:d,plans:p};
-    editIndex=null;
-  }
+  services.push({
+    name:serviceName.value,
+    img:serviceImg.value,
+    status:serviceStatus.value,
+    desc:serviceDesc.value,
+    plans:plans
+  });
 
   saveData();
-  clearForm();
   renderWebsite();
   renderAdmin();
 }
 
 function renderAdmin(){
-  let html="";
-  services.forEach((s,i)=>{
-    html+=`
-    <div class="adminCard">
-      <h3>${s.name}</h3>
-      <img src="${s.img}" class="adminImg" onclick="quickImageChange(${i})">
-      <p style="font-size:12px;color:#7b2cff;font-weight:900">Tap image to change</p>
-      <p><b>Status:</b> ${s.status==="out"?"Out of Stock":"In Stock"}</p>
-      <p><b>Description:</b> ${s.desc}</p>
-      <p><b>Plans:</b><br>${s.plans.map(p=>`${p.name} - ${p.stock==="out"?"Out":"In"}`).join("<br>")}</p>
-      <button onclick="editService(${i})">Edit</button>
-      <button class="red" onclick="deleteService(${i})">Delete</button>
-    </div>`;
-  });
-  adminList.innerHTML=html;
-}
-
-function editService(i){
-  editIndex=i;
-  let s=services[i];
-  serviceName.value=s.name;
-  serviceImg.value=s.img;
-  serviceStatus.value=s.status;
-  serviceDesc.value=s.desc;
-  servicePlans.value=s.plans.map(p=>`${p.name} | ${p.stock}`).join("\n");
-  adminPage.scrollIntoView({behavior:"smooth"});
+  adminList.innerHTML=services.map((s,i)=>`
+  <div class="adminCard">
+    <h3>${s.name}</h3>
+    <img src="${s.img}" class="adminImg" onclick="quickImageChange(${i})">
+    <p>${s.status}</p>
+    <button onclick="deleteService(${i})">Delete</button>
+  </div>`).join("");
 }
 
 function deleteService(i){
-  if(confirm("Delete this product?")){
-    services.splice(i,1);
-    saveData();
-    renderWebsite();
-    renderAdmin();
-  }
+  services.splice(i,1);
+  saveData();
+  renderAdmin();
+  renderWebsite();
 }
 
 function saveCoupon(){
-  if(!couponCode.value || !couponDiscount.value){
-    alert("Enter coupon");
-    return;
-  }
-  coupons.push({code:couponCode.value.toUpperCase(),discount:couponDiscount.value});
+  coupons.push({code:couponCode.value,discount:couponDiscount.value});
   localStorage.setItem("mrYogiCoupons",JSON.stringify(coupons));
-  couponCode.value="";
-  couponDiscount.value="";
-  renderCoupons();
-}
-
-function renderCoupons(){
-  couponList.innerHTML=coupons.map((c,i)=>`
-  <div class="adminCard">
-    <b>${c.code}</b> - ${c.discount}<br>
-    <button class="red" onclick="deleteCoupon(${i})">Delete</button>
-  </div>`).join("");
-}
-
-function deleteCoupon(i){
-  coupons.splice(i,1);
-  localStorage.setItem("mrYogiCoupons",JSON.stringify(coupons));
-  renderCoupons();
 }
 
 function saveFeedback(){
-  if(!fbName.value || !fbText.value){
-    alert("Enter feedback");
-    return;
-  }
-
   feedbacks.unshift({
     name:fbName.value,
-    product:fbProduct.value||"Not Mentioned",
-    text:fbText.value,
-    rating:"5"
+    product:fbProduct.value,
+    text:fbText.value
   });
-
   localStorage.setItem("mrYogiFeedbacks",JSON.stringify(feedbacks));
-  fbName.value="";
-  fbProduct.value="";
-  fbText.value="";
-  renderFeedback();
 }
 
 function renderFeedback(){
-  let list=showAllFeedback?feedbacks:feedbacks.slice(0,3);
-  feedbackList.innerHTML=list.map(f=>`
+  feedbackList.innerHTML=feedbacks.map(f=>`
   <div class="feedbackCard">
-    <b>${f.name}</b><br>
-    <small>${f.product}</small>
-    <div class="stars">⭐⭐⭐⭐⭐</div>
-    <p>${f.text}</p>
+  <b>${f.name}</b>
+  <p>${f.text}</p>
   </div>`).join("");
-
-  viewFeedbackBtn.style.display=feedbacks.length>3?"inline-block":"none";
-  viewFeedbackBtn.innerText=showAllFeedback?"Show Less Feedback":"View All Feedback";
 }
+renderFeedback();
 
 function toggleFeedback(){
   showAllFeedback=!showAllFeedback;
   renderFeedback();
 }
-renderFeedback();
-
-function updateLive(){
-  liveView.innerText=(20+Math.floor(Math.random()*20))+" People viewing this right now";
-}
-setInterval(updateLive,3000);
-updateLive();
 
 function openLegal(type){
-  let text="";
-  if(type==="Privacy Policy") text="Customer name, mail, number and order details are used only for order activation and support.";
-  if(type==="Terms of Service") text="Do not misuse accounts or change login/recovery details. Misuse cancels warranty.";
-  if(type==="Refund Policy") text="Refund or replacement is provided only if the service is not working and issue is verified.";
-  if(type==="Security Policy") text="Keep your account and login details safe. Do not share with unknown persons.";
   popupTitle.innerText=type;
-  popupContent.innerHTML=`<p style="text-align:left;line-height:1.8">${text}</p>`;
+  popupContent.innerHTML="Legal content here.";
   mainPopup.style.display="flex";
-}
-
-function clearForm(){
-  serviceName.value="";
-  serviceImg.value="";
-  serviceStatus.value="in";
-  serviceDesc.value="";
-  servicePlans.value="";
-}
-
-function closePopup(){
-  loginPopup.style.display="none";
-  mainPopup.style.display="none";
-}
-
-function safe(t){
-  return t.replace(/'/g,"\\'");
 }
 </script>
 
