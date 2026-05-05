@@ -2,68 +2,47 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>MR.YOGI PREMIUM – OTT & AI Subscriptions at Best Price</title>
-<meta name="description" content="Buy Netflix, Prime Video, ChatGPT Plus and AI tools at cheapest price in India. Instant activation, 24x7 support and trusted service.">
-<meta name="keywords" content="Netflix cheap India, ChatGPT Plus cheap, Prime Video low price, OTT subscriptions India, AI tools cheap, MR YOGI PREMIUM">
-<meta name="author" content="MR.YOGI PREMIUM">
+<title>MR.YOGI PREMIUM – OTT & AI Subscriptions</title>
+<meta name="description" content="Buy Netflix, Prime Video, ChatGPT Plus and AI tools at cheapest price in India. Instant activation and trusted service.">
 
 <style>
 *{box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f7f2ff;margin:0;color:#24113d}
-.offerBanner{background:linear-gradient(90deg,#7b2cff,#ff4fd8);color:white;font-weight:900;padding:10px 0;overflow:hidden;white-space:nowrap}
-.offerBanner span{display:inline-block;padding-left:100%;animation:marquee 13s linear infinite}
-@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
-header{background:white;padding:14px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 5px 18px rgba(120,60,190,.18);position:sticky;top:0;z-index:50}
-.logoBox{display:flex;align-items:center;gap:10px;font-weight:900;color:#7b2cff}
-.logoBox img{height:45px;max-width:140px;object-fit:contain}
-button{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:white;border:0;padding:12px 17px;border-radius:24px;margin:5px;cursor:pointer;font-weight:900}
-button:hover{transform:scale(1.04)}
-.hero{text-align:center;padding:50px 15px;background:linear-gradient(135deg,#fff,#eadcff)}
-.hero h1{font-size:34px;margin-bottom:8px}
-.tagline{color:#7b2cff;font-weight:900;font-size:20px}
-.joinBtn{display:inline-block;margin-top:18px;background:#25D366;color:white;padding:13px 22px;border-radius:30px;text-decoration:none;font-weight:900}
-.liveBox{text-align:center;background:white;margin:15px auto;padding:12px;border-radius:16px;max-width:420px;box-shadow:0 8px 24px rgba(120,60,190,.15);font-weight:900}
+body{font-family:Arial;background:#f7f2ff;margin:0;color:#24113d}
+.offerBanner{background:linear-gradient(90deg,#7b2cff,#ff4fd8);color:white;font-weight:900;padding:10px;overflow:hidden;white-space:nowrap}
+.offerBanner span{display:inline-block;padding-left:100%;animation:marquee 14s linear infinite}
+@keyframes marquee{100%{transform:translateX(-100%)}}
+header{background:white;padding:16px;box-shadow:0 5px 18px #eadcff;position:sticky;top:0;z-index:50}
+.logoBox{font-size:24px;font-weight:900;color:#7b2cff}
+button{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:white;border:0;padding:12px 18px;border-radius:25px;margin:6px;font-weight:900;cursor:pointer}
+.hero{text-align:center;padding:45px 15px;background:linear-gradient(135deg,#fff,#eadcff)}
+.hero h1{font-size:32px}
+.joinBtn,.waBtn{display:inline-block;background:#25D366;color:white;padding:13px 22px;border-radius:30px;text-decoration:none;font-weight:900}
 .section{padding:22px}
-.title{text-align:center;color:#7b2cff;font-size:27px;font-weight:900}
-.searchBox{width:90%;max-width:430px;margin:10px auto 25px;display:block;padding:13px;border-radius:25px;border:1px solid #d4b8ff;box-shadow:0 5px 15px rgba(0,0,0,.1)}
+.title{text-align:center;color:#7b2cff;font-size:28px}
+.searchBox{width:90%;max-width:430px;margin:10px auto 25px;display:block;padding:13px;border-radius:25px;border:1px solid #d4b8ff}
 .plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-.card,.feedbackBox{background:white;border-radius:22px;padding:22px;text-align:center;box-shadow:0 8px 24px rgba(120,60,190,.15)}
-.card{transition:.3s}
-.card:hover{transform:translateY(-8px) scale(1.03)}
-.card img{width:90px;height:90px;object-fit:contain;border-radius:16px;margin-bottom:12px;background:#f1e7ff;padding:8px;cursor:pointer}
-.card h3{color:#7b2cff;font-size:27px;font-weight:900}
-.statusBadge{display:inline-block;padding:8px 14px;border-radius:20px;font-weight:900;margin:8px 0 12px;font-size:13px}
+.card,.boxCard{background:white;border-radius:24px;padding:24px;text-align:center;box-shadow:0 8px 25px rgba(123,44,255,.15)}
+.card img{width:90px;height:90px;object-fit:contain;border-radius:16px;background:#f1e7ff;padding:8px}
+.card h3{font-size:27px;color:#7b2cff}
+.statusBadge{display:inline-block;padding:8px 14px;border-radius:20px;font-weight:900;margin:10px}
 .inStock{background:#e7fff1;color:#0b9b4b}
 .outStock{background:#ffe8e8;color:#d10000}
-.whyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;margin-top:20px}
-.whyCard{background:linear-gradient(135deg,#7b2cff,#b388ff);color:white;padding:20px;border-radius:18px;text-align:center;font-size:28px;font-weight:900;box-shadow:0 10px 25px rgba(123,44,255,.3)}
-.whyCard h3{font-size:14px;margin-top:10px}
-.popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);justify-content:center;align-items:center;padding:15px;z-index:99}
-.box{background:white;color:#24113d;padding:22px;border-radius:20px;width:90%;max-width:460px;text-align:center;max-height:90vh;overflow:auto}
-.planBtn{display:block;width:100%;margin:8px 0;padding:13px;background:#f0e6ff;color:#24113d;border:1px solid #d4b8ff;border-radius:14px}
-.planBtn:hover{background:#7b2cff;color:white}
-input,textarea,select{width:100%;padding:12px;margin:7px 0;border:1px solid #d4b8ff;border-radius:12px}
+.popup{display:none;position:fixed;inset:0;background:#0009;align-items:center;justify-content:center;z-index:99;padding:15px}
+.popupBox{background:white;border-radius:22px;padding:22px;width:95%;max-width:480px;max-height:90vh;overflow:auto;text-align:center}
+input,textarea,select{width:100%;padding:12px;margin:8px 0;border:1px solid #d4b8ff;border-radius:12px}
 textarea{min-height:90px}
-.admin{display:none;padding:20px}
-.admin-card,.feedbackCard{background:white;padding:15px;border-radius:15px;margin:12px 0;box-shadow:0 5px 18px rgba(120,60,190,.13)}
-.feedbackCard{text-align:left;background:#f7f2ff}
-.stars{font-size:22px;color:#ffb400}
-.green{background:#25D366}
-.red{background:#ff3333}
-.contactBox{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:white;max-width:430px;margin:30px auto;padding:25px;border-radius:25px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.2)}
-.contactBox a{background:white;color:#7b2cff;padding:12px 20px;border-radius:25px;text-decoration:none;font-weight:900;display:inline-block;margin-top:10px}
-.floatWhatsApp{position:fixed;right:16px;bottom:20px;background:#25D366;color:white;padding:14px 18px;border-radius:50px;text-decoration:none;font-weight:900;box-shadow:0 8px 25px rgba(37,211,102,.35);z-index:9999}
+.planBtn{display:block;width:100%;background:#f0e6ff;color:#24113d;border:1px solid #d4b8ff;margin:8px 0}
+.green{background:#25D366}.red{background:#ff3333}
+.admin{display:none;padding:22px;background:#fbf8ff}
+.adminCard{background:white;border-radius:18px;padding:15px;margin:12px 0;box-shadow:0 5px 18px #eadcff}
+.adminImg{width:80px;height:80px;object-fit:contain;cursor:pointer;background:#f1e7ff;padding:8px;border-radius:14px}
+.feedbackCard{text-align:left;background:#f7f2ff;padding:14px;border-radius:15px;margin:10px 0}
+.whyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px}
+.whyCard{background:linear-gradient(135deg,#7b2cff,#b388ff);color:white;padding:20px;border-radius:18px;text-align:center;font-size:28px;font-weight:900}
+.contactBox{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:white;max-width:430px;margin:30px auto;padding:25px;border-radius:25px;text-align:center}
+.floatWhatsApp{position:fixed;right:16px;bottom:20px;background:#25D366;color:white;padding:14px 18px;border-radius:50px;text-decoration:none;font-weight:900;z-index:9999}
 footer{display:flex;justify-content:space-between;flex-wrap:wrap;background:white;padding:25px;margin-top:20px}
-.footerLeft{text-align:left}
-.footerLeft h3{color:#7b2cff}
-.footerLeft p{cursor:pointer;color:#7b2cff;margin:8px 0;font-weight:700}
-.footerRight{max-width:320px;text-align:left;color:#555;font-weight:600}
-.couponBox{background:white;border:1px solid #eadcff;border-radius:18px;padding:15px;margin-top:20px}
-.orderSteps{display:flex;justify-content:center;align-items:center;gap:12px;margin:10px 0 20px}
-.stepCircle{width:48px;height:48px;border-radius:50%;background:#1a1a1a;color:white;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900}
-.stepCircle.active{background:#7b2cff}
-.stepLine{width:55px;height:3px;background:#bfa3ff}
+footer p{cursor:pointer;color:#7b2cff;font-weight:700}
 </style>
 </head>
 
@@ -74,26 +53,18 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;background:whit
 </div>
 
 <header>
-  <div class="logoBox">
-    <img src="logo.png" onerror="this.style.display='none'">
-    <span>MR.YOGI PREMIUM</span>
-  </div>
+  <div class="logoBox">MR.YOGI PREMIUM</div>
 </header>
 
 <section class="hero">
   <h1>MR.YOGI PREMIUM – India’s No 1 OTT & AI Store</h1>
-  <div class="tagline">Premium OTT • AI • Software Subscriptions</div>
   <p>Buy Netflix, Prime Video, YouTube Premium, Adobe and AI tools at best prices with instant activation.</p>
   <a class="joinBtn" href="https://chat.whatsapp.com/EcUM0d0ipZVFCvzjCtPrlE" target="_blank">Join WhatsApp Group</a>
 </section>
 
-<div class="liveBox">
-  <div id="liveView">27 People viewing this right now</div>
-</div>
-
 <section class="section" id="customerPage">
   <h2 class="title">All Premium Plans</h2>
-  <input type="text" id="searchBox" class="searchBox" placeholder="Search products..." onkeyup="searchProducts()">
+  <input class="searchBox" id="searchBox" placeholder="Search products..." onkeyup="searchProducts()">
   <div class="plans" id="plansArea"></div>
 </section>
 
@@ -109,14 +80,11 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;background:whit
 </section>
 
 <section class="section">
-  <div class="feedbackBox">
+  <div class="boxCard">
     <h2 class="title">Real Feedback from Our Happy Customers</h2>
-    <p>Discover genuine experiences from clients enjoying our premium subscriptions.</p>
-
     <input id="fbName" placeholder="Customer Name">
-    <input id="fbProduct" placeholder="Product Name (Optional)">
-    <textarea id="fbText" placeholder="Write your feedback"></textarea>
-
+    <input id="fbProduct" placeholder="Product Name Optional">
+    <textarea id="fbText" placeholder="Write feedback"></textarea>
     <button onclick="saveFeedback()">Submit Feedback</button>
     <div id="feedbackList"></div>
     <button onclick="toggleFeedback()" id="viewFeedbackBtn">View All Feedback</button>
@@ -126,11 +94,60 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;background:whit
 <section class="contactBox">
   <h2>CONTACT US</h2>
   <p>For orders, support and activation</p>
-  <a href="https://wa.me/918618388937" target="_blank">Chat on WhatsApp: 8618388937</a>
+  <a class="waBtn" href="https://wa.me/918618388937" target="_blank">WhatsApp: 8618388937</a>
 </section>
 
+<footer>
+  <div>
+    <h3>Legal</h3>
+    <p onclick="openLegal('Privacy Policy')">Privacy Policy</p>
+    <p onclick="openLegal('Terms of Service')">Terms of Service</p>
+    <p onclick="openLegal('Refund Policy')">Refund Policy</p>
+    <p onclick="openLegal('Security Policy')">Security Policy</p>
+  </div>
+  <div>
+    <p>Premium subscription services with instant activation and trusted support.</p>
+    <p>© 2026 MR.YOGI PREMIUM. All rights reserved.</p>
+  </div>
+</footer>
+
+<section class="admin" id="adminPage">
+  <h2 class="title">Admin Panel</h2>
+
+  <input id="serviceName" placeholder="Product Name">
+  <input id="serviceImg" placeholder="Image URL">
+  <input type="file" id="adminImageFile" accept="image/*" onchange="adminUploadImage(event)">
+  <select id="serviceStatus">
+    <option value="in">Product In Stock</option>
+    <option value="out">Product Out of Stock</option>
+  </select>
+  <textarea id="serviceDesc" placeholder="Description"></textarea>
+  <textarea id="servicePlans" placeholder="Format:
+1 Month – ₹150 | in
+3 Months – ₹399 | out"></textarea>
+
+  <button onclick="saveService()">Save / Update Product</button>
+  <button class="green" onclick="showWebsite()">Back Website</button>
+
+  <h3>Coupons</h3>
+  <input id="couponCode" placeholder="Coupon Code">
+  <input id="couponDiscount" placeholder="Discount Text">
+  <button onclick="saveCoupon()">Add Coupon</button>
+  <div id="couponList"></div>
+
+  <div id="adminList"></div>
+</section>
+
+<div style="text-align:center;padding:15px">
+  <button onclick="openLogin()">Admin Panel</button>
+</div>
+
+<a class="floatWhatsApp" href="https://wa.me/918618388937" target="_blank">WhatsApp</a>
+
+<input type="file" id="quickImgInput" accept="image/*" style="display:none" onchange="saveQuickImage(event)">
+
 <div class="popup" id="loginPopup">
-  <div class="box">
+  <div class="popupBox">
     <h2>Admin Login</h2>
     <input id="adminUser" placeholder="Username">
     <input id="adminPass" type="password" placeholder="Password">
@@ -140,376 +157,16 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;background:whit
 </div>
 
 <div class="popup" id="mainPopup">
-  <div class="box">
+  <div class="popupBox">
     <h2 id="popupTitle"></h2>
     <div id="popupContent"></div>
     <button class="red" onclick="closePopup()">Close</button>
   </div>
 </div>
 
-<input type="file" id="imgUpload" style="display:none" accept="image/*" onchange="uploadImage(event)">
-
-<footer>
-  <div class="footerLeft">
-    <h3>Legal</h3>
-    <p onclick="openLegal('Privacy Policy')">Privacy Policy</p>
-    <p onclick="openLegal('Terms of Service')">Terms of Service</p>
-    <p onclick="openLegal('Refund Policy')">Refund Policy</p>
-    <p onclick="openLegal('Security Policy')">Security Policy</p>
-  </div>
-
-  <div class="footerRight">
-    <p>Premium subscription services with instant activation and trusted support.</p>
-    <p>© 2026 MR.YOGI PREMIUM. All rights reserved.</p>
-  </div>
-</footer>
-
-<section class="admin" id="adminPage">
-  <h2 class="title">Admin Panel</h2>
-
-  <h3>Manage Products</h3>
-  <input id="serviceName" placeholder="Product Name">
-  <input id="serviceImg" placeholder="Image URL / Logo URL">
-  <select id="serviceStatus">
-    <option value="in">Product In Stock</option>
-    <option value="out">Product Out of Stock</option>
-  </select>
-  <textarea id="serviceDesc" placeholder="Description / Features"></textarea>
-  <textarea id="servicePlans" placeholder="Format:
-1 Month – ₹150 | in
-3 Months – ₹399 | out"></textarea>
-
-  <button onclick="saveService()">Save / Update Product</button>
-  <button class="green" onclick="showWebsite()">Back Website</button>
-
-  <div class="couponBox">
-    <h3>Manage Coupon Codes</h3>
-    <input id="couponCode" placeholder="Coupon Code e.g YOGI10">
-    <input id="couponDiscount" placeholder="Discount Text e.g ₹10 OFF / 10% OFF">
-    <button class="green" onclick="saveCoupon()">Add Coupon</button>
-    <div id="couponList"></div>
-  </div>
-
-  <div id="adminList"></div>
-</section>
-
-<a class="floatWhatsApp" href="https://wa.me/918618388937" target="_blank">WhatsApp</a>
-
-<div style="text-align:center;padding:15px;">
-  <button onclick="openLogin()">Admin Panel</button>
-</div>
-
 <script>
-const number = "918618388937";
-let editIndex = null;
-let selectedService = "";
-let selectedPlan = "";
-let showAllFeedback = false;
-let currentImageIndex = null;
+const number="918618388937";
+let editIndex=null, selectedService="", selectedPlan="", showAllFeedback=false, quickImageIndex=null;
 
-let services = JSON.parse(localStorage.getItem("mrYogiServices")) || [
-{
-name:"Netflix Premium",
-status:"in",
-img:"https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
-desc:"4K UHD quality, 1 device login, mobile/TV/laptop support, smooth streaming and fast support.",
-plans:[
-{name:"1 Month – ₹150 | 1 Device | 4K UHD",stock:"in"},
-{name:"3 Months – ₹399 | 1 Device",stock:"out"},
-{name:"6 Months – ₹699 | Best Value",stock:"out"},
-{name:"12 Months – ₹1250 | Maximum Savings",stock:"in"}
-]
-},
-{
-name:"Prime Video",
-status:"in",
-img:"https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png",
-desc:"1 device and 5 devices personal mail plans, HD/4K streaming, ads-free options available.",
-plans:[
-{name:"1 Month – ₹49 | 1 Device",stock:"in"},
-{name:"3 Months – ₹129 | 1 Device",stock:"in"},
-{name:"12 Months – ₹320 | 1 Device",stock:"in"},
-{name:"1 Month – ₹99 | 5 Devices Personal Mail",stock:"in"},
-{name:"Ads-Free 1 Month – ₹129",stock:"in"},
-{name:"6 Months Normal – ₹299",stock:"in"},
-{name:"6 Months Ads-Free – ₹349",stock:"in"}
-]
-},
-{
-name:"JioHotstar 1080p",
-status:"in",
-img:"https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=JioHotstar",
-desc:"Full HD 1080p streaming, instant activation, smooth playback for movies, shows and sports.",
-plans:[
-{name:"1 Month – ₹39",stock:"in"},
-{name:"2 Months – ₹75",stock:"in"},
-{name:"3 Months – ₹110",stock:"in"},
-{name:"6 Months – ₹220",stock:"in"},
-{name:"12 Months – ₹359",stock:"in"}
-]
-},
-{
-name:"SonyLIV 4K Premium",
-status:"in",
-img:"https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=SonyLIV",
-desc:"4K premium access, shared and private plans, secure access and smooth streaming.",
-plans:[
-{name:"1 Month – ₹69 Shared",stock:"in"},
-{name:"3 Months – ₹199 Shared",stock:"in"},
-{name:"6 Months – ₹269 Shared",stock:"in"},
-{name:"12 Months – ₹320 Shared",stock:"in"},
-{name:"12 Months Private – ₹549 On Your Number",stock:"in"}
-]
-},
-{
-name:"ZEE5 Full HD",
-status:"in",
-img:"https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=ZEE5",
-desc:"Full HD 1080p streaming, supported devices, instant activation and private number plan available.",
-plans:[
-{name:"1 Month – ₹49",stock:"in"},
-{name:"3 Months – ₹129",stock:"in"},
-{name:"6 Months – ₹169",stock:"in"},
-{name:"12 Months – ₹210",stock:"in"},
-{name:"12 Months Private – ₹349 On Your Number",stock:"in"}
-]
-},
-{
-name:"YouTube Premium",
-status:"in",
-img:"https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Premium_logo.png",
-desc:"Activation on your mail, ad-free YouTube, background play, downloads and YouTube Music.",
-plans:[
-{name:"1 Month – ₹49 | Activation on Your Mail",stock:"in"}
-]
-},
-{
-name:"Adobe Creative Cloud",
-status:"out",
-img:"https://upload.wikimedia.org/wikipedia/commons/7/75/Adobe_Creative_Cloud_rainbow_icon.svg",
-desc:"Original License Pro Plan. 20+ Adobe apps, 80GB cloud storage, 2 device support, 10000 AI Fill credits/month, private account with 2FA, warranty and replacement.",
-plans:[
-{name:"1 Month – ₹299 | Original License | On Your Mail Activation",stock:"out"}
-]
-}
-];
-
-let coupons = JSON.parse(localStorage.getItem("mrYogiCoupons")) || [
-{code:"YOGI10", discount:"₹10 OFF"},
-{code:"MRPREMIUM", discount:"Special Discount"}
-];
-
-let feedbacks = JSON.parse(localStorage.getItem("mrYogiFeedbacks")) || [
-{name:"Yogi", product:"Prime Video", text:"Prime Video plan was activated quickly. The price is very good, and the support was fast and responsive. Highly recommended.", rating:"5"},
-{name:"Ravi", product:"Netflix Premium", text:"Fast activation and smooth streaming. Trusted seller.", rating:"5"},
-{name:"Kiran", product:"YouTube Premium", text:"YouTube Premium activated on mail very fast. Good service.", rating:"5"}
-];
-
-function saveData(){
-  localStorage.setItem("mrYogiServices", JSON.stringify(services));
-}
-
-function saveCouponData(){
-  localStorage.setItem("mrYogiCoupons", JSON.stringify(coupons));
-}
-
-function renderWebsite(){
-  let html="";
-  services.forEach((s,i)=>{
-    let isOut = s.status === "out";
-    html+=`
-    <div class="card">
-      <img src="${s.img}" onclick="changeImage(${i})" onerror="this.src='https://via.placeholder.com/1080x1080/7b2cff/ffffff?text=MR.YOGI'">
-      <h3>${s.name}</h3>
-      <span class="statusBadge ${isOut ? 'outStock' : 'inStock'}">${isOut ? 'Out of Stock' : 'In Stock'}</span><br>
-      <button onclick="showDescription(${i})">Description</button>
-      <button ${isOut ? 'disabled style="opacity:.5;cursor:not-allowed"' : `onclick="showPlans(${i})"`}>
-        ${isOut ? 'Unavailable' : 'Choose Plan'}
-      </button>
-    </div>`;
-  });
-  plansArea.innerHTML=html;
-}
-renderWebsite();
-
-function changeImage(index){
-  let pass = prompt("Admin password enter chey:");
-  if(pass !== "yogi19001"){
-    alert("Wrong password");
-    return;
-  }
-  currentImageIndex = index;
-  document.getElementById("imgUpload").click();
-}
-
-function uploadImage(event){
-  let file = event.target.files[0];
-  if(!file) return;
-
-  let reader = new FileReader();
-  reader.onload = function(e){
-    services[currentImageIndex].img = e.target.result;
-    saveData();
-    renderWebsite();
-    renderAdmin();
-    alert("Image updated successfully");
-  };
-  reader.readAsDataURL(file);
-}
-
-function searchProducts(){
-  let input = document.getElementById("searchBox").value.toLowerCase();
-  document.querySelectorAll(".card").forEach(card=>{
-    card.style.display = card.innerText.toLowerCase().includes(input) ? "block" : "none";
-  });
-}
-
-function showDescription(i){
-  let s=services[i];
-  popupTitle.innerText=s.name+" Description";
-  popupContent.innerHTML=`<p style="text-align:left;line-height:1.8">${s.desc}</p>`;
-  mainPopup.style.display="flex";
-}
-
-function showPlans(i){
-  let s=services[i];
-  popupTitle.innerText=s.name+" Plans";
-  let html="";
-  s.plans.forEach(p=>{
-    let isOut = p.stock === "out";
-    html+=`
-    <button class="planBtn" ${isOut ? 'disabled style="opacity:.5;cursor:not-allowed"' : `onclick="openOrderForm('${safe(s.name)}','${safe(p.name)}')"`}>
-      ${p.name}<br>
-      <small style="color:${isOut ? 'red':'green'};font-weight:900">
-        ${isOut ? 'This plan is out of stock' : 'Available'}
-      </small>
-    </button>`;
-  });
-  popupContent.innerHTML=html;
-  mainPopup.style.display="flex";
-}
-
-function openOrderForm(service,plan){
-  selectedService=service;
-  selectedPlan=plan;
-  popupTitle.innerText="Complete Your Order";
-  popupContent.innerHTML=`
-    <div class="orderSteps">
-      <div class="stepCircle active">1</div><div class="stepLine"></div>
-      <div class="stepCircle">2</div><div class="stepLine"></div>
-      <div class="stepCircle">3</div>
-    </div>
-    <p style="text-align:left"><b>Product:</b> ${service}<br><b>Plan:</b> ${plan}</p>
-    <input id="custName" placeholder="Your Name">
-    <input id="custMail" placeholder="Your Mail">
-    <input id="custNum" placeholder="WhatsApp Number">
-    <input id="custCoupon" placeholder="Coupon Code Optional">
-    <button class="green" onclick="sendOrder()">Submit Order</button>`;
-}
-
-function sendOrder(){
-  let name=custName.value.trim();
-  let mail=custMail.value.trim();
-  let num=custNum.value.trim();
-  let coupon=custCoupon.value.trim().toUpperCase();
-
-  if(!name || !mail || !num){
-    alert("Fill all details");
-    return;
-  }
-
-  let couponText="Not Applied";
-  let foundCoupon=coupons.find(c=>c.code.toUpperCase()===coupon);
-
-  if(coupon && foundCoupon) couponText=foundCoupon.code+" - "+foundCoupon.discount;
-  else if(coupon) couponText=coupon+" - Invalid Coupon";
-
-  let orderId="ORD"+Date.now().toString().slice(-6);
-  let invoiceNo="INV"+Date.now().toString().slice(-6);
-  let date=new Date().toLocaleDateString();
-
-  let msg=`INVOICE - MR.YOGI PREMIUM
-
-Invoice No: ${invoiceNo}
-Order ID: ${orderId}
-Date: ${date}
-
-Product: ${selectedService}
-Plan: ${selectedPlan}
-Coupon: ${couponText}
-
-Name: ${name}
-Mail: ${mail}
-Number: ${num}
-
-Status: Payment Pending
-
-Please assist with payment.`;
-
-  window.open(`https://wa.me/${number}?text=${encodeURIComponent(msg)}`,"_blank");
-}
-
-function openLogin(){
-  loginPopup.style.display="flex";
-}
-
-function adminLogin(){
-  let u=adminUser.value.trim();
-  let p=adminPass.value.trim();
-
-  if(u.toLowerCase()==="admin" && p==="yogi19001"){
-    closePopup();
-    customerPage.style.display="none";
-    adminPage.style.display="block";
-    adminPage.scrollIntoView({behavior:"smooth"});
-    renderAdmin();
-    renderCoupons();
-  }else{
-    alert("Wrong username or password");
-  }
-}
-
-function showWebsite(){
-  adminPage.style.display="none";
-  customerPage.style.display="block";
-  renderWebsite();
-}
-
-function saveService(){
-  let n=serviceName.value.trim();
-  let img=serviceImg.value.trim();
-  let status=serviceStatus.value;
-  let d=serviceDesc.value.trim();
-
-  let p=servicePlans.value.split("\n").map(line=>{
-    let parts=line.split("|");
-    return {name:parts[0]?.trim(),stock:(parts[1]?.trim() || "in")};
-  }).filter(x=>x.name);
-
-  if(!n || !img || !d || p.length===0){
-    alert("Fill product name, image URL, status, description and plans");
-    return;
-  }
-
-  if(editIndex===null){
-    services.push({name:n,img:img,status:status,desc:d,plans:p});
-  }else{
-    services[editIndex]={name:n,img:img,status:status,desc:d,plans:p};
-    editIndex=null;
-  }
-
-  saveData();
-  clearForm();
-  renderWebsite();
-  renderAdmin();
-}
-
-function renderAdmin(){
-  let html="";
-  services.forEach((s,i)=>{
-    html+=`
-    <div class="admin-card">
-      <h3>${s.name}</h3>
-      <img src="${s.img}" style="width:70px;height:70px;object-fit:contain;border-radius:12px">
-      <p><b>Status:</b> ${(s.status || "in") === "out" ? "Out of Stock" : "In Stock"}</p>
-      <p><b>Description:</b> ${s.desc}</p
+let services=JSON.parse(localStorage.getItem("mrYogiServices"))||[
+{name:"Netflix Premium",status:"in",img:"https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",desc:"4K UHD quality, 1 device login, mobile/
