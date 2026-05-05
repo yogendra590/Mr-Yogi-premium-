@@ -3,827 +3,183 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>MR.YOGI PREMIUM – OTT & AI Subscriptions at Best Price</title>
 <meta name="description" content="Buy Netflix, Prime Video, YouTube Premium, ChatGPT Plus, Adobe and AI tools at best price in India. Instant activation, trusted support and premium subscription deals.">
 <meta name="keywords" content="MR YOGI PREMIUM, OTT subscription India, Netflix cheap India, Prime Video low price, YouTube Premium cheap, ChatGPT Plus cheap, AI tools subscription, software deals India">
 <meta name="author" content="MR.YOGI PREMIUM">
-
 <style>
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
 body{font-family:Arial,sans-serif;background:#f7f2ff;margin:0;color:#24113d}
-
-.offerBanner{
-  background:linear-gradient(90deg,#7b2cff,#ff4fd8);
-  color:white;
-  font-weight:900;
-  padding:10px 0;
-  overflow:hidden;
-  white-space:nowrap;
-}
-.offerBanner span{
-  display:inline-block;
-  padding-left:100%;
-  animation:marquee 14s linear infinite;
-}
-@keyframes marquee{
-  0%{transform:translateX(0)}
-  100%{transform:translateX(-100%)}
-}
-
-header{
-  background:white;
-  padding:15px;
-  text-align:center;
-  box-shadow:0 5px 18px rgba(120,60,190,.18);
-  position:sticky;
-  top:0;
-  z-index:50;
-}
-.logoBox{
-  font-size:24px;
-  font-weight:900;
-  color:#7b2cff;
-  letter-spacing:.5px;
-}
-
-button{
-  background:linear-gradient(135deg,#7b2cff,#ff4fd8);
-  color:white;
-  border:0;
-  padding:10px 13px;
-  border-radius:25px;
-  margin:5px;
-  font-weight:900;
-  cursor:pointer;
-  font-size:13px;
-  transition:.25s;
-}
-button:hover{
-  transform:scale(1.04);
-  box-shadow:0 8px 20px rgba(123,44,255,.25);
-}
-button:disabled{box-shadow:none}
-
-.hero{
-  text-align:center;
-  padding:48px 15px;
-  background:linear-gradient(135deg,#fff,#eadcff);
-}
-.hero h1{
-  font-size:30px;
-  margin-bottom:8px;
-  color:#24113d;
-}
-.hero p{
-  max-width:760px;
-  margin:10px auto;
-  line-height:1.6;
-  color:#4d3b63;
-}
-.tagline{
-  color:#7b2cff;
-  font-weight:900;
-  font-size:19px;
-}
-.joinBtn,.waBtn{
-  display:inline-block;
-  background:#25D366;
-  color:white;
-  padding:13px 22px;
-  border-radius:30px;
-  text-decoration:none;
-  font-weight:900;
-  margin-top:12px;
-  box-shadow:0 8px 22px rgba(37,211,102,.28);
-}
-.trustRow{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:20px;
-}
-.trustBadge{
-  background:white;
-  color:#7b2cff;
-  padding:9px 14px;
-  border-radius:22px;
-  font-weight:900;
-  box-shadow:0 6px 16px rgba(123,44,255,.12);
-  font-size:13px;
-}
-
-.liveBox{
-  text-align:center;
-  background:white;
-  margin:15px auto;
-  padding:12px;
-  border-radius:16px;
-  max-width:420px;
-  box-shadow:0 8px 24px rgba(120,60,190,.15);
-  font-weight:900;
-}
-
+.offerBanner{background:linear-gradient(90deg,#7b2cff,#ff4fd8);color:white;font-weight:900;padding:10px 0;overflow:hidden;white-space:nowrap}
+.offerBanner span{display:inline-block;padding-left:100%;animation:marquee 14s linear infinite}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+header{background:white;padding:15px;text-align:center;box-shadow:0 5px 18px rgba(120,60,190,.18);position:sticky;top:0;z-index:50}
+.logoBox{font-size:24px;font-weight:900;color:#7b2cff}
+button{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:white;border:0;padding:10px 13px;border-radius:25px;margin:5px;font-weight:900;cursor:pointer;font-size:13px}
+button:hover{transform:scale(1.04)}
+.hero{text-align:center;padding:45px 15px;background:linear-gradient(135deg,#fff,#eadcff)}
+.hero h1{font-size:30px;margin-bottom:8px;color:#24113d}
+.hero p{max-width:750px;margin:10px auto;line-height:1.6;color:#4d3b63}
+.tagline{color:#7b2cff;font-weight:900;font-size:19px}
+.joinBtn{display:inline-block;background:#25D366;color:white;padding:13px 22px;border-radius:30px;text-decoration:none;font-weight:900;margin-top:12px}
+.trustRow{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
+.trustBadge{background:white;color:#7b2cff;padding:9px 14px;border-radius:22px;font-weight:900;box-shadow:0 6px 16px rgba(123,44,255,.12);font-size:13px}
 .section{padding:20px}
-.title{
-  text-align:center;
-  color:#7b2cff;
-  font-size:28px;
-  font-weight:900;
-}
-.searchBox{
-  width:92%;
-  max-width:430px;
-  margin:10px auto 25px;
-  display:block;
-  padding:13px;
-  border-radius:25px;
-  border:1px solid #d4b8ff;
-  box-shadow:0 5px 15px rgba(0,0,0,.1);
-}
-
-.plans{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:18px;
-  max-width:1200px;
-  margin:auto;
-}
-.card,.boxCard{
-  background:white;
-  border-radius:24px;
-  padding:18px;
-  text-align:center;
-  box-shadow:0 8px 25px rgba(123,44,255,.15);
-}
-.card{
-  transition:.3s;
-  max-width:260px;
-  margin:auto;
-  width:100%;
-  min-height:285px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-}
-.card:hover{transform:translateY(-6px) scale(1.02)}
-.card img{
-  width:75px;
-  height:75px;
-  object-fit:contain;
-  border-radius:16px;
-  background:#f1e7ff;
-  padding:8px;
-  margin-bottom:10px;
-}
-.card h3{
-  font-size:21px;
-  color:#7b2cff;
-  margin:10px 0;
-}
-.statusBadge{
-  display:inline-block;
-  padding:8px 12px;
-  border-radius:20px;
-  font-weight:900;
-  margin:8px 0 10px;
-  font-size:12px;
-}
-.inStock{background:#e7fff1;color:#0b9b4b}
-.outStock{background:#ffe8e8;color:#d10000}
-
-@media(max-width:600px){
-  .plans{grid-template-columns:repeat(2,1fr);gap:14px}
-  .card{padding:15px;min-height:275px}
-  .card img{width:70px;height:70px}
-  .card h3{font-size:20px}
-  button{padding:10px 12px;font-size:13px}
-}
-
-.whyGrid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:15px;
-  max-width:1000px;
-  margin:auto;
-}
-.whyCard{
-  background:linear-gradient(135deg,#7b2cff,#b388ff);
-  color:white;
-  padding:20px;
-  border-radius:18px;
-  text-align:center;
-  font-size:28px;
-  font-weight:900;
-  box-shadow:0 10px 25px rgba(123,44,255,.3);
-}
+.title{text-align:center;color:#7b2cff;font-size:28px;font-weight:900}
+.searchBox{width:92%;max-width:430px;margin:10px auto 25px;display:block;padding:13px;border-radius:25px;border:1px solid #d4b8ff;box-shadow:0 5px 15px rgba(0,0,0,.1)}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;max-width:1200px;margin:auto}
+.card,.boxCard{background:white;border-radius:24px;padding:18px;text-align:center;box-shadow:0 8px 25px rgba(123,44,255,.15)}
+.card{transition:.3s;max-width:260px;margin:auto;width:100%;min-height:285px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.card img{width:75px;height:75px;object-fit:contain;border-radius:16px;background:#f1e7ff;padding:8px;margin-bottom:10px}
+.card h3{font-size:21px;color:#7b2cff;margin:10px 0}
+.statusBadge{display:inline-block;padding:8px 12px;border-radius:20px;font-weight:900;margin:8px 0 10px;font-size:12px}
+.inStock{background:#e7fff1;color:#0b9b4b}.outStock{background:#ffe8e8;color:#d10000}
+@media(max-width:600px){.plans{grid-template-columns:repeat(2,1fr);gap:14px}.card{padding:15px;min-height:275px}.card img{width:70px;height:70px}.card h3{font-size:20px}button{padding:10px 12px;font-size:13px}}
+.whyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;max-width:1000px;margin:auto}
+.whyCard{background:linear-gradient(135deg,#7b2cff,#b388ff);color:white;padding:20px;border-radius:18px;text-align:center;font-size:28px;font-weight:900;box-shadow:0 10px 25px rgba(123,44,255,.3)}
 .whyCard h3{font-size:14px;margin-top:10px}
-
-.popup{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:#0009;
-  align-items:center;
-  justify-content:center;
-  z-index:99;
-  padding:15px;
-}
-.popupBox{
-  background:white;
-  border-radius:22px;
-  padding:22px;
-  width:95%;
-  max-width:480px;
-  max-height:90vh;
-  overflow:auto;
-  text-align:center;
-  color:#24113d;
-  box-shadow:0 20px 40px rgba(0,0,0,.25);
-}
-
-input,textarea,select{
-  width:100%;
-  padding:12px;
-  margin:8px 0;
-  border:1px solid #d4b8ff;
-  border-radius:12px;
-  outline:none;
-}
-input:focus,textarea:focus,select:focus{
-  border-color:#7b2cff;
-  box-shadow:0 0 0 3px rgba(123,44,255,.08);
-}
+.popup{display:none;position:fixed;inset:0;background:#0009;align-items:center;justify-content:center;z-index:99;padding:15px}
+.popupBox{background:white;border-radius:22px;padding:22px;width:95%;max-width:480px;max-height:90vh;overflow:auto;text-align:center;color:#24113d}
+input,textarea,select{width:100%;padding:12px;margin:8px 0;border:1px solid #d4b8ff;border-radius:12px}
 textarea{min-height:90px}
-
-.planBtn{
-  display:block;
-  width:100%;
-  background:#f0e6ff;
-  color:#24113d;
-  border:1px solid #d4b8ff;
-  margin:8px 0;
-  border-radius:14px;
-  text-align:center;
-}
-.planBtn:hover{
-  background:#7b2cff;
-  color:white;
-}
-.green{background:#25D366}
-.red{background:#ff3333}
-
-.admin{
-  display:none;
-  padding:22px;
-  background:#fbf8ff;
-}
-.adminCard{
-  background:white;
-  border-radius:18px;
-  padding:15px;
-  margin:12px 0;
-  box-shadow:0 5px 18px #eadcff;
-}
-.adminImg{
-  width:80px;
-  height:80px;
-  object-fit:contain;
-  cursor:pointer;
-  background:#f1e7ff;
-  padding:8px;
-  border-radius:14px;
-}
-
-.feedbackCard{
-  text-align:left;
-  background:#f7f2ff;
-  padding:14px;
-  border-radius:15px;
-  margin:10px 0;
-  border:1px solid #eadcff;
-}
-.feedbackCard b{color:#7b2cff}
-.stars{
-  font-size:22px;
-  color:#ffb400;
-  margin:5px 0;
-}
-#overallRating{
-  background:#fff3cd;
-  color:#24113d;
-  display:inline-block;
-  padding:8px 16px;
-  border-radius:20px;
-  box-shadow:0 5px 15px rgba(0,0,0,.1);
-  font-weight:900;
-  margin:10px 0 18px;
-}
-
-.thankPopup{
-  position:fixed;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%) scale(.7);
-  background:white;
-  color:#7b2cff;
-  padding:22px 28px;
-  border-radius:22px;
-  box-shadow:0 15px 35px rgba(0,0,0,.25);
-  font-weight:900;
-  font-size:20px;
-  display:none;
-  z-index:99999;
-  animation:pop .35s ease;
-  text-align:center;
-}
-@keyframes pop{
-  from{transform:translate(-50%,-50%) scale(.5);opacity:0}
-  to{transform:translate(-50%,-50%) scale(1);opacity:1}
-}
-
-.contactBox{
-  background:linear-gradient(135deg,#7b2cff,#ff4fd8);
-  color:white;
-  max-width:430px;
-  margin:30px auto;
-  padding:25px;
-  border-radius:25px;
-  text-align:center;
-  box-shadow:0 10px 30px rgba(0,0,0,.2);
-}
-.contactBox a{
-  background:white;
-  color:#7b2cff;
-  padding:12px 20px;
-  border-radius:25px;
-  text-decoration:none;
-  font-weight:900;
-  display:inline-block;
-  margin-top:10px;
-}
-.floatWhatsApp{
-  position:fixed;
-  right:16px;
-  bottom:20px;
-  background:#25D366;
-  color:white;
-  padding:14px 18px;
-  border-radius:50px;
-  text-decoration:none;
-  font-weight:900;
-  box-shadow:0 8px 25px rgba(37,211,102,.35);
-  z-index:9999;
-}
-
-footer{
-  display:flex;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  background:white;
-  padding:25px;
-  margin-top:20px;
-}
-.footerLeft h3{color:#7b2cff}
-.footerLeft p{
-  cursor:pointer;
-  color:#7b2cff;
-  margin:8px 0;
-  font-weight:700;
-}
-.footerRight{
-  max-width:350px;
-  color:#555;
-  font-weight:600;
-}
-.couponBox{
-  background:white;
-  border:1px solid #eadcff;
-  border-radius:18px;
-  padding:15px;
-  margin-top:20px;
-}
-.adminBtnBox{
-  text-align:center;
-  padding:15px;
-}
+.planBtn{display:block;width:100%;background:#f0e6ff;color:#24113d;border:1px solid #d4b8ff;margin:8px 0;border-radius:14px;text-align:center}
+.planBtn:hover{background:#7b2cff;color:white}
+.green{background:#25D366}.red{background:#ff3333}
+.admin{display:none;padding:22px;background:#fbf8ff}
+.adminCard{background:white;border-radius:18px;padding:15px;margin:12px 0;box-shadow:0 5px 18px #eadcff}
+.adminImg{width:80px;height:80px;object-fit:contain;cursor:pointer;background:#f1e7ff;padding:8px;border-radius:14px}
+.feedbackCard{text-align:left;background:#f7f2ff;padding:14px;border-radius:15px;margin:10px 0;border:1px solid #eadcff}
+.feedbackCard b{color:#7b2cff}.stars{font-size:22px;color:#ffb400;margin:5px 0}
+#overallRating{background:#fff3cd;color:#24113d;display:inline-block;padding:8px 16px;border-radius:20px;box-shadow:0 5px 15px rgba(0,0,0,.1);font-weight:900;margin:10px 0 18px}
+.thankPopup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;color:#7b2cff;padding:22px 28px;border-radius:22px;box-shadow:0 15px 35px rgba(0,0,0,.25);font-weight:900;font-size:20px;display:none;z-index:99999;text-align:center}
+.contactBox{background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:white;max-width:430px;margin:30px auto;padding:25px;border-radius:25px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.contactBox a{background:white;color:#7b2cff;padding:12px 20px;border-radius:25px;text-decoration:none;font-weight:900;display:inline-block;margin-top:10px}
+.floatWhatsApp{position:fixed;right:16px;bottom:20px;background:#25D366;color:white;padding:14px 18px;border-radius:50px;text-decoration:none;font-weight:900;box-shadow:0 8px 25px rgba(37,211,102,.35);z-index:9999}
+footer{display:flex;justify-content:space-between;flex-wrap:wrap;background:white;padding:25px;margin-top:20px}
+.footerLeft h3{color:#7b2cff}.footerLeft p{cursor:pointer;color:#7b2cff;margin:8px 0;font-weight:700}
+.footerRight{max-width:350px;color:#555;font-weight:600}
+.couponBox{background:white;border:1px solid #eadcff;border-radius:18px;padding:15px;margin-top:20px}
+.adminBtnBox{text-align:center;padding:15px}
 </style>
 </head>
-
 <body>
-
-<div class="offerBanner">
-  <span>WELCOME TO MR.YOGI PREMIUM — Premium OTT • AI • Software Deals | Instant Activation</span>
-</div>
-
-<header>
-  <div class="logoBox">MR.YOGI PREMIUM</div>
-</header>
+<div class="offerBanner"><span>WELCOME TO MR.YOGI PREMIUM — Premium OTT • AI • Software Deals | Instant Activation</span></div>
+<header><div class="logoBox">MR.YOGI PREMIUM</div></header>
 
 <section class="hero">
-  <h1>MR.YOGI PREMIUM – India’s No 1 OTT & AI Store</h1>
-  <div class="tagline">Premium OTT • AI • Software Subscriptions</div>
-  <p>Buy Netflix, Prime Video, YouTube Premium, Adobe, ChatGPT Plus and AI tools at best prices with instant activation, trusted support and premium service.</p>
-  <a class="joinBtn" href="https://chat.whatsapp.com/EcUM0d0ipZVFCvzjCtPrlE" target="_blank">Join WhatsApp Group</a>
-  <div class="trustRow">
-    <span class="trustBadge">100+ Happy Clients</span>
-    <span class="trustBadge">Since 2024</span>
-    <span class="trustBadge">24×7 Support</span>
-  </div>
+<h1>MR.YOGI PREMIUM – India’s No 1 OTT & AI Store</h1>
+<div class="tagline">Premium OTT • AI • Software Subscriptions</div>
+<p>Buy Netflix, Prime Video, YouTube Premium, Adobe, ChatGPT Plus and AI tools at best prices with instant activation, trusted support and premium service.</p>
+<a class="joinBtn" href="https://chat.whatsapp.com/EcUM0d0ipZVFCvzjCtPrlE" target="_blank">Join WhatsApp Group</a>
+<div class="trustRow"><span class="trustBadge">100+ Happy Clients</span><span class="trustBadge">Since 2024</span><span class="trustBadge">24×7 Support</span></div>
 </section>
-
-<div class="liveBox">
-  <div id="liveView">27 People viewing this right now</div>
-</div>
 
 <section class="section" id="customerPage">
-  <h2 class="title">All Premium Plans</h2>
-  <input class="searchBox" id="searchBox" placeholder="Search products..." onkeyup="searchProducts()">
-  <div class="plans" id="plansArea"></div>
+<h2 class="title">All Premium Plans</h2>
+<input class="searchBox" id="searchBox" placeholder="Search products..." onkeyup="searchProducts()">
+<div class="plans" id="plansArea"></div>
 </section>
 
 <section class="section">
-  <h2 class="title">WHY CHOOSE US</h2>
-  <div class="whyGrid">
-    <div class="whyCard">⚡<h3>Instant Activation</h3></div>
-    <div class="whyCard">💬<h3>24×7 Support</h3></div>
-    <div class="whyCard">🔐<h3>Safe & Secure</h3></div>
-    <div class="whyCard">🚀<h3>Fast Delivery</h3></div>
-    <div class="whyCard">💎<h3>Premium Quality</h3></div>
-  </div>
+<h2 class="title">WHY CHOOSE US</h2>
+<div class="whyGrid">
+<div class="whyCard">⚡<h3>Instant Activation</h3></div>
+<div class="whyCard">💬<h3>24×7 Support</h3></div>
+<div class="whyCard">🔐<h3>Safe & Secure</h3></div>
+<div class="whyCard">🚀<h3>Fast Delivery</h3></div>
+<div class="whyCard">💎<h3>Premium Quality</h3></div>
+</div>
 </section>
 
 <section class="section">
-  <div class="boxCard">
-    <h2 class="title">Real Feedback from Our Happy Customers</h2>
-
-    <div id="overallRating">Loading Rating...</div>
-
-    <p>Discover genuine experiences from clients enjoying our premium subscriptions.</p>
-
-    <input id="fbName" placeholder="Customer Name">
-    <input id="fbProduct" placeholder="Product Name Optional">
-
-    <select id="fbRating">
-      <option value="5">⭐⭐⭐⭐⭐ 5/5</option>
-      <option value="4.5">⭐⭐⭐⭐✨ 4.5/5</option>
-      <option value="4">⭐⭐⭐⭐ 4/5</option>
-      <option value="3.5">⭐⭐⭐✨ 3.5/5</option>
-      <option value="3">⭐⭐⭐ 3/5</option>
-      <option value="2">⭐⭐ 2/5</option>
-      <option value="1">⭐ 1/5</option>
-    </select>
-
-    <textarea id="fbText" placeholder="Write feedback"></textarea>
-
-    <button onclick="saveFeedback()">Submit Feedback</button>
-    <div id="feedbackList"></div>
-    <button onclick="toggleFeedback()" id="viewFeedbackBtn">View All Feedback</button>
-  </div>
+<div class="boxCard">
+<h2 class="title">Real Feedback from Our Happy Customers</h2>
+<div id="overallRating">Loading Rating...</div>
+<p>Discover genuine experiences from clients enjoying our premium subscriptions.</p>
+<input id="fbName" placeholder="Customer Name">
+<input id="fbProduct" placeholder="Product Name Optional">
+<select id="fbRating">
+<option value="5">⭐⭐⭐⭐⭐ 5/5</option>
+<option value="4.5">⭐⭐⭐⭐✨ 4.5/5</option>
+<option value="4">⭐⭐⭐⭐ 4/5</option>
+<option value="3.5">⭐⭐⭐✨ 3.5/5</option>
+<option value="3">⭐⭐⭐ 3/5</option>
+<option value="2">⭐⭐ 2/5</option>
+<option value="1">⭐ 1/5</option>
+</select>
+<textarea id="fbText" placeholder="Write feedback"></textarea>
+<button onclick="saveFeedback()">Submit Feedback</button>
+<div id="feedbackList"></div>
+<button onclick="toggleFeedback()" id="viewFeedbackBtn">View All Feedback</button>
+</div>
 </section>
 
 <section class="contactBox">
-  <h2>CONTACT US</h2>
-  <p>For orders, support and activation</p>
-  <a href="https://wa.me/918618388937" target="_blank">Chat on WhatsApp: 8618388937</a>
+<h2>CONTACT US</h2>
+<p>For orders, support and activation</p>
+<a href="https://wa.me/918618388937" target="_blank">Chat on WhatsApp: 8618388937</a>
 </section>
 
 <div class="popup" id="loginPopup">
-  <div class="popupBox">
-    <h2>Admin Login</h2>
-    <input id="adminUser" placeholder="Username">
-    <input id="adminPass" type="password" placeholder="Password">
-    <button onclick="adminLogin()">Login</button>
-    <button class="red" onclick="closePopup()">Close</button>
-  </div>
+<div class="popupBox">
+<h2>Admin Login</h2>
+<input id="adminUser" placeholder="Username">
+<input id="adminPass" type="password" placeholder="Password">
+<button onclick="adminLogin()">Login</button>
+<button class="red" onclick="closePopup()">Close</button>
 </div>
-  <!-- POPUPS -->
+</div>
+
 <div class="popup" id="mainPopup">
-  <div class="popupBox">
-    <h2 id="popupTitle"></h2>
-    <div id="popupContent"></div>
-    <button class="red" onclick="closePopup()">Close</button>
-  </div>
+<div class="popupBox">
+<h2 id="popupTitle"></h2>
+<div id="popupContent"></div>
+<button class="red" onclick="closePopup()">Close</button>
+</div>
 </div>
 
-<div class="thankPopup" id="thankPopup">🙏 Thank You For Feedback ❤️</div>
-
-<!-- ADMIN PANEL -->
-<section class="admin" id="adminPage">
-  <h2 class="title">Admin Panel</h2>
-
-  <h3>Manage Products</h3>
-  <input id="serviceName" placeholder="Product Name">
-  <input id="serviceImg" placeholder="Image URL">
-  <input type="file" id="imgUpload">
-  <select id="serviceStatus">
-    <option value="in">In Stock</option>
-    <option value="out">Out of Stock</option>
-  </select>
-  <textarea id="serviceDesc" placeholder="Description"></textarea>
-  <textarea id="servicePlans" placeholder="1 Month – ₹150 | in"></textarea>
-
-  <button onclick="saveService()">Save Product</button>
-  <button class="green" onclick="showWebsite()">Back Website</button>
-
-  <h3>Coupons</h3>
-  <input id="couponCode" placeholder="Code">
-  <input id="couponDiscount" placeholder="Discount">
-  <button onclick="saveCoupon()">Add Coupon</button>
-  <div id="couponList"></div>
-
-  <h3>Products List</h3>
-  <div id="adminList"></div>
-
-  <h3>Feedback Manage</h3>
-  <div id="adminFeedback"></div>
-</section>
-
-<a class="floatWhatsApp" href="https://wa.me/918618388937" target="_blank">WhatsApp</a>
-
-<div class="adminBtnBox">
-  <button onclick="openLogin()">Admin Panel</button>
-</div>
+<div class="thankPopup" id="thankPopup">🙏 Thank you for feedback!</div>
 
 <footer>
-  <div class="footerLeft">
-    <h3>Legal</h3>
-    <p onclick="openLegal('Privacy Policy')">Privacy Policy</p>
-    <p onclick="openLegal('Terms')">Terms</p>
-    <p onclick="openLegal('Refund')">Refund</p>
-  </div>
-  <div class="footerRight">
-    © 2026 MR.YOGI PREMIUM. All rights reserved.
-  </div>
+<div class="footerLeft">
+<h3>Legal</h3>
+<p onclick="openLegal('Privacy Policy')">Privacy Policy</p>
+<p onclick="openLegal('Terms of Service')">Terms of Service</p>
+<p onclick="openLegal('Refund Policy')">Refund Policy</p>
+<p onclick="openLegal('Security Policy')">Security Policy</p>
+</div>
+<div class="footerRight">
+<p>Premium subscription services with instant activation and trusted support.</p>
+<p>© 2026 MR.YOGI PREMIUM. All rights reserved.</p>
+</div>
 </footer>
 
-<script>
+<section class="admin" id="adminPage">
+<h2 class="title">Admin Panel</h2>
+<h3>Manage Products</h3>
+<input id="serviceName" placeholder="Product Name">
+<input id="serviceImg" placeholder="Image URL">
+<input type="file" id="adminImageFile" accept="image/*" onchange="adminUploadImage(event)">
+<select id="serviceStatus"><option value="in">Product In Stock</option><option value="out">Product Out of Stock</option></select>
+<textarea id="serviceDesc" placeholder="Description"></textarea>
+<textarea id="servicePlans" placeholder="Format:
+1 Month – ₹150 | in
+3 Months – ₹399 | out"></textarea>
+<button onclick="saveService()">Save / Update Product</button>
+<button class="green" onclick="showWebsite()">Back Website</button>
 
-const number="918618388937";
-let editIndex=null;
-let showAllFeedback=false;
+<div class="couponBox">
+<h3>Manage Coupons</h3>
+<input id="couponCode" placeholder="Coupon Code">
+<input id="couponDiscount" placeholder="Discount Text">
+<button onclick="saveCoupon()">Add Coupon</button>
+<div id="couponList"></div>
+</div>
 
-let services=JSON.parse(localStorage.getItem("services"))||[
-{
-name:"Netflix Premium",
-img:"https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
-status:"in",
-desc:"4K UHD | 1 Device | Fast Support",
-plans:[
-{name:"1 Month – ₹150",stock:"in"},
-{name:"3 Months – ₹399",stock:"out"}
-]
-}
-];
+<h3>Manage Feedback</h3>
+<div id="adminFeedbackList"></div>
+<div id="adminList"></div>
+</section>
 
-let coupons=JSON.parse(localStorage.getItem("coupons"))||[];
-let feedbacks=JSON.parse(localStorage.getItem("feedbacks"))||[];
-
-function saveAll(){
-localStorage.setItem("services",JSON.stringify(services));
-localStorage.setItem("coupons",JSON.stringify(coupons));
-localStorage.setItem("feedbacks",JSON.stringify(feedbacks));
-}
-
-function renderWebsite(){
-let html="";
-services.forEach((s,i)=>{
-let out=s.status==="out";
-html+=`
-<div class="card">
-<img src="${s.img}" onclick="changeImage(${i})">
-<h3>${s.name}</h3>
-<span class="statusBadge ${out?'outStock':'inStock'}">${out?'Out of Stock':'In Stock'}</span>
-<button onclick="showDesc(${i})">Description</button>
-<button ${out?'disabled':`onclick="showPlans(${i})"`}>Choose Plan</button>
-</div>`;
-});
-plansArea.innerHTML=html;
-}
-renderWebsite();
-
-function searchProducts(){
-let val=searchBox.value.toLowerCase();
-document.querySelectorAll(".card").forEach(c=>{
-c.style.display=c.innerText.toLowerCase().includes(val)?"block":"none";
-});
-}
-
-function showDesc(i){
-popupTitle.innerText=services[i].name;
-popupContent.innerHTML=services[i].desc;
-mainPopup.style.display="flex";
-}
-
-function showPlans(i){
-let s=services[i];
-let html="";
-s.plans.forEach(p=>{
-let out=p.stock==="out";
-html+=`
-<button class="planBtn" ${out?'disabled':''}
-onclick="order('${s.name}','${p.name}')">
-${p.name}<br>
-<small style="color:${out?'red':'green'}">${out?'Out of stock':'Available'}</small>
-</button>`;
-});
-popupTitle.innerText=s.name+" Plans";
-popupContent.innerHTML=html;
-mainPopup.style.display="flex";
-}
-
-function order(name,plan){
-popupTitle.innerText="Order";
-popupContent.innerHTML=`
-<p><b>PRODUCT:</b> ${name}<br><b>PLAN:</b> ${plan}</p>
-<input id="n" placeholder="Name">
-<input id="m" placeholder="Mail">
-<input id="p" placeholder="Number">
-<input id="c" placeholder="Coupon">
-<button onclick="sendOrder('${name}','${plan}')">Submit</button>`;
-}
-
-function sendOrder(nm,pl){
-let n=n.value,m=m.value,pn=p.value,c=c.value;
-
-let order="ORD"+Date.now().toString().slice(-6);
-let inv="INV"+Date.now().toString().slice(-6);
-let d=new Date().toLocaleDateString();
-
-let msg=`📄 *INVOICE - MR.YOGI PREMIUM*
-
-🧾 *INVOICE NO:* ${inv}
-📦 *ORDER ID:* ${order}
-📅 *DATE:* ${d}
-
-🎬 *PRODUCT:* ${nm}
-💎 *PLAN:* ${pl}
-
-👤 Name: ${n}
-📧 Mail: ${m}
-📱 Number: ${pn}
-
-💰 Status: Payment Pending`;
-
-window.open(`https://wa.me/${number}?text=${encodeURIComponent(msg)}`);
-}
-
-function closePopup(){document.querySelectorAll(".popup").forEach(p=>p.style.display="none");}
-
-function openLogin(){loginPopup.style.display="flex";}
-
-function adminLogin(){
-if(adminUser.value==="admin" && adminPass.value==="yogi19001"){
-closePopup();
-customerPage.style.display="none";
-adminPage.style.display="block";
-renderAdmin();
-renderAdminFeedback();
-}else alert("Wrong");
-}
-
-function showWebsite(){
-adminPage.style.display="none";
-customerPage.style.display="block";
-renderWebsite();
-}
-
-function saveService(){
-let n=serviceName.value;
-let img=serviceImg.value;
-let st=serviceStatus.value;
-let d=serviceDesc.value;
-let p=servicePlans.value.split("\n").map(x=>{
-let a=x.split("|");
-return {name:a[0],stock:(a[1]||"in").trim()};
-});
-
-if(editIndex==null) services.push({name:n,img:img,status:st,desc:d,plans:p});
-else services[editIndex]={name:n,img:img,status:st,desc:d,plans:p};
-
-saveAll();renderWebsite();renderAdmin();
-}
-
-function renderAdmin(){
-let html="";
-services.forEach((s,i)=>{
-html+=`
-<div class="adminCard">
-<img src="${s.img}" class="adminImg" onclick="changeImage(${i})">
-<h3>${s.name}</h3>
-<button onclick="editService(${i})">Edit</button>
-<button onclick="deleteService(${i})">Delete</button>
-</div>`;
-});
-adminList.innerHTML=html;
-}
-
-function editService(i){
-editIndex=i;
-serviceName.value=services[i].name;
-serviceImg.value=services[i].img;
-serviceDesc.value=services[i].desc;
-serviceStatus.value=services[i].status;
-servicePlans.value=services[i].plans.map(p=>p.name+" | "+p.stock).join("\n");
-}
-
-function deleteService(i){
-services.splice(i,1);
-saveAll();renderWebsite();renderAdmin();
-}
-
-function changeImage(i){
-let file=imgUpload.files[0];
-if(file){
-let reader=new FileReader();
-reader.onload=e=>{
-services[i].img=e.target.result;
-saveAll();renderWebsite();renderAdmin();
-};
-reader.readAsDataURL(file);
-}
-}
-
-function saveCoupon(){
-coupons.push({code:couponCode.value,disc:couponDiscount.value});
-saveAll();
-}
-
-function saveFeedback(){
-let f={
-name:fbName.value,
-product:fbProduct.value,
-text:fbText.value,
-rating:fbRating.value
-};
-feedbacks.unshift(f);
-saveAll();
-fbName.value=fbProduct.value=fbText.value="";
-thankPopup.style.display="block";
-setTimeout(()=>thankPopup.style.display="none",2000);
-renderFeedback();
-}
-
-function renderFeedback(){
-let html="";
-let list=showAllFeedback?feedbacks:feedbacks.slice(0,3);
-list.forEach((f,i)=>{
-html+=`
-<div class="feedbackCard">
-<b>${f.name}</b> (${f.product||""})
-<div class="stars">${"⭐".repeat(Math.floor(f.rating))}</div>
-<p>${f.text}</p>
-</div>`;
-});
-feedbackList.innerHTML=html;
-updateRating();
-}
-
-function toggleFeedback(){
-showAllFeedback=!showAllFeedback;
-renderFeedback();
-}
-
-function updateRating(){
-if(feedbacks.length==0){overallRating.innerText="No rating";return;}
-let t=0;
-feedbacks.forEach(f=>t+=Number(f.rating));
-let avg=(t/feedbacks.length).toFixed(1);
-overallRating.innerText=`⭐ ${avg}/5 (${feedbacks.length})`;
-}
-
-function renderAdminFeedback(){
-let html="";
-feedbacks.forEach((f,i)=>{
-html+=`
-<div class="adminCard">
-<b>${f.name}</b> ⭐${f.rating}
-<p>${f.text}</p>
-<button onclick="deleteFeedback(${i})">Delete</button>
-</div>`;
-});
-adminFeedback.innerHTML=html;
-}
-
-function deleteFeedback(i){
-feedbacks.splice(i,1);
-saveAll();
-renderFeedback();
-renderAdminFeedback();
-}
-
-renderFeedback();
-
-function openLegal(t){
-popupTitle.innerText=t;
-popupContent.innerHTML="This is "+t+" content.";
-mainPopup.style.display="flex";
-}
-
-</script>
-
-</body>
-</html>
+<div class="adminBtnBox"><button onclick="openLogin()">Admin Panel</button></div>
+<a class="floatWhatsApp" href="https://wa.me/918618388937" target="_blank">
