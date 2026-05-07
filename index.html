@@ -1045,7 +1045,51 @@ async function deleteFeedback(id){
  if(error){alert("Delete feedback error: "+error.message);return}
  loadFeedbacks();
 }
+async function saveCoupon(){
+let code = couponCode.value.trim().toUpperCase();
+let discount = Number(couponDiscount.value || 0);
+let percent = Number(couponPercent.value || 0);
+let expiry = couponExpiry.value;
 
+if(!code){
+alert("Enter Coupon Code");
+return;
+}
+
+const {error} = await db.from("coupons").insert([{
+code,
+discount,
+percent,
+expiry_date: expiry,
+status:"active"
+}]);
+
+if(error){
+alert("Coupon error: " + error.message);
+return;
+}
+
+alert("✅ Coupon Added");
+couponCode.value="";
+couponDiscount.value="";
+couponPercent.value="";
+couponExpiry.value="";
+loadCoupons();
+}
+
+async function loadCoupons(){
+const {data,error} = await db.from("coupons").select("*").order("id",{ascending:false});
+if(error) return;
+
+couponList.innerHTML = (data || []).map(c=>`
+<div class="adminCard">
+<b>${c.code}</b><br>
+₹${c.discount} OFF<br>
+${c.percent}% OFF<br>
+Expiry: ${c.expiry_date || "No Expiry"}
+</div>
+`).join("");
+}
 function openPolicy(title){
   popupTitle.innerText = title;
   let html = "";
