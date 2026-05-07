@@ -934,7 +934,7 @@ function closePopup(){loginPopup.style.display="none";mainPopup.style.display="n
 function adminLogin(){
  if(adminUser.value.trim().toLowerCase()==="admin" && adminPass.value.trim()==="yogi19001"){
   closePopup();customerPage.style.display="none";adminPage.style.display="block";
-  loadOrders();loadFeedbacks();loadProducts();
+loadOrders();loadFeedbacks();loadProducts();loadCoupons();
  }else alert("Wrong username or password");
 }
 
