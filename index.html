@@ -472,7 +472,19 @@ font-weight:900;
 <h3>🛒 Orders Table</h3>
 <button onclick="loadOrders()">Refresh Orders</button>
 <div id="adminOrders"></div>
+<h3>🎟 Coupon Codes</h3>
 
+<input id="couponCode" placeholder="Coupon Code">
+
+<input id="couponDiscount" type="number" placeholder="Flat Discount ₹">
+
+<input id="couponPercent" type="number" placeholder="Percent Discount %">
+
+<input id="couponExpiry" type="date">
+
+<button class="green" onclick="saveCoupon()">Create Coupon</button>
+
+<div id="couponList"></div>
 <h3>Feedback</h3>
 <button onclick="loadFeedbacks()">Refresh Feedback</button>
 <div id="adminFeedback"></div>
