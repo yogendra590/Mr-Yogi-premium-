@@ -738,7 +738,12 @@ if(error || !data){
 alert("❌ Invalid Coupon");
 return;
 }
+let today = new Date().toISOString().split("T")[0];
 
+if(data.expiry_date && data.expiry_date < today){
+  alert("❌ Coupon Expired");
+  return;
+}
 window.appliedDiscount = Number(data.discount || 0);
 
 popupContent.innerHTML += `
