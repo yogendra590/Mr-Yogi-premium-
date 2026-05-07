@@ -269,6 +269,64 @@ grid-template-columns:1fr 1fr;
 align-items:start;
 }
 }
+  .successBox{
+background:linear-gradient(180deg,#13091f,#211034);
+border:2px solid #b84dff;
+border-radius:28px;
+padding:22px;
+text-align:center;
+color:white;
+box-shadow:0 0 30px rgba(184,77,255,.35);
+}
+
+.successTick{
+width:90px;
+height:90px;
+border-radius:50%;
+margin:10px auto;
+background:rgba(37,211,102,.18);
+border:3px solid #25D366;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:48px;
+color:#25D366;
+}
+
+.successTitle{
+color:#25D366;
+font-size:28px;
+font-weight:900;
+}
+
+.successDetails{
+background:rgba(255,255,255,.06);
+border-radius:20px;
+padding:15px;
+margin:18px 0;
+text-align:left;
+}
+
+.successDetails p{
+font-size:16px;
+margin:10px 0;
+color:#eee;
+}
+
+.successAmount{
+color:#25D366;
+font-size:24px;
+font-weight:900;
+}
+
+.successNote{
+background:#25D366;
+color:#062b13;
+font-weight:900;
+border-radius:25px;
+padding:14px;
+margin:15px 0;
+}
 </style>
 </head>
 
@@ -627,6 +685,7 @@ function openOrder(service,plan){
         <a href="${upiUrl}">
           <button class="payBtn">Pay ₹${amount} Now</button>
         </a>
+        <button class="green" onclick="showPaymentSuccess()">I Have Paid</button>
 
         <button class="green" onclick="sendPaymentScreenshot()">
           Send Payment Screenshot On WhatsApp
@@ -637,6 +696,40 @@ function openOrder(service,plan){
   `;
 
   mainPopup.style.display = "flex";
+}
+  function showPaymentSuccess(){
+  let amount = getAmount(selectedPlan);
+  let now = new Date().toLocaleString();
+
+  popupTitle.innerText = "Payment Status";
+
+  popupContent.innerHTML = `
+    <div class="successBox">
+      <h2>💳 QR Payment</h2>
+
+      <div class="successTick">✓</div>
+
+      <div class="successTitle">Payment Successful!</div>
+      <p>Thank you for your payment.</p>
+
+      <div class="successDetails">
+        <p>👤 <b>Name:</b> MR.YOGI PREMIUM</p>
+        <p>🆔 <b>UPI ID:</b> 8618388937@ibl</p>
+        <p>📦 <b>Plan:</b> ${selectedService}</p>
+        <p>📅 <b>Validity:</b> ${selectedPlan}</p>
+        <p>💰 <b>Amount Paid:</b> <span class="successAmount">₹${amount}</span></p>
+        <p>🕒 <b>Date & Time:</b> ${now}</p>
+      </div>
+
+      <div class="successNote">✅ Payment of ₹${amount} received successfully.</div>
+
+      <p>Please send payment screenshot on WhatsApp.</p>
+
+      <button class="green" onclick="sendPaymentScreenshot()">
+        Send Screenshot On WhatsApp
+      </button>
+    </div>
+  `;
 }
 
 async function sendOrder(){
