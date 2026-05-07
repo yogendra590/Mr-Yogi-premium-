@@ -82,6 +82,53 @@ textarea{min-height:90px}
 .footerLinks p{margin:0;color:#d8d8e8;font-size:18px;cursor:pointer}
 .footerLinks p:hover{color:#ff4fd8}
 .thank{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;color:#7b2cff;padding:22px 28px;border-radius:22px;box-shadow:0 15px 35px #0005;z-index:9999;font-weight:900}
+#loader{
+position:fixed;
+inset:0;
+background:#000;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:99999;
+animation:hideLoader 3s forwards;
+}
+
+#loader img{
+width:140px;
+margin-bottom:20px;
+border-radius:20px;
+animation:zoom 1.5s infinite alternate;
+}
+
+#loader h1{
+color:white;
+font-size:34px;
+font-weight:900;
+margin:0;
+}
+
+#loader p{
+color:#b84dff;
+font-size:18px;
+margin-top:10px;
+}
+
+@keyframes zoom{
+from{transform:scale(1);}
+to{transform:scale(1.08);}
+}
+
+@keyframes hideLoader{
+0%,85%{
+opacity:1;
+visibility:visible;
+}
+100%{
+opacity:0;
+visibility:hidden;
+}
+}
 </style>
 </head>
 
