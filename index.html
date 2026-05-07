@@ -255,7 +255,7 @@ function renderWebsite(){
       <h3>${s.name}</h3>
       <span class="${out ? 'outStock' : 'inStock'}">${out ? 'Out of Stock' : 'In Stock'}</span><br>
       <button onclick="showDesc(${i})">Plan Details</button>
-      <button ${out ? 'disabled' : `onclick="showPlans(${i})"`}>${out ? 'Unavailable' : 'Order Now'}</button>
+      <button ${out ? 'disabled' : `onclick="showPlans(${i})"`}>${out ? 'Unavailable' : 'Activate Now'}</button>
     </div>`;
   }).join("");
 }
