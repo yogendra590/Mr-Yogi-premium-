@@ -213,6 +213,62 @@ opacity:1;
 transform:translateY(0);
 }
 }
+  .payBox{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.whatsappOrderBox,
+.qrPaymentBox{
+background:#120d1c;
+border:1px solid #7b2cff;
+border-radius:22px;
+padding:18px;
+text-align:center;
+box-shadow:0 0 22px rgba(123,44,255,.25);
+}
+
+.whatsappOrderBox h3,
+.qrPaymentBox h3{
+color:#b84dff;
+font-size:22px;
+margin-bottom:12px;
+}
+
+.paymentQR{
+width:220px;
+height:220px;
+background:white;
+padding:10px;
+border-radius:18px;
+margin:10px auto;
+display:block;
+}
+
+.upiText{
+color:#ddd;
+font-weight:700;
+}
+
+.amountText{
+color:#00e05a;
+font-size:20px;
+font-weight:900;
+}
+
+.payBtn{
+background:linear-gradient(135deg,#7b2cff,#ff4fd8);
+color:white;
+}
+
+@media(min-width:768px){
+.payBox{
+display:grid;
+grid-template-columns:1fr 1fr;
+align-items:start;
+}
+}
 </style>
 </head>
 
@@ -497,16 +553,90 @@ function showPlans(i){
  mainPopup.style.display="flex";
 }
 
+function getAmount(plan){
+  let match = plan.match(/₹\s*(\d+)/);
+  return match ? match[1] : "";
+}
+
+function getUpiUrl(){
+  let amount = getAmount(selectedPlan);
+  let note = selectedService + " - " + selectedPlan;
+
+  return `upi://pay?pa=8618388937@ibl&pn=MR.YOGI PREMIUM&am=${amount}&cu=INR&tn=${encodeURIComponent(note)}`;
+}
+
+function sendPaymentScreenshot(){
+  let amount = getAmount(selectedPlan);
+  let discount = window.appliedDiscount || 0;
+
+  let discountText = "";
+  if(discount > 0){
+    discountText = `
+
+🎁 DISCOUNT : ₹${discount} OFF`;
+  }
+
+  let msg = `HLO MR.YOGI PREMIUM 👋
+
+✅ PAYMENT SUCCESSFUL
+
+📦 PLAN : ${selectedService}
+
+📅 VALIDITY : ${selectedPlan}
+
+💰 AMOUNT : ₹${amount}${discountText}
+
+📸 PAYMENT SCREENSHOT ATTACHED BELOW.`;
+
+  window.open(`https://wa.me/918618388937?text=${encodeURIComponent(msg)}`);
+}
+
 function openOrder(service,plan){
- selectedService=service; selectedPlan=plan;
- popupTitle.innerText="Order Now";
- popupContent.innerHTML=`
- <p><b>PRODUCT:</b> ${service}<br><b>PLAN:</b> ${plan}</p>
- <input id="custName" placeholder="Name">
- <input id="custMail" placeholder="Email">
- <input id="custNum" placeholder="Phone">
- <input id="custCoupon" placeholder="Coupon Optional">
- <button class="green" onclick="sendOrder()">Submit Order</button>`;
+  selectedService = service;
+  selectedPlan = plan;
+
+  let amount = getAmount(plan);
+  let upiUrl = getUpiUrl();
+  let qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(upiUrl)}`;
+
+  popupTitle.innerText = "Complete Your Order";
+
+  popupContent.innerHTML = `
+    <div class="payBox">
+
+      <div class="whatsappOrderBox">
+        <h3>📲 WhatsApp Order</h3>
+        <p><b>Product:</b> ${service}</p>
+        <p><b>Plan:</b> ${plan}</p>
+        <p><b>Amount:</b> ₹${amount}</p>
+
+        <input id="custName" placeholder="Your Name">
+        <input id="custMail" placeholder="Your Email">
+        <input id="custNum" placeholder="Your WhatsApp Number">
+        <input id="custCoupon" placeholder="Coupon Code Optional">
+
+        <button class="green" onclick="sendOrder()">Order On WhatsApp</button>
+      </div>
+
+      <div class="qrPaymentBox">
+        <h3>💳 QR Payment</h3>
+        <img src="${qrUrl}" class="paymentQR">
+        <p class="upiText">UPI ID: 8618388937@ibl</p>
+        <p class="amountText">Pay Amount: ₹${amount}</p>
+
+        <a href="${upiUrl}">
+          <button class="payBtn">Pay ₹${amount} Now</button>
+        </a>
+
+        <button class="green" onclick="sendPaymentScreenshot()">
+          Send Payment Screenshot On WhatsApp
+        </button>
+      </div>
+
+    </div>
+  `;
+
+  mainPopup.style.display = "flex";
 }
 
 async function sendOrder(){
