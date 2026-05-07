@@ -674,17 +674,21 @@ function sendPaymentScreenshot(){
 🎁 DISCOUNT : ₹${discount} OFF`;
   }
 
-  let msg = `HLO MR.YOGI PREMIUM 👋
+let msg = `*HLO MR.YOGI PREMIUM 👋*
 
-✅ PAYMENT SUCCESSFUL
+*✅ PAYMENT SUCCESSFUL*
 
-📦 PLAN : ${selectedService}
+*📦 PLAN :* *${selectedService}*
 
-📅 VALIDITY : ${selectedPlan}
+*📅 VALIDITY :* *${selectedPlan}*
 
-💰 AMOUNT : ₹${amount}${discountText}
+*💰 AMOUNT PAID :* *₹${amount}${discountText}*
 
-📸 PAYMENT SCREENSHOT ATTACHED BELOW.`;
+*⚡ Kindly activate my plan as soon as possible.*
+
+*📸 Payment screenshot attached below.*
+
+*Thank you ❤️*`;
 
   window.open(`https://wa.me/918618388937?text=${encodeURIComponent(msg)}`);
 }
