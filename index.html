@@ -718,6 +718,7 @@ let msg = `*HLO MR.YOGI PREMIUM 👋*
 
   window.open(`https://wa.me/918618388937?text=${encodeURIComponent(msg)}`);
 }
+ async function applyCoupon(){
 let amount = Number(getAmount(selectedPlan));
 
 let flatDiscount = Number(data.discount || 0);
