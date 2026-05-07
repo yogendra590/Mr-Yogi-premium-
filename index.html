@@ -208,6 +208,7 @@ async function loadProducts(){
 }
 
 function renderWebsite(){
+  const plansArea = document.getElementById("plansArea");
   if(!services || services.length === 0){
     plansArea.innerHTML = "<p>No products found. Add products in admin panel.</p>";
     return;
