@@ -227,28 +227,22 @@ function renderWebsite(){
     </div>`;
   }).join("");
 }
-
 function showDesc(i){
   let s = services[i];
-  let lines = (s.desc || "").split("\n").map(l=>l.trim()).filter(l=>l);
+
+  let lines = (s.desc || "")
+    .split("\n")
+    .filter(x => x.trim());
 
   let html = `<div class="descBox">`;
 
   lines.forEach(line=>{
-    if(line.toLowerCase().startsWith("note")){
-      html += `<div class="noteLine">⚠ ${line}</div>`;
-    }else{
-      let parts = line.split(":");
-      if(parts.length >= 2){
-        html += `
-        <div class="descLine">
-          <span class="tick">✅</span>
-          <b>${parts[0]}:</b>
-          <span class="arrow">→</span>
-          <span class="value">${parts.slice(1).join(":").trim()}</span>
-        </div>`;
-      }
-    }
+    html += `
+      <div class="simpleLine">
+        <span class="autoTick">✓</span>
+        <span>${line}</span>
+      </div>
+    `;
   });
 
   html += `</div>`;
@@ -257,6 +251,7 @@ function showDesc(i){
   popupContent.innerHTML = html;
   mainPopup.style.display = "flex";
 }
+
 
 function showPlans(i){
  let s=services[i],plans=Array.isArray(s.plans)?s.plans:[];
