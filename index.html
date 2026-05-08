@@ -917,38 +917,56 @@ async function applyCoupon(){
 
         <p style="font-size:17px;color:#111;margin:10px 0;">
           🎟 Coupon: <b>${code}</b>
-        </p>
+async function applyCoupon(){
+  let code = document.getElementById("custCoupon").value.trim().toUpperCase();
 
-        <p style="font-size:17px;color:#111;margin:10px 0;">
-          📦 Product: <b>${selectedService}</b>
-        </p>
+  if(!code){
+    alert("Enter Coupon Code");
+    return;
+  }
 
-        <p style="font-size:17px;color:#111;margin:10px 0;">
-          💰 Plan Amount: <b>₹${amount}</b>
-        </p>
+  const {data,error} = await db
+    .from("coupons")
+    .select("*")
+    .eq("code", code)
+    .eq("status", "active")
+    .maybeSingle();
 
-        <p style="font-size:17px;color:#111;margin:10px 0;">
-          🎁 Discount: <b>₹${savedAmount}</b>
-        </p>
+  if(error || !data){
+    alert("❌ Invalid Coupon Code");
+    return;
+  }
 
-        <p style="font-size:23px;color:#0a9f45;font-weight:900;margin:14px 0 0;">
-          ✅ Total Pay: ₹${window.finalAmount}
-        </p>
-      </div>
+  let today = new Date().toISOString().split("T")[0];
 
-      <style>
-        @keyframes couponPop{
-          from{opacity:0;transform:scale(.6);}
-          to{opacity:1;transform:scale(1);}
-        }
-      </style>
-    </div>
-  `);
+  if(data.expiry_date && data.expiry_date < today){
+    alert("❌ Coupon Expired");
+    return;
+  }
 
-  setTimeout(()=>{
-    const el = document.querySelector(".couponSuccessOverlay");
-    if(el) el.remove();
-  },3000);
+  let amount = Number(getAmount(selectedPlan));
+  let flatDiscount = Number(data.discount || 0);
+  let percentDiscount = Number(data.percent || 0);
+  let percentAmount = (amount * percentDiscount) / 100;
+  let savedAmount = Math.round(flatDiscount + percentAmount);
+
+  let finalAmount = amount - savedAmount;
+  if(finalAmount < 1){
+    finalAmount = 1;
+  }
+
+  window.finalAmount = Math.round(finalAmount);
+  window.appliedDiscount = savedAmount;
+  window.appliedCoupon = code;
+
+  alert(
+    "✅ COUPON APPLIED SUCCESSFULLY\n\n" +
+    "🎟 Coupon: " + code + "\n" +
+    "💰 Plan Amount: ₹" + amount + "\n" +
+    "🎁 Discount: ₹" + savedAmount + "\n" +
+    "✅ Total Pay: ₹" + window.finalAmount
+  );
+}
 }
 function openOrder(service,plan){
   selectedService = service;
