@@ -929,43 +929,21 @@ async function applyCoupon(){
     .from("coupons")
     .select("*")
     .eq("code", code)
-    .eq("status", "active")
-    .maybeSingle();
+.single();
 
-  if(error || !data){
-    alert("❌ Invalid Coupon Code");
-    return;
-  }
+    if (error || !data) {
+      alert("Invalid Coupon Code");
+      return;
+    }
 
-  let today = new Date().toISOString().split("T")[0];
+    let discount = data.discount || 0;
+    window.finalAmount = Math.max(getAmount(selectedPlan) - discount, 1);
 
-  if(data.expiry_date && data.expiry_date < today){
-    alert("❌ Coupon Expired");
-    return;
-  }
+    alert("Coupon Applied Successfully! ₹" + discount + " Discount");
 
-  let amount = Number(getAmount(selectedPlan));
-  let flatDiscount = Number(data.discount || 0);
-  let percentDiscount = Number(data.percent || 0);
-  let percentAmount = (amount * percentDiscount) / 100;
-  let savedAmount = Math.round(flatDiscount + percentAmount);
-
-  let finalAmount = amount - savedAmount;
-  if(finalAmount < 1){
-    finalAmount = 1;
-  }
-
-  window.finalAmount = Math.round(finalAmount);
-  window.appliedDiscount = savedAmount;
-  window.appliedCoupon = code;
-
-  alert(
-"✅ COUPON APPLIED SUCCESSFULLY\n\n" +
-"🎟 Coupon: " + code + "\n" +
-"💰 Plan Amount: ₹" + amount + "\n" +
-"🎁 Discount: ₹" + savedAmount + "\n" +
-"✅ Total Pay: ₹" + window.finalAmount
-);
+    closePopup();
+    openOrder(selectedService, selectedPlan);
+}
 }
 function openOrder(service,plan){
   selectedService = service;
