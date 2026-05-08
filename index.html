@@ -1,1 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MR.YOGI PREMIUM</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#f6efff;color:#1d1230}
+header{background:linear-gradient(90deg,#7b2cff,#ff3bd4);color:white;padding:18px;text-align:center;font-weight:900}
+.hero{text-align:center;padding:55px 18px;background:linear-gradient(#fff,#efe2ff)}
+.hero h1{font-size:38px;margin-bottom:15px}
+.hero p{font-size:18px;line-height:1.5}
+.badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:25px}
+.badge{background:white;color:#8a2cff;padding:13px 20px;border-radius:30px;font-weight:800}
+section{padding:35px 16px}
+h2{text-align:center;font-size:34px;color:#8a2cff;margin-bottom:25px}
+.search{width:100%;max-width:600px;display:block;margin:0 auto 25px;padding:17px;border-radius:30px;border:1px solid #d6b9ff;font-size:17px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.card{background:white;border-radius:24px;padding:22px;box-shadow:0 12px 35px #0001;text-align:center;border:1px solid #eadbff}
+.card h3{font-size:23px;margin-bottom:8px}
+.card p{color:#555;line-height:1.5;margin-bottom:15px}
+.desc{text-align:left;margin:12px 0;color:#222;line-height:1.8}
+.desc span{display:block}
+.tick{color:#00b050;font-weight:900}
+.btn{border:0;border-radius:30px;padding:15px 20px;font-weight:900;cursor:pointer;background:linear-gradient(90deg,#7b2cff,#ff3bd4);color:white;width:100%;font-size:16px;box-shadow:0 8px 22px #8a2cff55}
+.chooseBtn{font-size:18px;animation:pulse 1.5s infinite}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.04)}100%{transform:scale(1)}}
+.whatsapp{position:fixed;right:18px;bottom:22px;background:#25d366;color:white;padding:18px 25px;border-radius:35px;font-weight:900;text-decoration:none;z-index:20}
+.adminBtn{position:fixed;left:15px;bottom:22px;background:#111;color:white;border:0;border-radius:30px;padding:14px 18px;font-weight:900;z-index:20}
+.popup{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;padding:15px;z-index:50}
+.box{background:white;border-radius:25px;padding:22px;width:100%;max-width:450px;max-height:90vh;overflow:auto}
+.box h3{text-align:center;font-size:25px;margin-bottom:15px}
+.close{float:right;font-size:26px;cursor:pointer}
+.plan{border:1px solid #ddd;border-radius:16px;padding:15px;margin:10px 0;cursor:pointer;background:#fafafa}
+.plan:hover{background:#f2e8ff}
+input,textarea,select{width:100%;padding:14px;margin:8px 0;border-radius:12px;border:1px solid #ccc;font-size:15px}
+.feedbackBox,.policyBox{max-width:850px;margin:auto;background:white;padding:22px;border-radius:24px;box-shadow:0 12px 35px #0001}
+.policyBox{line-height:1.8}
+.policyBox h3{color:#8a2cff;margin:18px 0 8px}
+.small{font-size:13px;color:#666}
+footer{text-align:center;background:#111;color:white;padding:25px 15px;line-height:1.7;margin-bottom:70px}
+
+.qrPayBox{background:#fffaf3;border-radius:24px;padding:20px;margin-bottom:18px;border:1px solid #eadccc}
+.upiHead{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:10px}
+.upiLogo{background:#007a5a;color:white;width:62px;height:62px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px}
+.secure{background:#fff3e8;color:#007a5a;padding:10px 18px;border-radius:25px;font-weight:900;letter-spacing:2px}
+.qrImg{display:block;width:260px;height:260px;margin:22px auto;background:white;padding:14px;border-radius:18px;box-shadow:0 12px 35px #0002}
+.qrTimer{display:flex;justify-content:space-between;border:1px dashed #d7c7b7;padding:13px 18px;border-radius:15px;margin:12px 0;color:#777}
+.qrTimer b{color:#008060}
+.upiApps{background:#f4f8ff;border:1px solid #d7e3ff;border-radius:18px;padding:15px;margin-top:15px}
+.appGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.appBtn{display:block;text-align:center;text-decoration:none;background:white;border:1px solid #cfe0ff;padding:13px;border-radius:14px;font-weight:900;color:#164a9b}
+
+.orderOverlay{position:fixed;inset:0;background:#050505;z-index:9999;display:none;align-items:center;justify-content:center;color:white;text-align:center;padding:25px}
+.orderBox{width:100%;max-width:370px;border:1px solid #333;border-radius:28px;padding:35px 22px;background:#0b0b0bcc}
+.cartIcon,.successIcon{width:120px;height:120px;border-radius:50%;margin:0 auto 25px;display:flex;align-items:center;justify-content:center;font-size:55px}
+.cartIcon{background:#e50914}
+.successIcon{background:#2ecc71}
+.percent{font-size:55px;font-weight:900;margin:15px 0}
+.progress{height:12px;background:#182033;border:1px solid #fff;border-radius:20px;overflow:hidden}
+.bar{height:100%;width:0%;background:linear-gradient(90deg,#ff1e1e,#ff7b00)}
+.orderBox h1{font-size:30px;margin-top:25px}
+.dots{letter-spacing:5px}
+</style>
+</head>
+
+<body>
+
+<header>MR.YOGI PREMIUM</header>
+
+<div class="hero">
+  <h1>Mr.Yogi Premium Store</h1>
+  <p>OTT • AI • Software subscriptions with instant activation, trusted service and WhatsApp orders.</p>
+  <div class="badges">
+    <div class="badge">Since 2024</div>
+    <div class="badge">1000+ Happy Clients</div>
+    <div class="badge">24×7 Support</div>
+  </div>
+</div>
+
+<section>
+  <h2>All Premium Plans</h2>
+  <input class="search" id="search" placeholder="Search products..." oninput="renderProducts()">
+  <div class="grid" id="products"></div>
+</section>
+
+<section>
+  <h2>🔥 WHY CHOOSE US</h2>
+
+  <div class="grid">
+
+    <div class="card">
+      <h3>⚡ Instant Activation</h3>
+      <p>Get your premium account within minutes after payment.</p>
+    </div>
+
+    <div class="card">
+      <h3>🛡️ 100% Safe & Trusted Service</h3>
+      <p>Secure payments & reliable premium accounts since 2024.</p>
+    </div>
+
+    <div class="card">
+      <h3>💎 Best Prices Guaranteed</h3>
+      <p>Premium OTT & AI tools at unbeatable prices.</p>
+    </div>
+
+    <div class="card">
+      <h3>📞 24/7 Customer Support</h3>
+      <p>Fast response & quick issue resolution anytime.</p>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>Customer Feedback</h2>
+  <div class="feedbackBox">
+    <input id="fbName" placeholder="Your Name">
+    <select id="fbRating">
+      <option value="">Select Rating</option>
+      <option value="1">⭐ 1 Star</option>
+      <option value="2">⭐⭐ 2 Stars</option>
+      <option value="3">⭐⭐⭐ 3 Stars</option>
+      <option value="4">⭐⭐⭐⭐ 4 Stars</option>
+      <option value="5">⭐⭐⭐⭐⭐ 5 Stars</option>
+    </select>
+    <textarea id="fbMsg" placeholder="Write your feedback..."></textarea>
+    <button class="btn" onclick="submitFeedback()">Submit Feedback</button>
+    <p id="fbThanks" style="display:none;text-align:center;color:#00b050;font-weight:900;margin-top:15px;">Thank you for feedback ❤️</p>
+  </div>
+</section>
+
+<section>
+  <h2>Legal Policies</h2>
+  <div class="policyBox">
+    <h3>🔐 PRIVACY POLICY</h3>
+    <p><b>MR.YOGI PREMIUM</b><br>Effective Date: May 5, 2026</p>
+    <p>We respect your privacy and are committed to protecting your personal information.</p>
+    <p>🔹 <b>Information We Collect:</b> Name, phone number, email, payment details, order & usage details.</p>
+    <p>🔹 <b>How We Use Your Data:</b> To process orders, deliver accounts/services and provide customer support.</p>
+    <p>🔹 <b>Data Protection:</b> We do not sell or share your data with third parties.</p>
+    <p>🔹 <b>Cookies:</b> Our website may use cookies to improve user experience.</p>
+    <p>🔹 <b>Contact:</b> 📞 8618388937</p>
+
+    <h3>📜 TERMS OF CONDITIONS</h3>
+    <p><b>MR.YOGI PREMIUM</b><br>Effective Date: May 5, 2026</p>
+    <p>By using our services, you agree to the following:</p>
+    <p>🔹 <b>Service:</b> We provide OTT, AI tools & software subscriptions.</p>
+    <p>🔹 <b>Rules:</b> Do not change account details, do not misuse shared accounts, follow device/screen limits.</p>
+    <p>🔹 <b>Violations:</b> Breaking rules = No refund / No replacement.</p>
+    <p>🔹 <b>Changes:</b> We can update terms anytime without notice.</p>
+
+    <h3>💰 REFUND POLICY</h3>
+    <p>❌ <b>No Refund Policy:</b> No refund after successful delivery.</p>
+    <p>✅ <b>Replacement Only If:</b> Account not working at delivery and report within warranty.</p>
+    <p>❌ <b>No Replacement If:</b> User changed details, misuse detected, device limit exceeded.</p>
+
+    <h3>🛡️ SECURITY POLICY</h3>
+    <p>🔹 <b>Safe Payments:</b> We use secure payment methods UPI / Gateway.</p>
+    <p>🔹 <b>Account Safety:</b> Do not share login with others. Follow usage rules.</p>
+    <p>🔹 <b>Data Security:</b> Your data is protected and not shared publicly.</p>
+    <p>🔹 <b>Fraud Protection:</b> Any misuse or fraud will lead to account termination without refund.</p>
+  </div>
+</section>
+
+<footer>
+  © 2026 MR.YOGI PREMIUM — All Rights Reserved<br>
+  💎 Premium Accounts • Trusted Service • Best Prices
+</footer>
+
+<a class="whatsapp" href="https://wa.me/918618388937">WhatsApp</a>
+<button class="adminBtn" onclick="adminLogin()">Admin</button>
+
+<div class="popup" id="popup">
+  <div class="box">
+    <span class="close" onclick="closePopup()">×</span>
+    <h3 id="popupTitle"></h3>
+    <div id="popupContent"></div>
+  </div>
+</div>
+
+<div class="orderOverlay" id="orderOverlay">
+  <div class="orderBox" id="orderBox">
+    <div class="cartIcon">🛒</div>
+    <div class="percent" id="percent">0%</div>
+    <div class="progress"><div class="bar" id="bar"></div></div>
+    <h1>PROCESSING ORDER</h1>
+    <p>Securing your order <span class="dots">•••</span></p>
+  </div>
+</div>
+  <script>
+const WA = "918618388937";
+const UPI_ID = "8618388937@ibl";
+const UPI_NAME = "Pulaganti Yogendra Reddy";
+
+const SUPABASE_URL = "https://xztufpmubkflgeoioykg.supabase.co";
+const SUPABASE_KEY = "sb_publishable_iTghesB-67gkTbOjGrhAHQ_a9e5AGR9";
+const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let selectedProduct = null;
+let selectedPlan = null;
+let finalAmount = 0;
+let appliedCoupon = "Not Applied";
+let allProducts = [];
+let qrTimerInterval;
+
+async function renderProducts(){
+  const q = document.getElementById("search") ? document.getElementById("search").value.toLowerCase() : "";
+  const box = document.getElementById("products");
+
+  const { data, error } = await db
+    .from("products")
+    .select("*")
+    .order("id", { ascending:true });
+
+  if(error){
+    box.innerHTML = "<p style='text-align:center;color:red'>Products loading error. Check Supabase table.</p>";
+    return;
+  }
+
+  allProducts = (data || []).filter(p => (p.name || "").toLowerCase().includes(q));
+
+  if(allProducts.length === 0){
+    box.innerHTML = "<p style='text-align:center'>No products found. Open Admin and add products.</p>";
+    return;
+  }
+
+  box.innerHTML = allProducts.map((p,i)=>`
+    <div class="card">
+      <h3>${p.name}</h3>
+      <p>${p.desc || ""}</p>
+      <div class="desc">
+        ${(p.points || []).map(x=>`<span><b class="tick">✓</b> ${x}</span>`).join("")}
+      </div>
+      <button class="btn chooseBtn" onclick="openPlans(${i})">🔥 CHOOSE PLAN</button>
+    </div>
+  `).join("");
+}
+
+function openPlans(i){
+  selectedProduct = allProducts[i];
+
+  document.getElementById("popupTitle").innerText = selectedProduct.name;
+  document.getElementById("popupContent").innerHTML = `
+    <p style="text-align:center;margin-bottom:12px;">${selectedProduct.desc || ""}</p>
+    <div class="desc">
+      ${(selectedProduct.points || []).map(x=>`<span><b class="tick">✓</b> ${x}</span>`).join("")}
+    </div>
+    <h3 style="color:#8a2cff;margin-top:15px;">🔥 Choose Your Plan</h3>
+    ${(selectedProduct.plans || []).map((pl,idx)=>`
+      <div class="plan" onclick="openOrder(${idx})">
+        <b>${pl.name}</b><br>
+        ₹${pl.price}
+      </div>
+    `).join("")}
+  `;
+
+  document.getElementById("popup").style.display = "flex";
+}
+
+function openOrder(idx){
+  selectedPlan = selectedProduct.plans[idx];
+  finalAmount = Number(selectedPlan.price);
+  appliedCoupon = "Not Applied";
+
+  document.getElementById("popupTitle").innerText = "Complete Your Order";
+
+  document.getElementById("popupContent").innerHTML = `
+    <div class="qrPayBox">
+      <div class="upiHead">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="upiLogo">UPI</div>
+          <div>
+            <h3 style="margin:0;text-align:left">WeeWoo</h3>
+            <p style="margin:2px 0;color:#777">Scan & pay instantly</p>
+          </div>
+        </div>
+        <div class="secure">SECURE</div>
+      </div>
+
+      <h2 style="text-align:left;color:#111;margin-bottom:12px">Scan QR to Pay</h2>
+      <p style="font-size:18px;color:#666">Amount to pay: <b>₹<span id="amt">${finalAmount}</span></b></p>
+
+      <img id="qrImage" class="qrImg" src="">
+
+      <div class="qrTimer">
+        <span>QR expires in</span>
+        <b id="qrTime">05:00</b>
+      </div>
+
+      <div class="upiApps">
+        <b>PAY WITH DIRECT UPI APPS</b>
+        <div class="appGrid">
+          <a class="appBtn" id="gpayLink" href="#">Google Pay</a>
+          <a class="appBtn" id="phonepeLink" href="#">PhonePe</a>
+          <a class="appBtn" id="paytmLink" href="#">Paytm</a>
+          <a class="appBtn" id="upiLink" href="#">Any UPI App</a>
+        </div>
+      </div>
+    </div>
+
+    <p><b>Product:</b> ${selectedProduct.name}</p>
+    <p><b>Plan:</b> ${selectedPlan.name} - ₹${selectedPlan.price}</p>
+
+    <input id="coupon" placeholder="Enter coupon code">
+    <button class="btn" onclick="applyCoupon()">Apply Coupon</button>
+
+    <hr style="margin:15px 0">
+
+    <input id="custName" placeholder="Customer Name">
+    <input id="custEmail" placeholder="Customer Mail">
+    <input id="custPhone" placeholder="Customer WhatsApp Number">
+
+    <button class="btn" onclick="sendOrder()">Send Invoice on WhatsApp</button>
+  `;
+
+  updateUpiQR();
+  startQrTimer();
+}
+
+async function applyCoupon(){
+  const code = document.getElementById("coupon").value.trim().toUpperCase();
+
+  if(!code){
+    alert("Enter Coupon Code");
+    return;
+  }
+
+  const { data, error } = await db
+    .from("coupons")
+    .select("*")
+    .eq("code", code)
+    .single();
+
+  if(error || !data){
+    alert("Invalid Coupon Code");
+    return;
+  }
+
+  finalAmount = Math.max(Number(selectedPlan.price) - Number(data.discount), 1);
+  appliedCoupon = code;
+
+  document.getElementById("amt").innerText = finalAmount;
+  updateUpiQR();
+  startQrTimer();
+
+  alert("Coupon Applied Successfully! ₹" + data.discount + " Discount");
+}
+
+function updateUpiQR(){
+  const upiUrl =
+    `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}&am=${finalAmount}&cu=INR&tn=${encodeURIComponent("MR.YOGI PREMIUM ORDER")}`;
+
+  const qrUrl =
+    `https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(upiUrl)}`;
+
+  document.getElementById("qrImage").src = qrUrl;
+  document.getElementById("gpayLink").href = upiUrl;
+  document.getElementById("phonepeLink").href = upiUrl;
+  document.getElementById("paytmLink").href = upiUrl;
+  document.getElementById("upiLink").href = upiUrl;
+}
+
+function startQrTimer(){
+  clearInterval(qrTimerInterval);
+
+  let time = 5 * 60;
+  const timer = document.getElementById("qrTime");
+
+  qrTimerInterval = setInterval(() => {
+    let min = Math.floor(time / 60);
+    let sec = time % 60;
+
+    timer.innerText =
+      String(min).padStart(2,"0") + ":" + String(sec).padStart(2,"0");
+
+    if(time <= 0){
+      clearInterval(qrTimerInterval);
+      timer.innerText = "Expired";
+      timer.style.color = "red";
+    }
+
+    time--;
+  }, 1000);
+}
+
+function sendOrder(){
+  const name = document.getElementById("custName").value.trim();
+  const mail = document.getElementById("custEmail").value.trim();
+  const phone = document.getElementById("custPhone").value.trim();
+
+  if(!name || !mail || !phone){
+    alert("Please enter Name, Mail and WhatsApp Number");
+    return;
+  }
+
+  const today = new Date().toLocaleDateString("en-GB");
+  const num = Date.now().toString().slice(-6);
+  const invoiceNo = "INV" + num;
+  const orderId = "ORD" + num;
+
+  const msg =
+`*INVOICE - MR.YOGI PREMIUM*
+
+*DATE:* ${today}
+*INVOICE NO:* ${invoiceNo}
+*ORDER ID:* ${orderId}
+
+*PRODUCT:* ${selectedProduct.name}
+*PLAN:* ${selectedPlan.name} - ${finalAmount}
+*COUPON:* ${appliedCoupon}
+
+*NAME:* ${name}
+*MAIL:* ${mail}
+*NUMBER:* ${phone}
+
+*STATUS:* Payment Pending
+
+Please assist with payment.`;
+
+  showOrderLoading(() => {
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank");
+  });
+}
+
+function showOrderLoading(callback){
+  const overlay = document.getElementById("orderOverlay");
+  const percent = document.getElementById("percent");
+  const bar = document.getElementById("bar");
+  const box = document.getElementById("orderBox");
+
+  box.innerHTML = `
+    <div class="cartIcon">🛒</div>
+    <div class="percent" id="percent">0%</div>
+    <div class="progress"><div class="bar" id="bar"></div></div>
+    <h1>PROCESSING ORDER</h1>
+    <p>Securing your order <span class="dots">•••</span></p>
+  `;
+
+  overlay.style.display = "flex";
+
+  let p = 0;
+  const timer = setInterval(() => {
+    p += 5;
+
+    document.getElementById("percent").innerText = p + "%";
+    document.getElementById("bar").style.width = p + "%";
+
+    if(p >= 100){
+      clearInterval(timer);
+
+      box.innerHTML = `
+        <div class="successIcon">✓</div>
+        <h1 style="color:#2ecc71">Booking Confirmed!</h1>
+        <p>Redirecting to your WhatsApp order...</p>
+      `;
+
+      setTimeout(() => {
+        overlay.style.display = "none";
+        callback();
+      }, 1600);
+    }
+  }, 80);
+}
+
+function submitFeedback(){
+  const name = document.getElementById("fbName").value.trim();
+  const rating = document.getElementById("fbRating").value;
+  const msg = document.getElementById("fbMsg").value.trim();
+
+  if(!name || !rating || !msg){
+    alert("Please enter name, rating and feedback");
+    return;
+  }
+
+  document.getElementById("fbThanks").style.display = "block";
+  document.getElementById("fbName").value = "";
+  document.getElementById("fbRating").value = "";
+  document.getElementById("fbMsg").value = "";
+}
+
+function closePopup(){
+  document.getElementById("popup").style.display = "none";
+}
+
+async function adminLogin(){
+  const email = prompt("Enter Admin Email");
+  const password = prompt("Enter Admin Password");
+
+  const { error } = await db.auth.signInWithPassword({ email, password });
+
+  if(error){
+    alert("Invalid Login");
+    return;
+  }
+
+  openAdmin();
+}
+
+async function openAdmin(){
+  const { data: products } = await db.from("products").select("*").order("id", { ascending:true });
+  const { data: coupons } = await db.from("coupons").select("*").order("id", { ascending:true });
+
+  document.getElementById("popupTitle").innerText = "Admin Panel";
+
+  document.getElementById("popupContent").innerHTML = `
+    <h3>Add Product</h3>
+    <input id="pName" placeholder="Product Name">
+    <textarea id="pDesc" placeholder="Description"></textarea>
+    <textarea id="pPoints" placeholder="Description points separate by comma"></textarea>
+    <textarea id="pPlans" placeholder="Plans format: 1 Month:150, 3 Months:399"></textarea>
+    <button class="btn" onclick="addProduct()">Add Product</button>
+
+    <h3 style="margin-top:20px">Products</h3>
+    ${(products || []).map(p=>`
+      <div class="plan">
+        <b>${p.name}</b><br>
+        <span class="small">${p.desc || ""}</span><br><br>
+        <button class="btn" onclick="deleteProduct(${p.id})">Delete Product</button>
+      </div>
+    `).join("")}
+
+    <h3 style="margin-top:20px">Add Coupon</h3>
+    <input id="cCode" placeholder="Coupon Code">
+    <input id="cDiscount" type="number" placeholder="Discount Amount">
+    <button class="btn" onclick="addCoupon()">Add Coupon</button>
+
+    <h3 style="margin-top:20px">Coupons</h3>
+    ${(coupons || []).map(c=>`
+      <div class="plan">
+        <b>${c.code}</b> - ₹${c.discount}<br><br>
+        <button class="btn" onclick="deleteCoupon(${c.id})">Delete Coupon</button>
+      </div>
+    `).join("")}
+  `;
+
+  document.getElementById("popup").style.display = "flex";
+}
+
+async function addProduct(){
+  const name = document.getElementById("pName").value.trim();
+  const desc = document.getElementById("pDesc").value.trim();
+  const pointText = document.getElementById("pPoints").value.trim();
+  const planText = document.getElementById("pPlans").value.trim();
+
+  if(!name || !desc || !planText){
+    alert("Fill all product details");
+    return;
+  }
+
+  const points = pointText ? pointText.split(",").map(x=>x.trim()) : [];
+
+  const plans = planText.split(",").map(x=>{
+    const parts = x.split(":");
+    return {
+      name: parts[0].trim(),
+      price: Number(parts[1].trim())
+    };
+  });
+
+  await db.from("products").insert([{ name, desc, points, plans }]);
+
+  renderProducts();
+  openAdmin();
+}
+
+async function deleteProduct(id){
+  await db.from("products").delete().eq("id", id);
+  renderProducts();
+  openAdmin();
+}
+
+async function addCoupon(){
+  const code = document.getElementById("cCode").value.trim().toUpperCase();
+  const discount = Number(document.getElementById("cDiscount").value);
+
+  if(!code || !discount){
+    alert("Fill coupon details");
+    return;
+  }
+
+  await db.from("coupons").insert([{ code, discount }]);
+  openAdmin();
+}
+
+async function deleteCoupon(id){
+  await db.from("coupons").delete().eq("id", id);
+  openAdmin();
+}
+
+renderProducts();
+</script>
+
+</body>
+</html>
