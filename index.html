@@ -779,16 +779,103 @@ async function applyCoupon(){
   window.appliedCoupon = code;
 
   popupContent.innerHTML += `
-  <div class="couponSuccess" style="background:#e9fff2;color:#067a36;padding:15px;border-radius:18px;margin:12px 0;font-weight:900;box-shadow:0 0 18px #25D366;text-align:center;">
-  🎉 COUPON APPLIED SUCCESSFULLY<br><br>
+<div class="couponSuccess" style="
+background:linear-gradient(135deg,#0f172a,#1e293b);
+color:white;
+padding:22px;
+border-radius:28px;
+margin:18px 0;
+text-align:center;
+animation:popSuccess .45s ease;
+box-shadow:0 0 30px rgba(34,197,94,.45);
+border:2px solid #22c55e;
+">
 
-  💰 Plan Amount: ₹${amount}<br>
+<div style="
+width:95px;
+height:95px;
+background:#22c55e;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:55px;
+margin:auto;
+color:white;
+box-shadow:0 0 25px #22c55e;
+animation:tickZoom .5s ease;
+">
+✓
+</div>
 
-  🎁 Discount: ₹${savedAmount}<br>
+<h2 style="
+margin-top:18px;
+font-size:28px;
+color:#4ade80;
+margin-bottom:10px;
+">
+Coupon Applied Successfully
+</h2>
 
-  ✅ Total Payable: ₹${window.finalAmount}
-  </div>
-  `;
+<div style="
+background:rgba(255,255,255,.08);
+padding:16px;
+border-radius:20px;
+margin-top:18px;
+text-align:left;
+font-size:17px;
+line-height:1.9;
+">
+
+🎟 Coupon Code : <b>${code}</b><br>
+
+📦 Product : <b>${selectedService}</b><br>
+
+💰 Original Amount : <b>₹${amount}</b><br>
+
+🎁 Discount Saved : <b style="color:#4ade80;">₹${savedAmount}</b><br>
+
+✅ Total Payable : <b style="color:#22c55e;font-size:24px;">
+₹${window.finalAmount}
+</b>
+
+</div>
+
+<div style="
+margin-top:18px;
+font-size:15px;
+color:#cbd5e1;
+">
+Redirecting to payment...
+</div>
+
+</div>
+
+<style>
+@keyframes popSuccess{
+from{
+opacity:0;
+transform:scale(.7);
+}
+to{
+opacity:1;
+transform:scale(1);
+}
+}
+
+@keyframes tickZoom{
+0%{
+transform:scale(0);
+}
+80%{
+transform:scale(1.15);
+}
+100%{
+transform:scale(1);
+}
+}
+</style>
+`;
 
   setTimeout(()=>{
     let el=document.querySelector(".couponSuccess");
