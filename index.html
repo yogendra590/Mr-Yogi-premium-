@@ -264,50 +264,68 @@ function openPlans(i){
 
 function openOrder(idx){
   selectedPlan = selectedProduct.plans[idx];
-  finalAmount = Number(selectedPlan.price);
+  finalAmount = Number(window.finalAmount || selectedPlan.price || 0);
   appliedCoupon = "Not Applied";
 
   document.getElementById("popupTitle").innerText = "Complete Your Order";
 
   document.getElementById("popupContent").innerHTML = `
-    <div class="qrPayBox">
-      <div class="upiHead">
-        <div style="display:flex;gap:12px;align-items:center">
-          <div class="upiLogo">UPI</div>
-          <div>
-            <h3 style="margin:0;text-align:left">WeeWoo</h3>
-            <p style="margin:2px 0;color:#777">Scan & pay instantly</p>
-          </div>
-        </div>
-        <div class="secure">SECURE</div>
-      </div>
-
-      <h2 style="text-align:left;color:#111;margin-bottom:12px">Scan QR to Pay</h2>
-      <p style="font-size:18px;color:#666">Amount to pay: <b>₹<span id="amt">${finalAmount}</span></b></p>
-
-      <img id="qrImage" class="qrImg" src="">
-
-      <div class="qrTimer">
-        <span>QR expires in</span>
-        <b id="qrTime">05:00</b>
-      </div>
-
-      <div class="upiApps">
-        <b>PAY WITH DIRECT UPI APPS</b>
-        <div class="appGrid">
-          <a class="appBtn" id="gpayLink" href="#">Google Pay</a>
-          <a class="appBtn" id="phonepeLink" href="#">PhonePe</a>
-          <a class="appBtn" id="paytmLink" href="#">Paytm</a>
-          <a class="appBtn" id="upiLink" href="#">Any UPI App</a>
-        </div>
-      </div>
-    </div>
+    
 
     <p><b>Product:</b> ${selectedProduct.name}</p>
     <p><b>Plan:</b> ${selectedPlan.name} - ₹${selectedPlan.price}</p>
 
     <input id="coupon" placeholder="Enter coupon code">
     <button class="btn" onclick="applyCoupon()">Apply Coupon</button>
+    <br><br>
+
+<div class="qrPayBox">
+
+<div class="upiHead">
+<div style="display:flex;gap:12px;align-items:center">
+
+<div class="upiLogo">UPI</div>
+
+<div>
+<h3 style="margin:0;text-align:left">MR.YOGI PREMIUM</h3>
+<p style="margin:2px 0;color:#777">Trusted UPI Payment</p>
+</div>
+
+</div>
+
+<div class="secure">SECURE</div>
+</div>
+
+<h2 style="text-align:left;color:#111;margin-bottom:12px">
+Scan QR to Pay
+</h2>
+
+<p style="font-size:18px;color:#666">
+Amount to pay:
+<b>₹<span id="amt">${finalAmount}</span></b>
+</p>
+
+<img id="qrImage" class="qrImg" src="">
+
+<div class="qrTimer">
+<span>QR expires in</span>
+<b id="qrTime">05:00</b>
+</div>
+
+<div class="upiApps">
+
+<b>PAY WITH DIRECT UPI APPS</b>
+
+<div class="appGrid">
+<a class="appBtn" id="gpayLink" href="#">Google Pay</a>
+<a class="appBtn" id="phonepeLink" href="#">PhonePe</a>
+<a class="appBtn" id="paytmLink" href="#">Paytm</a>
+<a class="appBtn" id="upiLink" href="#">Any UPI App</a>
+</div>
+
+</div>
+
+</div>
 
     <hr style="margin:15px 0">
 
