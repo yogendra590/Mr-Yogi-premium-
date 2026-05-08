@@ -731,6 +731,32 @@ let msg = `*HLO MR.YOGI PREMIUM 👋*
   window.open(`https://wa.me/918618388937?text=${encodeURIComponent(msg)}`);
 }
  async function applyCoupon(){
+
+let code = document.getElementById("custCoupon").value.trim();
+
+if(!code){
+alert("Enter Coupon Code");
+return;
+}
+
+const {data,error} = await db
+.from("coupons")
+.select("*")
+.eq("code",code)
+.single();
+
+if(error || !data){
+alert("Invalid Coupon Code");
+return;
+}
+
+let today = new Date().toISOString().split("T")[0];
+
+if(data.expiry && data.expiry < today){
+alert("Coupon Expired");
+return;
+}
+
 let amount = Number(getAmount(selectedPlan));
 
 let flatDiscount = Number(data.discount || 0);
@@ -746,6 +772,7 @@ finalAmount = 1;
 }
 
 window.finalAmount = finalAmount;
+window.appliedDiscount = flatDiscount + percentAmount;
 
 popupContent.innerHTML += `
 <div class="couponSuccess">
