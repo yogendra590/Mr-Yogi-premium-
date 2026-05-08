@@ -778,7 +778,7 @@ async function applyCoupon(){
   window.appliedDiscount = savedAmount;
   window.appliedCoupon = code;
 
-  popupContent.innerHTML += `
+  document.body.innerHTML += `
 <div class="couponSuccess" style="
 background:linear-gradient(135deg,#0f172a,#1e293b);
 color:white;
