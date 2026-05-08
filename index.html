@@ -883,14 +883,11 @@ transform:scale(1);
   },2500);
 
 setTimeout(()=>{
-
-  closePopup();
-
-  setTimeout(()=>{
-    openOrder(selectedService, selectedPlan);
-  },300);
-
-},4000);
+let el=document.querySelector(".couponSuccess");
+if(el){
+el.remove();
+}
+},3000);
 }
 function openOrder(service,plan){
   selectedService = service;
