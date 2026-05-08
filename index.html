@@ -917,34 +917,9 @@ async function applyCoupon(){
 
         <p style="font-size:17px;color:#111;margin:10px 0;">
           🎟 Coupon: <b>${code}</b>
-async function applyCoupon(){
-  let code = document.getElementById("custCoupon").value.trim().toUpperCase();
+</p>
 
-  if(!code){
-    alert("Enter Coupon Code");
-    return;
-  }
-
-  const {data,error} = await db
-    .from("coupons")
-    .select("*")
-    .eq("code", code)
-.single();
-
-    if (error || !data) {
-      alert("Invalid Coupon Code");
-      return;
-    }
-
-    let discount = data.discount || 0;
-    window.finalAmount = Math.max(getAmount(selectedPlan) - discount, 1);
-
-    alert("Coupon Applied Successfully! ₹" + discount + " Discount");
-
-    closePopup();
-    openOrder(selectedService, selectedPlan);
-}
-
+`;
 function openOrder(service,plan){
   selectedService = service;
   selectedPlan = plan;
