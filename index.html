@@ -779,6 +779,17 @@ function openOrder(service,plan){
 
   popupContent.innerHTML = `
     <div class="payBox">
+    <h2 class="checkoutTitle">CHECKOUT</h2>
+
+<div class="couponLinkBox">
+  Have a coupon?
+  <span onclick="showCouponBox()">Click here to enter your code</span>
+</div>
+
+<div id="couponArea" style="display:none;">
+  <input id="custCoupon" placeholder="Coupon code">
+  <button class="couponBtn" onclick="applyCoupon()">Apply Coupon</button>
+</div>
 
       <div class="whatsappOrderBox">
         <h3>📲 WhatsApp Order</h3>
@@ -789,11 +800,9 @@ function openOrder(service,plan){
         <input id="custName" placeholder="Your Name">
         <input id="custMail" placeholder="Your Email">
         <input id="custNum" placeholder="Your WhatsApp Number">
-        <input id="custCoupon" placeholder="Enter Coupon Code">
+        
 
-<button class="green" onclick="applyCoupon()">
-Apply Coupon
-</button>
+
         <button class="green" onclick="sendOrder()">Order On WhatsApp</button>
       </div>
 
