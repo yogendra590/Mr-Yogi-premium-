@@ -798,31 +798,6 @@ async function applyCoupon(){
   openOrder(selectedService, selectedPlan);
 
 }
-if(finalAmount < 1){
-finalAmount = 1;
-}
-
-window.finalAmount = finalAmount;
-window.appliedDiscount = flatDiscount + percentAmount;
-
-let savedAmount = Math.round(flatDiscount + percentAmount);
-
-popupContent.innerHTML += `
-<div class="couponSuccess" style="background:#e9fff2;color:#067a36;padding:15px;border-radius:18px;margin:12px 0;font-weight:900;box-shadow:0 0 18px #25D366;text-align:center;">
-🎉 COUPON APPLIED SUCCESSFULLY<br><br>
-💰 Plan Amount: ₹${amount}<br>
-🎁 Discount: ₹${savedAmount}<br>
-✅ Total Payable: ₹${finalAmount}<br>
-</div>`;
-`;
-
-setTimeout(()=>{
-let el=document.querySelector(".couponSuccess");
-if(el) el.remove();
-},2500);
-
-openOrder(selectedService, selectedPlan);
-
 }
 function openOrder(service,plan){
   selectedService = service;
