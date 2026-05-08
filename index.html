@@ -774,12 +774,12 @@ function openOrder(service,plan){
   let amount = window.finalAmount || getAmount(plan);
   let upiUrl = `upi://pay?pa=8618388937@ibl&pn=MR.YOGI PREMIUM&am=${amount}`;
   let qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(upiUrl)}`;
-
-  popupTitle.innerHTML = "<span style='color:#7b2cff;font-weight:900;text-shadow:0 0 18px #b84dff;'>MR.YOGI PREMIUM</span><br><span style='font-size:20px;'>Complete Your Order</span>";
+popupTitle.innerText = "Complete Your Order";
 
   popupContent.innerHTML = `
     <div class="payBox">
     <h2 class="checkoutTitle">CHECKOUT</h2>
+    <button onclick="closePopup()" style="position:absolute;top:15px;right:15px;background:none;border:none;font-size:28px;font-weight:900;color:#7b2cff;cursor:pointer;">×</button>
 
 <div class="couponLinkBox">
 <h3 style="margin-top:10px;">🎁 Have a Coupon?</h3>
@@ -831,6 +831,9 @@ function openOrder(service,plan){
 
   mainPopup.style.display = "flex";
 }
+  function closePopup(){
+mainPopup.style.display="none";
+  }
   function showPaymentSuccess(){
 let amount = window.finalAmount || getAmount(selectedPlan);
   let now = new Date().toLocaleString();
