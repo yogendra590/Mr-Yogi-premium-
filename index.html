@@ -614,7 +614,33 @@ function renderFeedbacks(limit = 3){
 }
 
 function viewAllFeedback(){
-  renderFeedbacks(999);
+  const feedbacks = getFeedbacks();
+
+  document.getElementById("popupTitle").innerText = "All Customer Feedback";
+
+  document.getElementById("popupContent").innerHTML = `
+    <div class="grid">
+      ${
+        feedbacks.length === 0
+        ? "<p style='text-align:center'>No feedback yet</p>"
+        : feedbacks.map(f => `
+          <div class="feedbackCard">
+            <h3>${f.name}</h3>
+
+            <p style="color:#ffb400;font-size:18px;">
+              ${"★".repeat(f.rating)}${"☆".repeat(5 - f.rating)}
+            </p>
+
+            <p>${f.msg}</p>
+
+            <p class="small">${f.date}</p>
+          </div>
+        `).join("")
+      }
+    </div>
+  `;
+
+  document.getElementById("popup").style.display = "flex";
 }
 
 function closePopup(){
