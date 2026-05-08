@@ -882,9 +882,15 @@ transform:scale(1);
     if(el) el.remove();
   },2500);
 
+setTimeout(()=>{
+
+  closePopup();
+
   setTimeout(()=>{
-  openOrder(selectedService, selectedPlan);
-},1800);
+    openOrder(selectedService, selectedPlan);
+  },300);
+
+},4000);
 }
 function openOrder(service,plan){
   selectedService = service;
