@@ -833,61 +833,123 @@ line-height:1.9;
 
 💰 Original Amount : <b>₹${amount}</b><br>
 
-🎁 Discount Saved : <b style="color:#4ade80;">₹${savedAmount}</b><br>
+async function applyCoupon(){
+  const input = document.getElementById("custCoupon");
+  const code = input.value.trim().toUpperCase();
 
-✅ Total Payable : <b style="color:#22c55e;font-size:24px;">
-₹${window.finalAmount}
-</b>
+  if(!code){
+    alert("Enter Coupon Code");
+    return;
+  }
 
-</div>
+  const {data,error} = await db
+    .from("coupons")
+    .select("*")
+    .eq("code", code)
+    .eq("status", "active")
+    .maybeSingle();
 
-<div style="
-margin-top:18px;
-font-size:15px;
-color:#cbd5e1;
-">
-Redirecting to payment...
-</div>
+  if(error || !data){
+    alert("❌ Invalid Coupon Code");
+    return;
+  }
 
-</div>
+  const today = new Date().toISOString().split("T")[0];
 
-<style>
-@keyframes popSuccess{
-from{
-opacity:0;
-transform:scale(.7);
-}
-to{
-opacity:1;
-transform:scale(1);
-}
-}
+  if(data.expiry_date && data.expiry_date < today){
+    alert("❌ Coupon Expired");
+    return;
+  }
 
-@keyframes tickZoom{
-0%{
-transform:scale(0);
-}
-80%{
-transform:scale(1.15);
-}
-100%{
-transform:scale(1);
-}
-}
-</style>
-`;
+  const amount = Number(getAmount(selectedPlan));
+  const flatDiscount = Number(data.discount || 0);
+  const percentDiscount = Number(data.percent || 0);
+  const percentAmount = (amount * percentDiscount) / 100;
+  const savedAmount = Math.round(flatDiscount + percentAmount);
+
+  let finalAmount = amount - savedAmount;
+  if(finalAmount < 1) finalAmount = 1;
+
+  window.finalAmount = Math.round(finalAmount);
+  window.appliedDiscount = savedAmount;
+  window.appliedCoupon = code;
+
+  const oldPopup = document.querySelector(".couponSuccessOverlay");
+  if(oldPopup) oldPopup.remove();
+
+  document.body.insertAdjacentHTML("beforeend", `
+    <div class="couponSuccessOverlay" style="
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.65);
+      z-index:9999999;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    ">
+      <div style="
+        width:330px;
+        background:#fff;
+        border-radius:28px;
+        padding:26px 22px;
+        text-align:center;
+        box-shadow:0 20px 60px rgba(0,0,0,.40);
+        animation:couponPop .35s ease;
+      ">
+        <div style="
+          width:105px;
+          height:105px;
+          background:#7ac943;
+          border-radius:50%;
+          margin:0 auto 18px;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          font-size:65px;
+          color:#fff;
+          font-weight:900;
+        ">✓</div>
+
+        <h2 style="margin:8px 0;color:#111;font-size:24px;font-weight:900;">
+          Coupon Apply Success
+        </h2>
+
+        <p style="font-size:17px;color:#111;margin:10px 0;">
+          🎟 Coupon: <b>${code}</b>
+        </p>
+
+        <p style="font-size:17px;color:#111;margin:10px 0;">
+          📦 Product: <b>${selectedService}</b>
+        </p>
+
+        <p style="font-size:17px;color:#111;margin:10px 0;">
+          💰 Plan Amount: <b>₹${amount}</b>
+        </p>
+
+        <p style="font-size:17px;color:#111;margin:10px 0;">
+          🎁 Discount: <b>₹${savedAmount}</b>
+        </p>
+
+        <p style="font-size:23px;color:#0a9f45;font-weight:900;margin:14px 0 0;">
+          ✅ Total Pay: ₹${window.finalAmount}
+        </p>
+      </div>
+
+      <style>
+        @keyframes couponPop{
+          from{opacity:0;transform:scale(.6);}
+          to{opacity:1;transform:scale(1);}
+        }
+      </style>
+    </div>
+  `);
 
   setTimeout(()=>{
-    let el=document.querySelector(".couponSuccess");
+    const el = document.querySelector(".couponSuccessOverlay");
     if(el) el.remove();
-  },2500);
-
-setTimeout(()=>{
-let el=document.querySelector(".couponSuccess");
-if(el){
-el.remove();
+  },3000);
 }
-},3000);
 }
 function openOrder(service,plan){
   selectedService = service;
