@@ -61,6 +61,34 @@ input,textarea,select{width:100%;padding:14px;margin:8px 0;border-radius:12px;bo
 .policyBox{line-height:1.8}
 .policyBox h3{color:#8a2cff;margin:18px 0 8px}
 .small{font-size:13px;color:#666}
+  .starSelect{
+display:flex;
+justify-content:center;
+gap:8px;
+font-size:34px;
+margin:12px 0;
+cursor:pointer;
+color:#ffb400;
+}
+
+.feedbackCard{
+background:white;
+border-radius:18px;
+padding:14px;
+box-shadow:0 6px 18px #0001;
+border:1px solid #eee;
+text-align:left;
+}
+
+.feedbackCard h3{
+font-size:16px;
+margin-bottom:5px;
+}
+
+.feedbackCard p{
+font-size:13px;
+color:#555;
+}
 footer{text-align:center;background:#111;color:white;padding:25px 15px;line-height:1.7;margin-bottom:70px}
 
 .qrPayBox{background:#fffaf3;border-radius:24px;padding:20px;margin-bottom:18px;border:1px solid #eadccc}
@@ -137,20 +165,33 @@ footer{text-align:center;background:#111;color:white;padding:25px 15px;line-heig
 
 <section>
   <h2>Customer Feedback</h2>
+
   <div class="feedbackBox">
     <input id="fbName" placeholder="Your Name">
-    <select id="fbRating">
-      <option value="">Select Rating</option>
-      <option value="1">⭐ 1 Star</option>
-      <option value="2">⭐⭐ 2 Stars</option>
-      <option value="3">⭐⭐⭐ 3 Stars</option>
-      <option value="4">⭐⭐⭐⭐ 4 Stars</option>
-      <option value="5">⭐⭐⭐⭐⭐ 5 Stars</option>
-    </select>
+
+    <div class="starSelect" id="starSelect">
+      <span onclick="setRating(1)">☆</span>
+      <span onclick="setRating(2)">☆</span>
+      <span onclick="setRating(3)">☆</span>
+      <span onclick="setRating(4)">☆</span>
+      <span onclick="setRating(5)">☆</span>
+    </div>
+
     <textarea id="fbMsg" placeholder="Write your feedback..."></textarea>
+
     <button class="btn" onclick="submitFeedback()">Submit Feedback</button>
-    <p id="fbThanks" style="display:none;text-align:center;color:#00b050;font-weight:900;margin-top:15px;">Thank you for feedback ❤️</p>
+
+    <p id="fbThanks" style="display:none;text-align:center;color:#00b050;font-weight:900;margin-top:15px;">
+      Thank you for feedback ❤️
+    </p>
   </div>
+
+  <h2 style="margin-top:30px">Latest Feedback</h2>
+  <div class="grid" id="feedbackList"></div>
+
+  <button class="btn" style="max-width:300px;display:block;margin:20px auto;" onclick="viewAllFeedback()">
+    View Feedback
+  </button>
 </section>
 
 <section>
@@ -504,20 +545,76 @@ function showOrderLoading(callback){
   }, 80);
 }
 
+let selectedRating = 0;
+
+function setRating(rating){
+  selectedRating = rating;
+  const stars = document.querySelectorAll("#starSelect span");
+  stars.forEach((star, index) => {
+    star.innerText = index < rating ? "★" : "☆";
+  });
+}
+
+function getFeedbacks(){
+  return JSON.parse(localStorage.getItem("feedbacks")) || [];
+}
+
+function saveFeedbacks(feedbacks){
+  localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
+}
+
 function submitFeedback(){
   const name = document.getElementById("fbName").value.trim();
-  const rating = document.getElementById("fbRating").value;
   const msg = document.getElementById("fbMsg").value.trim();
 
-  if(!name || !rating || !msg){
-    alert("Please enter name, rating and feedback");
+  if(!name || !selectedRating || !msg){
+    alert("Please enter name, select stars and write feedback");
     return;
   }
 
+  const feedbacks = getFeedbacks();
+  feedbacks.unshift({
+    name:name,
+    rating:selectedRating,
+    msg:msg,
+    date:new Date().toLocaleDateString("en-GB")
+  });
+
+  saveFeedbacks(feedbacks);
+
   document.getElementById("fbThanks").style.display = "block";
   document.getElementById("fbName").value = "";
-  document.getElementById("fbRating").value = "";
   document.getElementById("fbMsg").value = "";
+  setRating(0);
+
+  renderFeedbacks(3);
+}
+
+function renderFeedbacks(limit = 3){
+  const feedbacks = getFeedbacks();
+  const box = document.getElementById("feedbackList");
+
+  const list = feedbacks.slice(0, limit);
+
+  if(list.length === 0){
+    box.innerHTML = "<p style='text-align:center'>No feedback yet</p>";
+    return;
+  }
+
+  box.innerHTML = list.map(f => `
+    <div class="feedbackCard">
+      <h3>${f.name}</h3>
+      <p style="color:#ffb400;font-size:18px;">
+        ${"★".repeat(f.rating)}${"☆".repeat(5 - f.rating)}
+      </p>
+      <p>${f.msg}</p>
+      <p class="small">${f.date}</p>
+    </div>
+  `).join("");
+}
+
+function viewAllFeedback(){
+  renderFeedbacks(999);
 }
 
 function closePopup(){
@@ -630,6 +727,7 @@ async function deleteCoupon(id){
 }
 
 renderProducts();
+renderFeedbacks(3);
 </script>
 
 </body>
