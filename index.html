@@ -778,23 +778,20 @@ popupTitle.innerText = "Complete Your Order";
 
   popupContent.innerHTML = `
     <div class="payBox">
-    <h2 class="checkoutTitle">CHECKOUT</h2>
+    <h2 style="background:#2563eb;color:white;padding:18px;border-radius:20px;text-align:center;font-size:38px;font-weight:900;box-shadow:0 0 20px #60a5fa;">CHECKOUT</h2>
     <button onclick="closePopup()" style="position:absolute;top:15px;right:15px;background:none;border:none;font-size:28px;font-weight:900;color:#7b2cff;cursor:pointer;">×</button>
 
-<div class="couponLinkBox">
-<h3 style="margin-top:10px;">🎁 Have a Coupon?</h3>
-
-<span onclick="showCouponBox()" style="display:inline-block;background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:#fff;padding:12px 20px;border-radius:25px;font-weight:700;box-shadow:0 0 15px rgba(184,77,255,.45);margin-top:10px;">
-🔥 CLICK HERE TO APPLY COUPON 🔥
+<div style="margin:22px 0;font-size:22px;font-weight:700;color:#24113d;">
+Have a coupon?
+<span onclick="showCouponBox()" style="color:#7b2cff;text-decoration:underline;font-weight:900;cursor:pointer;">
+Click here to enter your code
 </span>
-
 </div>
 
-<div id="couponArea" style="display:none;">
-  <input id="custCoupon" placeholder="Coupon code">
-  <button class="couponBtn" onclick="applyCoupon()">Apply Coupon</button>
+<div id="couponArea" style="display:none;border:1px solid #e5e5e5;border-radius:18px;padding:18px;margin-bottom:18px;">
+<input id="custCoupon" placeholder="Coupon code">
+<button class="couponBtn" onclick="applyCoupon()">Apply Coupon</button>
 </div>
-
       <div class="whatsappOrderBox">
         <h3>📲 WhatsApp Order</h3>
         <p><b>Product:</b> ${service}</p>
@@ -833,6 +830,9 @@ popupTitle.innerText = "Complete Your Order";
 }
   function closePopup(){
 mainPopup.style.display="none";
+  }
+  function showCouponBox(){
+document.getElementById("couponArea").style.display = "block";
   }
   function showPaymentSuccess(){
 let amount = window.finalAmount || getAmount(selectedPlan);
