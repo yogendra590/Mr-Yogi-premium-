@@ -89,6 +89,62 @@ margin-bottom:5px;
 font-size:13px;
 color:#555;
 }
+  .feedbackSection{
+background:linear-gradient(180deg,#f8efff,#fff);
+}
+
+.feedbackSub{
+text-align:center;
+font-size:17px;
+color:#666;
+line-height:1.6;
+margin-top:-15px;
+margin-bottom:25px;
+}
+
+.premiumFeedback{
+max-width:520px;
+padding:25px;
+border-radius:28px;
+box-shadow:0 15px 40px #8a2cff22;
+}
+
+.starSelect{
+display:flex;
+justify-content:center;
+gap:12px;
+font-size:42px;
+margin:18px 0 5px;
+cursor:pointer;
+color:#ffb400;
+}
+
+.feedbackCard{
+background:white;
+border-radius:22px;
+padding:16px;
+box-shadow:0 8px 24px #0001;
+border:1px solid #eee;
+text-align:left;
+}
+
+.feedbackCard h3{
+font-size:18px;
+margin-bottom:6px;
+}
+
+.feedbackCard p{
+font-size:14px;
+color:#555;
+}
+
+.feedbackLike{
+display:flex;
+justify-content:space-between;
+font-size:13px;
+color:#777;
+margin-top:12px;
+}
 footer{text-align:center;background:#111;color:white;padding:25px 15px;line-height:1.7;margin-bottom:70px}
 
 .qrPayBox{background:#fffaf3;border-radius:24px;padding:20px;margin-bottom:18px;border:1px solid #eadccc}
@@ -163,11 +219,15 @@ footer{text-align:center;background:#111;color:white;padding:25px 15px;line-heig
   </div>
 </section>
 
-<section>
-  <h2>Customer Feedback</h2>
+<section class="feedbackSection">
+  <h2>💜 Customer Feedback ✨</h2>
+  <p class="feedbackSub">
+    Your feedback helps us improve and serve you better.<br>
+    Share your experience with us! 😊
+  </p>
 
-  <div class="feedbackBox">
-    <input id="fbName" placeholder="Your Name">
+  <div class="feedbackBox premiumFeedback">
+    <input id="fbName" placeholder="👤 Your Name">
 
     <div class="starSelect" id="starSelect">
       <span onclick="setRating(1)">☆</span>
@@ -177,21 +237,32 @@ footer{text-align:center;background:#111;color:white;padding:25px 15px;line-heig
       <span onclick="setRating(5)">☆</span>
     </div>
 
-    <textarea id="fbMsg" placeholder="Write your feedback..."></textarea>
+    <p style="text-align:center;color:#777;margin-bottom:10px;">Tap to rate</p>
 
-    <button class="btn" onclick="submitFeedback()">Submit Feedback</button>
+    <textarea id="fbMsg" placeholder="✎ Write your feedback..."></textarea>
+
+    <button class="btn" onclick="submitFeedback()">✈ Submit Feedback</button>
 
     <p id="fbThanks" style="display:none;text-align:center;color:#00b050;font-weight:900;margin-top:15px;">
       Thank you for feedback ❤️
     </p>
   </div>
 
-  <h2 style="margin-top:30px">Latest Feedback</h2>
+  <h2 style="margin-top:35px">🪄 Latest Feedback</h2>
+
+  <p id="ratingSummary" style="text-align:center;font-weight:900;color:#8a2cff;margin-bottom:20px;">
+    Rating: 0/5
+  </p>
+
   <div class="grid" id="feedbackList"></div>
 
   <button class="btn" style="max-width:300px;display:block;margin:20px auto;" onclick="viewAllFeedback()">
     View Feedback
   </button>
+
+  <p style="text-align:center;color:#555;margin-top:25px;">
+    🛡️ Trusted by our amazing users ✨
+  </p>
 </section>
 
 <section>
@@ -591,26 +662,44 @@ function submitFeedback(){
 }
 
 function renderFeedbacks(limit = 3){
-  const feedbacks = getFeedbacks();
-  const box = document.getElementById("feedbackList");
 
-  const list = feedbacks.slice(0, limit);
+const feedbacks = getFeedbacks();
+const box = document.getElementById("feedbackList");
 
-  if(list.length === 0){
-    box.innerHTML = "<p style='text-align:center'>No feedback yet</p>";
-    return;
-  }
+const avg =
+feedbacks.length > 0
+? (feedbacks.reduce((a,b)=>a+b.rating,0)/feedbacks.length).toFixed(1)
+: "0.0";
 
-  box.innerHTML = list.map(f => `
-    <div class="feedbackCard">
-      <h3>${f.name}</h3>
-      <p style="color:#ffb400;font-size:18px;">
-        ${"★".repeat(f.rating)}${"☆".repeat(5 - f.rating)}
-      </p>
-      <p>${f.msg}</p>
-      <p class="small">${f.date}</p>
-    </div>
-  `).join("");
+document.getElementById("ratingSummary").innerText =
+
+const list = feedbacks.slice(0, limit);
+
+if(list.length === 0){
+box.innerHTML =
+"<p style='text-align:center'>No feedback yet</p>";
+return;
+}
+
+box.innerHTML = list.map(f => `
+<div class="feedbackCard">
+
+<h3>${f.name}</h3>
+
+<p style="color:#ffb400;font-size:18px;">
+${"★".repeat(f.rating)}${"☆".repeat(5-f.rating)}
+</p>
+
+<p>${f.msg}</p>
+
+<div class="feedbackLike">
+<span>💜 ${Math.floor(Math.random()*10)+1}</span>
+<span>${f.date}</span>
+</div>
+
+</div>
+`).join("");
+
 }
 
 function viewAllFeedback(){
