@@ -808,31 +808,6 @@ animation:tickZoom .5s ease;
 ✓
 </div>
 
-<h2 style="
-margin-top:18px;
-font-size:28px;
-color:#4ade80;
-margin-bottom:10px;
-">
-Coupon Applied Successfully
-</h2>
-
-<div style="
-background:rgba(255,255,255,.08);
-padding:16px;
-border-radius:20px;
-margin-top:18px;
-text-align:left;
-font-size:17px;
-line-height:1.9;
-">
-
-🎟 Coupon Code : <b>${code}</b><br>
-
-📦 Product : <b>${selectedService}</b><br>
-
-💰 Original Amount : <b>₹${amount}</b><br>
-
 async function applyCoupon(){
   const input = document.getElementById("custCoupon");
   const code = input.value.trim().toUpperCase();
