@@ -795,7 +795,9 @@ async function applyCoupon(){
     if(el) el.remove();
   },2500);
 
+  setTimeout(()=>{
   openOrder(selectedService, selectedPlan);
+},1800);
 }
 function openOrder(service,plan){
   selectedService = service;
