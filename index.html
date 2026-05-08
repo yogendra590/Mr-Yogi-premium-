@@ -775,15 +775,19 @@ function openOrder(service,plan){
   let upiUrl = `upi://pay?pa=8618388937@ibl&pn=MR.YOGI PREMIUM&am=${amount}`;
   let qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(upiUrl)}`;
 
-  popupTitle.innerText = "Complete Your Order";
+  popupTitle.innerHTML = "<span style='color:#7b2cff;font-weight:900;text-shadow:0 0 18px #b84dff;'>MR.YOGI PREMIUM</span><br><span style='font-size:20px;'>Complete Your Order</span>";
 
   popupContent.innerHTML = `
     <div class="payBox">
     <h2 class="checkoutTitle">CHECKOUT</h2>
 
 <div class="couponLinkBox">
-  Have a coupon?
-  <span onclick="showCouponBox()">Click here to enter your code</span>
+<h3 style="margin-top:10px;">🎁 Have a Coupon?</h3>
+
+<span onclick="showCouponBox()" style="display:inline-block;background:linear-gradient(135deg,#7b2cff,#ff4fd8);color:#fff;padding:12px 20px;border-radius:25px;font-weight:700;box-shadow:0 0 15px rgba(184,77,255,.45);margin-top:10px;">
+🔥 CLICK HERE TO APPLY COUPON 🔥
+</span>
+
 </div>
 
 <div id="couponArea" style="display:none;">
