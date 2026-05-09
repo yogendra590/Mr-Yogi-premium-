@@ -217,6 +217,52 @@ opacity:.5;
 pointer-events:none;
 filter:grayscale(1);
 }
+  .adminBox{
+background:linear-gradient(135deg,#111,#1f1f1f);
+padding:18px;
+border-radius:22px;
+margin-top:15px;
+box-shadow:0 0 25px rgba(140,82,255,.25);
+border:1px solid rgba(255,255,255,.08);
+}
+
+.adminTitle{
+font-size:22px;
+font-weight:800;
+color:#a855f7;
+margin-bottom:15px;
+text-align:center;
+}
+
+.adminInput,
+.adminTextarea{
+width:100%;
+padding:14px;
+margin-top:10px;
+border:none;
+outline:none;
+border-radius:14px;
+background:#181818;
+color:white;
+font-size:15px;
+}
+
+.adminTextarea{
+min-height:100px;
+resize:none;
+}
+
+.adminBtn{
+width:100%;
+margin-top:14px;
+padding:14px;
+border:none;
+border-radius:16px;
+background:linear-gradient(90deg,#7c3aed,#d946ef);
+color:white;
+font-size:16px;
+font-weight:700;
+}
 footer{text-align:center;background:#111;color:white;padding:25px 15px;line-height:1.7;margin-bottom:70px}
 
 .rPayBox{background:#fffaf3;border-radius:24px;padding:20px;margin-bottom:18px;border:1px solid #eadccc}
@@ -846,12 +892,14 @@ async function openAdmin(){
   document.getElementById("popupTitle").innerText = "Admin Panel";
 
   document.getElementById("popupContent").innerHTML = `
-    <h3>Add Product</h3>
+    <div class="adminBox">
+<div class="adminTitle">✨ Add Product</div>
     <input id="pName" placeholder="Product Name">
     <textarea id="pDesc" placeholder="Description"></textarea>
     <textarea id="pPoints" placeholder="Description points separate by comma"></textarea>
     <textarea id="pPlans" placeholder="Plans format: 1 Month:150, 3 Months:399"></textarea>
-    <button class="btn" onclick="addProduct()">Add Product</button>
+    <button class="adminBtn" onclick="addProduct()">✨ Add Product</button>
+</div>
 
     <h3 style="margin-top:20px">Products</h3>
     ${(products || []).map(p=>`
