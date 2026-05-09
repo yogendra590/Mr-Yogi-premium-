@@ -640,7 +640,7 @@ function submitFeedback(){
   const name = document.getElementById("fbName").value.trim();
   const msg = document.getElementById("fbMsg").value.trim();
   selectedRating = Number(document.getElementById("fbRating").value);
-  if(!name || !selectedRating || !msg){
+  if(!name || selectedRating == 0 || !msg){
     alert("Please enter name, select stars and write feedback");
     return;
   }
@@ -674,6 +674,7 @@ feedbacks.length > 0
 : "0.0";
 
 document.getElementById("ratingSummary").innerText =
+"Rating: " + avg + "/5";
 
 const list = feedbacks.slice(0, limit);
 
