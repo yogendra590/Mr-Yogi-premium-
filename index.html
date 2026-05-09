@@ -229,13 +229,14 @@ footer{text-align:center;background:#111;color:white;padding:25px 15px;line-heig
   <div class="feedbackBox premiumFeedback">
     <input id="fbName" placeholder="👤 Your Name">
 
-    <div class="starSelect" id="starSelect">
-      <span onclick="setRating(1)">☆</span>
-      <span onclick="setRating(2)">☆</span>
-      <span onclick="setRating(3)">☆</span>
-      <span onclick="setRating(4)">☆</span>
-      <span onclick="setRating(5)">☆</span>
-    </div>
+    <select id="fbRating">
+  <option value="">Select Rating</option>
+  <option value="1">⭐ 1 Star</option>
+  <option value="2">⭐⭐ 2 Stars</option>
+  <option value="3">⭐⭐⭐ 3 Stars</option>
+  <option value="4">⭐⭐⭐⭐ 4 Stars</option>
+  <option value="5">⭐⭐⭐⭐⭐ 5 Stars</option>
+    </select>
 
     <p style="text-align:center;color:#777;margin-bottom:10px;">Tap to rate</p>
 
@@ -620,6 +621,7 @@ let selectedRating = 0;
 
 function setRating(rating){
   selectedRating = rating;
+  document.getElementById("fbRating").value = rating;
   const stars = document.querySelectorAll("#starSelect span");
   stars.forEach((star, index) => {
     star.innerText = index < rating ? "★" : "☆";
@@ -637,7 +639,7 @@ function saveFeedbacks(feedbacks){
 function submitFeedback(){
   const name = document.getElementById("fbName").value.trim();
   const msg = document.getElementById("fbMsg").value.trim();
-
+  selectedRating = Number(document.getElementById("fbRating").value);
   if(!name || !selectedRating || !msg){
     alert("Please enter name, select stars and write feedback");
     return;
@@ -656,8 +658,8 @@ function submitFeedback(){
   document.getElementById("fbThanks").style.display = "block";
   document.getElementById("fbName").value = "";
   document.getElementById("fbMsg").value = "";
-  setRating(0);
-
+  selectedRating = 0;
+document.getElementById("fbRating").value = 0;
   renderFeedbacks(3);
 }
 
