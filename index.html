@@ -840,7 +840,18 @@ async function deleteCoupon(id){
   await db.from("coupons").delete().eq("id", id);
   openAdmin();
 }
+document.addEventListener("click", function(e){
+  if(e.target.closest("#starSelect span")){
+    const stars = Array.from(document.querySelectorAll("#starSelect span"));
+    const index = stars.indexOf(e.target);
 
+    selectedRating = index + 1;
+
+    stars.forEach((star, i) => {
+      star.textContent = i <= index ? "★" : "☆";
+    });
+  }
+});
 renderProducts();
 renderFeedbacks(3);
 </script>
