@@ -1016,8 +1016,6 @@ async function openAdmin(){
 
   document.getElementById("popup").style.display = "flex";
 }
-
-
 async function addProduct() {
 
   const name = document.getElementById("productName").value;
@@ -1029,18 +1027,18 @@ async function addProduct() {
   const stock = document.getElementById("productStock").value;
 
   const { data, error } = await db
-    .from("products")
-    .insert([
-      {
-        name: name,
-        description: description,
-        points: points,
-        plans: plans,
-        image: image,
-        category: category,
-        stock: stock
-      }
-    ]);
+  .from("products")
+  .insert([
+    {
+      name: name,
+      description: description,
+      points: points,
+      plans: plans,
+      image: image,
+      category: category,
+      stock: stock
+    }
+  ]);
 
   if (error) {
     console.log(error);
@@ -1049,11 +1047,8 @@ async function addProduct() {
     alert("✅ Product Added Successfully");
     location.reload();
   }
-}
-  
 
-  renderProducts();
-  openAdmin();
+    
 }
 async function changeImage(id, oldImage){
   const newImage = prompt("Paste new image URL", oldImage || "");
