@@ -145,6 +145,65 @@ font-size:13px;
 color:#777;
 margin-top:12px;
 }
+  .prodImg{
+width:110px;
+height:110px;
+object-fit:cover;
+border-radius:24px;
+padding:10px;
+background:#f3e8ff;
+margin:0 auto 18px;
+display:block;
+box-shadow:0 8px 20px #d946ef22;
+}
+
+.stock{
+display:inline-block;
+padding:10px 18px;
+border-radius:999px;
+font-weight:700;
+margin:12px 0;
+font-size:18px;
+}
+
+.instock{
+background:#dcfce7;
+color:#16a34a;
+}
+
+.outstock{
+background:#fee2e2;
+color:#dc2626;
+}
+
+.desc{
+font-size:14px;
+line-height:1.7;
+color:#555;
+margin:15px 0;
+}
+
+.desc span{
+display:block;
+margin-bottom:6px;
+color:#16a34a;
+font-weight:600;
+}
+
+.chooseBtn{
+margin-top:14px;
+}
+
+.planBtn{
+margin-top:10px;
+background:#ede9fe;
+color:#7c3aed;
+}
+.disabledPlan{
+opacity:.5;
+pointer-events:none;
+filter:grayscale(1);
+ }
 footer{text-align:center;background:#111;color:white;padding:25px 15px;line-height:1.7;margin-bottom:70px}
 
 .qrPayBox{background:#fffaf3;border-radius:24px;padding:20px;margin-bottom:18px;border:1px solid #eadccc}
@@ -362,15 +421,30 @@ async function renderProducts(){
   }
 
   box.innerHTML = allProducts.map((p,i)=>`
-    <div class="card">
-      <h3>${p.name}</h3>
-      <p>${p.desc || ""}</p>
-      <div class="desc">
-        ${(p.points || []).map(x=>`<span><b class="tick">✓</b> ${x}</span>`).join("")}
-      </div>
-      <button class="btn chooseBtn" onclick="openPlans(${i})">🔥 CHOOSE PLAN</button>
-    </div>
-  `).join("");
+<div class="card">
+
+<img src="${p.image}" class="prodImg">
+
+<h3>${p.name}</h3>
+
+<div class="stock ${p.stock ? 'instock' : 'outstock'}">
+${p.stock ? '✅ In Stock' : '❌ Out of Stock'}
+</div>
+
+<div class="desc">
+${(p.points || []).map(x=>`<span>✓ ${x}</span>`).join("")}
+</div>
+
+<button class="btn chooseBtn" onclick="openPlans(${i})">
+🛒 CHOOSE PLAN
+</button>
+
+<button class="btn planBtn" onclick="openPlans(${i})">
+Plan Details
+</button>
+
+</div>
+`).join("");
 }
 
 function openPlans(i){
@@ -384,11 +458,18 @@ function openPlans(i){
     </div>
     <h3 style="color:#8a2cff;margin-top:15px;">🔥 Choose Your Plan</h3>
     ${(selectedProduct.plans || []).map((pl,idx)=>`
-      <div class="plan" onclick="openOrder(${idx})">
-        <b>${pl.name}</b><br>
-        ₹${pl.price}
-      </div>
-    `).join("")}
+<div class="plan ${pl.stock === false ? 'disabledPlan' : ''}"
+onclick="${pl.stock === false ? '' : `openOrder(${idx})`}">
+
+<b>${pl.name}</b><br>
+₹${pl.price}<br>
+
+<small style="color:${pl.stock === false ? 'red' : '#16a34a'}">
+${pl.stock === false ? 'Out of Stock' : 'In Stock'}
+</small>
+
+</div>
+`).join("")}
   `;
 
   document.getElementById("popup").style.display = "flex";
