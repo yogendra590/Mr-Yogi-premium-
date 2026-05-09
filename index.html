@@ -830,16 +830,12 @@ function closePopup(){
 
 async function adminLogin(){
   const email = prompt("Enter Admin Email");
-  const password = prompt("Enter Admin Password");
+const password = prompt("Enter Admin Password");
 
-  const { error } = await db.auth.signInWithPassword({ email, password });
-
-  if(error){
-    alert("Invalid Login");
-    return;
-  }
-
-  openAdmin();
+if(email === "mryogiottseller@gmail.com" && password === "yogi19001"){
+openAdmin();
+}else{
+alert("Invalid Login");
 }
 
 async function openAdmin(){
