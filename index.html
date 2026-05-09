@@ -159,23 +159,22 @@ box-shadow:0 8px 20px #d946ef22;
 
 .stock{
 display:inline-block;
-padding:10px 18px;
+padding:8px 16px;
 border-radius:999px;
-font-weight:700;
-margin:12px 0;
-font-size:18px;
+font-weight:600;
+margin:10px 0;
+font-size:15px;
 }
 
 .instock{
 background:#dcfce7;
-color:#16a34a;
+color:#15803d;
 }
-
 .outstock{
 background:#fee2e2;
 color:#dc2626;
 }
-
+  
 .desc{
 font-size:14px;
 line-height:1.7;
@@ -192,18 +191,30 @@ font-weight:600;
 
 .chooseBtn{
 margin-top:14px;
+background:linear-gradient(135deg,#7c3aed,#a855f7);
+color:white;
+border:none;
+border-radius:16px;
+font-weight:700;
+font-size:18px;
+padding:14px;
+box-shadow:0 6px 18px #c084fc55;
 }
 
 .planBtn{
 margin-top:10px;
-background:#ede9fe;
+background:#f3e8ff;
 color:#7c3aed;
+border:none;
+border-radius:14px;
+font-weight:600;
+padding:12px;
 }
 .disabledPlan{
 opacity:.5;
 pointer-events:none;
 filter:grayscale(1);
- }
+}
 footer{text-align:center;background:#111;color:white;padding:25px 15px;line-height:1.7;margin-bottom:70px}
 
 .qrPayBox{background:#fffaf3;border-radius:24px;padding:20px;margin-bottom:18px;border:1px solid #eadccc}
@@ -439,14 +450,25 @@ ${(p.points || []).map(x=>`<span>✓ ${x}</span>`).join("")}
 🛒 CHOOSE PLAN
 </button>
 
-<button class="btn planBtn" onclick="openPlans(${i})">
+
+<button class="btn planBtn" onclick="openDetails(${i})">
 Plan Details
 </button>
 
 </div>
 `).join("");
 }
+function openDetails(i){
+selectedProduct = allProducts[i];
 
+document.getElementById("popupTitle").innerText =
+selectedProduct.name + " Details";
+
+document.getElementById("popupContent").innerHTML = `
+<div style="background:#111;color:white;border-radius:22px;padding:20px;text-align:left;">
+
+document.getElementById("popup").style.display = "flex";
+}
 function openPlans(i){
   selectedProduct = allProducts[i];
 
@@ -458,16 +480,12 @@ function openPlans(i){
     </div>
     <h3 style="color:#8a2cff;margin-top:15px;">🔥 Choose Your Plan</h3>
     ${(selectedProduct.plans || []).map((pl,idx)=>`
-<div class="plan ${pl.stock === false ? 'disabledPlan' : ''}"
-onclick="${pl.stock === false ? '' : `openOrder(${idx})`}">
-
-<b>${pl.name}</b><br>
-₹${pl.price}<br>
-
-<small style="color:${pl.stock === false ? 'red' : '#16a34a'}">
-${pl.stock === false ? 'Out of Stock' : 'In Stock'}
-</small>
-
+<div class="plan ${pl.stock === false ? 'disabledPlan' : ''}" onclick="${pl.stock === false ? '' : `openOrder(${idx})`}">
+  <b>${pl.name}</b><br>
+  ₹${pl.price}<br>
+  <small style="color:${pl.stock === false ? '#666' : '#16a34a'}">
+    ${pl.stock === false ? 'Unavailable' : 'In Stock'}
+  </small>
 </div>
 `).join("")}
   `;
