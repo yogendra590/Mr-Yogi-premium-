@@ -467,32 +467,18 @@ selectedProduct.name + " Details";
 document.getElementById("popupContent").innerHTML = `
 <div style="background:#111;color:white;border-radius:22px;padding:20px;text-align:left;">
 
-document.getElementById("popup").style.display = "flex";
-}
-function openPlans(i){
-  selectedProduct = allProducts[i];
-
-  document.getElementById("popupTitle").innerText = selectedProduct.name;
-  document.getElementById("popupContent").innerHTML = `
-    <p style="text-align:center;margin-bottom:12px;">${selectedProduct.desc || ""}</p>
-    <div class="desc">
-      ${(selectedProduct.points || []).map(x=>`<span><b class="tick">✓</b> ${x}</span>`).join("")}
-    </div>
-    <h3 style="color:#8a2cff;margin-top:15px;">🔥 Choose Your Plan</h3>
-    ${(selectedProduct.plans || []).map((pl,idx)=>`
-<div class="plan ${pl.stock === false ? 'disabledPlan' : ''}" onclick="${pl.stock === false ? '' : `openOrder(${idx})`}">
-  <b>${pl.name}</b><br>
-  ₹${pl.price}<br>
-  <small style="color:${pl.stock === false ? '#666' : '#16a34a'}">
-    ${pl.stock === false ? 'Unavailable' : 'In Stock'}
-  </small>
+${(selectedProduct.points || []).map(x => `
+<div style="display:flex;gap:12px;align-items:flex-start;font-size:18px;margin:14px 0;line-height:1.5;">
+<span style="color:#22c55e;font-size:24px;font-weight:900;">✓</span>
+<span>${x}</span>
 </div>
 `).join("")}
-  `;
 
-  document.getElementById("popup").style.display = "flex";
+</div>
+`;
+
+document.getElementById("popup").style.display = "flex";
 }
-
 function openOrder(idx){
   selectedPlan = selectedProduct.plans[idx];
   finalAmount = Number(window.finalAmount || selectedPlan.price || 0);
