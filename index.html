@@ -995,7 +995,7 @@ async function openAdmin(){
       <div class="plan">
         <b>${p.name}</b><br>
         <span class="small">${p.desc || ""}</span><br><br>
-        <button class="btn" onclick="changeImage(${p.id}, '${p.image || ""}')">🖼️ Change Image</button>
+        <button class="btn" onclick="changeImage(${p.id}, '${p.img || ""}')">🖼️ Change Image</button>
         <button class="btn" onclick="deleteProduct(${p.id})">Delete Product</button>
       </div>
     `).join("")}
@@ -1039,16 +1039,16 @@ const stock = document.getElementById("pStock").value;
       price: Number(parts[1].trim())
     };
   });
-
-  await db.from("products").insert([{
-name,
-desc,
-points,
-plans,
-image,
-category,
-stock
+await db.from("products").insert([{
+  name,
+  desc,
+  points,
+  plans,
+  img: image,
+  category,
+  status: stock
 }]);
+  
 
   renderProducts();
   openAdmin();
