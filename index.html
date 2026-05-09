@@ -975,6 +975,18 @@ async function openAdmin(){
     <textarea id="pDesc" placeholder="Description"></textarea>
     <textarea id="pPoints" placeholder="Description points separate by comma"></textarea>
     <textarea id="pPlans" placeholder="Plans format: 1 Month:150, 3 Months:399"></textarea>
+    <input id="pImage" placeholder="Image URL">
+
+<select id="pCategory">
+<option value="OTT">OTT</option>
+<option value="AI">AI</option>
+<option value="Software">Software</option>
+</select>
+
+<select id="pStock">
+<option value="In Stock">📦 In Stock</option>
+<option value="Out Of Stock">❌ Out Of Stock</option>
+</select>
     <button class="adminBtn" onclick="addProduct()">✨ Add Product</button>
 </div>
 
@@ -983,6 +995,7 @@ async function openAdmin(){
       <div class="plan">
         <b>${p.name}</b><br>
         <span class="small">${p.desc || ""}</span><br><br>
+        <button class="btn" onclick="changeImage(${p.id}, '${p.image || ""}')">🖼️ Change Image</button>
         <button class="btn" onclick="deleteProduct(${p.id})">Delete Product</button>
       </div>
     `).join("")}
@@ -1009,7 +1022,9 @@ async function addProduct(){
   const desc = document.getElementById("pDesc").value.trim();
   const pointText = document.getElementById("pPoints").value.trim();
   const planText = document.getElementById("pPlans").value.trim();
-
+const image = document.getElementById("pImage").value.trim();
+const category = document.getElementById("pCategory").value;
+const stock = document.getElementById("pStock").value;
   if(!name || !desc || !planText){
     alert("Fill all product details");
     return;
@@ -1025,12 +1040,33 @@ async function addProduct(){
     };
   });
 
-  await db.from("products").insert([{ name, desc, points, plans }]);
+  await db.from("products").insert([{
+name,
+desc,
+points,
+plans,
+image,
+category,
+stock
+}]);
 
   renderProducts();
   openAdmin();
 }
+async function changeImage(id, oldImage){
+  const newImage = prompt("Paste new image URL", oldImage || "");
 
+  if(!newImage){
+    alert("Image URL required");
+    return;
+  }
+
+  await db.from("products").update({ image: newImage }).eq("id", id);
+
+  alert("Image updated successfully");
+  renderProducts();
+  openAdmin();
+}
 async function deleteProduct(id){
   await db.from("products").delete().eq("id", id);
   renderProducts();
