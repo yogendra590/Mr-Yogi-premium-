@@ -837,6 +837,7 @@ openAdmin();
 }else{
 alert("Invalid Login");
 }
+}
 
 async function openAdmin(){
   const { data: products } = await db.from("products").select("*").order("id", { ascending:true });
