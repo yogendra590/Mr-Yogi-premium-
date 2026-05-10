@@ -559,7 +559,7 @@ async function renderProducts(){
   box.innerHTML = allProducts.map((p,i)=>`
 <div class="card">
 
-<img src="${p.image}" class="prodImg">
+<img src="${p.img}" class="prodImg">
 
 <h3 style="font-size:20px;font-weight:800;color:#111;line-height:1.2;">
 ${p.name}
@@ -570,7 +570,7 @@ ${p.stock ? '✅ In Stock' : '❌ Out of Stock'}
 </div>
 
 <div class="desc">
-${(p.points || []).map(x=>`<span>✓ ${x}</span>`).join("")}
+${(p.points || "").split(",").map(x =>`<span>✓ ${x}</span>`).join("")}
 </div>
 
 <button class="btn chooseBtn" onclick="openPlans(${i})">
