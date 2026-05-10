@@ -1018,13 +1018,13 @@ async function openAdmin(){
 }
 async function addProduct() {
 
-  const name = document.getElementById("productName").value;
-  const description = document.getElementById("productDescription").value;
-  const points = document.getElementById("productPoints").value;
-  const plans = document.getElementById("productPlans").value;
-  const image = document.getElementById("productImage").value;
-  const category = document.getElementById("productCategory").value;
-  const stock = document.getElementById("productStock").value;
+  const name = document.getElementById("pName").value;
+const description = document.getElementById("pDesc").value;
+const points = document.getElementById("pPoints").value;
+const plans = document.getElementById("pPlans").value;
+const image = document.getElementById("pImage").value;
+const category = document.getElementById("pCategory").value;
+const stock = document.getElementById("pStock").value;
 
   const { data, error } = await db
   .from("products")
