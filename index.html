@@ -1143,7 +1143,7 @@ document.getElementById("pImageUrl").value = product.img || "";
 document.getElementById("pCategory").value = product.category || "OTT";
 document.getElementById("pStock").value = product.stock || "In Stock";
 
-await db.from("products").delete().eq("id", id);
+
 
 alert("Edit mode enabled ✅");
 document.querySelector(".adminBox").scrollIntoView({
