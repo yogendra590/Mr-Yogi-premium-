@@ -1061,6 +1061,7 @@ async function openAdmin(){
         <b>${p.name}</b><br>
         <span class="small">${p.desc || ""}</span><br><br>
         <button class="btn" onclick="changeImage(${p.id}, '${p.img || ""}')">🖼️ Change Image</button>
+        <button class="btn" onclick="editProduct(${p.id})">✏️ Edit Product</button>
         <button class="btn" onclick="deleteProduct(${p.id})">Delete Product</button>
       </div>
     `).join("")}
@@ -1131,6 +1132,37 @@ async function changeImage(id, oldImage){
   renderProducts();
   openAdmin();
 }
+    async function editProduct(id){
+
+const product = products.find(p => p.id === id);
+
+const name = prompt("Product Name", product.name || "");
+const points = prompt("Description / Points", product.points || "");
+const plans = prompt("Plans", product.plans || "");
+const img = prompt("Image URL", product.img || "");
+const category = prompt("Category", product.category || "OTT");
+const stock = prompt("Stock", product.stock || "In Stock");
+
+const { error } = await db
+.from("products")
+.update({
+name: name,
+description: points,
+points: points,
+plans: plans,
+img: img,
+category: category,
+stock: stock
+})
+.eq("id", id);
+
+if(error){
+alert("Error: " + error.message);
+}else{
+alert("✅ Product Updated");
+location.reload();
+}
+  }      
 async function deleteProduct(id){
   await db.from("products").delete().eq("id", id);
   renderProducts();
