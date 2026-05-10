@@ -1114,7 +1114,8 @@ alert("Error: " + error.message);
 console.log(error);
 }else{
 alert("✅ Product Added Successfully");
-location.reload();
+await renderProducts();
+openAdmin();
 }
 
 }
@@ -1145,7 +1146,10 @@ document.getElementById("pStock").value = product.stock || "In Stock";
 await db.from("products").delete().eq("id", id);
 
 alert("Edit mode enabled ✅");
-window.scrollTo(0,0);
+document.querySelector(".adminBox").scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
     }
   }      
 async function deleteProduct(id){
