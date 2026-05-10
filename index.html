@@ -1133,35 +1133,20 @@ async function changeImage(id, oldImage){
   openAdmin();
 }
     async function editProduct(id){
-
 const product = allProducts.find(p => p.id === id);
 
-const name = prompt("Product Name", product.name || "");
-const points = prompt("Description / Points", product.points || "");
-const plans = prompt("Plans", product.plans || "");
-const img = prompt("Image URL", product.img || "");
-const category = prompt("Category", product.category || "OTT");
-const stock = prompt("Stock", product.stock || "In Stock");
+document.getElementById("pName").value = product.name || "";
+document.getElementById("pPoints").value = product.points || "";
+document.getElementById("pPlans").value = product.plans || "";
+document.getElementById("pImageUrl").value = product.img || "";
+document.getElementById("pCategory").value = product.category || "OTT";
+document.getElementById("pStock").value = product.stock || "In Stock";
 
-const { error } = await db
-.from("products")
-.update({
-name: name,
-description: points,
-points: points,
-plans: plans,
-img: img,
-category: category,
-stock: stock
-})
-.eq("id", id);
+await db.from("products").delete().eq("id", id);
 
-if(error){
-alert("Error: " + error.message);
-}else{
-alert("✅ Product Updated");
-location.reload();
-}
+alert("Edit mode enabled ✅");
+window.scrollTo(0,0);
+    }
   }      
 async function deleteProduct(id){
   await db.from("products").delete().eq("id", id);
