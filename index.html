@@ -987,6 +987,9 @@ function viewAllFeedback(){
             <p>${f.msg}</p>
 
             <p class="small">${f.date}</p>
+            ${localStorage.getItem("adminLogged") === "true"
+? `<button class="btn" onclick="deleteFeedback(${feedbacks.indexOf(f)})">🗑 Delete</button>`
+: ""}
           </div>
         `).join("")
       }
@@ -995,7 +998,19 @@ function viewAllFeedback(){
 
   document.getElementById("popup").style.display = "flex";
 }
+function deleteFeedback(index){
+let feedbacks = getFeedbacks();
 
+feedbacks.splice(index, 1);
+
+saveFeedbacks(feedbacks);
+
+renderFeedbacks(3);
+
+viewAllFeedback();
+
+alert("✅ Feedback Deleted");
+}
 function closePopup(){
   document.getElementById("popup").style.display = "none";
 }
@@ -1005,6 +1020,7 @@ async function adminLogin(){
 const password = prompt("Enter Admin Password");
 
 if(email === "mryogiottseller@gmail.com" && password === "yogi19001"){
+ localStorage.setItem("adminLogged","true");
 openAdmin();
 }else{
 alert("Invalid Login");
@@ -1021,10 +1037,10 @@ async function openAdmin(){
     <div class="adminBox">
 <div class="adminTitle">✨ Add Product</div>
     <input id="pName" placeholder="Product Name">
-    <textarea id="pDesc" placeholder="Description"></textarea>
     <textarea id="pPoints" placeholder="Description points separate by comma"></textarea>
     <textarea id="pPlans" placeholder="Plans format: 1 Month:150, 3 Months:399"></textarea>
-    <input id="pImage" placeholder="Image URL">
+    <input type="file" id="pImage" accept="image/*">
+    <input id="pImageUrl" placeholder="Image URL Auto / Manual">
 
 <select id="pCategory">
 <option value="OTT">OTT</option>
@@ -1071,7 +1087,12 @@ async function addProduct() {
 const description = document.getElementById("pDesc").value;
 const points = document.getElementById("pPoints").value;
 const plans = document.getElementById("pPlans").value;
-const image = document.getElementById("pImage").value;
+const file = document.getElementById("pImage").files[0];
+const manualUrl = document.getElementById("pImageUrl").value;
+
+const image = file
+? URL.createObjectURL(file)
+: manualUrl;
 const category = document.getElementById("pCategory").value;
 const stock = document.getElementById("pStock").value;
 
