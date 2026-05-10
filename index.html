@@ -569,11 +569,7 @@ ${p.name}
 ${p.stock ? '✅ In Stock' : '❌ Out of Stock'}
 </div>
 
-<div class="desc">
-${(p.points || "").split(",").map(x =>`<span>✓ ${x}</span>`).join("")}
-</div>
-
-<button class="btn chooseBtn" onclick="openPlans(${i})">
+<button class="btn chooseBtn" onclick="openOrder(${i})"
 Choose Plan
 </button>
 
@@ -594,7 +590,7 @@ selectedProduct.name + " Details";
 document.getElementById("popupContent").innerHTML = `
 <div style="background:#111;color:white;border-radius:22px;padding:20px;text-align:left;">
 
-${(selectedProduct.points || []).map(x => `
+${(selectedProduct.points || "").split(",").map(x=> `
 <div style="display:flex;gap:12px;align-items:flex-start;font-size:18px;margin:14px 0;line-height:1.5;">
 <span style="color:#22c55e;font-size:24px;font-weight:900;">✓</span>
 <span>${x}</span>
@@ -607,7 +603,12 @@ ${(selectedProduct.points || []).map(x => `
 document.getElementById("popup").style.display = "flex";
 }
 function openOrder(idx){
-  selectedPlan = selectedProduct.plans[idx];
+  const plansArray = (selectedProduct.plans || "").split(",");
+
+selectedPlan = {
+  name: plansArray[idx]?.split(":")[0] || "",
+  price: plansArray[idx]?.split(":")[1] || "0"
+};
   finalAmount = Number(window.finalAmount || selectedPlan.price || 0);
   appliedCoupon = "Not Applied";
 
