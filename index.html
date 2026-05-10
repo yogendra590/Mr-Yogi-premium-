@@ -1087,12 +1087,7 @@ async function addProduct() {
 const description = points;
 const points = document.getElementById("pPoints").value;
 const plans = document.getElementById("pPlans").value;
-const file = document.getElementById("pImage").files[0];
-const manualUrl = document.getElementById("pImageUrl").value;
-
-const image = file
-? URL.createObjectURL(file)
-: manualUrl;
+const image = document.getElementById("pImageUrl").value;
 const category = document.getElementById("pCategory").value;
 const stock = document.getElementById("pStock").value;
 
