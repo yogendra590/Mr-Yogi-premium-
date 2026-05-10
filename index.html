@@ -569,8 +569,8 @@ ${p.name}
 ${p.stock ? '✅ In Stock' : '❌ Out of Stock'}
 </div>
 
-<button class="btn chooseBtn" onclick="openOrder(${i})"
-Choose Plan
+<button class="btn chooseBtn" onclick="openPlanList(${i})">
+ Choose Plan
 </button>
 
 
@@ -602,6 +602,27 @@ ${(selectedProduct.points || "").split(",").map(x=> `
 
 document.getElementById("popup").style.display = "flex";
 }
+    function openPlanList(i){
+  selectedProduct = allProducts[i];
+
+  const plansArray = (selectedProduct.plans || "").split(",");
+
+  document.getElementById("popupTitle").innerText = selectedProduct.name + " Plans";
+
+  document.getElementById("popupContent").innerHTML = plansArray.map((p, idx)=>{
+
+  const parts = p.split(":");
+
+  return `
+    <button class="btn" onclick="openOrder(${idx})">
+      ${parts[0]} - ₹${parts[1]}
+    </button>
+  `;
+
+}).join("");
+
+  document.getElementById("popup").style.display = "flex";
+    }
 function openOrder(idx){
   const plansArray = (selectedProduct.plans || "").split(",");
 
