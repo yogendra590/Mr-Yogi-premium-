@@ -1134,7 +1134,7 @@ async function changeImage(id, oldImage){
 }
     async function editProduct(id){
 
-const product = products.find(p => p.id === id);
+const product = allProducts.find(p => p.id === id);
 
 const name = prompt("Product Name", product.name || "");
 const points = prompt("Description / Points", product.points || "");
