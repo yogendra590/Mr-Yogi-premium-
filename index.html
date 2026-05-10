@@ -260,7 +260,36 @@ margin-top:15px;
 box-shadow:0 0 25px rgba(140,82,255,.25);
 border:1px solid rgba(255,255,255,.08);
 }
+.policyPopup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.7);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:9999;
+padding:20px;
+}
 
+.policyContent{
+background:#fff;
+width:100%;
+max-width:500px;
+padding:25px;
+border-radius:22px;
+position:relative;
+max-height:85vh;
+overflow:auto;
+}
+
+.closePolicy{
+position:absolute;
+right:18px;
+top:12px;
+font-size:28px;
+cursor:pointer;
+font-weight:bold;
+}
 .adminTitle{
 font-size:22px;
 font-weight:800;
