@@ -1081,8 +1081,8 @@ async function openAdmin(){
 
   document.getElementById("popup").style.display = "flex";
 }
-async function addProduct() {
-alert("Add button clicked");
+async function addProduct(){
+
 
 const name = document.getElementById("pName").value.trim();
 const points = document.getElementById("pPoints").value.trim();
@@ -1093,32 +1093,31 @@ const category = document.getElementById("pCategory").value;
 const stock = document.getElementById("pStock").value;
 
 if(!name || !points || !plans){
-alert("Please fill Product Name, Points and Plans");
+alert("Please fill name, points and plans");
 return;
 }
 
-const { data, error } = await db
-.from("products")
-.insert([{
-name: name,
-description: description,
-points: points,
-plans: plans,
-img: image,
-category: category,
-stock: stock
+const { error } = await db.from("products").insert([{
+name:name,
+description:description,
+points:points,
+plans:plans,
+img:image,
+category:category,
+stock:stock
 }]);
 
 if(error){
 alert("Error: " + error.message);
 console.log(error);
-}else{
-alert("✅ Product Added Successfully");
-await renderProducts();
-openAdmin();
+return;
 }
 
+alert("✅ Product Added Successfully");
+renderProducts();
+openAdmin();
 }
+    
 async function changeImage(id, oldImage){
   const newImage = prompt("Paste new image URL", oldImage || "");
 
