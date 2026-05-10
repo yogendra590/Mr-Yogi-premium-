@@ -1034,7 +1034,7 @@ const stock = document.getElementById("pStock").value;
       description: description,
       points: points,
       plans: plans,
-      image: image,
+      img: image,
       category: category,
       stock: stock
     }
@@ -1058,7 +1058,7 @@ async function changeImage(id, oldImage){
     return;
   }
 
-  await db.from("products").update({ image: newImage }).eq("id", id);
+  await db.from("products").update({ img: newImage }).eq("id", id);
 
   alert("Image updated successfully");
   renderProducts();
