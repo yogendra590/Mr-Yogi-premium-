@@ -1083,36 +1083,39 @@ async function openAdmin(){
 }
 async function addProduct() {
 
-  const name = document.getElementById("pName").value;
-const points = document.getElementById("pPoints").value;
-const plans = document.getElementById("pPlans").value;
-const image = document.getElementById("pImageUrl").value;
+const name = document.getElementById("pName").value.trim();
+const points = document.getElementById("pPoints").value.trim();
+const description = points;
+const plans = document.getElementById("pPlans").value.trim();
+const image = document.getElementById("pImageUrl").value.trim();
 const category = document.getElementById("pCategory").value;
 const stock = document.getElementById("pStock").value;
 
-  const { data, error } = await db
-  .from("products")
-  .insert([
-    {
-      name: name,
-      description: description,
-      points: points,
-      plans: plans,
-      img: image,
-      category: category,
-      stock: stock
-    }
-  ]);
+if(!name || !points || !plans){
+alert("Please fill Product Name, Points and Plans");
+return;
+}
 
-  if (error) {
-    console.log(error);
-    alert("Error: " + error.message);
-  } else {
-    alert("✅ Product Added Successfully");
-    location.reload();
-  }
+const { data, error } = await db
+.from("products")
+.insert([{
+name: name,
+description: description,
+points: points,
+plans: plans,
+img: image,
+category: category,
+stock: stock
+}]);
 
-    
+if(error){
+alert("Error: " + error.message);
+console.log(error);
+}else{
+alert("✅ Product Added Successfully");
+location.reload();
+}
+
 }
 async function changeImage(id, oldImage){
   const newImage = prompt("Paste new image URL", oldImage || "");
