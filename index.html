@@ -1052,8 +1052,7 @@ async function openAdmin(){
 <option value="In Stock">📦 In Stock</option>
 <option value="Out Of Stock">❌ Out Of Stock</option>
 </select>
-    <button class="adminBtn" onclick="addProduct()">✨ Add Product</button>
-</div>
+    <button type="button" class="adminBtn" onclick="addProduct(); return false;">✨ Add Product</button>
 
     <h3 style="margin-top:20px">Products</h3>
     ${(products || []).map(p=>`
