@@ -48,6 +48,24 @@ color:#555;
 .btn{border:0;border-radius:30px;padding:15px 20px;font-weight:900;cursor:pointer;background:linear-gradient(90deg,#7b2cff,#ff3bd4);color:white;width:100%;font-size:16px;box-shadow:0 8px 22px #8a2cff55}
 .chooseBtn{font-size:18px;animation:pulse 1.5s infinite}
 @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.04)}100%{transform:scale(1)}}
+.footerPolicies{
+display:flex;
+justify-content:center;
+gap:18px;
+flex-wrap:wrap;
+padding:18px;
+background:#000;
+}
+
+.footerPolicies span{
+color:#bbb;
+font-size:14px;
+cursor:pointer;
+}
+
+.footerPolicies span:hover{
+color:#fff;
+}
 .whatsapp{position:fixed;right:18px;bottom:22px;background:#25d366;color:white;padding:18px 25px;border-radius:35px;font-weight:900;text-decoration:none;z-index:20}
 .adminBtn{position:fixed;left:15px;bottom:22px;background:#111;color:white;border:0;border-radius:30px;padding:14px 18px;font-weight:900;z-index:20}
 .popup{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;padding:15px;z-index:50}
@@ -435,81 +453,12 @@ footer{text-align:center;background:#111;color:white;padding:25px 15px;line-heig
   </p>
 </section>
 
-<section>
-  <h2>🛡️ Trust & Policies</h2>
-<details class="policyItem">
-<summary>📜 TERMS AND CONDITIONS</summary>
-<div class="policyContent">
-
-<p><b>MR.YOGI PREMIUM</b></p>
-<p>Effective Date: May 5, 2026</p>
-
-<p>By using our services, you agree to the following:</p>
-
-<p>🔹 <b>Service:</b> We provide OTT, AI tools & software subscriptions.</p>
-
-<p>🔹 <b>Rules:</b> Do not change account details, do not misuse shared accounts, follow device/screen limits.</p>
-
-<p>🔹 <b>Violations:</b> Breaking rules = No refund / No replacement.</p>
-
-<p>🔹 <b>Changes:</b> We can update terms anytime without notice.</p>
-
+<div class="footerPolicies">
+<span onclick="openPolicy('terms')">Terms of Service</span>
+<span onclick="openPolicy('privacy')">Privacy Policy</span>
+<span onclick="openPolicy('refund')">Refund Policy</span>
+<span onclick="openPolicy('security')">Security Policy</span>
 </div>
-</details>
-
-
-<details class="policyItem">
-<summary>🔐 PRIVACY POLICY</summary>
-<div class="policyContent">
-
-<p><b>MR.YOGI PREMIUM</b></p>
-<p>Effective Date: May 5, 2026</p>
-
-<p>We respect your privacy and are committed to protecting your personal information.</p>
-
-<p>🔹 <b>Information We Collect:</b> Name, phone number, email, payment details, order & usage details.</p>
-
-<p>🔹 <b>How We Use Your Data:</b> To process orders, deliver accounts/services and provide customer support.</p>
-
-<p>🔹 <b>Data Protection:</b> We do not sell or share your data with third parties.</p>
-
-<p>🔹 <b>Cookies:</b> Our website may use cookies to improve user experience.</p>
-
-<p>🔹 <b>Contact:</b> 📞 8618388937</p>
-
-</div>
-</details>
-
-
-<details class="policyItem">
-<summary>💰 REFUND POLICY</summary>
-<div class="policyContent">
-
-<p>❌ <b>No Refund Policy:</b> No refund after successful delivery.</p>
-
-<p>✅ <b>Replacement Only If:</b> Account not working at delivery and report within warranty.</p>
-
-<p>❌ <b>No Replacement If:</b> User changed details, misuse detected, device limit exceeded.</p>
-
-</div>
-</details>
-
-
-<details class="policyItem">
-<summary>🛡️ SECURITY POLICY</summary>
-<div class="policyContent">
-
-<p>🔹 <b>Safe Payments:</b> We use secure payment methods UPI / Gateway.</p>
-
-<p>🔹 <b>Account Safety:</b> Do not share login with others. Follow usage rules.</p>
-
-<p>🔹 <b>Data Security:</b> Your data is protected and not shared publicly.</p>
-
-<p>🔹 <b>Fraud Protection:</b> Any misuse or fraud will lead to account termination without refund.</p>
-
-</div>
-</details>
-</section>
 
 <footer>
   © 2026 MR.YOGI PREMIUM — All Rights Reserved<br>
@@ -1141,6 +1090,70 @@ document.addEventListener("click", function(e){
 renderProducts();
 renderFeedbacks(3);
 </script>
+<div id="policyPopup" class="policyPopup">
+<div class="policyContent">
 
+<span class="closePolicy" onclick="closePolicy()">&times;</span>
+
+<div id="policyText"></div>
+
+</div>
+</div>
+
+<script>
+
+function openPolicy(type){
+
+let text = "";
+
+if(type==="terms"){
+text = `
+<h2>📜 TERMS AND CONDITIONS</h2>
+<p><b>MR.YOGI PREMIUM</b></p>
+<p>🔹 Service: We provide OTT, AI tools & software subscriptions.</p>
+<p>🔹 Rules: Do not change account details, misuse shared accounts, follow device/screen limits.</p>
+<p>🔹 Violations: No refund / replacement.</p>
+<p>🔹 Changes: Terms can change anytime without notice.</p>
+`;
+}
+
+if(type==="privacy"){
+text = `
+<h2>🔐 PRIVACY POLICY</h2>
+<p><b>MR.YOGI PREMIUM</b></p>
+<p>🔹 We protect your personal information.</p>
+<p>🔹 We use your data only for orders & support.</p>
+<p>🔹 We do not sell your data.</p>
+<p>📞 Contact: 8618388937</p>
+`;
+}
+
+if(type==="refund"){
+text = `
+<h2>💰 REFUND POLICY</h2>
+<p>❌ No refund after successful delivery.</p>
+<p>✅ Replacement only if account not working within warranty.</p>
+<p>❌ No replacement for misuse or changed details.</p>
+`;
+}
+
+if(type==="security"){
+text = `
+<h2>🛡️ SECURITY POLICY</h2>
+<p>🔹 Safe UPI & Gateway payments.</p>
+<p>🔹 Follow account safety rules.</p>
+<p>🔹 Misuse leads to termination without refund.</p>
+`;
+}
+
+document.getElementById("policyText").innerHTML = text;
+document.getElementById("policyPopup").style.display = "flex";
+}
+
+function closePolicy(){
+document.getElementById("policyPopup").style.display = "none";
+}
+
+</script>
 </body>
 </html>
