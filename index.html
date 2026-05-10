@@ -1134,6 +1134,7 @@ async function changeImage(id, oldImage){
   openAdmin();
 }
     async function editProduct(id){
+
 const product = allProducts.find(p => p.id === id);
 
 document.getElementById("pName").value = product.name || "";
@@ -1143,15 +1144,14 @@ document.getElementById("pImageUrl").value = product.img || "";
 document.getElementById("pCategory").value = product.category || "OTT";
 document.getElementById("pStock").value = product.stock || "In Stock";
 
+alert("✅ Edit mode enabled");
 
-
-alert("Edit mode enabled ✅");
 document.querySelector(".adminBox").scrollIntoView({
 behavior:"smooth",
 block:"start"
 });
+
     }
-  }      
 async function deleteProduct(id){
   await db.from("products").delete().eq("id", id);
   renderProducts();
