@@ -4,371 +4,271 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MR.YOGI PREMIUM</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+function openProofImage(src){
+  const modal=document.getElementById("proofModal");
+  const img=document.getElementById("proofModalImg");
+  img.src=src;
+  modal.style.display="flex";
+}
+function closeProofImage(){
+  document.getElementById("proofModal").style.display="none";
+}
+
+</script>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,Helvetica,sans-serif}
-body{background:#f4ecff;color:#1d1230}
-header{background:linear-gradient(90deg,#7c3aed,#ec4899);color:white;padding:18px;text-align:center;font-weight:900;font-size:22px;display:flex;justify-content:center;align-items:center;gap:12px}
-.logo{width:52px;height:52px;border-radius:14px;object-fit:cover;background:white}
-.hero{text-align:center;padding:34px 18px 28px;background:linear-gradient(#fff,#efe2ff)}
-.hero h1{font-size:38px;font-weight:900;margin-bottom:15px}
-.hero p{font-size:18px;line-height:1.6;font-weight:700;color:#5b3b83;max-width:760px;margin:auto}
-.badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
-.badge{background:white;color:#8a2cff;padding:10px 14px;border-radius:999px;font-size:14px;font-weight:900;box-shadow:0 8px 20px #8a2cff18}
-.join{display:inline-block;margin-top:22px;background:#22c55e;color:#fff;text-decoration:none;padding:16px 38px;border-radius:999px;font-weight:900;box-shadow:0 12px 28px #22c55e44}
-section{padding:24px 16px}
-h2{text-align:center;font-size:34px;color:#8a2cff;margin-bottom:22px;font-weight:900}
-.search{width:100%;max-width:700px;display:block;margin:0 auto 28px;padding:18px 22px;border-radius:999px;border:2px solid #d8b4fe;font-size:17px;box-shadow:0 8px 22px #8a2cff12}
-.categoryTitle{font-size:24px;font-weight:900;color:#7c3aed;margin:28px 0 16px}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.card{background:white;border-radius:24px;padding:16px;text-align:center;box-shadow:0 10px 26px #00000010;border:1px solid #eee}
-.prodImg{width:110px;height:110px;object-fit:contain;border-radius:24px;padding:8px;background:#f3e8ff;margin:0 auto 16px;display:block}
-.card h3{font-size:20px;margin-bottom:10px;line-height:1.25}
-.stock{display:inline-block;padding:9px 16px;border-radius:999px;font-weight:900;margin:7px 0 12px;font-size:14px}
-.instock{background:#dcfce7;color:#15803d}.outstock{background:#fee2e2;color:#dc2626}
-.btn{border:0;border-radius:18px;padding:15px 18px;font-weight:900;cursor:pointer;background:linear-gradient(90deg,#7b2cff,#ff3bd4);color:white;width:100%;font-size:16px;box-shadow:0 10px 24px #8a2cff30}
-.planBtn{background:#f3e8ff;color:#7c3aed;margin-top:10px;box-shadow:none}
-.why .card h3{font-size:18px}.why .card p{font-size:14px;line-height:1.5;color:#555}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#f6efff;color:#1d1230;padding-bottom:86px}
+header{background:linear-gradient(90deg,#7b2cff,#ff3bd4);color:white;padding:14px;text-align:center;font-weight:900;letter-spacing:.5px;display:flex;align-items:center;justify-content:center;gap:10px}
+.headerLogo{width:42px;height:42px;border-radius:12px;object-fit:cover;background:white;padding:3px;box-shadow:0 6px 16px #0002}
+.headerText{font-size:20px;font-weight:900}
+.hero{text-align:center;padding:35px 18px 15px;background:linear-gradient(#fff,#efe2ff)}
+.hero h1{font-size:38px;margin-bottom:15px}
+.hero p{font-size:18px;line-height:1.5}
+.badges{display:flex;gap:8px;justify-content:center;flex-wrap:nowrap;margin-top:18px}
+.badge{background:white;color:#8a2cff;padding:10px 14px;border-radius:20px;font-size:15px;font-weight:900;white-space:nowrap;box-shadow:0 6px 14px #8a2cff14}
+section{padding:20px 16px}
+h2{text-align:center;font-size:34px;color:#8a2cff;margin-bottom:25px}
+.search{width:100%;max-width:600px;display:block;margin:0 auto 25px;padding:17px;border-radius:30px;border:1px solid #d6b9ff;font-size:17px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.card{background:white;border-radius:18px;padding:14px;box-shadow:0 6px 18px #0001;text-align:center;border:1px solid #eee}
+.card h3{font-size:17px;margin-bottom:6px}.card p{font-size:13px;line-height:1.4;margin-bottom:8px;color:#555}
+.btn{border:0;border-radius:30px;padding:15px 20px;font-weight:900;cursor:pointer;background:linear-gradient(90deg,#7b2cff,#ff3bd4);color:white;width:100%;font-size:16px;box-shadow:0 8px 22px #8a2cff55;text-align:center}
+.btn.smallBtn{padding:10px 14px;font-size:14px;border-radius:14px;width:auto;display:inline-block;margin:5px}
+.chooseBtn{font-size:16px;animation:pulse 1.5s infinite;margin-top:12px;background:#7c3aed;color:#fff;border-radius:14px;padding:14px;width:100%;transition:.3s}
+.chooseBtn:hover{transform:scale(1.03)}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.04)}100%{transform:scale(1)}}
+.planBtn{margin-top:10px;background:#f3e8ff;color:#7c3aed;border:none;border-radius:14px;font-weight:600;padding:12px;box-shadow:none}
+.prodImg{width:110px;height:110px;object-fit:cover;border-radius:24px;padding:10px;background:#f3e8ff;margin:0 auto 18px;display:block;box-shadow:0 8px 20px #d946ef22}
+.stock{display:inline-block;padding:8px 16px;border-radius:999px;font-weight:600;margin:10px 0;font-size:15px}.instock{background:#dcfce7;color:#15803d}.outstock{background:#fee2e2;color:#dc2626}
+.whatsappFloat{position:fixed;right:18px;bottom:18px;border-radius:35px;font-weight:900;text-decoration:none;z-index:2000;border:0;color:white;box-shadow:0 10px 24px #0003;background:#25d366;padding:13px 18px;display:flex;align-items:center;gap:9px;font-size:17px}.waIcon{width:30px;height:30px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#25d366;font-size:18px;box-shadow:0 4px 10px #0002}.adminFooterBtns{text-align:left;background:#111;padding:0 15px 20px}.adminStaticBtn{border:0;border-radius:18px;background:#111;color:white;padding:14px 22px;font-weight:900;box-shadow:0 8px 18px #0004;margin-right:10px}.adminStaticBtn.logout{display:none;background:#7c3aed}
+.popup{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;padding:15px;z-index:5000}.box{background:white;border-radius:25px;padding:22px;width:100%;max-width:470px;max-height:90vh;overflow:auto}.box h3{text-align:center;font-size:25px;margin-bottom:15px}.close{float:right;font-size:28px;cursor:pointer;font-weight:900;color:#111}
+#popupContent .btn{display:block;width:100%;padding:12px 14px;margin:12px 0;border:none;border-radius:16px;background:linear-gradient(135deg,#6d28d9,#9333ea,#ec4899);box-shadow:0 6px 18px rgba(147,51,234,.35);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:15px;font-weight:800;cursor:pointer}
+input,textarea,select{width:100%;padding:14px;margin:8px 0;border-radius:12px;border:1px solid #ccc;font-size:15px;background:#fff;color:#111}
+textarea{min-height:92px;resize:vertical}
+.feedbackBox{max-width:520px;margin:auto;background:white;padding:25px;border-radius:28px;box-shadow:0 15px 40px #8a2cff22}.feedbackSection{background:linear-gradient(180deg,#f8efff,#fff)}.feedbackSub{text-align:center;font-size:17px;color:#666;line-height:1.6;margin-top:-15px;margin-bottom:25px}.feedbackCard{background:white;border-radius:22px;padding:16px;box-shadow:0 8px 24px #0001;border:1px solid #eee;text-align:left}.feedbackCard h3{font-size:18px;margin-bottom:6px}.feedbackCard p{font-size:14px;color:#555}.feedbackLike{display:flex;justify-content:space-between;font-size:13px;color:#777;margin-top:12px}.small{font-size:13px;color:#666}
+.adminBox{background:linear-gradient(135deg,#160b2b,#24103f);padding:18px;border-radius:22px;margin-top:15px;box-shadow:0 0 25px rgba(140,82,255,.25);border:1px solid rgba(255,255,255,.08);color:white}.adminTitle{font-size:22px;font-weight:900;color:#f4e8ff;margin-bottom:15px;text-align:center}.adminBox input,.adminBox textarea,.adminBox select{background:#fff;color:#111;border:1px solid #d9c4ff}.adminBox label{font-size:13px;font-weight:800;color:#f4e8ff;margin-top:8px;display:block}.adminCard{background:#fff;color:#111;border-radius:16px;padding:14px;margin:12px 0;border:1px solid #eadfff}.adminCard b{font-size:16px}.adminActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.danger{background:#ef4444!important}.green{background:#16a34a!important}.soft{background:#f3e8ff!important;color:#7c3aed!important;box-shadow:none!important}
+.editPopup{position:fixed;inset:0;background:#000b;z-index:7000;display:none;align-items:center;justify-content:center;padding:15px}.editBox{background:#fff;border-radius:24px;width:100%;max-width:480px;max-height:90vh;overflow:auto;padding:20px}.editTitle{text-align:center;color:#7c3aed;font-size:24px;font-weight:900;margin-bottom:12px}.editBox .closeEdit{float:right;font-size:28px;cursor:pointer;font-weight:900}
+.footerPolicies{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;padding:18px;background:#000}.footerPolicies span{color:#bbb;font-size:14px;cursor:pointer}.footerPolicies span:hover{color:#fff}footer{text-align:center;background:#111;color:white;padding:25px 15px;line-height:1.7}
+.policyPopup{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px}.policyContent{background:#fff;width:100%;max-width:500px;padding:25px;border-radius:22px;position:relative;max-height:85vh;overflow:auto;line-height:1.8;color:#333}.closePolicy{position:absolute;right:18px;top:12px;font-size:28px;cursor:pointer;font-weight:bold}
+.rPayBox{background:#fffaf3;border-radius:20px;padding:14px;margin:14px 0;border:1px solid #eadccc}.upiHead{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:10px}.upiLogo{background:#007a5a;color:white;width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px}.secure{background:#fff3e8;color:#007a5a;padding:10px 18px;border-radius:25px;font-weight:900;letter-spacing:2px}.qrImg{display:block;width:220px;height:220px;margin:14px auto;background:white;padding:10px;border-radius:16px;box-shadow:0 10px 24px #0002}.qrTimer{display:flex;justify-content:space-between;border:1px dashed #d7c7b7;padding:10px 14px;border-radius:14px;margin:10px 0;color:#777;font-size:14px}.qrTimer b{color:#008060}.upiApps{background:#f4f8ff;border:1px solid #d7e3ff;border-radius:16px;padding:12px;margin-top:10px}.appGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.appBtn{display:block;text-align:center;text-decoration:none;background:white;border:1px solid #cfe0ff;padding:10px;border-radius:12px;font-weight:900;color:#164a9b;font-size:14px}.orderNote{background:linear-gradient(135deg,#ede9fe,#fff);border:1px solid #d8b4fe;border-radius:18px;padding:14px;margin:12px 0;color:#4c1d95;font-weight:800;line-height:1.5}.waOrderBox{background:#ecfdf5;border:1px solid #bbf7d0;border-radius:20px;padding:15px;margin-bottom:16px}.waOrderBox h3{color:#15803d!important;margin-bottom:8px!important}.couponTop{background:linear-gradient(135deg,#f3e8ff,#fff);border:1px solid #d8b4fe;border-radius:20px;padding:15px;margin-bottom:16px}.couponTop h3{color:#7c3aed!important;margin:0 0 8px!important}.screenShotBtn{background:linear-gradient(135deg,#16a34a,#22c55e)!important;font-size:17px!important;margin-top:14px!important}.payHint{background:#ecfdf5;border:1px solid #bbf7d0;color:#166534;border-radius:16px;padding:11px;margin-top:10px;font-weight:800;line-height:1.4;text-align:center;font-size:14px}.paymentIntro{background:linear-gradient(135deg,#fff,#f3e8ff);border:1px solid #ddd6fe;border-radius:18px;padding:14px;color:#4c1d95;font-weight:800;line-height:1.5;margin:12px 0}.upiApps{margin-bottom:14px}
+.orderOverlay{position:fixed;inset:0;background:#050505;z-index:99999;display:none;align-items:center;justify-content:center;color:white;text-align:center;padding:25px}.orderBox{width:100%;max-width:370px;border:1px solid #333;border-radius:28px;padding:35px 22px;background:#0b0b0bcc}.cartIcon,.successIcon{width:120px;height:120px;border-radius:50%;margin:0 auto 25px;display:flex;align-items:center;justify-content:center;font-size:55px}.cartIcon{background:#e50914}.successIcon{background:#2ecc71}.percent{font-size:55px;font-weight:900;margin:15px 0}.progress{height:12px;background:#182033;border:1px solid #fff;border-radius:20px;overflow:hidden}.bar{height:100%;width:0%;background:linear-gradient(90deg,#ff1e1e,#ff7b00)}.orderBox h1{font-size:30px;margin-top:25px}.dots{letter-spacing:5px}
 
-/* popup */
-.popup{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
-.box{background:white;border-radius:28px;padding:22px;width:100%;max-width:560px;max-height:92vh;overflow:auto}
-.close{float:right;font-size:34px;line-height:1;cursor:pointer;font-weight:900}
-.box h3{text-align:center;font-size:28px;margin-bottom:18px}
+.groupJoinBtn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;background:linear-gradient(135deg,#16a34a,#22c55e);color:white;font-weight:900;border-radius:999px;padding:12px 24px;margin-top:18px;box-shadow:0 10px 25px #16a34a44;letter-spacing:.4px}
+.brandLine{display:flex;align-items:center;gap:12px}.brandLogo{width:40px;height:40px;border-radius:14px;object-fit:cover;background:white;border:2px solid #fff;box-shadow:0 6px 16px #0002}.brandName{font-weight:900;color:#111;line-height:1.2}.brandName small{display:block;color:#777;font-size:12px;margin-top:2px}.priceBox{background:#fff;border:1px solid #e9d5ff;border-radius:16px;padding:12px 14px;margin:10px 0;box-shadow:0 6px 18px #7c3aed11}.priceRow{display:flex;justify-content:space-between;gap:10px;padding:5px 0;font-size:15px}.priceRow.discount{color:#16a34a;font-weight:900}.priceRow.payable{font-size:18px;color:#7c3aed;font-weight:900}.simpleDiscountLine{background:#ecfdf5;border:1px solid #bbf7d0;color:#166534;border-radius:14px;padding:10px 12px;margin:10px 0;font-weight:900;text-align:center}.qrScanLine{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:16px;padding:11px;margin:8px 0 12px;font-weight:900;text-align:center;line-height:1.4}.screenShotBtn{background:linear-gradient(135deg,#16a34a,#25d366)!important;font-size:17px!important;margin:14px 0 4px!important;border-radius:18px!important}.loadingLogo{width:92px;height:92px;border-radius:24px;object-fit:cover;background:white;margin:0 auto 18px;box-shadow:0 8px 24px #0005}.successSub{color:#ddd;line-height:1.5;margin-top:8px}
+@media(max-width:420px){.hero h1{font-size:30px}.grid{gap:10px}.badge{font-size:11px;padding:7px 8px}h2{font-size:28px}.whatsappFloat{padding:13px 15px}.logoutFloat{padding:13px 14px}.adminActions{grid-template-columns:1fr}.prodImg{width:90px;height:90px}}
 
-/* plan stock */
-.planStockRow{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:12px 0;padding:15px;border-radius:20px;background:#fff;border:2px solid #eee;box-shadow:0 8px 20px rgba(124,58,237,.08)}
-.planStockInfo{font-weight:900;color:#211237;font-size:16px;line-height:1.5}
-.planStockBadge{padding:8px 12px;border-radius:999px;font-size:12px;font-weight:900;white-space:nowrap;display:inline-block;margin-bottom:8px}
-.planIn{background:#dcfce7;color:#15803d}.planOut{background:#fee2e2;color:#dc2626}
-.planStockBtn{padding:11px 12px!important;font-size:14px!important;border-radius:14px!important}
-.planStockBtn:disabled{opacity:.55;filter:grayscale(1);cursor:not-allowed;box-shadow:none!important}
+.supportFloat{
+position:fixed;
+right:18px;
+bottom:20px;
+width:58px;
+height:58px;
+background:#22c55e;
+color:#fff;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+text-decoration:none;
+box-shadow:0 8px 25px rgba(34,197,94,.45);
+z-index:9999;
+}
 
-/* checkout */
+
+.whatsappFloat{display:none!important}
+.supportFloat{
+position:fixed!important;
+right:18px!important;
+bottom:22px!important;
+width:58px!important;
+height:58px!important;
+padding:0!important;
+background:#22c55e!important;
+color:#fff!important;
+border-radius:50%!important;
+display:flex!important;
+align-items:center!important;
+justify-content:center!important;
+font-size:28px!important;
+text-decoration:none!important;
+box-shadow:0 10px 26px rgba(34,197,94,.45)!important;
+z-index:99999!important;
+}
+
+
+.categorySection{grid-column:1/-1;margin:26px 0 34px}
+.categoryTitle{
+font-size:22px;
+font-weight:900;
+color:#7c3aed;
+margin:4px 4px 16px;
+letter-spacing:.2px;
+}
+.categoryTitle::before{
+content:"";
+display:inline-block;
+width:7px;
+height:23px;
+background:linear-gradient(180deg,#7c3aed,#ec4899);
+border-radius:20px;
+margin-right:9px;
+vertical-align:-4px;
+}
+.adminSearch{
+width:100%;
+padding:14px 16px;
+margin:12px 0;
+border-radius:16px;
+border:2px solid #d8b4fe;
+background:#fff;
+color:#211237;
+font-size:15px;
+font-weight:800;
+box-shadow:0 8px 20px rgba(124,58,237,.14);
+}
+.proofSection{padding:25px 16px 40px;background:linear-gradient(#f7efff,#fff)}
+.proofSub{text-align:center;color:#666;margin-top:-10px;margin-bottom:20px;line-height:1.5}
+.proofGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.proofCard{background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 8px 24px #0001}
+.proofCard img{width:100%;height:240px;object-fit:cover;display:block}
+.adminProofUploadBox{background:#fff!important;color:#111!important;padding:16px!important;border-radius:18px!important;margin:0 0 18px!important;box-shadow:0 8px 22px #0002!important}
+.adminProofUploadBox input{background:#fff!important;color:#111!important}
+
+
+.adminProofUploadBox{
+background:#fff!important;
+color:#111!important;
+padding:16px!important;
+border-radius:18px!important;
+margin:0 0 18px!important;
+box-shadow:0 8px 22px #0002!important;
+border:2px solid #d8b4fe!important;
+}
+.adminProofUploadBox h3{
+color:#7c3aed!important;
+font-size:20px!important;
+margin-bottom:10px!important;
+}
+.adminProofUploadBox input{
+background:#fff!important;
+color:#111!important;
+border:1px solid #ddd!important;
+}
+
+
+.proofGrid{
+display:flex!important;
+overflow-x:auto!important;
+gap:16px!important;
+scroll-snap-type:x mandatory!important;
+padding:8px 6px 18px!important;
+scroll-behavior:smooth!important;
+}
+.proofCard{
+min-width:82%!important;
+max-width:82%!important;
+height:420px!important;
+background:#fff!important;
+border-radius:24px!important;
+padding:10px!important;
+box-shadow:0 12px 30px rgba(124,58,237,.14)!important;
+scroll-snap-align:center!important;
+display:flex!important;
+align-items:center!important;
+justify-content:center!important;
+}
+.proofCard img{
+width:100%!important;
+height:100%!important;
+object-fit:contain!important;
+border-radius:18px!important;
+background:#f8f3ff!important;
+}
+.proofSliderHint{
+text-align:center;
+color:#7c3aed;
+font-weight:900;
+font-size:14px;
+margin:-8px 0 14px;
+}
+@media(max-width:420px){
+.proofCard{min-width:84%!important;max-width:84%!important;height:360px!important}
+}
+
+
+#proofModal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.92);
+z-index:99999;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+#proofModal img{
+max-width:100%;
+max-height:90vh;
+border-radius:18px;
+background:#fff;
+}
+#proofModal .closeProof{
+position:absolute;
+top:18px;
+right:20px;
+font-size:42px;
+color:#fff;
+font-weight:900;
+cursor:pointer;
+}
+
+
+.viewAllProofsBtn{
+max-width:260px!important;
+display:block!important;
+margin:18px auto 0!important;
+border-radius:999px!important;
+}
+.proofGrid.showAll{
+display:grid!important;
+grid-template-columns:repeat(2,1fr)!important;
+overflow:visible!important;
+}
+.proofGrid.showAll .proofCard{
+min-width:100%!important;
+max-width:100%!important;
+height:330px!important;
+}
+
+
+/* PREMIUM CHECKOUT UI v34 */
 .checkoutCouponBox,.checkoutWhatsappBox,.qrPremiumBox{border-radius:28px;padding:20px;margin:18px 0;box-shadow:0 14px 36px rgba(124,58,237,.14)}
 .checkoutCouponBox{background:linear-gradient(135deg,#fff,#fbf7ff);border:2px solid #e9d5ff}
-.checkoutCouponBox h2{font-size:26px;font-weight:900;color:#7c3aed;margin-bottom:10px}
-.checkoutCouponBox p{font-size:15px;font-weight:700;color:#4b2a7b;line-height:1.5;margin-bottom:12px}
-input,textarea,select{width:100%;padding:15px;margin:8px 0;border-radius:16px;border:2px solid #ddd;font-size:15px;background:white}
+.checkoutCouponBox h2{font-size:28px;font-weight:900;color:#7c3aed;margin:0 0 8px}
+.checkoutCouponBox p{font-size:16px;font-weight:700;color:#4b2a7b;line-height:1.55;margin:0 0 14px}
+.checkoutCouponBox input,.checkoutWhatsappBox input{background:#fff!important;border:2px solid #ddd!important;border-radius:18px!important;padding:17px!important;font-size:16px!important}
+.couponApplyBtn,.sendInvoiceBtn,.sendShotBtn{width:100%;border:0;border-radius:18px;padding:17px;margin-top:13px;font-size:18px;font-weight:900;color:#fff;box-shadow:0 12px 28px rgba(124,58,237,.25)}
+.couponApplyBtn{background:linear-gradient(135deg,#7c3aed,#ec4899)}
 .checkoutWhatsappBox{background:linear-gradient(135deg,#effdf5,#f6fffb);border:2px solid #bbf7d0}
-.checkoutWhatsappBox h2{font-size:25px;font-weight:900;color:#138a3d;text-align:center;margin-bottom:12px}
-.waInfoLine{font-size:16px;line-height:1.55;color:#1f1538;font-weight:700;border-bottom:1px dashed #b7e9c5;padding-bottom:12px;margin-bottom:12px}
-.checkoutDiscount{font-size:17px;font-weight:900;color:#15803d;background:#dcfce7;border-radius:15px;padding:12px;text-align:center;margin:12px 0}
-.sendInvoiceBtn,.sendShotBtn{background:linear-gradient(135deg,#16a34a,#22c55e)!important;box-shadow:0 12px 28px rgba(22,163,74,.28)}
+.checkoutWhatsappBox h2{font-size:27px;font-weight:900;color:#138a3d;text-align:center;margin:0 0 12px}
+.waInfoLine{font-size:17px;line-height:1.55;color:#1f1538;font-weight:700;border-bottom:1px dashed #b7e9c5;padding-bottom:12px;margin-bottom:12px}
+.checkoutDiscount{font-size:18px;font-weight:900;color:#15803d;background:#dcfce7;border-radius:15px;padding:12px;text-align:center;margin:12px 0 14px}
+.sendInvoiceBtn,.sendShotBtn{background:linear-gradient(135deg,#16a34a,#22c55e);box-shadow:0 12px 28px rgba(22,163,74,.28)}
 .qrScrollHint{text-align:center;font-size:15px;font-weight:900;color:#7c3aed;margin:16px 0 4px}
-.qrPremiumBox{background:#fff;border:2px solid #eadcff;padding:16px}
-.qrPayBadge{width:max-content;margin:0 auto 14px;background:linear-gradient(135deg,#6d28d9,#9333ea);color:#fff;border-radius:999px;padding:10px 18px;font-size:17px;font-weight:900}
-.qrLeftCard{max-width:310px;margin:0 auto;padding:12px;border-radius:22px;border:2px solid #efe1ff;box-shadow:0 8px 20px rgba(124,58,237,.10)}
-.qrImg{display:block;width:100%;max-width:240px;margin:0 auto;background:white;padding:8px;border-radius:16px}
-.scanPayLabel{margin-top:8px;background:linear-gradient(135deg,#7c3aed,#9333ea);color:#fff;border-radius:12px;padding:9px;text-align:center;font-size:15px;font-weight:900}
-.downloadQrBtn{display:block;width:100%;max-width:230px;margin:10px auto 4px;border:0;border-radius:14px;padding:12px;font-size:16px;font-weight:900;color:#fff;background:linear-gradient(135deg,#7c3aed,#ec4899)}
-.qrRightCard{margin-top:14px}
-.qrRightCard h2{font-size:23px;text-align:center;color:#2e1065;margin-bottom:8px}
-.paySub{text-align:center;font-size:14px;font-weight:700;line-height:1.45;color:#333}
-.amountPayCard{background:#faf5ff;border:2px solid #e9d5ff;border-radius:18px;padding:13px;text-align:center;margin:10px 0}
-.amount{font-size:30px;font-weight:900;color:#7c3aed}
-.amountBreak{display:grid;gap:6px;font-size:13px;font-weight:800;color:#333;border-top:1px dashed #d8b4fe;padding-top:10px}
+.qrPremiumBox{position:relative;background:linear-gradient(135deg,#fff,#fbf7ff);border:2px solid #e9d5ff;padding-top:22px}
+.qrPayBadge{width:max-content;margin:-45px auto 18px;background:linear-gradient(135deg,#6d28d9,#9333ea);color:#fff;border-radius:16px;padding:13px 28px;font-size:21px;font-weight:900;box-shadow:0 12px 28px rgba(124,58,237,.34)}
+.qrPremiumGrid{display:grid;grid-template-columns:1fr;gap:15px;align-items:center}
+.qrLeftCard{background:#fff;border:2px solid #efe1ff;border-radius:24px;padding:13px;box-shadow:0 8px 22px rgba(124,58,237,.10)}
+.qrImg{display:block!important;width:100%!important;max-width:280px!important;height:auto!important;margin:0 auto!important;background:white!important;padding:8px!important;border-radius:18px!important;box-shadow:none!important}
+.scanPayLabel{margin-top:10px;background:linear-gradient(135deg,#7c3aed,#9333ea);color:#fff;border-radius:16px;padding:13px;text-align:center;font-size:18px;font-weight:900}
+.qrRightCard h2{font-size:29px;font-weight:900;color:#2e1065;margin:0 0 6px;text-align:center}
+.paySub{font-size:15px;line-height:1.5;color:#333;text-align:center;font-weight:700;margin-bottom:12px}
+.amountPayCard{background:#faf5ff;border:2px solid #e9d5ff;border-radius:22px;padding:16px;text-align:center;margin:12px 0}
+.amountPayCard .label{font-size:14px;color:#666;font-weight:800}
+.amountPayCard .amount{font-size:34px;font-weight:900;color:#7c3aed;margin:4px 0 8px}
+.amountBreak{display:grid;gap:6px;font-size:14px;font-weight:800;color:#333;border-top:1px dashed #d8b4fe;padding-top:10px}
 .amountBreak span{display:flex;justify-content:space-between}.amountBreak b{color:#15803d}
-.upiMiniBox{text-align:left;font-size:13px;font-weight:800;margin-top:10px;padding:10px;background:#fff;border-radius:14px}.upiMiniBox b{display:block;font-size:15px;color:#111;margin-top:3px}
-.upiAppGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.upiAppGrid a{display:block;text-align:center;text-decoration:none;background:#fff;border:2px solid #e5e7eb;border-radius:13px;padding:10px 4px;font-size:12px;font-weight:900;color:#164a9b}
-.qrTimer{display:flex;justify-content:space-between;align-items:center;border:1px dashed #d7c7b7;padding:11px 13px;border-radius:15px;margin:11px 0 0;background:#fff;color:#777}.qrTimer b{color:#008060}
-.screenShotNote{background:#ecfdf5;border:2px solid #bbf7d0;color:#166534;font-size:13px;line-height:1.5;font-weight:900;text-align:center;padding:11px;border-radius:18px;margin-top:12px}
-
-/* feedback/proofs */
-.feedbackSection{background:linear-gradient(#fff,#faf5ff)}
-.feedbackBox{max-width:620px;margin:auto;background:white;padding:20px;border-radius:24px;box-shadow:0 10px 28px #0001}
-.feedbackCard{text-align:left}
-.proofSection{padding:28px 16px 40px;background:linear-gradient(#f7efff,#fff)}
-.proofSub{text-align:center;color:#666;line-height:1.6;font-size:16px;max-width:720px;margin:-8px auto 18px}
-.proofSliderHint{text-align:center;color:#7c3aed;font-weight:900;font-size:14px;margin:0 0 14px}
-.proofGrid{display:flex;overflow-x:auto;gap:16px;scroll-snap-type:x mandatory;padding:8px 6px 18px;scroll-behavior:smooth}
-.proofGrid.showAll{display:grid;grid-template-columns:repeat(2,1fr);overflow:visible}
-.proofCard{position:relative;min-width:82%;max-width:82%;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 10px 26px rgba(124,58,237,.14);scroll-snap-align:center}
-.proofGrid.showAll .proofCard{min-width:100%;max-width:100%}
-.proofCard img,.proofCard video{width:100%;height:320px;object-fit:contain;display:block;background:#f8f3ff;border-radius:22px 22px 0 0;padding:8px}
-.proofCard video{background:#000}
-.proofCaption{display:block;width:100%;padding:12px 10px 14px;text-align:center;font-weight:900;font-size:15px;line-height:1.35;color:#5b21b6;background:#fff;border-top:1px solid #f0e7ff}
-.proofTypeBadge{position:absolute;left:10px;top:10px;background:rgba(17,24,39,.85);color:#fff;font-size:12px;font-weight:900;padding:7px 10px;border-radius:999px;z-index:6}
-.proofDeleteBtn{position:absolute;top:8px;right:8px;width:42px;height:42px;border:none;border-radius:50%;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;font-size:24px;font-weight:900;z-index:9;box-shadow:0 10px 22px rgba(220,38,38,.38)}
-.viewAllProofsBtn{max-width:260px;display:block;margin:18px auto 0;border-radius:999px}
-.proofLoading{min-width:84%;height:320px;border-radius:24px;background:linear-gradient(90deg,#f3e8ff,#fff,#f3e8ff);display:flex;align-items:center;justify-content:center;font-weight:900;color:#7c3aed}
-
-/* admin */
-.adminBtn{display:inline-block;margin:20px;padding:12px 18px;border:none;border-radius:16px;background:linear-gradient(90deg,#7c3aed,#d946ef);color:white;font-size:15px;font-weight:900}
-.adminBox{background:#140625;padding:18px;border-radius:22px;margin-top:15px;color:white}
-.adminTitle{font-size:24px;font-weight:900;color:#fff;text-align:center;margin-bottom:14px}
-.adminProofUploadBox{background:#fff;color:#111;padding:16px;border-radius:18px;margin:0 0 18px;box-shadow:0 8px 22px #0002;border:2px solid #d8b4fe}
-.adminProofUploadBox h3{color:#7c3aed;font-size:20px;margin-bottom:10px;text-align:center}
-#proofProductText{width:100%;margin:12px 0 0;padding:15px;border-radius:16px;border:2px solid #e9d5ff;font-size:15px;font-weight:800}
-.adminCard{background:#fff;color:#111;padding:12px;border-radius:16px;margin:10px 0}
-.adminSearch{width:100%;padding:14px 16px;margin:12px 0;border-radius:16px;border:2px solid #d8b4fe;background:#fff;color:#211237;font-size:15px;font-weight:800}
-.policyPopup{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;z-index:999;padding:18px}.policyContent{background:#fff;border-radius:22px;max-width:560px;width:100%;padding:22px;max-height:85vh;overflow:auto}.closePolicy{float:right;font-size:28px;font-weight:900;cursor:pointer}
-footer{text-align:center;background:#111;color:white;padding:28px 15px;line-height:1.8}
-.footerPolicies{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;padding:18px;background:#000}.footerPolicies span{color:#bbb;cursor:pointer}
-.whatsapp{position:fixed;right:20px;bottom:24px;width:72px;height:72px;border-radius:50%;background:#22c55e;color:white;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:34px;z-index:30;box-shadow:0 14px 30px #22c55e55}
-@media(max-width:420px){.hero h1{font-size:31px}.grid{gap:12px}.card{padding:13px}.card h3{font-size:18px}h2{font-size:30px}.proofCard{min-width:84%;max-width:84%}.proofCard img,.proofCard video{height:300px}}
-</style>
-</head>
-<body>
-
-<header><img class="logo" id="topLogo" src="" onerror="this.style.display='none'"> MR.YOGI PREMIUM</header>
-
-<div class="hero">
-  <h1>MR.YOGI PREMIUM</h1>
-  <p><b>Premium OTT & AI Tools.</b><br>Fast. Secure. Trusted.<br>Unlock premium entertainment, AI tools & software subscriptions at unbeatable prices with instant delivery and reliable support.</p>
-  <div class="badges"><div class="badge">Since 2024</div><div class="badge">1000+ Happy Clients</div><div class="badge">24×7 Support</div></div>
-  <a class="join" href="https://chat.whatsapp.com/EcUM0d0ipZVFCvzjCtPrlE">JOIN GROUP</a>
-</div>
-
-<section>
-  <h2>All Premium Plans</h2>
-  <input class="search" id="search" placeholder="Search products..." oninput="renderProducts()">
-  <div id="products"></div>
-</section>
-
-<section class="why">
-  <h2>🔥 WHY CHOOSE US</h2>
-  <div class="grid">
-    <div class="card"><h3>⚡ Instant Activation</h3><p>Premium access delivered quickly after order confirmation.</p></div>
-    <div class="card"><h3>🛡️ 100% Trusted</h3><p>Reliable service, customer support, and verified proofs.</p></div>
-    <div class="card"><h3>💎 Best Prices</h3><p>OTT, AI and software plans at affordable rates.</p></div>
-    <div class="card"><h3>📞 24×7 Support</h3><p>Quick help on WhatsApp whenever you need support.</p></div>
-  </div>
-</section>
-
-<section class="feedbackSection">
-  <h2>💜 Customer Feedback</h2>
-  <div class="feedbackBox">
-    <input id="fbName" placeholder="Your Name">
-    <select id="fbRating"><option value="">Select Rating</option><option value="5">⭐⭐⭐⭐⭐ 5 Stars</option><option value="4">⭐⭐⭐⭐ 4 Stars</option><option value="3">⭐⭐⭐ 3 Stars</option><option value="2">⭐⭐ 2 Stars</option><option value="1">⭐ 1 Star</option></select>
-    <textarea id="fbMsg" placeholder="Write your feedback..."></textarea>
-    <button class="btn" onclick="submitFeedback()">Submit Feedback</button>
-  </div>
-  <h2 style="margin-top:28px">Latest Feedback</h2>
-  <p id="ratingSummary" style="text-align:center;font-weight:900;color:#8a2cff;margin-bottom:16px">Rating: 0/5</p>
-  <div class="grid" id="feedbackList"></div>
-</section>
-
-<section class="proofSection">
-  <h2>📸 Customer Proofs</h2>
-  <p class="proofSub">See what our happy customers say about our premium services, instant delivery, and trusted support.</p>
-  <p class="proofSliderHint">🌟 Real Customer Proofs</p>
-  <div class="proofGrid" id="proofGrid"></div>
-  <button class="btn viewAllProofsBtn" onclick="viewAllProofs()">View All Proofs</button>
-</section>
-
-<div class="footerPolicies">
-<span onclick="openPolicy('terms')">Terms of Service</span>
-<span onclick="openPolicy('privacy')">Privacy Policy</span>
-<span onclick="openPolicy('refund')">Refund Policy</span>
-<span onclick="openPolicy('security')">Security Policy</span>
-</div>
-<footer>© 2026 MR.YOGI PREMIUM — All Rights Reserved<br>💎 Premium Accounts • Trusted Service • Best Prices</footer>
-
-<a class="whatsapp" href="https://wa.me/918618388937">☎</a>
-<button class="adminBtn" onclick="adminLogin()">Admin</button>
-
-<div class="popup" id="popup"><div class="box"><span class="close" onclick="closePopup()">×</span><h3 id="popupTitle"></h3><div id="popupContent"></div></div></div>
-<div class="policyPopup" id="policyPopup"><div class="policyContent"><span class="closePolicy" onclick="closePolicy()">×</span><div id="policyText"></div></div></div>
-
-<script>
-const WA="918618388937";
-const UPI_ID="8618388937@ibl";
-const UPI_NAME="Pulaganti Yogendra Reddy";
-const SUPABASE_URL="https://xztufpmubkflgeoioykg.supabase.co";
-const SUPABASE_KEY="sb_publishable_iTghesB-67gkTbOjGrhAHQ_a9e5AGR9";
-const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-const TELEGRAM_BOT_TOKEN="PASTE_NEW_TELEGRAM_BOT_TOKEN_HERE";
-const TELEGRAM_CHAT_ID="5733746167";
-let selectedProduct=null,selectedPlan=null,finalAmount=0,appliedCoupon="Not Applied",allProducts=[],qrTimerInterval=null,isQrExpired=false,currentQrDownloadUrl="",allProofItems=[],proofShowAll=false,proofSlideTimer=null;
-
-function fileToDataUrl(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file)})}
-function closePopup(){document.getElementById("popup").style.display="none"}
-function esc(s){return String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-
-function productCardHTML(p,i){
- const out=(p.stock||"").toLowerCase().includes("out");
- return `<div class="card">
- <img src="${p.img||''}" class="prodImg" onerror="this.style.opacity='.2'">
- <h3>${esc(p.name)}</h3>
- <div class="stock ${out?'outstock':'instock'}">${out?'❌ Out of Stock':'✅ In Stock'}</div>
- <button class="btn" onclick="openPlanList(${i})">Choose Plan</button>
- <button class="btn planBtn" onclick="openDetails(${i})">Plan Details</button>
- </div>`;
-}
-function renderProductsFromList(list,q=""){
- const box=document.getElementById("products");
- allProducts=(list||[]).filter(p=>(p.name||"").toLowerCase().includes(q));
- if(!allProducts.length){box.innerHTML="<p style='text-align:center'>No products found. Open Admin and add products.</p>";return}
- const groups=[
-  {title:"🍿 OTT",keys:["OTT","OTT PLATFORM","NETFLIX","PRIME","HOTSTAR","JIO","SONYLIV","ZEE5","YOUTUBE"]},
-  {title:"🤖 AI & SOFTWARE",keys:["AI","SOFTWARE","TOOLS","CHATGPT","GEMINI","CANVA","MICROSOFT","OFFICE","CAPCUT"]},
-  {title:"🎮 GAMES",keys:["GAME","GAMES","BGMI","STEAM","UC","PLAYSTATION"]}
- ];
- let html="",used=new Set();
- groups.forEach(g=>{
-  const items=allProducts.filter(p=>{const s=((p.category||"")+" "+(p.name||"")).toUpperCase();const ok=g.keys.some(k=>s.includes(k));if(ok)used.add(p.id);return ok});
-  if(items.length)html+=`<div class="categoryTitle">${g.title}</div><div class="grid">${items.map(p=>productCardHTML(p,allProducts.indexOf(p))).join("")}</div>`;
- });
- const other=allProducts.filter(p=>!used.has(p.id));
- if(other.length)html+=`<div class="categoryTitle">OTHER PRODUCTS</div><div class="grid">${other.map(p=>productCardHTML(p,allProducts.indexOf(p))).join("")}</div>`;
- box.innerHTML=html;
-}
-async function renderProducts(){
- const q=(document.getElementById("search")?.value||"").toLowerCase();
- const cached=localStorage.getItem("cachedProducts");
- if(cached){try{renderProductsFromList(JSON.parse(cached),q)}catch(e){}}
- else document.getElementById("products").innerHTML="<p style='text-align:center;font-weight:900;color:#7c3aed'>Loading Premium Products...</p>";
- const {data,error}=await db.from("products").select("*").order("id",{ascending:true});
- if(error){if(!cached)document.getElementById("products").innerHTML="<p style='text-align:center;color:red'>Products loading error: "+error.message+"</p>";return}
- localStorage.setItem("cachedProducts",JSON.stringify(data||[]));
- renderProductsFromList(data||[],q);
-}
-function openDetails(i){
- selectedProduct=allProducts[i];
- document.getElementById("popupTitle").innerText=selectedProduct.name+" Details";
- document.getElementById("popupContent").innerHTML=`<div style="background:#111;color:white;border-radius:22px;padding:20px;text-align:left;">${(selectedProduct.points||selectedProduct.description||"Premium service,Instant delivery,Trusted support").split(",").map(x=>`<div style="font-size:17px;margin:12px 0;">✅ ${esc(x.trim())}</div>`).join("")}</div>`;
- document.getElementById("popup").style.display="flex";
-}
-function parsePlanText(t){return (t||"").split(",").map(x=>x.trim()).filter(Boolean).map(item=>{const p=item.split(":").map(v=>v.trim());const stock=(p[2]||"In Stock").toLowerCase();return{name:p[0]||"",price:p[1]||"0",inStock:!stock.includes("out"),stock:stock.includes("out")?"Out of Stock":"In Stock"}})}
-function openPlanList(i){
- selectedProduct=allProducts[i];
- const plans=parsePlanText(selectedProduct.plans||"");
- document.getElementById("popupTitle").innerText=selectedProduct.name+" Plans";
- document.getElementById("popupContent").innerHTML=plans.map((p,idx)=>`<div class="planStockRow"><div class="planStockInfo">${esc(p.name)}<br><span style="color:#7c3aed;font-size:18px">₹${esc(p.price)}</span></div><div style="text-align:right"><span class="planStockBadge ${p.inStock?'planIn':'planOut'}">${p.inStock?'✅ In Stock':'❌ Out of Stock'}</span><button class="btn planStockBtn" ${p.inStock?'':'disabled'} onclick="${p.inStock?`openOrder(${idx})`:''}">${p.inStock?'Choose Plan':'Not Available'}</button></div></div>`).join("") || "<p>No plans added.</p>";
- document.getElementById("popup").style.display="flex";
-}
-function refreshCheckoutAmounts(){
- const original=Number(selectedPlan?.price||0),payable=Number(finalAmount||original||0),discount=Math.max(original-payable,0);
- const set=(id,v)=>{const e=document.getElementById(id);if(e)e.innerText=v};
- set("checkoutOriginal","₹"+original);set("checkoutDiscount","-₹"+discount);set("checkoutPayable","₹"+payable);set("amt",payable);set("waDiscountLine","Discount: ₹"+discount+" | Payable: ₹"+payable);
-}
-function openOrder(idx){
- const plans=parsePlanText(selectedProduct.plans||"");selectedPlan=plans[idx]||{name:"",price:"0",inStock:true};
- finalAmount=Number(selectedPlan.price||0);appliedCoupon="Not Applied";
- document.getElementById("popupTitle").innerText="Complete Your Order";
- document.getElementById("popupContent").innerHTML=`
- <div class="checkoutCouponBox"><h2>🎁 Apply Coupon</h2><p>Have a coupon code? Apply it here first. Your QR amount will update automatically.</p><input id="coupon" placeholder="Enter coupon code"><button class="btn" onclick="applyCoupon()">Apply Coupon</button></div>
- <div class="checkoutWhatsappBox"><h2>📲 WhatsApp Order Details</h2><div class="waInfoLine"><b>Product:</b> ${esc(selectedProduct.name)}<br><b>Plan:</b> ${esc(selectedPlan.name)} - ₹${esc(selectedPlan.price)}</div><div class="checkoutDiscount" id="waDiscountLine">Discount: ₹0 | Payable: ₹${finalAmount}</div><input id="custName" placeholder="Customer Name"><input id="custEmail" placeholder="Customer Email"><input id="custPhone" placeholder="Customer WhatsApp Number"><button class="btn sendInvoiceBtn" onclick="sendOrder()">Send Invoice on WhatsApp</button><div class="qrScrollHint">👇 Scroll down for QR Payment option 👇</div></div>
- <div class="qrPremiumBox"><div class="qrPayBadge">💳 QR PAYMENT</div><div class="qrLeftCard"><img id="qrImage" class="qrImg" src=""><div class="scanPayLabel">Scan to Pay</div><button class="downloadQrBtn" onclick="downloadQrCode()">⬇ Download QR</button></div><div class="qrRightCard"><h2>Scan & Pay Securely</h2><div class="paySub">Scan the QR code using any UPI app and complete your payment instantly.</div><div class="amountPayCard"><div>Amount to Pay</div><div class="amount" id="checkoutPayable">₹${finalAmount}</div><div class="amountBreak"><span>Original Amount <strong id="checkoutOriginal">₹${selectedPlan.price}</strong></span><span>Coupon Discount <b id="checkoutDiscount">-₹0</b></span></div><div class="upiMiniBox">UPI ID <b>${UPI_ID}</b></div></div><div class="upiAppGrid"><a id="gpayLink" href="#">🔵 GPay</a><a id="phonepeLink" href="#">🟣 PhonePe</a><a id="paytmLink" href="#">🔷 Paytm</a><a id="upiLink" href="#">🏦 UPI</a></div><div class="qrTimer"><span>QR expires in</span><b id="qrTime">05:00</b></div><div class="screenShotNote">✅ Payment done? Tap below, send screenshot on WhatsApp and get faster activation.</div><button class="btn sendShotBtn" onclick="sendPaymentScreenshot()">📸 Send Payment Screenshot</button></div></div>`;
- updateUpiQR();setTimeout(startQrTimer,100);refreshCheckoutAmounts();
-}
-async function applyCoupon(){
- const code=document.getElementById("coupon").value.trim().toUpperCase();if(!code){alert("Enter Coupon Code");return}
- const {data,error}=await db.from("coupons").select("*").eq("code",code).single();
- if(error||!data){alert("Invalid Coupon Code");return}
- finalAmount=Math.max(Number(selectedPlan.price)-Number(data.discount||0),1);appliedCoupon=code;refreshCheckoutAmounts();updateUpiQR();setTimeout(startQrTimer,100);alert("Coupon Applied Successfully");
-}
-function updateUpiQR(){
- const upiUrl=`upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}&am=${finalAmount}&cu=INR&tn=${encodeURIComponent("MR.YOGI PREMIUM ORDER")}`;
- const qrUrl=`https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(upiUrl)}`;currentQrDownloadUrl=qrUrl;isQrExpired=false;
- const qr=document.getElementById("qrImage");if(qr){qr.src=qrUrl;qr.style.opacity="1";qr.style.filter="none"}
- document.querySelector(".downloadQrBtn")&&(document.querySelector(".downloadQrBtn").innerText="⬇ Download QR",document.querySelector(".downloadQrBtn").disabled=false);
- ["gpayLink","phonepeLink","paytmLink","upiLink"].forEach(id=>{const el=document.getElementById(id);if(el)el.href=upiUrl});
-}
-function startQrTimer(){
- clearInterval(qrTimerInterval);let time=300;const timer=document.getElementById("qrTime");if(!timer)return;
- timer.style.color="#008060";function tick(){let m=Math.floor(time/60),s=time%60;timer.innerText=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");if(time<=0){clearInterval(qrTimerInterval);timer.innerText="Expired";timer.style.color="red";isQrExpired=true;const qr=document.getElementById("qrImage");if(qr){qr.style.opacity=".45";qr.style.filter="grayscale(1)"}const b=document.querySelector(".downloadQrBtn");if(b){b.innerText="QR Expired";b.disabled=true}return}time--}tick();qrTimerInterval=setInterval(tick,1000)
-}
-async function downloadQrCode(){if(isQrExpired){alert("QR expired. Open payment again.");return}const url=currentQrDownloadUrl;if(!url){alert("QR not ready");return}try{const r=await fetch(url);const blob=await r.blob();const u=URL.createObjectURL(blob);const a=document.createElement("a");a.href=u;a.download="MR-YOGI-PREMIUM-QR.png";a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}catch(e){window.open(url,"_blank")}}
-function showOrderLoading(cb){setTimeout(cb,300)}
-async function notifyTelegramOrder(name,mail,phone,invoiceNo,orderId){
- if(!TELEGRAM_BOT_TOKEN||TELEGRAM_BOT_TOKEN.includes("PASTE_NEW"))return;
- const txt=`🛒 NEW ORDER - MR.YOGI PREMIUM\nInvoice: ${invoiceNo}\nOrder: ${orderId}\nProduct: ${selectedProduct?.name}\nPlan: ${selectedPlan?.name} ₹${selectedPlan?.price}\nPayable: ₹${finalAmount}\nName: ${name}\nMail: ${mail}\nPhone: ${phone}`;
- try{await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({chat_id:TELEGRAM_CHAT_ID,text:txt})})}catch(e){}
-}
-function sendOrder(){
- const name=document.getElementById("custName").value.trim(),mail=document.getElementById("custEmail").value.trim(),phone=document.getElementById("custPhone").value.trim();
- if(!name||!mail||!phone){alert("Fill name, email and WhatsApp number");return}
- const n=Date.now().toString().slice(-6),invoiceNo="INV"+n,orderId="ORD"+n;
- notifyTelegramOrder(name,mail,phone,invoiceNo,orderId);
- const msg=`*INVOICE - MR.YOGI PREMIUM*\n\n*DATE:* ${new Date().toLocaleDateString("en-GB")}\n*INVOICE NO:* ${invoiceNo}\n*ORDER ID:* ${orderId}\n\n*PRODUCT:* ${selectedProduct.name}\n*PLAN:* ${selectedPlan.name} ₹${selectedPlan.price}\n*COUPON:* ${appliedCoupon}\n*PAYABLE:* ₹${finalAmount}\n\n*NAME:* ${name}\n*MAIL:* ${mail}\n*NUMBER:* ${phone}\n\n*STATUS:* Payment Pending\n\nPlease assist with payment.`;
- showOrderLoading(()=>window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(msg),"_blank"));
-}
-function sendPaymentScreenshot(){
- const msg=`✅ PAYMENT SCREENSHOT - MR.YOGI PREMIUM\n\nProduct: ${selectedProduct?.name||""}\nPlan: ${selectedPlan?.name||""} - ₹${selectedPlan?.price||""}\nPaid Amount: ₹${finalAmount}\nCoupon: ${appliedCoupon}\n\nI have completed the payment. Please verify screenshot and activate my order.`;
- showOrderLoading(()=>window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(msg),"_blank"));
-}
-
-/* feedback */
-async function submitFeedback(){const name=fbName.value.trim(),rating=fbRating.value,msg=fbMsg.value.trim();if(!name||!rating||!msg){alert("Fill feedback details");return}await db.from("feedbacks").insert([{name,rating:Number(rating),msg}]);fbName.value=fbMsg.value=fbRating.value="";renderFeedbacks();alert("Thank you for feedback")}
-async function renderFeedbacks(){const {data}=await db.from("feedbacks").select("*").order("id",{ascending:false}).limit(6);const list=data||[];feedbackList.innerHTML=list.map(f=>`<div class="card feedbackCard"><h3>${esc(f.name)} - ${"⭐".repeat(Number(f.rating||5))}</h3><p>${esc(f.msg)}</p></div>`).join("")||"<p>No feedback yet</p>";const avg=list.length?(list.reduce((a,b)=>a+Number(b.rating||0),0)/list.length).toFixed(1):"0.0";ratingSummary.innerText="Rating: "+avg+"/5"}
-
-/* proofs */
-function getLocalProofs(){try{return JSON.parse(localStorage.getItem("customerProofs")||"[]")}catch(e){return[]}}
-function saveLocalProofs(p){localStorage.setItem("customerProofs",JSON.stringify(p))}
-function proofMediaHTML(p){const type=p.type||(String(p.img||"").startsWith("data:video")?"video":"image");return type==="video"?`<span class="proofTypeBadge">Video</span><video src="${p.img}" autoplay muted loop playsinline preload="metadata"></video>`:`<span class="proofTypeBadge">Photo</span><img src="${p.img}" onclick="openProofImage('${p.img}')" loading="eager" decoding="async">`}
-function renderProofsFromList(proofs){
- const box=document.getElementById("proofGrid");if(!box)return;
- allProofItems=(proofs||[]).map(p=>({id:p.id||null,img:p.img||p.image||"",text:p.text||"Product Sold",type:p.type||(String(p.img||p.image||"").startsWith("data:video")?"video":"image")})).filter(p=>p.img);
- if(!allProofItems.length){box.innerHTML="<p style='min-width:100%;text-align:center;color:#777'>No customer proofs yet.</p>";document.querySelector(".viewAllProofsBtn").style.display="none";return}
- const display=proofShowAll?allProofItems:allProofItems.slice(0,20);box.classList.toggle("showAll",proofShowAll);
- box.innerHTML=display.map((p,i)=>`<div class="proofCard">${localStorage.getItem("adminLogged")==="true"?`<button class="proofDeleteBtn" onclick="deleteProof(${i});event.stopPropagation()">×</button>`:""}${proofMediaHTML(p)}<div class="proofCaption">${esc(p.text)}</div></div>`).join("");
- const btn=document.querySelector(".viewAllProofsBtn");btn.style.display=allProofItems.length>20?"block":"none";btn.innerText=proofShowAll?"Show Less Proofs":"View All Proofs";
- if(!proofShowAll)startProofAutoSlide();
-}
-async function renderProofs(){
- const box=document.getElementById("proofGrid");if(!box)return;
- const cache=localStorage.getItem("cachedProofs");if(cache){try{renderProofsFromList(JSON.parse(cache))}catch(e){}}else box.innerHTML=`<div class="proofLoading">Loading Proofs...</div>`;
- const {data,error}=await db.from("proofs").select("*").order("id",{ascending:false});
- if(!error&&data){const fresh=data.map(p=>({id:p.id,img:p.img||p.image||"",text:p.text||"Product Sold",type:p.type||(String(p.img||p.image||"").startsWith("data:video")?"video":"image")})).filter(p=>p.img);localStorage.setItem("cachedProofs",JSON.stringify(fresh));saveLocalProofs(fresh);renderProofsFromList(fresh)}
-}
-function viewAllProofs(){proofShowAll=!proofShowAll;renderProofsFromList(allProofItems);setTimeout(()=>document.getElementById("proofGrid")?.scrollIntoView({behavior:"smooth"}),100)}
-function startProofAutoSlide(){const box=document.getElementById("proofGrid");if(!box)return;clearInterval(proofSlideTimer);proofSlideTimer=setInterval(()=>{if(proofShowAll||!box.children.length)return;const step=box.querySelector(".proofCard")?.offsetWidth||260;const max=box.scrollWidth-box.clientWidth;if(box.scrollLeft>=max-10)box.scrollTo({left:0,behavior:"smooth"});else box.scrollBy({left:step+16,behavior:"smooth"})},3000)}
-function openProofImage(src){const w=window.open();if(w)w.document.write(`<img src="${src}" style="max-width:100%;height:auto">`)}
-async function deleteProof(index){
- if(localStorage.getItem("adminLogged")!=="true"){alert("Admin only");return}
- if(!confirm("Delete this customer proof permanently?"))return;
- const item=(proofShowAll?allProofItems:allProofItems.slice(0,20))[index];if(!item){alert("Proof not found");return}
- let res=item.id?await db.from("proofs").delete().eq("id",item.id):await db.from("proofs").delete().eq("img",item.img);
- if(res.error){alert("Delete failed: "+res.error.message);return}
- allProofItems=allProofItems.filter(p=>item.id?String(p.id)!==String(item.id):p.img!==item.img);saveLocalProofs(allProofItems);localStorage.setItem("cachedProofs",JSON.stringify(allProofItems));renderProofsFromList(allProofItems);alert("✅ Proof deleted permanently")
-}
-async function uploadProofImage(){
- const input=document.getElementById("proofImageInput"),file=input?.files?.[0],proofText=document.getElementById("proofProductText")?.value?.trim()||"Product Sold";
- if(!file){alert("Please choose proof photo or video first");return}
- if(!file.type.startsWith("image/")&&!file.type.startsWith("video/")){alert("Only image or video files allowed");return}
- if(file.type.startsWith("video/")&&file.size>8*1024*1024){alert("Video below 8MB only");return}
- const media=await fileToDataUrl(file),type=file.type.startsWith("video/")?"video":"image";let id=null,online=false;
- const {data,error}=await db.from("proofs").insert([{img:media,text:proofText,type}]).select("id,img,text,type").single();
- if(!error){online=true;id=data?.id}
- const proofs=getLocalProofs();proofs.unshift({id,img:media,text:proofText,type});saveLocalProofs(proofs);localStorage.setItem("cachedProofs",JSON.stringify(proofs));input.value="";const pt=document.getElementById("proofProductText");if(pt)pt.value="";renderProofs();alert(online?"✅ Proof uploaded successfully":"✅ Proof saved on this device. Check Supabase columns.")
-}
-
-/* admin */
-function adminLogin(){const p=prompt("Enter Admin Password");if(p==="8618"||p==="admin123"||p==="1234"){localStorage.setItem("adminLogged","true");openAdmin();setTimeout(renderProofs,300)}else alert("Wrong password")}
-async function openAdmin(){
- const {data:products}=await db.from("products").select("*").order("id",{ascending:false});
- const {data:coupons}=await db.from("coupons").select("*").order("id",{ascending:false});
- document.getElementById("popupTitle").innerText="Admin Panel";
- document.getElementById("popupContent").innerHTML=`
- <div class="adminBox"><div class="adminTitle">✨ Add Product</div>
- <div class="adminProofUploadBox"><h3>📸 Upload Photo / Video Proofs</h3><input type="file" id="proofImageInput" accept="image/*,video/*"><input type="text" id="proofProductText" placeholder="Type sold product name (Example: Netflix Premium - 1 Month Sold)"><button class="btn" onclick="uploadProofImage();return false;">Upload Proof</button></div>
- <input id="pName" placeholder="Product Name"><textarea id="pPoints" placeholder="Description points separate by comma"></textarea><textarea id="pPlans" placeholder="Plans: 1 Month:150:In Stock, 3 Months:399:Out of Stock"></textarea><label>One Tap Image Upload</label><input type="file" id="pFile" accept="image/*"><input id="pImageUrl" placeholder="Image URL Auto / Manual"><select id="pCategory"><option value="OTT PLATFORM">🍿 OTT</option><option value="AI AND SOFTWARE TOOLS">🤖 AI & SOFTWARE</option><option value="GAMES">🎮 GAMES</option></select><select id="pStock"><option>In Stock</option><option>Out of Stock</option></select><button class="btn" onclick="addProduct()">✨ Add Product</button>
- <h2 style="color:white;margin-top:24px">Products</h2><input class="adminSearch" id="adminProductSearch" placeholder="Search admin products..." oninput="filterAdminProducts()">
- ${(products||[]).map(p=>`<div class="adminCard adminProductItem"><b>${esc(p.name)}</b><br>${esc(p.category||"")} • ${esc(p.stock||"")}<br><button class="btn" onclick="changeImage(${p.id},'${esc(p.img)}')">Change Image</button><button class="btn" onclick="deleteProduct(${p.id})" style="background:#ef4444;margin-top:8px">Delete Product</button></div>`).join("")}
- <h2 style="color:white;margin-top:24px">Coupons</h2><input id="cCode" placeholder="Coupon Code"><input id="cDiscount" type="number" placeholder="Discount Amount"><button class="btn" onclick="addCoupon()">Add Coupon</button>${(coupons||[]).map(c=>`<div class="adminCard"><b>${esc(c.code)}</b> - ₹${esc(c.discount)}<button class="btn" onclick="deleteCoupon(${c.id})" style="background:#ef4444;margin-top:8px">Delete Coupon</button></div>`).join("")}
- </div>`;
- document.getElementById("popup").style.display="flex";
-}
-function filterAdminProducts(){const q=(adminProductSearch.value||"").toLowerCase();document.querySelectorAll(".adminProductItem").forEach(c=>c.style.display=c.innerText.toLowerCase().includes(q)?"block":"none")}
-async function addProduct(){
- let img=pImageUrl.value.trim();const file=pFile.files[0];if(file)img=await fileToDataUrl(file);
- if(!pName.value.trim()||!pPlans.value.trim()){alert("Fill product name and plans");return}
- const {error}=await db.from("products").insert([{name:pName.value.trim(),points:pPoints.value.trim(),plans:pPlans.value.trim(),img,category:pCategory.value,stock:pStock.value}]);
- if(error){alert(error.message);return}localStorage.removeItem("cachedProducts");alert("Product added");renderProducts();openAdmin();
-}
-async function changeImage(id,oldImg){const url=prompt("Paste new image URL",oldImg||"");if(!url)return;await db.from("products").update({img:url}).eq("id",id);localStorage.removeItem("cachedProducts");renderProducts();openAdmin()}
-async function deleteProduct(id){if(confirm("Delete product?")){await db.from("products").delete().eq("id",id);localStorage.removeItem("cachedProducts");renderProducts();openAdmin()}}
-async function addCoupon(){if(!cCode.value||!cDiscount.value){alert("Fill coupon");return}await db.from("coupons").insert([{code:cCode.value.trim().toUpperCase(),discount:Number(cDiscount.value)}]);openAdmin()}
-async function deleteCoupon(id){await db.from("coupons").delete().eq("id",id);openAdmin()}
-
-/* policies */
-function openPolicy(t){const map={terms:"<h2>Terms of Service</h2><p>Do not change account details. Follow device limits. Misuse can lead to no replacement.</p>",privacy:"<h2>Privacy Policy</h2><p>We use customer details only for order delivery and support.</p>",refund:"<h2>Refund Policy</h2><p>Refund/replacement depends on plan rules and stock status.</p>",security:"<h2>Security Policy</h2><p>Payments and orders are handled securely through WhatsApp and UPI.</p>"};policyText.innerHTML=map[t]||"";policyPopup.style.display="flex"}
-function closePolicy(){policyPopup.style.display="none"}
-
-window.addEventListener("error",e=>{document.body.innerHTML=`<div style="padding:30px;font-family:Arial;color:red"><h2>Website Error</h2><p>${e.message}</p></div>`});
-renderProducts();renderFeedbacks();renderProofs();
-</script>
-</body>
-</html>
+.upiMiniBox{text-align:left;font-size:14px;font-weight:800;margin-top:10px;padding:10px;background:#fff;border-radius:14px}.upiMiniBox b{display:block;font-size:16px;color:#111;margin-top:3px}
+.upiAppGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}.upiAppGrid a{display:block;text-align:center;text-decoration:none;background:#
