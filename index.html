@@ -4,271 +4,155 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MR.YOGI PREMIUM</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-function openProofImage(src){
-  const modal=document.getElementById("proofModal");
-  const img=document.getElementById("proofModalImg");
-  img.src=src;
-  modal.style.display="flex";
-}
-function closeProofImage(){
-  document.getElementById("proofModal").style.display="none";
-}
-
-</script>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-body{background:#f6efff;color:#1d1230;padding-bottom:86px}
-header{background:linear-gradient(90deg,#7b2cff,#ff3bd4);color:white;padding:14px;text-align:center;font-weight:900;letter-spacing:.5px;display:flex;align-items:center;justify-content:center;gap:10px}
-.headerLogo{width:42px;height:42px;border-radius:12px;object-fit:cover;background:white;padding:3px;box-shadow:0 6px 16px #0002}
-.headerText{font-size:20px;font-weight:900}
-.hero{text-align:center;padding:35px 18px 15px;background:linear-gradient(#fff,#efe2ff)}
-.hero h1{font-size:38px;margin-bottom:15px}
-.hero p{font-size:18px;line-height:1.5}
-.badges{display:flex;gap:8px;justify-content:center;flex-wrap:nowrap;margin-top:18px}
-.badge{background:white;color:#8a2cff;padding:10px 14px;border-radius:20px;font-size:15px;font-weight:900;white-space:nowrap;box-shadow:0 6px 14px #8a2cff14}
-section{padding:20px 16px}
-h2{text-align:center;font-size:34px;color:#8a2cff;margin-bottom:25px}
-.search{width:100%;max-width:600px;display:block;margin:0 auto 25px;padding:17px;border-radius:30px;border:1px solid #d6b9ff;font-size:17px}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.card{background:white;border-radius:18px;padding:14px;box-shadow:0 6px 18px #0001;text-align:center;border:1px solid #eee}
-.card h3{font-size:17px;margin-bottom:6px}.card p{font-size:13px;line-height:1.4;margin-bottom:8px;color:#555}
-.btn{border:0;border-radius:30px;padding:15px 20px;font-weight:900;cursor:pointer;background:linear-gradient(90deg,#7b2cff,#ff3bd4);color:white;width:100%;font-size:16px;box-shadow:0 8px 22px #8a2cff55;text-align:center}
-.btn.smallBtn{padding:10px 14px;font-size:14px;border-radius:14px;width:auto;display:inline-block;margin:5px}
-.chooseBtn{font-size:16px;animation:pulse 1.5s infinite;margin-top:12px;background:#7c3aed;color:#fff;border-radius:14px;padding:14px;width:100%;transition:.3s}
-.chooseBtn:hover{transform:scale(1.03)}
-@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.04)}100%{transform:scale(1)}}
-.planBtn{margin-top:10px;background:#f3e8ff;color:#7c3aed;border:none;border-radius:14px;font-weight:600;padding:12px;box-shadow:none}
-.prodImg{width:110px;height:110px;object-fit:cover;border-radius:24px;padding:10px;background:#f3e8ff;margin:0 auto 18px;display:block;box-shadow:0 8px 20px #d946ef22}
-.stock{display:inline-block;padding:8px 16px;border-radius:999px;font-weight:600;margin:10px 0;font-size:15px}.instock{background:#dcfce7;color:#15803d}.outstock{background:#fee2e2;color:#dc2626}
-.whatsappFloat{position:fixed;right:18px;bottom:18px;border-radius:35px;font-weight:900;text-decoration:none;z-index:2000;border:0;color:white;box-shadow:0 10px 24px #0003;background:#25d366;padding:13px 18px;display:flex;align-items:center;gap:9px;font-size:17px}.waIcon{width:30px;height:30px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#25d366;font-size:18px;box-shadow:0 4px 10px #0002}.adminFooterBtns{text-align:left;background:#111;padding:0 15px 20px}.adminStaticBtn{border:0;border-radius:18px;background:#111;color:white;padding:14px 22px;font-weight:900;box-shadow:0 8px 18px #0004;margin-right:10px}.adminStaticBtn.logout{display:none;background:#7c3aed}
-.popup{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;padding:15px;z-index:5000}.box{background:white;border-radius:25px;padding:22px;width:100%;max-width:470px;max-height:90vh;overflow:auto}.box h3{text-align:center;font-size:25px;margin-bottom:15px}.close{float:right;font-size:28px;cursor:pointer;font-weight:900;color:#111}
-#popupContent .btn{display:block;width:100%;padding:12px 14px;margin:12px 0;border:none;border-radius:16px;background:linear-gradient(135deg,#6d28d9,#9333ea,#ec4899);box-shadow:0 6px 18px rgba(147,51,234,.35);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:15px;font-weight:800;cursor:pointer}
-input,textarea,select{width:100%;padding:14px;margin:8px 0;border-radius:12px;border:1px solid #ccc;font-size:15px;background:#fff;color:#111}
-textarea{min-height:92px;resize:vertical}
-.feedbackBox{max-width:520px;margin:auto;background:white;padding:25px;border-radius:28px;box-shadow:0 15px 40px #8a2cff22}.feedbackSection{background:linear-gradient(180deg,#f8efff,#fff)}.feedbackSub{text-align:center;font-size:17px;color:#666;line-height:1.6;margin-top:-15px;margin-bottom:25px}.feedbackCard{background:white;border-radius:22px;padding:16px;box-shadow:0 8px 24px #0001;border:1px solid #eee;text-align:left}.feedbackCard h3{font-size:18px;margin-bottom:6px}.feedbackCard p{font-size:14px;color:#555}.feedbackLike{display:flex;justify-content:space-between;font-size:13px;color:#777;margin-top:12px}.small{font-size:13px;color:#666}
-.adminBox{background:linear-gradient(135deg,#160b2b,#24103f);padding:18px;border-radius:22px;margin-top:15px;box-shadow:0 0 25px rgba(140,82,255,.25);border:1px solid rgba(255,255,255,.08);color:white}.adminTitle{font-size:22px;font-weight:900;color:#f4e8ff;margin-bottom:15px;text-align:center}.adminBox input,.adminBox textarea,.adminBox select{background:#fff;color:#111;border:1px solid #d9c4ff}.adminBox label{font-size:13px;font-weight:800;color:#f4e8ff;margin-top:8px;display:block}.adminCard{background:#fff;color:#111;border-radius:16px;padding:14px;margin:12px 0;border:1px solid #eadfff}.adminCard b{font-size:16px}.adminActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.danger{background:#ef4444!important}.green{background:#16a34a!important}.soft{background:#f3e8ff!important;color:#7c3aed!important;box-shadow:none!important}
-.editPopup{position:fixed;inset:0;background:#000b;z-index:7000;display:none;align-items:center;justify-content:center;padding:15px}.editBox{background:#fff;border-radius:24px;width:100%;max-width:480px;max-height:90vh;overflow:auto;padding:20px}.editTitle{text-align:center;color:#7c3aed;font-size:24px;font-weight:900;margin-bottom:12px}.editBox .closeEdit{float:right;font-size:28px;cursor:pointer;font-weight:900}
-.footerPolicies{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;padding:18px;background:#000}.footerPolicies span{color:#bbb;font-size:14px;cursor:pointer}.footerPolicies span:hover{color:#fff}footer{text-align:center;background:#111;color:white;padding:25px 15px;line-height:1.7}
-.policyPopup{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px}.policyContent{background:#fff;width:100%;max-width:500px;padding:25px;border-radius:22px;position:relative;max-height:85vh;overflow:auto;line-height:1.8;color:#333}.closePolicy{position:absolute;right:18px;top:12px;font-size:28px;cursor:pointer;font-weight:bold}
-.rPayBox{background:#fffaf3;border-radius:20px;padding:14px;margin:14px 0;border:1px solid #eadccc}.upiHead{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:10px}.upiLogo{background:#007a5a;color:white;width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px}.secure{background:#fff3e8;color:#007a5a;padding:10px 18px;border-radius:25px;font-weight:900;letter-spacing:2px}.qrImg{display:block;width:220px;height:220px;margin:14px auto;background:white;padding:10px;border-radius:16px;box-shadow:0 10px 24px #0002}.qrTimer{display:flex;justify-content:space-between;border:1px dashed #d7c7b7;padding:10px 14px;border-radius:14px;margin:10px 0;color:#777;font-size:14px}.qrTimer b{color:#008060}.upiApps{background:#f4f8ff;border:1px solid #d7e3ff;border-radius:16px;padding:12px;margin-top:10px}.appGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.appBtn{display:block;text-align:center;text-decoration:none;background:white;border:1px solid #cfe0ff;padding:10px;border-radius:12px;font-weight:900;color:#164a9b;font-size:14px}.orderNote{background:linear-gradient(135deg,#ede9fe,#fff);border:1px solid #d8b4fe;border-radius:18px;padding:14px;margin:12px 0;color:#4c1d95;font-weight:800;line-height:1.5}.waOrderBox{background:#ecfdf5;border:1px solid #bbf7d0;border-radius:20px;padding:15px;margin-bottom:16px}.waOrderBox h3{color:#15803d!important;margin-bottom:8px!important}.couponTop{background:linear-gradient(135deg,#f3e8ff,#fff);border:1px solid #d8b4fe;border-radius:20px;padding:15px;margin-bottom:16px}.couponTop h3{color:#7c3aed!important;margin:0 0 8px!important}.screenShotBtn{background:linear-gradient(135deg,#16a34a,#22c55e)!important;font-size:17px!important;margin-top:14px!important}.payHint{background:#ecfdf5;border:1px solid #bbf7d0;color:#166534;border-radius:16px;padding:11px;margin-top:10px;font-weight:800;line-height:1.4;text-align:center;font-size:14px}.paymentIntro{background:linear-gradient(135deg,#fff,#f3e8ff);border:1px solid #ddd6fe;border-radius:18px;padding:14px;color:#4c1d95;font-weight:800;line-height:1.5;margin:12px 0}.upiApps{margin-bottom:14px}
-.orderOverlay{position:fixed;inset:0;background:#050505;z-index:99999;display:none;align-items:center;justify-content:center;color:white;text-align:center;padding:25px}.orderBox{width:100%;max-width:370px;border:1px solid #333;border-radius:28px;padding:35px 22px;background:#0b0b0bcc}.cartIcon,.successIcon{width:120px;height:120px;border-radius:50%;margin:0 auto 25px;display:flex;align-items:center;justify-content:center;font-size:55px}.cartIcon{background:#e50914}.successIcon{background:#2ecc71}.percent{font-size:55px;font-weight:900;margin:15px 0}.progress{height:12px;background:#182033;border:1px solid #fff;border-radius:20px;overflow:hidden}.bar{height:100%;width:0%;background:linear-gradient(90deg,#ff1e1e,#ff7b00)}.orderBox h1{font-size:30px;margin-top:25px}.dots{letter-spacing:5px}
-
-.groupJoinBtn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;background:linear-gradient(135deg,#16a34a,#22c55e);color:white;font-weight:900;border-radius:999px;padding:12px 24px;margin-top:18px;box-shadow:0 10px 25px #16a34a44;letter-spacing:.4px}
-.brandLine{display:flex;align-items:center;gap:12px}.brandLogo{width:40px;height:40px;border-radius:14px;object-fit:cover;background:white;border:2px solid #fff;box-shadow:0 6px 16px #0002}.brandName{font-weight:900;color:#111;line-height:1.2}.brandName small{display:block;color:#777;font-size:12px;margin-top:2px}.priceBox{background:#fff;border:1px solid #e9d5ff;border-radius:16px;padding:12px 14px;margin:10px 0;box-shadow:0 6px 18px #7c3aed11}.priceRow{display:flex;justify-content:space-between;gap:10px;padding:5px 0;font-size:15px}.priceRow.discount{color:#16a34a;font-weight:900}.priceRow.payable{font-size:18px;color:#7c3aed;font-weight:900}.simpleDiscountLine{background:#ecfdf5;border:1px solid #bbf7d0;color:#166534;border-radius:14px;padding:10px 12px;margin:10px 0;font-weight:900;text-align:center}.qrScanLine{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:16px;padding:11px;margin:8px 0 12px;font-weight:900;text-align:center;line-height:1.4}.screenShotBtn{background:linear-gradient(135deg,#16a34a,#25d366)!important;font-size:17px!important;margin:14px 0 4px!important;border-radius:18px!important}.loadingLogo{width:92px;height:92px;border-radius:24px;object-fit:cover;background:white;margin:0 auto 18px;box-shadow:0 8px 24px #0005}.successSub{color:#ddd;line-height:1.5;margin-top:8px}
-@media(max-width:420px){.hero h1{font-size:30px}.grid{gap:10px}.badge{font-size:11px;padding:7px 8px}h2{font-size:28px}.whatsappFloat{padding:13px 15px}.logoutFloat{padding:13px 14px}.adminActions{grid-template-columns:1fr}.prodImg{width:90px;height:90px}}
-
-.supportFloat{
-position:fixed;
-right:18px;
-bottom:20px;
-width:58px;
-height:58px;
-background:#22c55e;
-color:#fff;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:28px;
-text-decoration:none;
-box-shadow:0 8px 25px rgba(34,197,94,.45);
-z-index:9999;
+body{
+font-family:Arial,sans-serif;
+background:#f3eefe;
+margin:0;
+padding:0;
+color:#222;
 }
-
-
-.whatsappFloat{display:none!important}
-.supportFloat{
-position:fixed!important;
-right:18px!important;
-bottom:22px!important;
-width:58px!important;
-height:58px!important;
-padding:0!important;
-background:#22c55e!important;
-color:#fff!important;
-border-radius:50%!important;
-display:flex!important;
-align-items:center!important;
-justify-content:center!important;
-font-size:28px!important;
-text-decoration:none!important;
-box-shadow:0 10px 26px rgba(34,197,94,.45)!important;
-z-index:99999!important;
-}
-
-
-.categorySection{grid-column:1/-1;margin:26px 0 34px}
-.categoryTitle{
-font-size:22px;
-font-weight:900;
-color:#7c3aed;
-margin:4px 4px 16px;
-letter-spacing:.2px;
-}
-.categoryTitle::before{
-content:"";
-display:inline-block;
-width:7px;
-height:23px;
-background:linear-gradient(180deg,#7c3aed,#ec4899);
-border-radius:20px;
-margin-right:9px;
-vertical-align:-4px;
-}
-.adminSearch{
-width:100%;
-padding:14px 16px;
-margin:12px 0;
-border-radius:16px;
-border:2px solid #d8b4fe;
-background:#fff;
-color:#211237;
-font-size:15px;
-font-weight:800;
-box-shadow:0 8px 20px rgba(124,58,237,.14);
-}
-.proofSection{padding:25px 16px 40px;background:linear-gradient(#f7efff,#fff)}
-.proofSub{text-align:center;color:#666;margin-top:-10px;margin-bottom:20px;line-height:1.5}
-.proofGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.proofCard{background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 8px 24px #0001}
-.proofCard img{width:100%;height:240px;object-fit:cover;display:block}
-.adminProofUploadBox{background:#fff!important;color:#111!important;padding:16px!important;border-radius:18px!important;margin:0 0 18px!important;box-shadow:0 8px 22px #0002!important}
-.adminProofUploadBox input{background:#fff!important;color:#111!important}
-
-
-.adminProofUploadBox{
-background:#fff!important;
-color:#111!important;
-padding:16px!important;
-border-radius:18px!important;
-margin:0 0 18px!important;
-box-shadow:0 8px 22px #0002!important;
-border:2px solid #d8b4fe!important;
-}
-.adminProofUploadBox h3{
-color:#7c3aed!important;
-font-size:20px!important;
-margin-bottom:10px!important;
-}
-.adminProofUploadBox input{
-background:#fff!important;
-color:#111!important;
-border:1px solid #ddd!important;
-}
-
-
-.proofGrid{
-display:flex!important;
-overflow-x:auto!important;
-gap:16px!important;
-scroll-snap-type:x mandatory!important;
-padding:8px 6px 18px!important;
-scroll-behavior:smooth!important;
-}
-.proofCard{
-min-width:82%!important;
-max-width:82%!important;
-height:420px!important;
-background:#fff!important;
-border-radius:24px!important;
-padding:10px!important;
-box-shadow:0 12px 30px rgba(124,58,237,.14)!important;
-scroll-snap-align:center!important;
-display:flex!important;
-align-items:center!important;
-justify-content:center!important;
-}
-.proofCard img{
-width:100%!important;
-height:100%!important;
-object-fit:contain!important;
-border-radius:18px!important;
-background:#f8f3ff!important;
-}
-.proofSliderHint{
+header{
+background:linear-gradient(90deg,#7c3aed,#ec4899);
+padding:20px;
 text-align:center;
-color:#7c3aed;
-font-weight:900;
-font-size:14px;
-margin:-8px 0 14px;
+color:#fff;
+font-size:32px;
+font-weight:bold;
 }
-@media(max-width:420px){
-.proofCard{min-width:84%!important;max-width:84%!important;height:360px!important}
-}
-
-
-#proofModal{
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.92);
-z-index:99999;
-align-items:center;
-justify-content:center;
+.section{
 padding:20px;
 }
-#proofModal img{
-max-width:100%;
-max-height:90vh;
-border-radius:18px;
+.category{
+font-size:28px;
+font-weight:bold;
+color:#7c3aed;
+margin:20px 0 10px;
+}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:18px;
+}
+.card{
 background:#fff;
+border-radius:22px;
+padding:18px;
+box-shadow:0 8px 20px rgba(0,0,0,.08);
+text-align:center;
 }
-#proofModal .closeProof{
-position:absolute;
-top:18px;
-right:20px;
-font-size:42px;
+.card img{
+width:100px;
+height:100px;
+border-radius:18px;
+object-fit:cover;
+}
+.btn{
+display:block;
+margin-top:14px;
+padding:14px;
+border-radius:14px;
+text-decoration:none;
+font-weight:bold;
+background:linear-gradient(90deg,#7c3aed,#ec4899);
 color:#fff;
-font-weight:900;
-cursor:pointer;
 }
-
-
-.viewAllProofsBtn{
-max-width:260px!important;
-display:block!important;
-margin:18px auto 0!important;
-border-radius:999px!important;
+.proofs{
+display:flex;
+overflow:auto;
+gap:14px;
+scroll-behavior:smooth;
 }
-.proofGrid.showAll{
-display:grid!important;
-grid-template-columns:repeat(2,1fr)!important;
-overflow:visible!important;
+.proof{
+min-width:220px;
+background:#fff;
+border-radius:20px;
+padding:10px;
+box-shadow:0 6px 16px rgba(0,0,0,.08);
 }
-.proofGrid.showAll .proofCard{
-min-width:100%!important;
-max-width:100%!important;
-height:330px!important;
+.proof img{
+width:100%;
+height:320px;
+object-fit:cover;
+border-radius:14px;
 }
+.caption{
+padding:10px 4px;
+font-weight:bold;
+color:#7c3aed;
+text-align:center;
+}
+footer{
+padding:20px;
+text-align:center;
+background:#111;
+color:#fff;
+margin-top:30px;
+}
+</style>
+</head>
+<body>
 
+<header>MR.YOGI PREMIUM</header>
 
-/* PREMIUM CHECKOUT UI v34 */
-.checkoutCouponBox,.checkoutWhatsappBox,.qrPremiumBox{border-radius:28px;padding:20px;margin:18px 0;box-shadow:0 14px 36px rgba(124,58,237,.14)}
-.checkoutCouponBox{background:linear-gradient(135deg,#fff,#fbf7ff);border:2px solid #e9d5ff}
-.checkoutCouponBox h2{font-size:28px;font-weight:900;color:#7c3aed;margin:0 0 8px}
-.checkoutCouponBox p{font-size:16px;font-weight:700;color:#4b2a7b;line-height:1.55;margin:0 0 14px}
-.checkoutCouponBox input,.checkoutWhatsappBox input{background:#fff!important;border:2px solid #ddd!important;border-radius:18px!important;padding:17px!important;font-size:16px!important}
-.couponApplyBtn,.sendInvoiceBtn,.sendShotBtn{width:100%;border:0;border-radius:18px;padding:17px;margin-top:13px;font-size:18px;font-weight:900;color:#fff;box-shadow:0 12px 28px rgba(124,58,237,.25)}
-.couponApplyBtn{background:linear-gradient(135deg,#7c3aed,#ec4899)}
-.checkoutWhatsappBox{background:linear-gradient(135deg,#effdf5,#f6fffb);border:2px solid #bbf7d0}
-.checkoutWhatsappBox h2{font-size:27px;font-weight:900;color:#138a3d;text-align:center;margin:0 0 12px}
-.waInfoLine{font-size:17px;line-height:1.55;color:#1f1538;font-weight:700;border-bottom:1px dashed #b7e9c5;padding-bottom:12px;margin-bottom:12px}
-.checkoutDiscount{font-size:18px;font-weight:900;color:#15803d;background:#dcfce7;border-radius:15px;padding:12px;text-align:center;margin:12px 0 14px}
-.sendInvoiceBtn,.sendShotBtn{background:linear-gradient(135deg,#16a34a,#22c55e);box-shadow:0 12px 28px rgba(22,163,74,.28)}
-.qrScrollHint{text-align:center;font-size:15px;font-weight:900;color:#7c3aed;margin:16px 0 4px}
-.qrPremiumBox{position:relative;background:linear-gradient(135deg,#fff,#fbf7ff);border:2px solid #e9d5ff;padding-top:22px}
-.qrPayBadge{width:max-content;margin:-45px auto 18px;background:linear-gradient(135deg,#6d28d9,#9333ea);color:#fff;border-radius:16px;padding:13px 28px;font-size:21px;font-weight:900;box-shadow:0 12px 28px rgba(124,58,237,.34)}
-.qrPremiumGrid{display:grid;grid-template-columns:1fr;gap:15px;align-items:center}
-.qrLeftCard{background:#fff;border:2px solid #efe1ff;border-radius:24px;padding:13px;box-shadow:0 8px 22px rgba(124,58,237,.10)}
-.qrImg{display:block!important;width:100%!important;max-width:280px!important;height:auto!important;margin:0 auto!important;background:white!important;padding:8px!important;border-radius:18px!important;box-shadow:none!important}
-.scanPayLabel{margin-top:10px;background:linear-gradient(135deg,#7c3aed,#9333ea);color:#fff;border-radius:16px;padding:13px;text-align:center;font-size:18px;font-weight:900}
-.qrRightCard h2{font-size:29px;font-weight:900;color:#2e1065;margin:0 0 6px;text-align:center}
-.paySub{font-size:15px;line-height:1.5;color:#333;text-align:center;font-weight:700;margin-bottom:12px}
-.amountPayCard{background:#faf5ff;border:2px solid #e9d5ff;border-radius:22px;padding:16px;text-align:center;margin:12px 0}
-.amountPayCard .label{font-size:14px;color:#666;font-weight:800}
-.amountPayCard .amount{font-size:34px;font-weight:900;color:#7c3aed;margin:4px 0 8px}
-.amountBreak{display:grid;gap:6px;font-size:14px;font-weight:800;color:#333;border-top:1px dashed #d8b4fe;padding-top:10px}
-.amountBreak span{display:flex;justify-content:space-between}.amountBreak b{color:#15803d}
-.upiMiniBox{text-align:left;font-size:14px;font-weight:800;margin-top:10px;padding:10px;background:#fff;border-radius:14px}.upiMiniBox b{display:block;font-size:16px;color:#111;margin-top:3px}
-.upiAppGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}.upiAppGrid a{display:block;text-align:center;text-decoration:none;background:#
+<div class="section">
+<div class="category">🍿 OTT PLATFORM</div>
+
+<div class="grid">
+<div class="card">
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg">
+<h2>Netflix Premium</h2>
+<p>4K UHD • No Logout Issues</p>
+<a class="btn" href="#">Choose Plan</a>
+</div>
+
+<div class="card">
+<img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png">
+<h2>Prime Video</h2>
+<p>Private & Shared Plans</p>
+<a class="btn" href="#">Choose Plan</a>
+</div>
+</div>
+
+<div class="category">🤖 AI & SOFTWARE</div>
+
+<div class="grid">
+<div class="card">
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg">
+<h2>ChatGPT Plus</h2>
+<p>Fast • Smart • Premium AI</p>
+<a class="btn" href="#">Choose Plan</a>
+</div>
+</div>
+
+<div class="category">📸 Customer Proofs</div>
+
+<p style="font-size:18px;color:#666">
+See what our happy customers say about our premium services, instant delivery, and trusted support.
+</p>
+
+<div class="proofs">
+<div class="proof">
+<img src="https://picsum.photos/300/500?1">
+<div class="caption">Netflix Premium Sold</div>
+</div>
+
+<div class="proof">
+<img src="https://picsum.photos/300/500?2">
+<div class="caption">Prime Video Delivered</div>
+</div>
+
+<div class="proof">
+<img src="https://picsum.photos/300/500?3">
+<div class="caption">ChatGPT Plus Activated</div>
+</div>
+</div>
+
+</div>
+
+<footer>
+© 2026 MR.YOGI PREMIUM • Trusted Service • Instant Delivery
+</footer>
+
+</body>
+</html>
