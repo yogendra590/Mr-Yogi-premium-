@@ -4,7 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MR.YOGI PREMIUM</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+function openProofImage(src){
+  const modal=document.getElementById("proofModal");
+  const img=document.getElementById("proofModalImg");
+  img.src=src;
+  modal.style.display="flex";
+}
+function closeProofImage(){
+  document.getElementById("proofModal").style.display="none";
+}
+
+</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
 body{background:#f6efff;color:#1d1230;padding-bottom:86px}
@@ -146,6 +157,261 @@ color:#111!important;
 border:1px solid #ddd!important;
 }
 
+
+.proofGrid{
+display:flex!important;
+overflow-x:auto!important;
+gap:16px!important;
+scroll-snap-type:x mandatory!important;
+padding:8px 6px 18px!important;
+scroll-behavior:smooth!important;
+}
+.proofCard{
+min-width:82%!important;
+max-width:82%!important;
+height:420px!important;
+background:#fff!important;
+border-radius:24px!important;
+padding:10px!important;
+box-shadow:0 12px 30px rgba(124,58,237,.14)!important;
+scroll-snap-align:center!important;
+display:flex!important;
+align-items:center!important;
+justify-content:center!important;
+}
+.proofCard img{
+width:100%!important;
+height:100%!important;
+object-fit:contain!important;
+border-radius:18px!important;
+background:#f8f3ff!important;
+}
+.proofSliderHint{
+text-align:center;
+color:#7c3aed;
+font-weight:900;
+font-size:14px;
+margin:-8px 0 14px;
+}
+@media(max-width:420px){
+.proofCard{min-width:84%!important;max-width:84%!important;height:360px!important}
+}
+
+
+#proofModal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.92);
+z-index:99999;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+#proofModal img{
+max-width:100%;
+max-height:90vh;
+border-radius:18px;
+background:#fff;
+}
+#proofModal .closeProof{
+position:absolute;
+top:18px;
+right:20px;
+font-size:42px;
+color:#fff;
+font-weight:900;
+cursor:pointer;
+}
+
+
+.viewAllProofsBtn{
+max-width:260px!important;
+display:block!important;
+margin:18px auto 0!important;
+border-radius:999px!important;
+}
+.proofGrid.showAll{
+display:grid!important;
+grid-template-columns:repeat(2,1fr)!important;
+overflow:visible!important;
+}
+.proofGrid.showAll .proofCard{
+min-width:100%!important;
+max-width:100%!important;
+height:330px!important;
+}
+
+
+/* PREMIUM CHECKOUT UI v34 */
+.checkoutCouponBox,.checkoutWhatsappBox,.qrPremiumBox{border-radius:28px;padding:20px;margin:18px 0;box-shadow:0 14px 36px rgba(124,58,237,.14)}
+.checkoutCouponBox{background:linear-gradient(135deg,#fff,#fbf7ff);border:2px solid #e9d5ff}
+.checkoutCouponBox h2{font-size:28px;font-weight:900;color:#7c3aed;margin:0 0 8px}
+.checkoutCouponBox p{font-size:16px;font-weight:700;color:#4b2a7b;line-height:1.55;margin:0 0 14px}
+.checkoutCouponBox input,.checkoutWhatsappBox input{background:#fff!important;border:2px solid #ddd!important;border-radius:18px!important;padding:17px!important;font-size:16px!important}
+.couponApplyBtn,.sendInvoiceBtn,.sendShotBtn{width:100%;border:0;border-radius:18px;padding:17px;margin-top:13px;font-size:18px;font-weight:900;color:#fff;box-shadow:0 12px 28px rgba(124,58,237,.25)}
+.couponApplyBtn{background:linear-gradient(135deg,#7c3aed,#ec4899)}
+.checkoutWhatsappBox{background:linear-gradient(135deg,#effdf5,#f6fffb);border:2px solid #bbf7d0}
+.checkoutWhatsappBox h2{font-size:27px;font-weight:900;color:#138a3d;text-align:center;margin:0 0 12px}
+.waInfoLine{font-size:17px;line-height:1.55;color:#1f1538;font-weight:700;border-bottom:1px dashed #b7e9c5;padding-bottom:12px;margin-bottom:12px}
+.checkoutDiscount{font-size:18px;font-weight:900;color:#15803d;background:#dcfce7;border-radius:15px;padding:12px;text-align:center;margin:12px 0 14px}
+.sendInvoiceBtn,.sendShotBtn{background:linear-gradient(135deg,#16a34a,#22c55e);box-shadow:0 12px 28px rgba(22,163,74,.28)}
+.qrScrollHint{text-align:center;font-size:15px;font-weight:900;color:#7c3aed;margin:16px 0 4px}
+.qrPremiumBox{position:relative;background:linear-gradient(135deg,#fff,#fbf7ff);border:2px solid #e9d5ff;padding-top:22px}
+.qrPayBadge{width:max-content;margin:-45px auto 18px;background:linear-gradient(135deg,#6d28d9,#9333ea);color:#fff;border-radius:16px;padding:13px 28px;font-size:21px;font-weight:900;box-shadow:0 12px 28px rgba(124,58,237,.34)}
+.qrPremiumGrid{display:grid;grid-template-columns:1fr;gap:15px;align-items:center}
+.qrLeftCard{background:#fff;border:2px solid #efe1ff;border-radius:24px;padding:13px;box-shadow:0 8px 22px rgba(124,58,237,.10)}
+.qrImg{display:block!important;width:100%!important;max-width:280px!important;height:auto!important;margin:0 auto!important;background:white!important;padding:8px!important;border-radius:18px!important;box-shadow:none!important}
+.scanPayLabel{margin-top:10px;background:linear-gradient(135deg,#7c3aed,#9333ea);color:#fff;border-radius:16px;padding:13px;text-align:center;font-size:18px;font-weight:900}
+.qrRightCard h2{font-size:29px;font-weight:900;color:#2e1065;margin:0 0 6px;text-align:center}
+.paySub{font-size:15px;line-height:1.5;color:#333;text-align:center;font-weight:700;margin-bottom:12px}
+.amountPayCard{background:#faf5ff;border:2px solid #e9d5ff;border-radius:22px;padding:16px;text-align:center;margin:12px 0}
+.amountPayCard .label{font-size:14px;color:#666;font-weight:800}
+.amountPayCard .amount{font-size:34px;font-weight:900;color:#7c3aed;margin:4px 0 8px}
+.amountBreak{display:grid;gap:6px;font-size:14px;font-weight:800;color:#333;border-top:1px dashed #d8b4fe;padding-top:10px}
+.amountBreak span{display:flex;justify-content:space-between}.amountBreak b{color:#15803d}
+.upiMiniBox{text-align:left;font-size:14px;font-weight:800;margin-top:10px;padding:10px;background:#fff;border-radius:14px}.upiMiniBox b{display:block;font-size:16px;color:#111;margin-top:3px}
+.upiAppGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}.upiAppGrid a{display:block;text-align:center;text-decoration:none;background:#fff;border:2px solid #e5e7eb;border-radius:16px;padding:13px 8px;font-size:15px;font-weight:900;color:#164a9b;box-shadow:0 6px 15px rgba(0,0,0,.05)}
+.screenShotNote{background:#ecfdf5;border:2px solid #bbf7d0;color:#166534;font-size:15px;line-height:1.5;font-weight:900;text-align:center;padding:14px;border-radius:18px;margin-top:15px}
+@media(min-width:650px){.qrPremiumGrid{grid-template-columns:1fr 1.25fr}.qrRightCard h2,.paySub{text-align:left}}
+
+
+/* SIMPLE CLEAN QR CHECKOUT v35 */
+.qrPremiumBox{
+background:#fff!important;
+border:2px solid #eadcff!important;
+border-radius:24px!important;
+padding:16px!important;
+margin:22px 0!important;
+box-shadow:0 12px 28px rgba(124,58,237,.12)!important;
+}
+.qrPayBadge{
+margin:0 auto 14px!important;
+font-size:17px!important;
+padding:10px 18px!important;
+border-radius:999px!important;
+box-shadow:0 8px 18px rgba(124,58,237,.24)!important;
+}
+.qrPremiumGrid{
+display:block!important;
+}
+.qrLeftCard{
+max-width:310px!important;
+margin:0 auto!important;
+padding:12px!important;
+border-radius:22px!important;
+box-shadow:0 8px 20px rgba(124,58,237,.10)!important;
+}
+.qrImg{
+max-width:240px!important;
+padding:8px!important;
+border-radius:16px!important;
+}
+.scanPayLabel{
+font-size:15px!important;
+padding:9px!important;
+border-radius:12px!important;
+margin-top:8px!important;
+}
+.downloadQrBtn{
+display:block;
+width:100%;
+max-width:230px;
+margin:10px auto 4px;
+border:0;
+border-radius:14px;
+padding:12px;
+font-size:16px;
+font-weight:900;
+color:#fff;
+background:linear-gradient(135deg,#7c3aed,#ec4899);
+box-shadow:0 8px 18px rgba(124,58,237,.20);
+}
+.qrRightCard{
+margin-top:14px!important;
+}
+.qrRightCard h2{
+font-size:23px!important;
+margin:8px 0 6px!important;
+text-align:center!important;
+}
+.paySub{
+font-size:14px!important;
+line-height:1.45!important;
+margin-bottom:10px!important;
+}
+.amountPayCard{
+padding:13px!important;
+border-radius:18px!important;
+margin:10px 0!important;
+}
+.amountPayCard .amount{
+font-size:28px!important;
+}
+.amountBreak{
+font-size:13px!important;
+gap:4px!important;
+}
+.upiMiniBox{
+font-size:13px!important;
+padding:9px!important;
+}
+.upiMiniBox b{
+font-size:15px!important;
+}
+.upiAppGrid{
+display:grid!important;
+grid-template-columns:repeat(3,1fr)!important;
+gap:8px!important;
+margin-top:10px!important;
+}
+.upiAppGrid a{
+font-size:12px!important;
+padding:10px 4px!important;
+border-radius:13px!important;
+}
+.qrTimer{
+padding:10px 13px!important;
+margin:11px 0 0!important;
+}
+.screenShotNote{
+font-size:13px!important;
+padding:11px!important;
+margin-top:12px!important;
+}
+.sendShotBtn{
+font-size:15px!important;
+padding:13px!important;
+border-radius:15px!important;
+}
+
+
+.qrExpiredStyle{
+opacity:.45!important;
+filter:grayscale(1)!important;
+}
+.downloadQrBtn:disabled{
+opacity:.55!important;
+filter:grayscale(1)!important;
+}
+
+
+.proofLoading{
+min-width:84%!important;
+height:320px!important;
+border-radius:24px!important;
+background:linear-gradient(90deg,#f3e8ff,#fff,#f3e8ff)!important;
+display:flex!important;
+align-items:center!important;
+justify-content:center!important;
+font-weight:900!important;
+color:#7c3aed!important;
+box-shadow:0 10px 24px rgba(124,58,237,.10)!important;
+}
+.proofCard img{
+content-visibility:auto;
+}
+
 </style>
 </head>
 <body>
@@ -179,8 +445,10 @@ Unlock premium entertainment, AI tools &amp; software subscriptions at unbeatabl
 
 <section class="proofSection">
   <h2>📸 Customer Proofs</h2>
-  <p class="proofSub">Real payment & delivery screenshots from happy customers.</p>
+  <p class="proofSub">✨ Real payment, activation & delivery proofs from trusted customers across India.</p>
+  <p class="proofSliderHint">🌟 Real Payment & Delivery Proofs</p>
   <div class="proofGrid" id="proofGrid"></div>
+<button class="btn viewAllProofsBtn" onclick="viewAllProofs()">View All Proofs</button>
 </section>
 
 <div class="footerPolicies"><span onclick="openPolicy('terms')">Terms of Service</span><span onclick="openPolicy('privacy')">Privacy Policy</span><span onclick="openPolicy('refund')">Refund Policy</span><span onclick="openPolicy('security')">Security Policy</span></div>
@@ -206,23 +474,12 @@ let selectedProduct=null,selectedPlan=null,finalAmount=0,appliedCoupon="Not Appl
 function isAdmin(){return localStorage.getItem("adminLogged")==="true"}
 function refreshAdminButtons(){const l=document.getElementById("logoutBtn"),a=document.getElementById("adminBtn");if(l)l.style.display=isAdmin()?"inline-block":"none";if(a)a.style.display=isAdmin()?"none":"inline-block"}
 function money(v){return Number(String(v||0).replace(/[^0-9.]/g,"")||0)}
-async function renderProducts(){
+
+function renderProductsFromList(list, q=""){
   const box = document.getElementById("products");
-  const q = (document.getElementById("search")?.value || "").toLowerCase();
+  if(!box) return;
 
-  box.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:26px;font-size:18px;font-weight:900;color:#7c3aed;background:white;border-radius:20px;box-shadow:0 6px 18px #0001;">Loading Premium Products...</div>`;
-
-  const { data, error } = await db
-    .from("products")
-    .select("*")
-    .order("id", { ascending:true });
-
-  if(error){
-    box.innerHTML = "<p style='grid-column:1/-1;text-align:center;color:red'>Products loading error: " + error.message + "</p>";
-    return;
-  }
-
-  allProducts = (data || []).filter(p => (p.name || "").toLowerCase().includes(q));
+  allProducts = (list || []).filter(p => (p.name || "").toLowerCase().includes(q));
 
   if(!allProducts.length){
     box.innerHTML = "<p style='grid-column:1/-1;text-align:center'>No products found. Open Admin and add products.</p>";
@@ -263,6 +520,35 @@ async function renderProducts(){
   box.innerHTML = html;
 }
 
+async function renderProducts(){
+  const box = document.getElementById("products");
+  const q = (document.getElementById("search")?.value || "").toLowerCase();
+
+  const cached = localStorage.getItem("cachedProducts");
+  if(cached){
+    try{
+      renderProductsFromList(JSON.parse(cached), q);
+    }catch(e){}
+  }else{
+    box.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:18px;font-size:16px;font-weight:900;color:#7c3aed;background:white;border-radius:20px;box-shadow:0 6px 18px #0001;">Loading Premium Products...</div>`;
+  }
+
+  const { data, error } = await db
+    .from("products")
+    .select("*")
+    .order("id", { ascending:true });
+
+  if(error){
+    if(!cached){
+      box.innerHTML = "<p style='grid-column:1/-1;text-align:center;color:red'>Products loading error: " + error.message + "</p>";
+    }
+    return;
+  }
+
+  localStorage.setItem("cachedProducts", JSON.stringify(data || []));
+  renderProductsFromList(data || [], q);
+}
+
 function productCardHTML(p,i){
   return `<div class="card">
     <img src="${p.img || 'https://via.placeholder.com/120?text=No+Image'}" class="prodImg" loading="lazy" onerror="this.src='https://via.placeholder.com/120?text=Image'">
@@ -275,58 +561,78 @@ function productCardHTML(p,i){
 function openDetails(i){selectedProduct=allProducts[i];document.getElementById("popupTitle").innerText=(selectedProduct.name||"Product")+" Details";document.getElementById("popupContent").innerHTML=`<div style="background:#111;color:white;border-radius:22px;padding:20px;text-align:left;">${(selectedProduct.points||"").split(",").filter(Boolean).map(x=>`<div style="display:flex;gap:12px;align-items:flex-start;font-size:18px;margin:14px 0;line-height:1.5;"><span style="color:#22c55e;font-size:24px;font-weight:900;">✓</span><span>${x.trim()}</span></div>`).join("")}</div>`;document.getElementById("popup").style.display="flex"}
 function openPlanList(i){selectedProduct=allProducts[i];const plansArray=(selectedProduct.plans||"").split(",").filter(Boolean);document.getElementById("popupTitle").innerText=(selectedProduct.name||"Product")+" Plans";document.getElementById("popupContent").innerHTML=plansArray.map((p,idx)=>{const parts=p.split(":");return `<button class="btn" onclick="openOrder(${idx})">${(parts[0]||'Plan').trim()} - ₹${money(parts[1])}</button>`}).join("");document.getElementById("popup").style.display="flex"}
 function openOrder(idx){
-  const plansArray=(selectedProduct.plans||"").split(",").filter(Boolean);
-  const parts=(plansArray[idx]||":0").split(":");
-  selectedPlan={name:(parts[0]||"Plan").trim(),price:money(parts[1])};
-  finalAmount=selectedPlan.price;
-  appliedCoupon="Not Applied";
-  couponDiscount=0;
-  document.getElementById("popupTitle").innerText="Complete Your Order";
-  document.getElementById("popupContent").innerHTML=`
-    <div class="couponTop">
-      <h3>🎁 Apply Coupon</h3>
-      <p style="color:#5b21b6;font-weight:800;margin-bottom:8px;line-height:1.4">Have a coupon code? Apply it here first. Your QR amount will update automatically.</p>
+  const plansArray = (selectedProduct.plans || "").split(",");
+  selectedPlan = {
+    name: plansArray[idx]?.split(":")[0]?.trim() || "",
+    price: plansArray[idx]?.split(":")[1]?.trim() || "0"
+  };
+  finalAmount = Number(selectedPlan.price || 0);
+  appliedCoupon = "Not Applied";
+
+  document.getElementById("popupTitle").innerText = "Complete Your Order";
+
+  document.getElementById("popupContent").innerHTML = `
+    <div class="checkoutCouponBox">
+      <h2>🎁 Apply Coupon</h2>
+      <p>Have a coupon code? Apply it here first. Your QR amount will update automatically.</p>
       <input id="coupon" placeholder="Enter coupon code">
-      <button class="btn" onclick="applyCoupon()">Apply Coupon</button>
+      <button class="couponApplyBtn" onclick="applyCoupon()">Apply Coupon</button>
     </div>
 
-    <div class="waOrderBox">
-      <h3>📲 WhatsApp Order Details</h3>
-      <p><b>Product:</b> ${selectedProduct.name}</p>
-      <p><b>Plan:</b> ${selectedPlan.name} - ₹${selectedPlan.price}</p>
-      <p id="waDiscountLine" style="color:#15803d;font-weight:900;margin:8px 0">Discount: ₹0 | Payable: ₹${finalAmount}</p>
+    <div class="checkoutWhatsappBox">
+      <h2>📲 WhatsApp Order Details</h2>
+      <div class="waInfoLine">
+        <b>Product:</b> ${selectedProduct.name}<br>
+        <b>Plan:</b> ${selectedPlan.name} - ₹${selectedPlan.price}
+      </div>
+      <div class="checkoutDiscount" id="waDiscountLine">Discount: ₹0 | Payable: ₹${finalAmount}</div>
       <input id="custName" placeholder="Customer Name">
       <input id="custEmail" placeholder="Customer Email">
       <input id="custPhone" placeholder="Customer WhatsApp Number">
-      <button class="btn green" onclick="sendOrder()">Send Invoice on WhatsApp</button>
+      <button class="sendInvoiceBtn" onclick="sendOrder()">Send Invoice on WhatsApp</button>
+      <div class="qrScrollHint">👇 Scroll down for QR Payment option 👇</div>
     </div>
 
-    <div class="orderNote">👇 Scroll down to the QR Payment section. Customers can also complete payment there after sending the WhatsApp order.</div>
-
-    <div class="rPayBox">
-      <div class="upiHead">
-        <div class="brandLine"><img class="brandLogo" src="${LOGO_URL}"><div class="brandName">MR.YOGI PREMIUM<small>Secure QR Payment</small></div></div>
-        <div class="secure">SECURE</div>
+    <div class="qrPremiumBox">
+      <div class="qrPayBadge">💳 QR PAYMENT</div>
+      <div class="qrPremiumGrid">
+        <div class="qrLeftCard">
+          <img id="qrImage" class="qrImg" src="">
+          <div class="scanPayLabel">Scan to Pay</div><button class="downloadQrBtn" onclick="downloadQrCode()">⬇ Download QR</button>
+        </div>
+        <div class="qrRightCard">
+          <h2>Scan & Pay Securely</h2>
+          <div class="paySub">Scan the QR code using any UPI app and complete your payment instantly.</div>
+          <div class="amountPayCard">
+            <div class="label">Amount to Pay</div>
+            <div class="amount" id="checkoutPayable">₹${finalAmount}</div>
+            <div class="amountBreak">
+              <span>Original Amount <strong id="checkoutOriginal">₹${selectedPlan.price}</strong></span>
+              <span>Coupon Discount <b id="checkoutDiscount">-₹0</b></span>
+            </div>
+            <div class="upiMiniBox">UPI ID <b>${UPI_ID}</b></div>
+          </div>
+          <div class="upiAppGrid">
+            <a id="gpayLink" href="#">🔵 GPay</a>
+            <a id="phonepeLink" href="#">🟣 PhonePe</a>
+            <a id="paytmLink" href="#">🔷 Paytm</a>
+            <a id="upiLink" href="#">🏦 UPI</a>
+          </div>
+          <div class="qrTimer">
+            <span>QR expires in</span>
+            <b id="qrTime">05:00</b>
+          </div>
+          <div class="screenShotNote">✅ Payment done? Tap below, send the screenshot on WhatsApp, and get faster activation.</div>
+          <button class="sendShotBtn" onclick="sendPaymentScreenshot()">📸 Send Payment Screenshot</button>
+        </div>
       </div>
-
-      <div class="priceBox">
-        <div class="priceRow payable"><span>Payable Amount</span><b>₹<span id="amt">${finalAmount}</span></b></div>
-        <div class="simpleDiscountLine" id="discountText">No coupon applied</div>
-      </div>
-
-      <h2 style="text-align:center;color:#111;margin:12px 0;font-size:24px">Scan QR to Pay</h2>
-      <p style="text-align:center;font-size:14px;color:#6d28d9;margin:10px 0 12px;font-weight:800;line-height:1.4;">Complete payment using the QR below. After payment, tap the screenshot button below.</p>
-      <img id="qrImage" class="qrImg" src="">
-      <div class="qrTimer"><span>QR expires in</span><b id="qrTime">05:00</b></div>
-
-      <div class="upiApps"><b>PAY WITH DIRECT UPI APPS</b><div class="appGrid"><a class="appBtn" id="gpayLink" href="#">Google Pay</a><a class="appBtn" id="phonepeLink" href="#">PhonePe</a><a class="appBtn" id="paytmLink" href="#">Paytm</a><a class="appBtn" id="upiLink" href="#">Any UPI App</a></div></div>
-
-      <div class="payHint">Payment completed? Send your screenshot on WhatsApp for quick verification and instant activation.</div>
-      <button class="btn screenShotBtn" onclick="sendPaymentScreenshotMsg()">📸 Send Payment Screenshot</button>
-    </div>`;
+    </div>
+  `;
   updateUpiQR();
-  startQrTimer();
+  setTimeout(startQrTimer, 100);
+  refreshCheckoutAmounts();
 }
+
 async function applyCoupon(){
   const code=document.getElementById("coupon").value.trim().toUpperCase();
   if(!code){alert("Enter Coupon Code");return}
@@ -341,38 +647,86 @@ async function applyCoupon(){
   const dis=document.getElementById("discountText"); if(dis) dis.innerText="Discount ₹"+couponDiscount+" applied. Payable ₹"+finalAmount;
   const waDis=document.getElementById("waDiscountLine"); if(waDis) waDis.innerText="Discount: ₹"+couponDiscount+" | Payable: ₹"+finalAmount;
   updateUpiQR();
-  startQrTimer();
+  setTimeout(startQrTimer, 100);
   alert("✅ Coupon Applied Successfully! Payable Amount ₹"+finalAmount);
 }
-function updateUpiQR(){const upiUrl=`upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}&am=${finalAmount}&cu=INR&tn=${encodeURIComponent('MR.YOGI PREMIUM ORDER')}`;const qrUrl=`https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(upiUrl)}`;["qrImage"].forEach(id=>{const e=document.getElementById(id);if(e)e.src=qrUrl});["gpayLink","phonepeLink","paytmLink","upiLink"].forEach(id=>{const e=document.getElementById(id);if(e)e.href=upiUrl})}
-function startQrTimer(){clearInterval(qrTimerInterval);let time=300;const timer=document.getElementById("qrTime");qrTimerInterval=setInterval(()=>{if(!timer){clearInterval(qrTimerInterval);return}let min=Math.floor(time/60),sec=time%60;timer.innerText=String(min).padStart(2,"0")+":"+String(sec).padStart(2,"0");if(time<=0){clearInterval(qrTimerInterval);timer.innerText="Expired";timer.style.color="red"}time--},1000)}
+function startQrTimer(){
+  clearInterval(qrTimerInterval);
 
-async function notifyTelegramOrder(name, mail, phone, invoiceNo, orderId){
-  if(!TELEGRAM_BOT_TOKEN || TELEGRAM_BOT_TOKEN.includes("PASTE_NEW")) return;
-  const telegramMessage =
-`🛒 NEW ORDER - MR.YOGI PREMIUM
+  let time = 5 * 60;
+  const timer = document.getElementById("qrTime");
 
-📅 Date: ${new Date().toLocaleDateString("en-GB")}
-🧾 Invoice No: ${invoiceNo}
-🆔 Order ID: ${orderId}
+  if(!timer) return;
+
+  timer.style.color = "#008060";
+
+  function updateTimer(){
+    let min = Math.floor(time / 60);
+    let sec = time % 60;
+
+    timer.innerText =
+      String(min).padStart(2,"0") + ":" + String(sec).padStart(2,"0");
+
+    if(time <= 0){
+      clearInterval(qrTimerInterval);
+      timer.innerText = "Expired";
+      timer.style.color = "red";
+      return;
+    }
+
+    time--;
+  }
+
+  updateTimer();
+  qrTimerInterval = setInterval(updateTimer, 1000);
+}
+
+function updateUpiQR(){
+  const upiUrl =
+    `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}&am=${finalAmount}&cu=INR&tn=${encodeURIComponent("MR.YOGI PREMIUM ORDER")}`;
+
+  const qrUrl =
+    `https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(upiUrl)}`;
+
+  const qr = document.getElementById("qrImage");
+  if(qr) qr.src = qrUrl;
+
+  ["gpayLink","phonepeLink","paytmLink","upiLink"].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.href = upiUrl;
+  });
+}
+
+
+
+function downloadQrCode(){
+  const qr = document.getElementById("qrImage");
+  if(!qr || !qr.src){
+    alert("QR not ready");
+    return;
+  }
+  const a = document.createElement("a");
+  a.href = qr.src;
+  a.download = "MR-YOGI-PREMIUM-QR.png";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+function sendPaymentScreenshot(){
+  const msg =
+`✅ PAYMENT SCREENSHOT - MR.YOGI PREMIUM
 
 📦 Product: ${selectedProduct?.name || ""}
 💳 Plan: ${selectedPlan?.name || ""} - ₹${selectedPlan?.price || ""}
-💰 Payable Amount: ₹${finalAmount}
+💰 Paid Amount: ₹${finalAmount}
 🎟 Coupon: ${appliedCoupon}
 
-👤 Name: ${name}
-📧 Mail: ${mail}
-📱 Number: ${phone}
+I have completed the payment. Please verify my screenshot and activate my order.`;
 
-✅ Status: WhatsApp Order Created`;
-  try{
-    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({chat_id:TELEGRAM_CHAT_ID,text:telegramMessage})
-    });
-  }catch(e){console.log("Telegram failed",e)}
+  showOrderLoading(() => {
+    window.open("https://wa.me/" + WA + "?text=" + encodeURIComponent(msg), "_blank");
+  });
 }
 
 function sendOrder(){const name=document.getElementById("custName").value.trim();const mail=document.getElementById("custEmail").value.trim();const phone=document.getElementById("custPhone").value.trim();if(!name||!mail||!phone){alert("Please enter Name, Mail and WhatsApp Number");return}const today=new Date().toLocaleDateString("en-GB");const num=Date.now().toString().slice(-6);const invoiceNo="INV"+num,orderId="ORD"+num;notifyTelegramOrder(name,mail,phone,invoiceNo,orderId);
@@ -445,26 +799,105 @@ function getLocalProofs(){
 function saveLocalProofs(proofs){
   localStorage.setItem("customerProofs", JSON.stringify(proofs));
 }
+
+
+
+let allProofItems = [];
+let proofShowAll = false;
+
+function renderProofsFromList(proofs){
+  const box=document.getElementById("proofGrid");
+  if(!box) return;
+
+  allProofItems = proofs || [];
+
+  if(!allProofItems.length){
+    box.innerHTML="<p style='min-width:100%;text-align:center;color:#777'>No customer proofs yet.</p>";
+    const btn=document.querySelector(".viewAllProofsBtn");
+    if(btn) btn.style.display="none";
+    return;
+  }
+
+  const displayItems = proofShowAll ? allProofItems : allProofItems.slice(0,20);
+  box.classList.toggle("showAll", proofShowAll);
+
+  box.innerHTML=displayItems.map(p=>`
+    <div class="proofCard">
+      <img src="${p.img}" onclick="openProofImage('${p.img}')" loading="eager" decoding="async">
+    </div>
+  `).join("");
+
+  const btn=document.querySelector(".viewAllProofsBtn");
+  if(btn){
+    btn.style.display = allProofItems.length > 20 ? "block" : "none";
+    btn.innerText = proofShowAll ? "Show Less Proofs" : "View All Proofs";
+  }
+
+  if(!proofShowAll) startProofAutoSlide();
+}
+
 async function renderProofs(){
   const box=document.getElementById("proofGrid");
   if(!box) return;
 
-  let proofs=getLocalProofs();
+  let cachedProofs = getLocalProofs();
+
+  const proofCache = localStorage.getItem("cachedProofs");
+  if(proofCache){
+    try{
+      const parsed = JSON.parse(proofCache);
+      if(parsed && parsed.length) cachedProofs = parsed;
+    }catch(e){}
+  }
+
+  if(cachedProofs && cachedProofs.length){
+    renderProofsFromList(cachedProofs);
+  }else{
+    box.innerHTML = `<div class="proofLoading">Loading Proofs...</div>`;
+  }
 
   try{
     const {data,error}=await db.from("proofs").select("*").order("id",{ascending:false});
-    if(!error && data && data.length){
-      proofs=data.map(p=>({img:p.img || p.image || ""})).filter(p=>p.img);
+    if(!error && data){
+      const freshProofs=data.map(p=>({img:p.img || p.image || ""})).filter(p=>p.img);
+      localStorage.setItem("cachedProofs", JSON.stringify(freshProofs));
+      if(freshProofs.length) renderProofsFromList(freshProofs);
+      else if(!cachedProofs.length) renderProofsFromList([]);
     }
-  }catch(e){}
-
-  if(!proofs.length){
-    box.innerHTML="<p style='grid-column:1/-1;text-align:center;color:#777'>No customer proofs yet.</p>";
-    return;
+  }catch(e){
+    if(cachedProofs && cachedProofs.length) renderProofsFromList(cachedProofs);
   }
-
-  box.innerHTML=proofs.map(p=>`<div class="proofCard"><img src="${p.img}" onclick="window.open('${p.img}','_blank')"></div>`).join("");
 }
+
+function viewAllProofs(){
+  proofShowAll = !proofShowAll;
+  renderProofsFromList(allProofItems);
+  setTimeout(()=>{
+    document.getElementById("proofGrid")?.scrollIntoView({behavior:"smooth", block:"start"});
+  },100);
+}
+
+let proofSlideTimer = null;
+function startProofAutoSlide(){
+  const box = document.getElementById("proofGrid");
+  if(!box) return;
+
+  clearInterval(proofSlideTimer);
+
+  proofSlideTimer = setInterval(()=>{
+    if(proofShowAll || !box.children.length) return;
+
+    const step = box.querySelector(".proofCard")?.offsetWidth || 260;
+    const maxScroll = box.scrollWidth - box.clientWidth;
+
+    if(box.scrollLeft >= maxScroll - 10){
+      box.scrollTo({left:0, behavior:"smooth"});
+    }else{
+      box.scrollBy({left:step + 16, behavior:"smooth"});
+    }
+  }, 2500);
+}
+
 async function uploadProofImage(){
   const input=document.getElementById("proofImageInput");
   const file=input?.files?.[0];
@@ -483,11 +916,12 @@ async function uploadProofImage(){
   const proofs=getLocalProofs();
   proofs.unshift({img:image,date:new Date().toLocaleString()});
   saveLocalProofs(proofs);
+  localStorage.setItem("cachedProofs", JSON.stringify(proofs));
 
   input.value="";
   await renderProofs();
 
-  alert(online ? "✅ Proof uploaded successfully" : "✅ Proof saved on this device. For online all users, create Supabase table proofs with img text column.");
+  alert(online ? "✅ Proof uploaded successfully. Gallery updated." : "✅ Proof uploaded. Gallery will show full image in auto slider.");
 }
 
 async function addProduct(){const name=document.getElementById("pName").value.trim();const points=document.getElementById("pPoints").value.trim();const description=points;const plans=document.getElementById("pPlans").value.trim();let image=document.getElementById("pImageUrl").value.trim();const file=document.getElementById("pImage")?.files?.[0];if(file&&!image.startsWith("http"))image=await uploadImageAndGetUrl(file);const category=document.getElementById("pCategory").value;const stock=document.getElementById("pStock").value;if(!name||!points||!plans){alert("Please fill Product Name, Points and Plans");return}const {error}=await db.from("products").insert([{name,description,points,plans,img:image,category,stock}]);if(error){alert("Error: "+error.message);return}alert("✅ Product Added Successfully");await renderProducts();openAdmin()}
@@ -501,6 +935,135 @@ async function deleteCoupon(id){await db.from("coupons").delete().eq("id",id);op
 function openPolicy(type){let text="";if(type==="terms")text=`<h2>📜 TERMS AND CONDITIONS</h2><p><b>MR.YOGI PREMIUM</b></p><p>🔹 Service: We provide OTT, AI tools & software subscriptions.</p><p>🔹 Rules: Do not change account details, misuse shared accounts, follow device/screen limits.</p><p>🔹 Violations: No refund / replacement.</p><p>🔹 Changes: Terms can change anytime without notice.</p>`;if(type==="privacy")text=`<h2>🔐 PRIVACY POLICY</h2><p><b>MR.YOGI PREMIUM</b></p><p>🔹 We protect your personal information.</p><p>🔹 We use your data only for orders & support.</p><p>🔹 We do not sell your data.</p><p>📞 Contact: 8618388937</p>`;if(type==="refund")text=`<h2>💰 REFUND POLICY</h2><p>❌ No refund after successful delivery.</p><p>✅ Replacement only if account not working within warranty.</p><p>❌ No replacement for misuse or changed details.</p>`;if(type==="security")text=`<h2>🛡️ SECURITY POLICY</h2><p>🔹 Safe UPI & Gateway payments.</p><p>🔹 Follow account safety rules.</p><p>🔹 Misuse leads to termination without refund.</p>`;document.getElementById("policyText").innerHTML=text;document.getElementById("policyPopup").style.display="flex"}
 function closePolicy(){document.getElementById("policyPopup").style.display="none"}
 refreshAdminButtons();renderProducts();renderProofs();renderFeedbacks(3);
+
+function openProofImage(src){
+  const modal=document.getElementById("proofModal");
+  const img=document.getElementById("proofModalImg");
+  img.src=src;
+  modal.style.display="flex";
+}
+function closeProofImage(){
+  document.getElementById("proofModal").style.display="none";
+}
+
+
+
+/* QR TIMER + DOWNLOAD FORCE FIX v37 */
+let currentQrDownloadUrl = "";
+let isQrExpired = false;
+
+function updateUpiQR(){
+  const upiUrl =
+    `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}&am=${finalAmount}&cu=INR&tn=${encodeURIComponent("MR.YOGI PREMIUM ORDER")}`;
+
+  const qrUrl =
+    `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(upiUrl)}`;
+
+  currentQrDownloadUrl = qrUrl;
+  isQrExpired = false;
+
+  const qr = document.getElementById("qrImage");
+  if(qr){
+    qr.src = qrUrl;
+    qr.classList.remove("qrExpiredStyle");
+  }
+
+  const btn = document.querySelector(".downloadQrBtn");
+  if(btn){
+    btn.disabled = false;
+    btn.innerText = "⬇ Download QR";
+  }
+
+  ["gpayLink","phonepeLink","paytmLink","upiLink"].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.href = upiUrl;
+  });
+}
+
+function startQrTimer(){
+  clearInterval(qrTimerInterval);
+
+  let time = 5 * 60;
+  const timer = document.getElementById("qrTime");
+
+  if(!timer){
+    setTimeout(startQrTimer, 300);
+    return;
+  }
+
+  timer.style.color = "#008060";
+  isQrExpired = false;
+
+  function tick(){
+    const min = Math.floor(time / 60);
+    const sec = time % 60;
+
+    timer.innerText =
+      String(min).padStart(2,"0") + ":" + String(sec).padStart(2,"0");
+
+    if(time <= 0){
+      clearInterval(qrTimerInterval);
+      timer.innerText = "Expired";
+      timer.style.color = "red";
+      isQrExpired = true;
+
+      const qr = document.getElementById("qrImage");
+      if(qr) qr.classList.add("qrExpiredStyle");
+
+      const btn = document.querySelector(".downloadQrBtn");
+      if(btn){
+        btn.disabled = true;
+        btn.innerText = "QR Expired";
+      }
+
+      return;
+    }
+
+    time--;
+  }
+
+  tick();
+  qrTimerInterval = setInterval(tick, 1000);
+}
+
+async function downloadQrCode(){
+  if(isQrExpired){
+    alert("QR expired. Please close and open the payment again.");
+    return;
+  }
+
+  const qr = document.getElementById("qrImage");
+  const url = currentQrDownloadUrl || (qr ? qr.src : "");
+
+  if(!url){
+    alert("QR not ready");
+    return;
+  }
+
+  try{
+    const response = await fetch(url, { mode:"cors" });
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = blobUrl;
+    a.download = "MR-YOGI-PREMIUM-QR.png";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    setTimeout(()=>URL.revokeObjectURL(blobUrl), 1000);
+  }catch(e){
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "MR-YOGI-PREMIUM-QR.png";
+    a.target = "_self";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+}
+
 </script>
 
 
