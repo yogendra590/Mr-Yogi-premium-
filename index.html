@@ -20,6 +20,57 @@ window.addEventListener("error", function(e){
   console.log("Website error:", e.message);
 });
 
+
+/* SIDE TAP CLOSE POPUP v63 */
+document.addEventListener("DOMContentLoaded", function(){
+  const popup = document.getElementById("popup");
+  if(popup){
+    popup.addEventListener("click", function(e){
+      if(e.target === popup){
+        closePopup();
+      }
+    });
+  }
+
+  const policyPopup = document.getElementById("policyPopup");
+  if(policyPopup){
+    policyPopup.addEventListener("click", function(e){
+      if(e.target === policyPopup){
+        closePolicy();
+      }
+    });
+  }
+});
+
+
+/* FORCE OUTSIDE CLICK CLOSE v64 */
+document.addEventListener("click", function(e){
+  const popup = document.getElementById("popup");
+  const popupBox = document.querySelector(".popup-content");
+
+  if(popup && popup.style.display !== "none" && popupBox){
+    if(!popupBox.contains(e.target)){
+      popup.style.display = "none";
+      document.body.style.overflow = "auto";
+    }
+  }
+});
+
+
+/* TOP RIGHT CLOSE BUTTON FIX v65 */
+function forceClosePopup(){
+  const popup=document.getElementById("popup");
+  if(popup){
+    popup.style.display="none";
+    document.body.style.overflow="auto";
+  }
+}
+document.addEventListener("click",function(e){
+  if(e.target && e.target.id==="popupClose"){
+    forceClosePopup();
+  }
+});
+
 </script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
@@ -1244,6 +1295,30 @@ display:block!important;
 .planCinemaHead .chooseLine{font-size:13px!important;margin-top:8px!important}
 }
 
+
+/* BIG CLOSE BUTTON v65 */
+.close, .popup-close, #popupClose{
+position:absolute!important;
+top:14px!important;
+right:18px!important;
+width:44px!important;
+height:44px!important;
+border-radius:50%!important;
+background:#111827!important;
+color:#fff!important;
+display:flex!important;
+align-items:center!important;
+justify-content:center!important;
+font-size:30px!important;
+font-weight:900!important;
+z-index:99999!important;
+box-shadow:0 10px 24px rgba(0,0,0,.25)!important;
+cursor:pointer!important;
+}
+#popup .box, .popup-content{
+position:relative!important;
+}
+
 </style>
 </head>
 <body>
@@ -1287,7 +1362,7 @@ Unlock premium entertainment, AI tools &amp; software subscriptions at unbeatabl
 <footer>© 2026 MR.YOGI PREMIUM — All Rights Reserved<br>💎 Premium Accounts • Trusted Service • Best Prices</footer>
 <div class="adminFooterBtns"><button class="adminStaticBtn" id="adminBtn" onclick="adminLogin()">Admin</button><button class="adminStaticBtn logout" id="logoutBtn" onclick="adminLogout()">Logout</button></div>
 
-<div class="popup" id="popup"><div class="box"><span class="close" onclick="closePopup()">×</span><h3 id="popupTitle"></h3><div id="popupContent"></div></div></div>
+<div class="popup" id="popup"><div class="box"><button id="popupClose" onclick="closePopup()">×</button><h3 id="popupTitle"></h3><div id="popupContent"></div></div></div>
 <div class="editPopup" id="editPopup"><div class="editBox"><span class="closeEdit" onclick="closeEditPopup()">×</span><div class="editTitle">✏️ Edit Product</div><input id="eName" placeholder="Product Name"><textarea id="ePoints" placeholder="Description points separate by comma"></textarea><textarea id="ePlans" placeholder="Plans: 1 Month:150:In Stock, 3 Months:399:Out of Stock"></textarea><input type="file" id="eImageFile" accept="image/*"><input id="eImageUrl" placeholder="Image URL Auto / Manual"><select id="eCategory"><option value="OTT PLATFORM">🍿 OTT</option><option value="AI AND SOFTWARE TOOLS">🤖 AI & SOFTWARE</option><option value="GAMES">🎮 GAMES</option></select><select id="eStock"><option value="In Stock">📦 In Stock</option><option value="Out Of Stock">❌ Out Of Stock</option></select><button class="btn" onclick="saveEditProduct()">✅ Save Product</button></div></div>
 <div class="orderOverlay" id="orderOverlay"><div class="orderBox" id="orderBox"></div></div>
 <div id="policyPopup" class="policyPopup"><div class="policyContent"><span class="closePolicy" onclick="closePolicy()">&times;</span><div id="policyText"></div></div></div>
@@ -1658,7 +1733,9 @@ function submitFeedback(){const name=document.getElementById("fbName").value.tri
 function renderFeedbacks(limit=3){const feedbacks=getFeedbacks(),box=document.getElementById("feedbackList");const avg=feedbacks.length?(feedbacks.reduce((a,b)=>a+b.rating,0)/feedbacks.length).toFixed(1):"0.0";document.getElementById("ratingSummary").innerText="Rating: "+avg+"/5";const list=feedbacks.slice(0,limit);if(!list.length){box.innerHTML="<p style='text-align:center'>No feedback yet</p>";return}box.innerHTML=list.map(f=>`<div class="feedbackCard"><h3>${f.name}</h3><p style="color:#ffb400;font-size:18px;">${"★".repeat(f.rating)}${"☆".repeat(5-f.rating)}</p><p>${f.msg}</p><div class="feedbackLike"><span>💜 ${Math.floor(Math.random()*10)+1}</span><span>${f.date}</span></div></div>`).join("")}
 function viewAllFeedback(){const feedbacks=getFeedbacks();document.getElementById("popupTitle").innerText="All Customer Feedback";document.getElementById("popupContent").innerHTML=`<div class="grid">${!feedbacks.length?"<p style='text-align:center'>No feedback yet</p>":feedbacks.map((f,i)=>`<div class="feedbackCard"><h3>${f.name}</h3><p style="color:#ffb400;font-size:18px;">${"★".repeat(f.rating)}${"☆".repeat(5-f.rating)}</p><p>${f.msg}</p><p class="small">${f.date}</p>${isAdmin()?`<button class="btn danger" onclick="deleteFeedback(${i})">🗑 Delete</button>`:""}</div>`).join("")}</div>`;document.getElementById("popup").style.display="flex"}
 function deleteFeedback(index){if(!isAdmin()){alert("Admin only");return}let feedbacks=getFeedbacks();feedbacks.splice(index,1);saveFeedbacks(feedbacks);renderFeedbacks(3);viewAllFeedback();alert("✅ Feedback Deleted")}
-function closePopup(){document.getElementById("popup").style.display="none"}
+function closePopup(){
+  const popup=document.getElementById('popup'); if(popup){popup.style.display='none'; document.body.style.overflow='auto'; return;}
+document.getElementById("popup").style.display="none"}
 async function adminLogin(){const email=prompt("Enter Admin Email"),password=prompt("Enter Admin Password");if(email==="mryogiottseller@gmail.com"&&password==="yogi19001"){localStorage.setItem("adminLogged","true");refreshAdminButtons();openAdmin()}else alert("Invalid Login")}
 function adminLogout(){localStorage.removeItem("adminLogged");
 renderProofs();refreshAdminButtons();closePopup();alert("Admin Logged Out")}
