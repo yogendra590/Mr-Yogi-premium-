@@ -2320,11 +2320,216 @@ async function saveProductEdit(){const id=editProductId.value, name=editProductN
 async function openAdmin(){
  const {data:products}=await db.from("products").select("*").order("id",{ascending:false}); const {data:coupons}=await db.from("coupons").select("*").order("id",{ascending:false});
  popupTitle.innerText="Admin Panel";
- popupContent.innerHTML=`<div class="adminBox"><div class="adminTitle">✨ Add Product</div><div class="adminProofUploadBox"><h3>📸 Upload Customer Proofs</h3><input type="file" id="proofImageInput" accept="image/*"><input type="text" id="proofProductText" placeholder="Type sold product name"><button class="btn" onclick="uploadProofImage();return false;">Upload Proof</button></div><input id="pName" placeholder="Product Name"><textarea id="pPoints" placeholder="Description points separate by comma"></textarea><textarea id="pPlans" placeholder="Plans: 1 Month:150:In Stock, 3 Months:399:Out of Stock"></textarea><label>One Tap Image Upload</label><input type="file" id="pFile" accept="image/*"><input id="pImageUrl" placeholder="Image URL Auto / Manual"><select id="pCategory"><option value="OTT PLATFORM">🍿 OTT</option><option value="AI AND SOFTWARE TOOLS">🤖 AI & SOFTWARE</option><option value="GAMES">🎮 GAMES</option><option value="OTHERS">📦 Others</option></select><select id="pStock"><option>In Stock</option><option>Out of Stock</option></select><button class="btn" onclick="addProduct()">✨ Add Product</button><h2 style="color:white;margin-top:24px">Products</h2><input class="adminSearch" id="adminProductSearch" placeholder="Search admin products..." oninput="filterAdminProducts()">${(products||[]).map(p=>`<div class="adminCard adminProductItem"><b>${esc(p.name)}</b><br>${esc(p.category||"")} • ${esc(p.stock||"")}<br><button class="btn" onclick="editProduct(${p.id})" style="background:#2563eb">Edit Product</button><button class="btn" onclick="changeImage(${p.id},'${String(p.img||"").replace(/'/g,"&#39;")}')">Change Image</button><button class="btn" onclick="deleteProduct(${p.id})" style="background:#ef4444">Delete Product</button></div>`).join("")}<h2 style="color:white;margin-top:24px">Coupons</h2><input id="cCode" placeholder="Coupon Code"><input id="cDiscount" type="number" placeholder="Discount Amount"><button class="btn" onclick="addCoupon()">Add Coupon</button>${(coupons||[]).map(c=>`<div class="adminCard"><b>${esc(c.code)}</b> - ₹${esc(c.discount)}<button class="btn" onclick="deleteCoupon(${c.id})" style="background:#ef4444;margin-top:8px">Delete Coupon</button></div>`).join("")}</div>`;
+ popupContent.innerHTML=`<div class="adminBox"><div class="adminTitle">✨ Add Product</div><div class="adminProofUploadBox"><h3>📸 Upload Customer Proofs</h3><input type="file" id="proofImageInput" accept="image/*"><input type="text" id="proofProductText" placeholder="Type sold product name"><button class="btn" onclick="uploadProofImage();return false;">Upload Proof</button></div><input id="pName" placeholder="Product Name"><textarea id="pPoints" placeholder="Description points separate by comma"></textarea><textarea id="pPlans" placeholder="Plans: 1 Month:150:In Stock, 3 Months:399:Out of Stock"></textarea><label>One Tap Image Upload</label><input type="file" id="pFile" accept="image/*"><input id="pImageUrl" placeholder="Image URL Auto / Manual"><select id="pCategory"><option value="OTT PLATFORM">🍿 OTT</option><option value="AI AND SOFTWARE TOOLS">🤖 AI & SOFTWARE</option><option value="GAMES">🎮 GAMES</option><option value="OTHERS">📦 Others</option></select><select id="pStock"><option>In Stock</option><option>Out of Stock</option></select><button class="btn" onclick="addProduct()">✨ Add Product</button><h2 style="color:white;margin-top:24px">Products</h2><input class="adminSearch" id="adminProductSearch" placeholder="Search admin products..." oninput="filterAdminProducts()">${(products||[]).map(p=>`<div class="adminCard adminProductItem"><b>${esc(p.name)}</b><br>${esc(p.category||"")} • ${esc(p.stock||"")}<br><button class="btn" onclick="editProduct(${p.id})" style="background:#2563eb">Edit Product</button><button class="btn" onclick="changeImage(${p.id},'${String(p.img||"").replace(/'/g,"&#39;")}')">Change Image</button><button class="btn" onclick="deleteProduct(${p.id})" style="background:#ef4444">Delete Product</button></div>`).join("")}<h2 style="color:white;margin-top:24px">Coupons</h2><input id="cCode" placeholder="Coupon Code"><input id="cDiscount" type="number" placeholder="Discount Amount"><input id="cExpiry" type="date" placeholder="Coupon Expiry Date"><button class="btn" onclick="addCoupon()">Add Coupon</button>${(coupons||[]).map(c=>`<div class="adminCard"><b>${esc(c.code)}</b> - ₹${esc(c.discount)}<br>Expiry: ${esc(c.expiry||"No expiry")}<button class="btn" onclick="deleteCoupon(${c.id})" style="background:#ef4444;margin-top:8px">Delete Coupon</button></div>`).join("")}</div>`;
  popup.style.display="flex";
 }
 function filterAdminProducts(){const q=(adminProductSearch?.value||"").toLowerCase(); document.querySelectorAll(".adminProductItem").forEach(c=>c.style.display=c.innerText.toLowerCase().includes(q)?"block":"none")}
 window.addEventListener("load",()=>{clearHeavyCache();setTimeout(renderProducts,400);setTimeout(renderProofs,900)})
+
+
+
+/* COUPON EXPIRY + FEEDBACK DELETE v81 */
+async function addCoupon(){
+  const code = document.getElementById("cCode")?.value?.trim().toUpperCase() || "";
+  const discount = Number(document.getElementById("cDiscount")?.value || 0);
+  const expiry = document.getElementById("cExpiry")?.value || "";
+
+  if(!code || !discount){
+    alert("Coupon code and discount required");
+    return;
+  }
+
+  const payload = { code:code, discount:discount };
+  if(expiry) payload.expiry = expiry;
+
+  const {error} = await db.from("coupons").insert([payload]);
+  if(error){
+    alert("Coupon add failed: " + error.message + "\nSupabase coupons table lo expiry column missing unte expiry text/date column add chey.");
+    return;
+  }
+
+  alert("✅ Coupon added");
+  openAdmin();
+}
+
+async function applyCoupon(){
+  const code = document.getElementById("coupon")?.value?.trim().toUpperCase() || "";
+  if(!code){
+    alert("Enter Coupon Code");
+    return;
+  }
+
+  const {data,error} = await db.from("coupons").select("*").eq("code",code).single();
+
+  if(error || !data){
+    alert("Invalid Coupon Code");
+    return;
+  }
+
+  if(data.expiry){
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const exp = new Date(data.expiry);
+    exp.setHours(23,59,59,999);
+
+    if(exp < today){
+      alert("Coupon expired");
+      return;
+    }
+  }
+
+  finalAmount = Math.max(Number(selectedPlan.price) - Number(data.discount || 0), 1);
+  appliedCoupon = code;
+  refreshCheckoutAmounts();
+  updateUpiQR();
+  setTimeout(startQrTimer,100);
+  alert("Coupon Applied Successfully");
+}
+
+async function renderFeedbacks(){
+  const {data,error} = await db.from("feedbacks").select("*").order("id",{ascending:false}).limit(30);
+
+  const list = data || [];
+  const feedbackList = document.getElementById("feedbackList");
+  const ratingSummary = document.getElementById("ratingSummary");
+
+  if(feedbackList){
+    feedbackList.innerHTML = list.map(f=>`
+      <div class="card feedbackCard">
+        ${localStorage.getItem("adminLogged")==="true" ? `<button class="btn" style="background:#ef4444;margin-bottom:10px" onclick="deleteFeedback(${f.id})">Delete Feedback</button>` : ""}
+        <h3>${esc(f.name)} - ${"⭐".repeat(Number(f.rating||5))}</h3>
+        <p>${esc(f.msg)}</p>
+      </div>
+    `).join("") || "<p style='text-align:center'>No feedback yet</p>";
+  }
+
+  if(ratingSummary){
+    const avg = list.length ? (list.reduce((a,b)=>a+Number(b.rating||0),0)/list.length).toFixed(1) : "0.0";
+    ratingSummary.innerText = "Rating: " + avg + "/5";
+  }
+}
+
+async function deleteFeedback(id){
+  if(localStorage.getItem("adminLogged") !== "true"){
+    alert("Admin only");
+    return;
+  }
+
+  if(!confirm("Delete this feedback?")) return;
+
+  const {error} = await db.from("feedbacks").delete().eq("id",id);
+  if(error){
+    alert("Feedback delete failed: " + error.message + "\nSupabase feedbacks delete policy check chey.");
+    return;
+  }
+
+  alert("✅ Feedback deleted");
+  renderFeedbacks();
+}
+
+async function deleteCoupon(id){
+  const {error} = await db.from("coupons").delete().eq("id",id);
+  if(error){
+    alert("Coupon delete failed: " + error.message);
+    return;
+  }
+  alert("✅ Coupon deleted");
+  openAdmin();
+}
+
+
+
+/* FEEDBACK PERMANENT DISPLAY FIX v82 */
+async function submitFeedback(){
+  const name = document.getElementById("fbName")?.value?.trim() || "Customer";
+  const rating = Number(document.getElementById("fbRating")?.value || 5);
+  const msg = document.getElementById("fbMsg")?.value?.trim() || "";
+
+  if(!msg){
+    alert("Please write your feedback");
+    return;
+  }
+
+  const {error} = await db.from("feedbacks").insert([{
+    name:name,
+    rating:rating,
+    msg:msg
+  }]);
+
+  if(error){
+    alert("Feedback save failed: " + error.message + "\nSupabase feedbacks table policy check chey.");
+    return;
+  }
+
+  const n = document.getElementById("fbName"); if(n) n.value = "";
+  const m = document.getElementById("fbMsg"); if(m) m.value = "";
+  const r = document.getElementById("fbRating"); if(r) r.value = "5";
+
+  const thanks = document.getElementById("feedbackThanks");
+  if(thanks) thanks.innerText = "Thank you for feedback ❤️";
+
+  await renderFeedbacks();
+}
+
+async function renderFeedbacks(){
+  const feedbackList = document.getElementById("feedbackList");
+  const ratingSummary = document.getElementById("ratingSummary");
+
+  try{
+    const {data,error} = await db.from("feedbacks").select("*").order("id",{ascending:false}).limit(50);
+
+    if(error){
+      if(feedbackList) feedbackList.innerHTML = "<p style='color:red;text-align:center'>Feedback load error: " + esc(error.message) + "</p>";
+      return;
+    }
+
+    const list = data || [];
+
+    if(ratingSummary){
+      const avg = list.length ? (list.reduce((a,b)=>a+Number(b.rating||0),0)/list.length).toFixed(1) : "0.0";
+      ratingSummary.innerText = "Rating: " + avg + "/5";
+    }
+
+    if(feedbackList){
+      if(!list.length){
+        feedbackList.innerHTML = "<p style='text-align:center'>No feedback yet</p>";
+      }else{
+        feedbackList.innerHTML = list.map(f=>`
+          <div class="card feedbackCard">
+            ${localStorage.getItem("adminLogged")==="true" ? `<button class="btn" style="background:#ef4444;margin-bottom:10px" onclick="deleteFeedback(${f.id})">Delete Feedback</button>` : ""}
+            <h3>${esc(f.name || "Customer")} - ${"⭐".repeat(Number(f.rating||5))}</h3>
+            <p>${esc(f.msg || "")}</p>
+          </div>
+        `).join("");
+      }
+    }
+  }catch(e){
+    if(feedbackList) feedbackList.innerHTML = "<p style='color:red;text-align:center'>Feedback load failed</p>";
+  }
+}
+
+async function deleteFeedback(id){
+  if(localStorage.getItem("adminLogged") !== "true"){
+    alert("Admin only");
+    return;
+  }
+
+  if(!confirm("Delete this feedback?")) return;
+
+  const {error} = await db.from("feedbacks").delete().eq("id",id);
+  if(error){
+    alert("Feedback delete failed: " + error.message);
+    return;
+  }
+
+  alert("✅ Feedback deleted");
+  await renderFeedbacks();
+}
+
+/* force load feedback after refresh */
+window.addEventListener("load",()=>{
+  setTimeout(()=>{ if(typeof renderFeedbacks==="function") renderFeedbacks(); }, 1200);
+});
 
 </script>
 
