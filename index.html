@@ -3688,6 +3688,89 @@ document.addEventListener("click", function(e){
 })();
 </script>
 
+
+<!-- FEEDBACK SECTION FINAL -->
+<section class="feedbackSection">
+  <h2>Customer Feedback</h2>
+  <div class="rating" style="text-align:center;font-size:22px;font-weight:900;color:#7c3aed;margin-top:-10px;margin-bottom:20px;">Rating: 5.0/5</div>
+
+  <div id="mainFeedback" class="grid" style="padding:0 16px;"></div>
+
+  <button class="btn" style="max-width:260px;margin:22px auto 0;display:block;border-radius:999px;"
+  onclick="openFeedbackPopup()">
+    🌟 View All Feedback
+  </button>
+</section>
+
+<!-- FEEDBACK POPUP -->
+<div id="feedbackPopup" class="popup">
+  <div class="box popup-content">
+    <span class="close" onclick="closeFeedbackPopup()">×</span>
+
+    <h3 style="text-align:center;color:#7c3aed;font-size:28px;margin-bottom:18px;">
+      🌟 All Customer Feedback
+    </h3>
+
+    <div id="allFeedback" class="grid" style="grid-template-columns:1fr;gap:14px;"></div>
+  </div>
+</div>
+
+<script>
+const feedbacks = [
+{
+name:"Ashok Kumar",
+text:"Outstanding seller! Quick activation, genuine services, and excellent customer support. Everything works smoothly without any hassle. Highly recommended"
+},
+{
+name:"Lakshitha",
+text:"Very professional seller with affordable prices and quick delivery. The software installation and OTT access were smooth and reliable. Great experience overall"
+},
+{
+name:"Abhi Ram",
+text:"Trusted seller with top-quality service. Everything was activated quickly and worked flawlessly. Will definitely purchase again"
+},
+{
+name:"Vignesh",
+text:"Amazing experience! The seller is friendly, responsive, and provides premium quality OTT and software services at great prices"
+},
+{
+name:"KIRAN KUMAR C",
+text:"Excellent service and genuine products! The OTT subscriptions and software worked perfectly without any issues. Highly recommended for fast response and trustworthy support"
+}
+];
+
+function createFeedbackCard(fb){
+return `
+<div class="feedbackCard">
+<h3>${fb.name} -</h3>
+<div style="font-size:24px;color:#facc15;margin:4px 0 10px;">★★★★★</div>
+<p>${fb.text}</p>
+</div>
+`;
+}
+
+const mainFeedback=document.getElementById("mainFeedback");
+const allFeedback=document.getElementById("allFeedback");
+
+if(mainFeedback){
+mainFeedback.innerHTML = feedbacks.slice(0,4).map(createFeedbackCard).join("");
+}
+
+if(allFeedback){
+allFeedback.innerHTML = feedbacks.map(createFeedbackCard).join("");
+}
+
+function openFeedbackPopup(){
+document.getElementById("feedbackPopup").style.display="flex";
+document.body.style.overflow="hidden";
+}
+
+function closeFeedbackPopup(){
+document.getElementById("feedbackPopup").style.display="none";
+document.body.style.overflow="auto";
+}
+</script>
+
 </body>
 </html>
 
