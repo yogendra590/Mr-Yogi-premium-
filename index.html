@@ -3689,86 +3689,120 @@ document.addEventListener("click", function(e){
 </script>
 
 
-<!-- FEEDBACK SECTION FINAL -->
-<section class="feedbackSection">
-  <h2>Customer Feedback</h2>
-  <div class="rating" style="text-align:center;font-size:22px;font-weight:900;color:#7c3aed;margin-top:-10px;margin-bottom:20px;">Rating: 5.0/5</div>
 
-  <div id="mainFeedback" class="grid" style="padding:0 16px;"></div>
+<!-- FEEDBACK FINAL FIX: only existing Latest Feedback stays, display 4 cards + popup all -->
+<style>
+#feedbackGrid .feedbackCard:nth-child(n+5),
+.feedbackGrid .feedbackCard:nth-child(n+5),
+#feedbackList .feedbackCard:nth-child(n+5){
+  display:none!important;
+}
+#feedbackViewAllFinal{
+  display:block!important;
+  max-width:260px!important;
+  margin:24px auto 0!important;
+  border-radius:999px!important;
+}
+#feedbackPopupFinal .box{
+  max-width:520px!important;
+}
+#feedbackPopupFinal #feedbackPopupGrid{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:14px!important;
+}
+#feedbackPopupFinal .feedbackCard{
+  display:block!important;
+}
+</style>
 
-  <button class="btn" style="max-width:260px;margin:22px auto 0;display:block;border-radius:999px;"
-  onclick="openFeedbackPopup()">
-    🌟 View All Feedback
-  </button>
-</section>
-
-<!-- FEEDBACK POPUP -->
-<div id="feedbackPopup" class="popup">
+<div id="feedbackPopupFinal" class="popup">
   <div class="box popup-content">
-    <span class="close" onclick="closeFeedbackPopup()">×</span>
-
+    <span class="close" onclick="closeFeedbackPopupFinal()">×</span>
     <h3 style="text-align:center;color:#7c3aed;font-size:28px;margin-bottom:18px;">
       🌟 All Customer Feedback
     </h3>
-
-    <div id="allFeedback" class="grid" style="grid-template-columns:1fr;gap:14px;"></div>
+    <div id="feedbackPopupGrid"></div>
   </div>
 </div>
 
 <script>
-const feedbacks = [
-{
-name:"Ashok Kumar",
-text:"Outstanding seller! Quick activation, genuine services, and excellent customer support. Everything works smoothly without any hassle. Highly recommended"
-},
-{
-name:"Lakshitha",
-text:"Very professional seller with affordable prices and quick delivery. The software installation and OTT access were smooth and reliable. Great experience overall"
-},
-{
-name:"Abhi Ram",
-text:"Trusted seller with top-quality service. Everything was activated quickly and worked flawlessly. Will definitely purchase again"
-},
-{
-name:"Vignesh",
-text:"Amazing experience! The seller is friendly, responsive, and provides premium quality OTT and software services at great prices"
-},
-{
-name:"KIRAN KUMAR C",
-text:"Excellent service and genuine products! The OTT subscriptions and software worked perfectly without any issues. Highly recommended for fast response and trustworthy support"
-}
-];
+(function(){
+  function findFeedbackCards(){
+    const headings = Array.from(document.querySelectorAll("h2,h3")).filter(h =>
+      (h.textContent || "").toLowerCase().includes("feedback")
+    );
+    let section = null;
+    for(const h of headings){
+      const s = h.closest("section");
+      if(s && s.querySelectorAll(".feedbackCard").length){
+        section = s;
+        break;
+      }
+    }
+    if(!section) section = document.querySelector(".feedbackSection");
+    if(!section) return;
 
-function createFeedbackCard(fb){
-return `
-<div class="feedbackCard">
-<h3>${fb.name} -</h3>
-<div style="font-size:24px;color:#facc15;margin:4px 0 10px;">★★★★★</div>
-<p>${fb.text}</p>
-</div>
-`;
-}
+    const cards = Array.from(section.querySelectorAll(".feedbackCard"));
+    if(!cards.length) return;
 
-const mainFeedback=document.getElementById("mainFeedback");
-const allFeedback=document.getElementById("allFeedback");
+    // Remove duplicate top feedback section if any old added section exists
+    const allSections = Array.from(document.querySelectorAll("section.feedbackSection"));
+    if(allSections.length > 1){
+      allSections.slice(0, -1).forEach(sec => sec.remove());
+      section = allSections[allSections.length - 1];
+    }
 
-if(mainFeedback){
-mainFeedback.innerHTML = feedbacks.slice(0,4).map(createFeedbackCard).join("");
-}
+    // Keep only 4 cards visible in existing feedback section
+    Array.from(section.querySelectorAll(".feedbackCard")).forEach((card, i) => {
+      card.style.display = i < 4 ? "" : "none";
+    });
 
-if(allFeedback){
-allFeedback.innerHTML = feedbacks.map(createFeedbackCard).join("");
-}
+    // Remove old duplicate View All buttons inside feedback section
+    Array.from(section.querySelectorAll("button")).forEach(btn => {
+      if((btn.textContent || "").toLowerCase().includes("view all feedback")){
+        btn.remove();
+      }
+    });
 
-function openFeedbackPopup(){
-document.getElementById("feedbackPopup").style.display="flex";
-document.body.style.overflow="hidden";
-}
+    const btn = document.createElement("button");
+    btn.id = "feedbackViewAllFinal";
+    btn.className = "btn";
+    btn.innerHTML = "🌟 View All Feedback";
+    btn.onclick = openFeedbackPopupFinal;
+    section.appendChild(btn);
 
-function closeFeedbackPopup(){
-document.getElementById("feedbackPopup").style.display="none";
-document.body.style.overflow="auto";
-}
+    const popupGrid = document.getElementById("feedbackPopupGrid");
+    if(popupGrid){
+      popupGrid.innerHTML = "";
+      Array.from(section.querySelectorAll(".feedbackCard")).forEach(card => {
+        const clone = card.cloneNode(true);
+        clone.style.display = "block";
+        popupGrid.appendChild(clone);
+      });
+    }
+  }
+
+  window.openFeedbackPopupFinal = function(){
+    const popup = document.getElementById("feedbackPopupFinal");
+    if(popup){
+      popup.style.display = "flex";
+      document.body.style.overflow = "hidden";
+    }
+  };
+
+  window.closeFeedbackPopupFinal = function(){
+    const popup = document.getElementById("feedbackPopupFinal");
+    if(popup){
+      popup.style.display = "none";
+      document.body.style.overflow = "auto";
+    }
+  };
+
+  document.addEventListener("DOMContentLoaded", findFeedbackCards);
+  setTimeout(findFeedbackCards, 800);
+  setTimeout(findFeedbackCards, 2000);
+})();
 </script>
 
 </body>
