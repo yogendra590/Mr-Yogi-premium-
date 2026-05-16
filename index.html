@@ -3805,6 +3805,48 @@ document.addEventListener("click", function(e){
 })();
 </script>
 
+
+<!-- REMOVE OLD VIEW FEEDBACK BUTTON FINAL FIX -->
+<style>
+button:not(#feedbackViewAllFinal),
+a:not(#feedbackViewAllFinal){
+}
+.feedbackSection button:not(#feedbackViewAllFinal){
+  display:none!important;
+}
+.feedbackSection #feedbackViewAllFinal{
+  display:block!important;
+}
+</style>
+<script>
+(function(){
+  function removeOldFeedbackButton(){
+    const sections = Array.from(document.querySelectorAll("section")).filter(sec =>
+      (sec.textContent || "").toLowerCase().includes("feedback")
+    );
+
+    sections.forEach(section => {
+      Array.from(section.querySelectorAll("button,a")).forEach(el => {
+        const text = (el.textContent || "").trim().toLowerCase();
+        if(text === "view feedback"){
+          el.remove();
+        }
+      });
+    });
+
+    const finalBtn = document.getElementById("feedbackViewAllFinal");
+    if(finalBtn){
+      finalBtn.style.display = "block";
+      finalBtn.innerHTML = "🌟 View All Feedback";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", removeOldFeedbackButton);
+  setTimeout(removeOldFeedbackButton, 500);
+  setTimeout(removeOldFeedbackButton, 1500);
+})();
+</script>
+
 </body>
 </html>
 
