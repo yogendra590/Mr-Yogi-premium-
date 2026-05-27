@@ -6613,6 +6613,409 @@ body{padding-bottom:0!important}
 })();
 </script>
 
+
+<style id="yogi-v12-orders-realfeedback-mobilegroup-style">
+#mobileJoinGroupBar{display:none}
+@media (max-width:900px){
+  #mobileJoinGroupBar{
+    display:flex!important;
+    padding:10px 12px 0!important;
+    background:rgba(6,8,15,.92)!important;
+  }
+  #mobileJoinGroupBar a{
+    width:100%!important;display:flex!important;align-items:center!important;justify-content:center!important;
+    gap:8px!important;padding:12px 14px!important;border-radius:16px!important;text-decoration:none!important;
+    color:#fff!important;font-weight:1000!important;font-size:14px!important;
+    background:linear-gradient(90deg,#7c3aed,#ec4899)!important;box-shadow:0 12px 24px rgba(124,58,237,.24)!important;
+  }
+  .headerActions .groupBtn{display:none!important}
+}
+#homeFeedbackSummary{display:block!important;margin:22px 0 14px!important}
+#homeFeedbackSummary .yyHead{display:grid;gap:8px}
+#homeFeedbackSummary .yyLine{display:flex;align-items:center;justify-content:center;gap:12px}
+#homeFeedbackSummary .yyLine .line{flex:1;max-width:110px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent)}
+#homeFeedbackSummary .yyLine .title{font-size:20px;font-weight:1000;letter-spacing:.2px}
+#homeFeedbackSummary .yySentence{text-align:center;color:#cdd4e2;line-height:1.65;max-width:760px;margin:0 auto;font-size:14px}
+#homeFeedbackSummary .yy-miniViewFeedback{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:7px 12px!important;border-radius:999px!important;border:1px solid rgba(255,255,255,.10)!important;background:#141a27!important;color:#fff!important;font-size:12px!important;font-weight:900!important;margin:8px auto 0!important;cursor:pointer!important}
+#homeFeedbackPreviewWrap{display:flex;flex-direction:column;align-items:center;gap:12px}
+#homeFeedbackPreview{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important;margin-top:0!important;width:100%}
+#homeFeedbackPreview .feedbackPreviewItem{border-radius:20px!important;padding:16px!important;background:linear-gradient(180deg,#101624,#0d1320)!important;border:1px solid rgba(255,255,255,.08)!important}
+#homeFeedbackPreview .feedbackPreviewItem p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.realFeedbackEmpty{padding:18px!important;border-radius:18px!important;background:#111622!important;border:1px solid rgba(255,255,255,.08)!important;color:#d7ddeb!important;text-align:center!important;width:100%!important}
+#page-home > .sectionHead{display:none!important}
+.ordersPanel,.ordersCard{background:#101622;border:1px solid rgba(168,85,247,.18);border-radius:22px;padding:16px;box-shadow:0 16px 38px rgba(0,0,0,.20)}
+.ordersTop{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.ordersTop h2{font-size:24px;font-weight:1000}
+.ordersSearch{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.ordersSearch input{flex:1;min-width:220px;background:#171d2a;border:1px solid rgba(255,255,255,.08);color:#fff;border-radius:14px;padding:12px 14px;outline:none}
+.ordersSearch button{padding:12px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:#141a26;color:#fff;font-weight:900}
+.ordersTableWrap{overflow:auto}
+.ordersTable{width:100%;border-collapse:collapse}
+.ordersTable th,.ordersTable td{padding:12px 10px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;vertical-align:top}
+.ordersTable th{color:#dbe3f1;font-size:13px;letter-spacing:.8px}
+.orderStatus{display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:900}
+.orderStatus.pending{background:rgba(250,204,21,.12);color:#facc15}
+.orderStatus.completed{background:rgba(34,197,94,.12);color:#86efac}
+.orderStatus.cancelled{background:rgba(239,68,68,.12);color:#fca5a5}
+.orderActionBtns{display:flex;gap:8px;flex-wrap:wrap}
+.orderActionBtns button{padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:#161d2b;color:#fff;font-weight:800}
+.orderMiniList{display:grid;gap:12px}
+.orderMiniCard{background:#111622;border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:14px}
+.orderMiniHead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.orderMiniHead b{font-size:16px}
+.orderMiniMeta{color:#cbd3e2;line-height:1.6;margin-top:8px}
+.adminSide button[data-orders-tab="1"]{position:relative}
+.adminSide button[data-orders-tab="1"]::after{content:"";position:absolute;right:10px;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:999px;background:#60a5fa;opacity:.9}
+@media (max-width:900px){
+  #homeFeedbackPreview{grid-template-columns:1fr!important}
+  .ordersTableWrap{display:none}
+}
+@media (min-width:901px){
+  .orderMiniList{display:none}
+}
+</style>
+
+<script id="yogi-v12-orders-realfeedback-mobilegroup-script">
+(()=>{
+  const escHtml = (v) => String(v ?? '').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const load = (k,f=[]) => { try{ return typeof loadJSON==='function' ? loadJSON(k,f) : JSON.parse(localStorage.getItem(k) || JSON.stringify(f)); }catch(e){ return f; } };
+  const save = (k,v) => { try{ if(typeof saveJSON==='function') saveJSON(k,v); else localStorage.setItem(k, JSON.stringify(v)); }catch(e){} };
+  const numberVal = (v) => { const x = Number(v); return Number.isFinite(x) ? x : 0; };
+
+  function getRealFeedbacks(){
+    const arr = Array.isArray(window.feedbacks) ? window.feedbacks : [];
+    return arr.filter(f => f && String(f.name || '').trim() && String(f.message || '').trim());
+  }
+
+  function ensureMobileJoinGroup(){
+    const header = document.querySelector('.header');
+    if(!header) return;
+    let bar = document.getElementById('mobileJoinGroupBar');
+    if(!bar){
+      bar = document.createElement('div');
+      bar.id = 'mobileJoinGroupBar';
+      const link = (window.settings && settings.groupLink) ? settings.groupLink : 'https://chat.whatsapp.com/EcUM0d0ipZVFCvzjCtPrlE';
+      bar.innerHTML = `<a href="${escHtml(link)}" target="_blank">💬 Join WhatsApp Group</a>`;
+    }
+    const marquee = header.querySelector('.marqueeBar');
+    if(marquee && bar.parentNode !== header) header.insertBefore(bar, marquee.nextSibling);
+  }
+
+  function ensureFeedbackSummary(){
+    const preview = document.getElementById('homeFeedbackPreview');
+    if(!preview || !preview.parentNode) return;
+    let wrap = document.getElementById('homeFeedbackSummary');
+    if(!wrap){
+      wrap = document.createElement('div');
+      wrap.id = 'homeFeedbackSummary';
+      preview.parentNode.insertBefore(wrap, preview);
+    }
+    const arr = getRealFeedbacks();
+    const count = arr.length;
+    const avg = count ? (arr.reduce((a,b)=>a + Number(b.rating || 0), 0) / count) : 0;
+    const rounded = count ? Math.max(1, Math.round(avg)) : 5;
+    const stars = '★'.repeat(rounded);
+    wrap.innerHTML = `
+      <div class="yyHead">
+        <div class="yyLine"><div class="line"></div><div class="title">Customer Feedback</div><div class="line"></div></div>
+        <div class="yyLine"><div class="line"></div><div class="title" style="font-size:16px"><span style="color:#facc15">${stars}</span> <span style="margin-left:8px">${count ? avg.toFixed(1) + '/5' : 'No Reviews Yet'}</span> <span style="color:#c7cede;font-weight:800">${count ? '('+count+' Reviews)' : ''}</span></div><div class="line"></div></div>
+        <div class="yySentence">MR.YOGI PREMIUM — Trusted by customers for fast delivery, genuine service, and quick support.</div>
+      </div>`;
+    if(!wrap.querySelector('.yy-miniViewFeedback')){
+      const btn = document.createElement('button');
+      btn.className = 'yy-miniViewFeedback';
+      btn.type = 'button';
+      btn.textContent = 'View Feedback';
+      btn.onclick = () => typeof goPage === 'function' && goPage('feedback');
+      wrap.appendChild(btn);
+    }
+    let wrap2 = document.getElementById('homeFeedbackPreviewWrap');
+    if(!wrap2){
+      wrap2 = document.createElement('div');
+      wrap2.id = 'homeFeedbackPreviewWrap';
+      preview.parentNode.insertBefore(wrap2, preview);
+      wrap2.appendChild(preview);
+    }
+  }
+
+  window.feedbackStats = function(){
+    const arr = getRealFeedbacks();
+    const count = arr.length;
+    const avg = count ? (arr.reduce((a,b)=>a + Number(b.rating || 0), 0) / count) : 0;
+    return {count, avg: count ? avg.toFixed(1) : '0.0', rounded: count ? Math.max(1, Math.round(avg)) : 0};
+  };
+
+  window.renderHomeFeedbackPreview = function(){
+    ensureFeedbackSummary();
+    const el = document.getElementById('homeFeedbackPreview');
+    if(!el) return;
+    const arr = getRealFeedbacks().slice(0,5);
+    if(!arr.length){
+      el.innerHTML = '<div class="realFeedbackEmpty">No real customer feedback yet.</div>';
+      return;
+    }
+    el.innerHTML = arr.map(f => `
+      <div class="feedbackPreviewItem">
+        <b>${escHtml(f.name)}</b>
+        <div class="feedbackStars">${'★'.repeat(Number(f.rating || 5))}</div>
+        <p>${escHtml(f.message)}</p>
+      </div>`).join('');
+  };
+
+  window.renderFeedbacks = function(){
+    const list = document.getElementById('feedbackList');
+    if(!list) return;
+    const arr = getRealFeedbacks();
+    if(!arr.length){
+      list.innerHTML = '<div class="realFeedbackEmpty">No real feedback yet.</div>';
+      return;
+    }
+    list.innerHTML = arr.map(f => `
+      <div class="item">
+        <div class="avatar">${escHtml(String(f.name || 'U').charAt(0).toUpperCase())}</div>
+        <div>
+          <b>${escHtml(f.name)}</b>
+          <div class="feedbackStars">${'★'.repeat(Number(f.rating || 5))}</div>
+          <div style="color:#d1d7e4;margin-top:6px">${escHtml(f.message)}</div>
+        </div>
+      </div>`).join('');
+  };
+
+  function loadOrders(){
+    return load('mryogi_orders', []);
+  }
+  function saveOrders(arr){
+    window.ordersData = arr;
+    save('mryogi_orders', arr);
+  }
+  function nowTimeString(){
+    try{ return new Date().toLocaleTimeString('en-IN', {hour:'2-digit', minute:'2-digit'}); }catch(e){ return new Date().toLocaleTimeString(); }
+  }
+  function ensureCurrentOrderMeta(){
+    if(!window.currentOrder || !window.currentOrder.orderId){
+      const oid = typeof generateOrderId === 'function' ? generateOrderId() : ('MY' + Date.now());
+      const odate = typeof formatDate === 'function' ? formatDate(new Date()) : new Date().toLocaleDateString('en-GB');
+      window.currentOrder = {orderId: oid, date: odate, time: nowTimeString()};
+      try{ currentOrder = window.currentOrder; }catch(e){}
+    }else if(!window.currentOrder.time){
+      window.currentOrder.time = nowTimeString();
+      try{ currentOrder = window.currentOrder; }catch(e){}
+    }
+    return window.currentOrder;
+  }
+  function ensureOrderRecord(items, sourceLabel){
+    items = Array.isArray(items) ? items.filter(Boolean) : [];
+    if(!items.length) return null;
+    const meta = ensureCurrentOrderMeta();
+    const total = items.reduce((s, x) => s + numberVal(x && x.price), 0);
+    const productNames = [...new Set(items.map(x => String((x && x.name) || '').trim()).filter(Boolean))].join(', ');
+    const planNames = [...new Set(items.map(x => String((x && x.planName) || '').trim()).filter(Boolean))].join(', ');
+    const orders = loadOrders();
+    const existingIndex = orders.findIndex(o => String(o.orderId) === String(meta.orderId));
+    const record = {
+      orderId: meta.orderId,
+      product: productNames,
+      plan: planNames,
+      price: total,
+      date: meta.date || (typeof formatDate === 'function' ? formatDate(new Date()) : new Date().toLocaleDateString('en-GB')),
+      time: meta.time || nowTimeString(),
+      status: existingIndex >= 0 ? (orders[existingIndex].status || 'Pending') : 'Pending',
+      source: sourceLabel || 'Website',
+      items: items.length
+    };
+    if(existingIndex >= 0) orders[existingIndex] = Object.assign({}, orders[existingIndex], record);
+    else orders.unshift(record);
+    saveOrders(orders);
+    return record;
+  }
+  window.updateOrderStatus = function(orderId, status){
+    const orders = loadOrders().map(o => String(o.orderId) === String(orderId) ? Object.assign({}, o, {status}) : o);
+    saveOrders(orders);
+    if(typeof renderAdmin === 'function') renderAdmin('orders');
+  };
+  window.deleteOrderRecord = function(orderId){
+    if(!confirm('Delete this order?')) return;
+    const orders = loadOrders().filter(o => String(o.orderId) !== String(orderId));
+    saveOrders(orders);
+    if(typeof renderAdmin === 'function') renderAdmin('orders');
+  };
+  window.searchOrderAdmin = function(v){
+    window.__ordersSearch = String(v || '').trim().toLowerCase();
+    if(typeof renderAdmin === 'function') renderAdmin('orders');
+  };
+  function orderStatusClass(v){
+    const x = String(v || 'Pending').toLowerCase();
+    if(x.includes('complete')) return 'completed';
+    if(x.includes('cancel')) return 'cancelled';
+    return 'pending';
+  }
+  function ordersAdminHTML(){
+    const q = String(window.__ordersSearch || '').trim().toLowerCase();
+    let arr = loadOrders();
+    if(q) arr = arr.filter(o =>
+      String(o.orderId || '').toLowerCase().includes(q) ||
+      String(o.product || '').toLowerCase().includes(q) ||
+      String(o.plan || '').toLowerCase().includes(q) ||
+      String(o.date || '').toLowerCase().includes(q)
+    );
+    const rows = arr.map((o, i) => `
+      <tr>
+        <td>${i+1}</td>
+        <td><b>#${escHtml(o.orderId)}</b><div style="color:#9fb0cb;font-size:12px;margin-top:4px">${escHtml(o.source || 'Website')}</div></td>
+        <td>${escHtml(o.product)}</td>
+        <td>${escHtml(o.plan)}</td>
+        <td>₹${escHtml(o.price)}</td>
+        <td>${escHtml(o.date)}<br><span style="color:#aeb9cd">${escHtml(o.time || '')}</span></td>
+        <td><span class="orderStatus ${orderStatusClass(o.status)}">${escHtml(o.status || 'Pending')}</span></td>
+        <td>
+          <div class="orderActionBtns">
+            <button onclick="updateOrderStatus('${escHtml(o.orderId)}','Completed')">Complete</button>
+            <button onclick="updateOrderStatus('${escHtml(o.orderId)}','Cancelled')">Cancel</button>
+            <button onclick="deleteOrderRecord('${escHtml(o.orderId)}')">Delete</button>
+          </div>
+        </td>
+      </tr>`).join('');
+    const cards = arr.map(o => `
+      <div class="orderMiniCard">
+        <div class="orderMiniHead">
+          <div><b>#${escHtml(o.orderId)}</b><div style="color:#9fb0cb;font-size:12px;margin-top:4px">${escHtml(o.source || 'Website')}</div></div>
+          <span class="orderStatus ${orderStatusClass(o.status)}">${escHtml(o.status || 'Pending')}</span>
+        </div>
+        <div class="orderMiniMeta">
+          <div><b>Product:</b> ${escHtml(o.product)}</div>
+          <div><b>Plan:</b> ${escHtml(o.plan)}</div>
+          <div><b>Price:</b> ₹${escHtml(o.price)}</div>
+          <div><b>Date:</b> ${escHtml(o.date)} ${o.time ? '• ' + escHtml(o.time) : ''}</div>
+        </div>
+        <div class="orderActionBtns" style="margin-top:12px">
+          <button onclick="updateOrderStatus('${escHtml(o.orderId)}','Completed')">Complete</button>
+          <button onclick="updateOrderStatus('${escHtml(o.orderId)}','Cancelled')">Cancel</button>
+          <button onclick="deleteOrderRecord('${escHtml(o.orderId)}')">Delete</button>
+        </div>
+      </div>`).join('');
+    return `
+      <div class="ordersPanel">
+        <div class="ordersTop">
+          <h2>Customer Orders</h2>
+          <div style="color:#9fb0cb;font-weight:900">Total Orders: ${arr.length}</div>
+        </div>
+        <div class="ordersSearch">
+          <input id="ordersSearchInput" placeholder="Search by Order ID / Product / Plan / Date" value="${escHtml(window.__ordersSearch || '')}" oninput="searchOrderAdmin(this.value)">
+          <button type="button" onclick="searchOrderAdmin('');document.getElementById('ordersSearchInput').value=''">Clear</button>
+        </div>
+        ${arr.length ? `
+          <div class="ordersTableWrap">
+            <table class="ordersTable">
+              <thead><tr><th>#</th><th>Order ID</th><th>Product</th><th>Plan</th><th>Price</th><th>Date & Time</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+          <div class="orderMiniList">${cards}</div>
+        ` : '<div class="realFeedbackEmpty">No customer orders yet.</div>'}
+      </div>`;
+  }
+
+  function ensureOrdersAdminButton(){
+    const side = document.querySelector('.adminSide');
+    if(!side || side.querySelector('[data-orders-tab="1"]')) return;
+    const btn = document.createElement('button');
+    btn.textContent = 'Orders';
+    btn.setAttribute('data-orders-tab', '1');
+    btn.onclick = function(){ adminTab('orders', this); };
+    side.insertBefore(btn, side.children[2] || null);
+  }
+
+  const oldAdminTab = window.adminTab;
+  window.adminTab = function(tab, btn){
+    document.querySelectorAll('.adminSide button').forEach(b => b.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+    if(tab === 'orders'){ if(typeof renderAdmin === 'function') renderAdmin('orders'); return; }
+    if(typeof oldAdminTab === 'function') oldAdminTab(tab, btn);
+  };
+
+  const oldRenderAdmin = window.renderAdmin;
+  window.renderAdmin = function(tab='products'){
+    ensureOrdersAdminButton();
+    if(tab === 'orders'){
+      const root = document.getElementById('adminMount');
+      if(root) root.innerHTML = ordersAdminHTML();
+      return;
+    }
+    if(typeof oldRenderAdmin === 'function') oldRenderAdmin(tab);
+    ensureOrdersAdminButton();
+  };
+
+  window.buildWhatsAppOrderMessage = function(item){
+    return `*Hello MR.YOGI PREMIUM 👋*\n\n*I’m interested in ordering this product.*\n\n*✨ Product:* ${String(item.name || '')}\n*📅 Plan:* ${String(item.planName || '')}\n*💵 Price:* ₹${item.price}\n\n*Could you please confirm if this plan is in stock right now? If available, send me the payment details so I can place the order immediately.*\n\n*Thank you ❤️*`;
+  };
+
+  window.buyNowSelected = function(){
+    const item = typeof selectedCartItem === 'function' ? selectedCartItem() : null;
+    if(!item) return;
+    if((item.orderMode || 'qr') === 'whatsapp'){
+      const rec = ensureOrderRecord([item], 'WhatsApp Order');
+      if(rec){
+        window.currentOrder = {orderId: rec.orderId, date: rec.date, time: rec.time};
+        try{ currentOrder = window.currentOrder; }catch(e){}
+      }
+      const msg = window.buildWhatsAppOrderMessage(item);
+      window.open(`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(msg)}`,'_blank');
+      if(typeof closeProductModal === 'function') closeProductModal();
+      return;
+    }
+    window.cart = [item];
+    try{ cart = window.cart; }catch(e){}
+    window.currentOrder = null;
+    ensureOrderRecord(window.cart, 'Website Order');
+    try{ if(typeof saveJSON==='function') saveJSON('mryogi_cart', window.cart); }catch(e){}
+    try{ if(typeof updateCartBadge==='function') updateCartBadge(); }catch(e){}
+    if(typeof renderCart==='function') renderCart();
+    if(typeof closeProductModal==='function') closeProductModal();
+    if(typeof goPage==='function') goPage('checkout');
+    setTimeout(()=>{ if(typeof renderCheckout==='function') renderCheckout(); }, 90);
+  };
+
+  window.proceedCheckout = function(){
+    const list = Array.isArray(window.cart) ? window.cart : [];
+    if(!list.length){ alert('Your cart is empty.'); return; }
+    ensureOrderRecord(list, 'Website Order');
+    if(typeof goPage==='function') goPage('checkout');
+    setTimeout(()=>{ if(typeof renderCheckout==='function') renderCheckout(); }, 90);
+  };
+
+  const oldRenderCheckout = window.renderCheckout;
+  window.renderCheckout = function(){
+    const list = Array.isArray(window.cart) ? window.cart : [];
+    if(list.length) ensureOrderRecord(list, 'Website Order');
+    if(typeof oldRenderCheckout === 'function') oldRenderCheckout();
+  };
+
+  const oldRenderHome = window.renderHome;
+  window.renderHome = function(){
+    if(typeof oldRenderHome === 'function') oldRenderHome();
+    ensureMobileJoinGroup();
+    window.renderHomeFeedbackPreview();
+  };
+
+  const oldGoPage = window.goPage;
+  window.goPage = function(page, btn){
+    if(typeof oldGoPage === 'function') oldGoPage(page, btn);
+    ensureMobileJoinGroup();
+    if(page === 'feedback') window.renderFeedbacks();
+    if(page === 'home') window.renderHomeFeedbackPreview();
+    if(page === 'admin') ensureOrdersAdminButton();
+  };
+
+  function boot(){
+    ensureMobileJoinGroup();
+    ensureOrdersAdminButton();
+    window.renderHomeFeedbackPreview();
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
+
 </body>
 
 </html>
