@@ -7016,6 +7016,764 @@ body{padding-bottom:0!important}
 })();
 </script>
 
+
+<style id="yogi-team-complaints-admin-patch">
+.adminMenuToggle{display:none;width:100%;margin-bottom:10px;border:1px solid rgba(255,255,255,.10);background:linear-gradient(90deg,#7c3aed,#ec4899);color:#fff;border-radius:14px;padding:13px 14px;font-weight:1000;text-align:left}
+.adminSide.menuClosed button:not(.adminMenuToggle){display:none!important}
+.adminStatsGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.adminStatCard{background:linear-gradient(180deg,#151b2a,#101622);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:16px}
+.adminStatCard .label{color:#b9c3d6;font-size:12px;font-weight:900;letter-spacing:1px}.adminStatCard .value{font-size:28px;font-weight:1000;margin-top:8px}
+.complaintBtn{width:100%;margin-top:12px;border:0;border-radius:16px;padding:15px 16px;background:linear-gradient(90deg,#7c3aed,#ec4899);color:#fff;font-weight:1000}
+.ticketBadge{display:inline-flex;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:950;background:#3b2a12;color:#fcd34d}.ticketBadge.solved{background:#0b3a24;color:#86efac}.ticketBadge.closed{background:#3a1212;color:#fca5a5}
+.sqlBox{white-space:pre-wrap;background:#070b12;border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:16px;color:#d8e2f5;line-height:1.55;overflow:auto;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
+.featureAdminGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.featureAdminCard{background:#111622;border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:16px;line-height:1.6}
+.offlineOverlay{position:fixed;inset:0;z-index:5000;background:radial-gradient(circle at 50% 0,rgba(124,58,237,.28),transparent 35%),#05070d;display:flex;align-items:center;justify-content:center;padding:18px;text-align:center}.offlineBox{max-width:520px;background:#101622;border:1px solid rgba(236,72,153,.35);border-radius:28px;padding:28px;box-shadow:0 30px 80px rgba(0,0,0,.45)}.offlineBox h1{font-size:30px;margin-bottom:10px}.offlineBox p{color:#cdd6e8;line-height:1.7}
+@media(max-width:900px){.adminMenuToggle{display:block}.adminSide{display:block!important}.adminStatsGrid,.featureAdminGrid{grid-template-columns:1fr}.adminSide button{text-align:left!important;width:100%!important;margin:0 0 8px!important}.adminLayout{gap:12px!important}}
+</style>
+<script id="yogi-team-complaints-admin-patch-script">
+(()=>{
+  const OWNER_EMAIL='mryogiottseller@gmail.com';
+  const OWNER_PASS='yogi19001';
+  const E=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const load=(k,f=[])=>{try{return typeof loadJSON==='function'?loadJSON(k,f):JSON.parse(localStorage.getItem(k)||JSON.stringify(f));}catch(e){return f;}};
+  const save=(k,v)=>{try{if(typeof saveJSON==='function')saveJSON(k,v);else localStorage.setItem(k,JSON.stringify(v));}catch(e){}};
+  const todayKey=d=>{try{return new Date(d).toISOString().slice(0,10)}catch(e){return new Date().toISOString().slice(0,10)}};
+  function setSession(obj){localStorage.setItem('mryogi_admin_session',JSON.stringify(obj));localStorage.setItem('mryogi_admin','true');}
+  function session(){try{return JSON.parse(localStorage.getItem('mryogi_admin_session')||'null')||null}catch(e){return null}}
+  function role(){const s=session();return s&&s.role?s.role:(localStorage.getItem('mryogi_admin')==='true'?'owner':null)}
+  function isOwner(){return role()==='owner'}
+  function isTeam(){return role()==='team'}
+  window.isAdmin=function(){return !!role();};
+  window.adminLogout=function(){localStorage.removeItem('mryogi_admin');localStorage.removeItem('mryogi_admin_session');if(typeof refreshHeader==='function')refreshHeader();if(typeof goPage==='function')goPage('home');};
+  window.adminLogin=function(){
+    if(window.isAdmin()){goPage('admin');renderAdmin(isTeam()?'products':'dashboard');return;}
+    const email=prompt('Enter Admin / Team Email'); if(email===null)return;
+    const password=prompt('Enter Password'); if(password===null)return;
+    if(email.trim().toLowerCase()===OWNER_EMAIL && password===OWNER_PASS){setSession({role:'owner',name:'Owner',email:OWNER_EMAIL});refreshHeader();goPage('admin');renderAdmin('dashboard');return;}
+    const team=load('mryogi_team',[]).find(t=>String(t.email||'').trim().toLowerCase()===email.trim().toLowerCase() && String(t.password||'')===password);
+    if(team){setSession({role:'team',name:team.name||'Team Member',email:team.email});refreshHeader();goPage('admin');renderAdmin('products');return;}
+    alert('Invalid login.');
+  };
+  function allowedTabs(){return isTeam()?['products','form','coupons','offers']:['dashboard','orders','products','form','coupons','offers','complaints','team','features','sql','settings','feedback'];}
+  function tabLabel(t){return {dashboard:'Dashboard',orders:'Orders',products:'Products',form:'Add / Edit',coupons:'Coupons',offers:'Offers',complaints:'Complaint Tickets',team:'Team Access',features:'Website Features',sql:'Meta SQL',settings:'Settings',feedback:'Feedback'}[t]||t;}
+  function rebuildAdminSide(active='dashboard'){
+    const side=document.querySelector('.adminSide'); if(!side)return;
+    const tabs=allowedTabs(); if(!tabs.includes(active)) active=tabs[0];
+    side.innerHTML=`<button class="adminMenuToggle" onclick="toggleAdminMenu()">☰ Admin Menu</button><h3>MR.YOGI PREMIUM<br><small style="color:#c9d0df">${isOwner()?'OWNER PANEL':'TEAM PANEL'}</small></h3>`+tabs.map(t=>`<button class="${t===active?'active':''}" onclick="adminTab('${t}',this)">${tabLabel(t)}</button>`).join('');
+    if(window.innerWidth<=900) side.classList.add('menuClosed');
+  }
+  window.toggleAdminMenu=function(){const side=document.querySelector('.adminSide'); if(side) side.classList.toggle('menuClosed');};
+  function getOrders(){return load('mryogi_orders',[])}
+  function sales(days){const now=new Date();return getOrders().filter(o=>{const dt=new Date((o.date||todayKey(new Date())).split('/').reverse().join('-') || o.date); if(days===1) return todayKey(dt)===todayKey(now); return (now-dt)<=days*86400000;}).reduce((s,o)=>s+Number(o.price||0),0)}
+  function dashboardHTML(){return `<div class="adminPanel"><div class="adminHeader"><h2>Owner Dashboard</h2><span class="chip">Logged in as Owner</span></div><div class="adminStatsGrid"><div class="adminStatCard"><div class="label">TODAY SALES</div><div class="value">₹${sales(1)}</div></div><div class="adminStatCard"><div class="label">7 DAYS SALES</div><div class="value">₹${sales(7)}</div></div><div class="adminStatCard"><div class="label">30 DAYS SALES</div><div class="value">₹${sales(30)}</div></div></div><div class="settingsCard"><b>Quick Access</b><p style="color:#cfd6e6;margin-top:8px;line-height:1.7">Orders, complaint tickets, team access, website online/offline, features and Meta SQL are available from the 3-line Admin Menu.</p></div></div>`}
+  function teamHTML(){const arr=load('mryogi_team',[]);return `<div class="adminPanel"><div class="adminHeader"><h2>Team Access</h2></div><div class="adminForm"><div><label style="display:block;margin-bottom:7px;font-weight:900">Team Name</label><input id="teamName" class="adminInput" placeholder="Team member name"></div><div><label style="display:block;margin-bottom:7px;font-weight:900">Team Email</label><input id="teamEmail" class="adminInput" placeholder="team@gmail.com"></div><div><label style="display:block;margin-bottom:7px;font-weight:900">Team Password</label><input id="teamPass" class="adminInput" placeholder="Password"></div><div><label style="display:block;margin-bottom:7px;font-weight:900">Access</label><div class="adminInput">Only Products, Add/Edit, Coupons & Offers</div></div><div class="full"><button class="primaryBtn" style="width:100%" onclick="addTeamMember()">Add Team Member</button></div></div><div style="margin-top:18px" class="tableWrap"><table><thead><tr><th>#</th><th>Name</th><th>Email</th><th>Access</th><th>Action</th></tr></thead><tbody>${arr.length?arr.map((t,i)=>`<tr><td>${i+1}</td><td>${E(t.name)}</td><td>${E(t.email)}</td><td>Products, Coupons, Offers</td><td><button class="act del" onclick="deleteTeamMember('${E(t.id)}')">🗑</button></td></tr>`).join(''):'<tr><td colspan="5">No team members added.</td></tr>'}</tbody></table></div></div>`}
+  window.addTeamMember=function(){const name=document.getElementById('teamName').value.trim(),email=document.getElementById('teamEmail').value.trim(),password=document.getElementById('teamPass').value.trim(); if(!name||!email||!password){alert('Fill team name, email and password.');return;} const arr=load('mryogi_team',[]); arr.unshift({id:'tm'+Date.now(),name,email,password}); save('mryogi_team',arr); renderAdmin('team');};
+  window.deleteTeamMember=function(id){if(!confirm('Delete team member?'))return; save('mryogi_team',load('mryogi_team',[]).filter(t=>String(t.id)!==String(id))); renderAdmin('team');};
+  function complaintsHTML(){const arr=load('mryogi_complaints',[]);return `<div class="adminPanel"><div class="adminHeader"><h2>Complaint Tickets</h2><span class="chip">${arr.length} Tickets</span></div><div class="tableWrap"><table><thead><tr><th>#</th><th>Customer</th><th>Contact</th><th>Problem</th><th>Date</th><th>Status</th><th>Action</th></tr></thead><tbody>${arr.length?arr.map((c,i)=>`<tr><td>${i+1}</td><td>${E(c.name)}</td><td>${E(c.contact)}</td><td>${E(c.problem)}</td><td>${E(c.date)}</td><td><span class="ticketBadge ${String(c.status).toLowerCase()}">${E(c.status||'Open')}</span></td><td><button class="act edit" onclick="updateComplaint('${E(c.id)}','Solved')">✓</button><button class="act del" onclick="deleteComplaint('${E(c.id)}')">🗑</button></td></tr>`).join(''):'<tr><td colspan="7">No complaints yet.</td></tr>'}</tbody></table></div></div>`}
+  window.updateComplaint=function(id,status){const arr=load('mryogi_complaints',[]).map(c=>String(c.id)===String(id)?{...c,status}:c);save('mryogi_complaints',arr);renderAdmin('complaints')};
+  window.deleteComplaint=function(id){if(!confirm('Delete complaint?'))return;save('mryogi_complaints',load('mryogi_complaints',[]).filter(c=>String(c.id)!==String(id)));renderAdmin('complaints')};
+  function offersHTML(){const offers=load('mryogi_offers',[]);return `<div class="adminPanel"><div class="adminHeader"><h2>Offers</h2></div><div class="adminForm"><div><label style="display:block;margin-bottom:7px;font-weight:900">Offer Title</label><input id="offerTitleIn" class="adminInput" placeholder="Special Offer"></div><div><label style="display:block;margin-bottom:7px;font-weight:900">Coupon Code</label><input id="offerCodeIn" class="adminInput" placeholder="MR10"></div><div class="full"><label style="display:block;margin-bottom:7px;font-weight:900">Offer Text</label><textarea id="offerTextIn" class="adminTextarea" placeholder="Get 10% OFF on all plans"></textarea></div><div class="full"><button class="primaryBtn" style="width:100%" onclick="createOfferAdmin()">Create Offer</button></div></div><div style="margin-top:18px">${offers.length?offers.map(o=>`<div class="settingsCard" style="margin-bottom:12px"><b>${E(o.title)}</b><p style="color:#d5ddea;margin-top:8px">${E(o.text)}</p><div class="chip" style="margin-top:8px">${E(o.code)}</div><button class="act del" style="margin-top:12px" onclick="deleteOfferAdmin('${E(o.id)}')">🗑</button></div>`).join(''):'<div class="empty">No offers created yet.</div>'}</div></div>`}
+  window.createOfferAdmin=function(){const title=document.getElementById('offerTitleIn').value.trim(),text=document.getElementById('offerTextIn').value.trim(),code=document.getElementById('offerCodeIn').value.trim().toUpperCase(); if(!title||!text){alert('Fill offer title and text.');return;} const arr=load('mryogi_offers',[]); arr.unshift({id:'of'+Date.now(),title,text,code}); save('mryogi_offers',arr); renderAdmin('offers')};
+  window.deleteOfferAdmin=function(id){save('mryogi_offers',load('mryogi_offers',[]).filter(o=>String(o.id)!==String(id)));renderAdmin('offers')};
+  function featuresHTML(){return `<div class="adminPanel"><div class="adminHeader"><h2>Website Features</h2></div><div class="featureAdminGrid"><div class="featureAdminCard">✅ Admin can add products, coupons and offers</div><div class="featureAdminCard">✅ Team login with limited access</div><div class="featureAdminCard">✅ Customer orders show in admin panel</div><div class="featureAdminCard">✅ Complaint tickets from support page</div><div class="featureAdminCard">✅ Website online/offline toggle</div><div class="featureAdminCard">✅ Sales report: today, 7 days and 30 days</div></div></div>`}
+  function sqlHTML(){const sql=`-- MR.YOGI PREMIUM META SQL\ncreate table if not exists products (id uuid primary key default gen_random_uuid(), name text, category text, image text, price numeric, plans text, status text, created_at timestamp default now());\ncreate table if not exists coupons (id uuid primary key default gen_random_uuid(), code text unique, discount numeric, discount_type text default 'amount', expiry date, created_at timestamp default now());\ncreate table if not exists offers (id uuid primary key default gen_random_uuid(), title text, text text, code text, active boolean default true, created_at timestamp default now());\ncreate table if not exists orders (id uuid primary key default gen_random_uuid(), order_id text, product text, plan text, price numeric, status text default 'Pending', created_at timestamp default now());\ncreate table if not exists complaint_tickets (id uuid primary key default gen_random_uuid(), name text, contact text, problem text, status text default 'Open', created_at timestamp default now());\ncreate table if not exists team_members (id uuid primary key default gen_random_uuid(), name text, email text unique, password text, role text default 'team', created_at timestamp default now());\ncreate table if not exists site_settings (id int primary key default 1, website_status text default 'online', updated_at timestamp default now());`;return `<div class="adminPanel"><div class="adminHeader"><h2>Meta SQL</h2><button class="smallBtn" onclick="navigator.clipboard.writeText(document.getElementById('metaSqlText').innerText);alert('SQL copied')">Copy SQL</button></div><div id="metaSqlText" class="sqlBox">${E(sql)}</div></div>`}
+  function enhancedSettingsHTML(){let html=typeof settingsHTML==='function'?settingsHTML():''; const st=load('mryogi_site_status',{online:true}); const extra=`<div class="settingsCard full" style="margin-top:16px"><h3>Website Status</h3><p style="color:#cfd6e6;margin:8px 0 12px">Offline chesthe customers website lo offline screen chupisthundi. Admin/Team ki panel open avuthundi.</p><select id="siteOnlineSelect" class="adminSelect"><option value="online" ${st.online!==false?'selected':''}>Website Online</option><option value="offline" ${st.online===false?'selected':''}>Website Offline</option></select><button class="primaryBtn" style="width:100%;margin-top:12px" onclick="saveSiteStatus()">Save Website Status</button></div>`;return html.replace('</div></div>', extra+'</div></div>')}
+  window.saveSiteStatus=function(){const online=document.getElementById('siteOnlineSelect').value==='online';save('mryogi_site_status',{online});applyOfflineStatus();alert('Website status saved.');};
+  function applyOfflineStatus(){let ov=document.getElementById('offlineOverlay'); const st=load('mryogi_site_status',{online:true}); if(st.online===false && !window.isAdmin()){if(!ov){ov=document.createElement('div');ov.id='offlineOverlay';ov.className='offlineOverlay';ov.innerHTML='<div class="offlineBox"><h1>🚧 Website Offline</h1><p>MR.YOGI PREMIUM website is under maintenance. Please contact support on WhatsApp for urgent orders.</p></div>';document.body.appendChild(ov)}}else if(ov)ov.remove();}
+  function supportComplaintButton(){const page=document.getElementById('page-support'); if(!page||document.getElementById('complaintTicketBox'))return; const card=page.querySelector('.supportCard'); if(!card)return; const box=document.createElement('div'); box.id='complaintTicketBox'; box.className='checkoutBox'; box.style.marginTop='14px'; box.innerHTML=`<b>Complaint Ticket</b><p style="color:#d1d7e4;margin:8px 0 12px;line-height:1.6">Problem share cheyandi. Ticket admin panel lo chupisthundi.</p><button class="complaintBtn" onclick="openComplaintForm()">📝 Complaint Ticket</button><div id="complaintForm" class="hidden" style="margin-top:12px;display:grid;gap:10px"><input id="ctName" class="input" placeholder="Your name"><input id="ctContact" class="input" placeholder="WhatsApp / Email"><textarea id="ctProblem" class="textarea" placeholder="Describe your problem"></textarea><button class="primaryBtn" onclick="submitComplaintTicket()">Submit Ticket</button></div>`;card.appendChild(box)}
+  window.openComplaintForm=function(){document.getElementById('complaintForm')?.classList.toggle('hidden')};
+  window.submitComplaintTicket=function(){const name=document.getElementById('ctName').value.trim(),contact=document.getElementById('ctContact').value.trim(),problem=document.getElementById('ctProblem').value.trim(); if(!name||!contact||!problem){alert('Please fill name, contact and problem.');return;} const arr=load('mryogi_complaints',[]); arr.unshift({id:'ct'+Date.now(),name,contact,problem,status:'Open',date:new Date().toLocaleString('en-IN')});save('mryogi_complaints',arr);document.getElementById('complaintForm').classList.add('hidden');alert('Complaint ticket submitted. Admin will check it.');};
+  const oldGo=window.goPage; window.goPage=function(page,btn){ if(typeof oldGo==='function')oldGo(page,btn); if(page==='support')supportComplaintButton(); if(page==='admin')rebuildAdminSide(isTeam()?'products':'dashboard'); applyOfflineStatus(); };
+  const oldTab=window.adminTab; window.adminTab=function(tab,btn){ if(!allowedTabs().includes(tab))tab=allowedTabs()[0]; rebuildAdminSide(tab); const side=document.querySelector('.adminSide'); if(side&&window.innerWidth<=900)side.classList.add('menuClosed'); renderAdmin(tab); };
+  const oldRender=window.renderAdmin; window.renderAdmin=function(tab='dashboard'){
+    if(!allowedTabs().includes(tab))tab=allowedTabs()[0]; rebuildAdminSide(tab);
+    const root=document.getElementById('adminMount'); if(!root)return;
+    if(tab==='dashboard'){root.innerHTML=dashboardHTML();return}
+    if(tab==='team'){root.innerHTML=teamHTML();return}
+    if(tab==='complaints'){root.innerHTML=complaintsHTML();return}
+    if(tab==='offers'){root.innerHTML=offersHTML();return}
+    if(tab==='features'){root.innerHTML=featuresHTML();return}
+    if(tab==='sql'){root.innerHTML=sqlHTML();return}
+    if(tab==='settings'){root.innerHTML=enhancedSettingsHTML();return}
+    if(typeof oldRender==='function')oldRender(tab);
+  };
+  const oldRefresh=window.refreshHeader; window.refreshHeader=function(){if(typeof oldRefresh==='function')oldRefresh();applyOfflineStatus();};
+  function boot(){supportComplaintButton();applyOfflineStatus(); if(window.isAdmin()&&document.getElementById('page-admin')&&!document.getElementById('page-admin').classList.contains('hidden'))rebuildAdminSide(isTeam()?'products':'dashboard');}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot); else boot();
+})();
+</script>
+
+
+<!-- YOGI FINAL SKY BLUE + SEARCH + CATEGORY + TICKET TRACK PATCH -->
+<style id="yogi-final-skyblue-ticket-search-patch">
+:root{--purple:#0284c7!important;--pink:#38bdf8!important;--cyan:#7dd3fc!important;--bg:#e0f7ff!important;--bg2:#f0fbff!important;--panel:#ffffff!important;--panel2:#eaf8ff!important;--text:#062033!important;--muted:#35546b!important;--line:rgba(2,132,199,.20)!important}
+body{background:radial-gradient(circle at 70% 0,rgba(56,189,248,.28),transparent 30%),linear-gradient(180deg,#dff7ff,#f3fcff 45%,#dff7ff)!important;color:#062033!important}.sidebar,.header{background:linear-gradient(180deg,#0284c7,#0369a1)!important;border-color:rgba(255,255,255,.25)!important;color:#fff!important}.nav button,.mobileBrandText,.brand h1,.header *{color:#fff!important}.nav button:hover,.nav button.active,.primaryBtn,.groupBtn,.chooseBtn{background:linear-gradient(90deg,#0284c7,#38bdf8)!important;color:#fff!important}.circleBtn{background:rgba(255,255,255,.16)!important;color:#fff!important}.marqueeBar{background:linear-gradient(90deg,#0284c7,#38bdf8,#7dd3fc)!important}.hero{max-width:980px;margin:10px auto 12px!important;border-color:rgba(2,132,199,.28)!important;background:linear-gradient(135deg,#e0f7ff,#ffffff 55%,#caf0ff)!important;color:#062033!important}.heroSlide{min-height:145px!important;padding:12px 14px 46px!important}.slideTitle{font-size:20px!important;color:#063852!important}.slideMeta span{background:rgba(2,132,199,.10)!important;color:#06445f!important;border-color:rgba(2,132,199,.18)!important}.slideStart,.slideOld{color:#35546b!important}.slidePrice{font-size:24px!important;color:#0284c7!important}.slideImg{height:76px!important;background:rgba(255,255,255,.65)!important;border:1px solid rgba(2,132,199,.15)!important}.heroArrow{width:34px!important;height:34px!important;background:rgba(2,132,199,.18)!important;color:#0369a1!important}.heroDot{background:rgba(2,132,199,.22)!important}.heroDot.active{background:#0284c7!important}.tabs{background:rgba(255,255,255,.38);border-radius:18px;padding:10px!important}.tab{background:#fff!important;color:#075985!important;border-color:rgba(2,132,199,.20)!important}.tab.active{background:linear-gradient(90deg,#0284c7,#38bdf8)!important;color:#fff!important}.card,.panel,.supportCard,.checkoutBox,.cartSummary,.couponBox,.totalBox,.settingsCard,.adminPanel,.adminSide,.modalBox,.policyBox{background:#ffffff!important;color:#062033!important;border-color:rgba(2,132,199,.18)!important;box-shadow:0 14px 36px rgba(2,132,199,.10)!important}.cardTitle,.sectionHead h2,.adminHeader h2,.supportCard h3,.panel h3,.detailTitle{color:#062033!important}.cardRow,.detailDesc,.supportCard p,.checkoutBox p,.hint{color:#35546b!important}.adminInput,.adminSelect,.adminTextarea,.input,.select,.textarea,.couponInput{background:#f3fbff!important;color:#062033!important;border-color:rgba(2,132,199,.22)!important}.tableWrap table th{color:#075985!important}.tableWrap table td{color:#062033!important}.productAdminSearchBox{display:grid;grid-template-columns:1fr auto;gap:10px;margin:12px 0 16px}.productAdminSearchBox input{border-radius:16px}.categoryManagerGrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.catAdminItem{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:16px;background:#f3fbff;border:1px solid rgba(2,132,199,.18);margin-bottom:10px}.ticketTrackBox{margin-top:14px}.ticketBadge{display:inline-flex;padding:7px 10px;border-radius:999px;background:#e0f2fe;color:#075985;font-weight:900}.ticketBadge.solved{background:#dcfce7;color:#166534}.ticketResult{margin-top:12px;padding:14px;border-radius:16px;background:#f3fbff;border:1px solid rgba(2,132,199,.16);line-height:1.7}.complaintBtn{width:100%;border:0;border-radius:16px;padding:14px 16px;background:linear-gradient(90deg,#0284c7,#38bdf8);color:#fff;font-weight:950}.adminSecretHint{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);background:#0284c7;color:#fff;padding:10px 14px;border-radius:999px;z-index:9999;font-weight:900;box-shadow:0 12px 26px rgba(2,132,199,.25)}
+@media(max-width:700px){.categoryManagerGrid,.productAdminSearchBox{grid-template-columns:1fr}.hero{margin:8px auto 10px!important}.heroSlide{min-height:128px!important}.slideTitle{font-size:17px!important}.slidePrice{font-size:21px!important}.slideImg{height:64px!important}}
+</style>
+<script id="yogi-final-search-category-ticket-script">
+(()=>{
+  const E=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const load=(k,f=[])=>{try{return typeof loadJSON==='function'?loadJSON(k,f):JSON.parse(localStorage.getItem(k)||JSON.stringify(f));}catch(e){return f;}};
+  const save=(k,v)=>{try{if(typeof saveJSON==='function')saveJSON(k,v);else localStorage.setItem(k,JSON.stringify(v));}catch(e){}};
+  function defaultCats(){return ['OTT','AI & SOFTWARE TOOLS','Games','Others'];}
+  function cats(){const c=load('mryogi_categories',defaultCats());return Array.isArray(c)&&c.length?c:defaultCats();}
+  window.categoryLabel=function(c){const map={All:'✨ All',OTT:'📺 OTT','AI & SOFTWARE TOOLS':'🤖 AI & SOFTWARE TOOLS',Games:'🎮 Games',Others:'🎁 Others'};return map[c]||('📌 '+c)};
+  const oldCategoryOf=window.categoryOf;
+  window.categoryOf=function(p){const raw=String((p&&p.category)||'').trim();if(raw && cats().some(c=>c.toLowerCase()===raw.toLowerCase())) return cats().find(c=>c.toLowerCase()===raw.toLowerCase());return oldCategoryOf?oldCategoryOf(p):raw||'Others'};
+  function rebuildCustomerTabs(){const box=document.getElementById('categoryTabs'); if(!box)return; const current=window.currentCategory||'All'; box.innerHTML=`<button class="tab ${current==='All'?'active':''}" onclick="setCategory('All',this)">✨ All</button>`+cats().map(c=>`<button class="tab ${current===c?'active':''}" onclick="setCategory('${E(c)}',this)">${categoryLabel(c)}</button>`).join('');}
+  const oldRenderHome=window.renderHome; window.renderHome=function(){rebuildCustomerTabs(); if(typeof renderHero==='function')renderHero(); if(typeof renderProducts==='function')renderProducts(); if(typeof renderHomeFeedbackPreview==='function')renderHomeFeedbackPreview();};
+  const oldRenderProducts=window.renderProducts; window.renderProducts=function(){const root=document.getElementById('productsMount'); if(!root){return oldRenderProducts&&oldRenderProducts()} let list=(window.products||products||[]).slice(); if(window.currentCategory&&window.currentCategory!=='All') list=list.filter(p=>categoryOf(p)===window.currentCategory); if(!list.length){root.innerHTML='<div class="empty">Products will be available soon.</div>';return;} const sections=(window.currentCategory==='All'||!window.currentCategory)?cats():[window.currentCategory]; root.innerHTML=sections.map(sec=>{const items=list.filter(p=>categoryOf(p)===sec);if(!items.length)return ''; return `<div><div class="sectionHead"><h2>${categoryLabel(sec)}</h2><button class="smallBtn" onclick="setCategory('${E(sec)}')">View All</button></div><div class="productGrid">${items.map(productCard).join('')}</div></div>`}).join('')||'<div class="empty">No products found.</div>'; };
+  const oldSetCategory=window.setCategory; window.setCategory=function(c,btn){window.currentCategory=c;document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active'); if(typeof renderProducts==='function')renderProducts(); document.getElementById('productsMount')?.scrollIntoView({behavior:'smooth',block:'start'});};
+  const oldRefresh=window.refreshHeader; window.refreshHeader=function(){if(typeof oldRefresh==='function')oldRefresh(); const adminBtn=document.getElementById('adminBtn'); if(adminBtn) adminBtn.classList.add('hidden'); const logoutBtn=document.getElementById('logoutBtn'); if(logoutBtn) logoutBtn.classList.toggle('hidden',!(typeof isAdmin==='function'&&isAdmin()));};
+  function secretLoginSetup(){let taps=0,timer=null;document.querySelectorAll('#topLogo,#sidebarLogo,.mobileBrandText').forEach(el=>{el.style.cursor='pointer';el.addEventListener('click',()=>{taps++;clearTimeout(timer);timer=setTimeout(()=>taps=0,1400);if(taps>=5){taps=0;const n=document.createElement('div');n.className='adminSecretHint';n.textContent='Admin login opened';document.body.appendChild(n);setTimeout(()=>n.remove(),1300); if(typeof adminLogin==='function')adminLogin();}})})}
+  function adminProductSearchHTML(q=''){const list=(window.products||products||[]).filter(p=>!q||String(p.name+' '+categoryOf(p)+' '+(p.plans||'')).toLowerCase().includes(q.toLowerCase()));const rows=list.map((p,i)=>`<tr><td>${i+1}</td><td><img class="thumb" src="${E(p.image)}"></td><td>${E(p.name)}</td><td>${E(categoryOf(p))}</td><td>${parsePlans(p.plans||'').length} Plans</td><td><span class="status">${String(p.status||'').toLowerCase().includes('out')?'Inactive':'Active'}</span></td><td><button class="act edit" onclick="editProduct('${E(String(p.id))}')">✏</button><button class="act del" onclick="deleteProduct('${E(String(p.id))}')">🗑</button></td></tr>`).join('');return `<div class="adminPanel"><div class="adminHeader"><h2>Manage Products</h2><button class="primaryBtn" onclick="editingProductId=null;renderAdmin('form')">+ Add New Product</button></div><div class="productAdminSearchBox"><input id="adminProductSearch" class="adminInput" value="${E(q)}" placeholder="Search product by name, category or plan..." oninput="renderAdminProductsSearch(this.value)"><button class="smallBtn" onclick="document.getElementById('adminProductSearch').value='';renderAdminProductsSearch('')">Clear</button></div><div class="tableWrap"><table><thead><tr><th>#</th><th>Image</th><th>Product Name</th><th>Category</th><th>Plans</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows||'<tr><td colspan="7">No matching products found.</td></tr>'}</tbody></table></div></div>`}
+  window.renderAdminProductsSearch=function(q=''){const root=document.getElementById('adminMount'); if(root)root.innerHTML=adminProductSearchHTML(q)};
+  function categoriesHTML(){const list=cats();return `<div class="adminPanel"><div class="adminHeader"><h2>Categories Add / Edit</h2><span class="chip">${list.length} Categories</span></div><div class="categoryManagerGrid"><div><label style="display:block;margin-bottom:7px;font-weight:900">New Category Name</label><input id="newCatName" class="adminInput" placeholder="Example: VPN"><button class="primaryBtn" style="width:100%;margin-top:12px" onclick="addCategoryAdmin()">Add Category</button></div><div><label style="display:block;margin-bottom:7px;font-weight:900">Edit Categories</label>${list.map((c,i)=>`<div class="catAdminItem"><input class="adminInput" id="catEdit${i}" value="${E(c)}"><button class="act edit" onclick="renameCategoryAdmin(${i})">✓</button><button class="act del" onclick="deleteCategoryAdmin(${i})">🗑</button></div>`).join('')}</div></div></div>`}
+  window.addCategoryAdmin=function(){const n=document.getElementById('newCatName').value.trim(); if(!n){alert('Enter category name');return;} const list=cats(); if(list.some(c=>c.toLowerCase()===n.toLowerCase())){alert('Category already exists');return;} list.push(n);save('mryogi_categories',list);rebuildCustomerTabs();renderAdmin('categories');};
+  window.renameCategoryAdmin=function(i){const list=cats();const old=list[i];const n=document.getElementById('catEdit'+i).value.trim(); if(!n)return; list[i]=n;save('mryogi_categories',list); try{(window.products||products||[]).forEach(p=>{if(String(p.category).toLowerCase()===String(old).toLowerCase())p.category=n})}catch(e){} rebuildCustomerTabs();renderAdmin('categories');};
+  window.deleteCategoryAdmin=function(i){const list=cats(); if(list.length<=1){alert('At least one category required');return;} if(!confirm('Delete category? Products will move to Others.'))return; const old=list.splice(i,1)[0];save('mryogi_categories',list); try{(window.products||products||[]).forEach(p=>{if(String(p.category).toLowerCase()===String(old).toLowerCase())p.category='Others'})}catch(e){} rebuildCustomerTabs();renderAdmin('categories');};
+  const oldAdminFormHTML=window.adminFormHTML; window.adminFormHTML=function(p={}){let html=oldAdminFormHTML?oldAdminFormHTML(p):''; const cat=p.category||'OTT'; const options=cats().map(c=>`<option value="${E(c)}" ${String(cat).toLowerCase()===String(c).toLowerCase()?'selected':''}>${E(c)}</option>`).join(''); html=html.replace(/<select id="pCategory" class="adminSelect">[\s\S]*?<\/select>/,`<select id="pCategory" class="adminSelect">${options}</select>`); return html;};
+  const oldRenderAdmin=window.renderAdmin; window.renderAdmin=function(tab='dashboard'){if(tab==='products'){const root=document.getElementById('adminMount'); if(root){root.innerHTML=adminProductSearchHTML('');} return;} if(tab==='categories'){const root=document.getElementById('adminMount'); if(root)root.innerHTML=categoriesHTML(); return;} return oldRenderAdmin?oldRenderAdmin(tab):null;};
+  const oldAdminTab=window.adminTab; window.adminTab=function(tab,btn){if(tab==='categories'){document.querySelectorAll('.adminSide button').forEach(b=>b.classList.remove('active')); if(btn)btn.classList.add('active'); renderAdmin('categories');return;} return oldAdminTab?oldAdminTab(tab,btn):renderAdmin(tab);};
+  function addCategoriesButton(){const side=document.querySelector('.adminSide'); if(!side||side.querySelector('[data-cat-admin]'))return; const btn=document.createElement('button'); btn.setAttribute('data-cat-admin','1'); btn.textContent='Categories'; btn.onclick=function(){adminTab('categories',btn)}; const formBtn=[...side.querySelectorAll('button')].find(b=>/Add|Edit/i.test(b.textContent)); if(formBtn&&formBtn.nextSibling)side.insertBefore(btn,formBtn.nextSibling); else side.appendChild(btn);}
+  const oldRebuildMaybe=window.rebuildAdminSide; if(oldRebuildMaybe){window.rebuildAdminSide=function(active){oldRebuildMaybe(active); addCategoriesButton();};}
+  function enhanceSupport(){const page=document.getElementById('page-support');if(!page)return; const box=document.getElementById('complaintTicketBox'); if(box){const b=box.querySelector('b'); if(b)b.textContent='Complaint Ticket'; const p=box.querySelector('p'); if(p)p.textContent='Mee problem ikkada submit cheyandi. Ticket ID tho track kuda cheyachu.'} if(!document.getElementById('trackTicketBox')){const card=page.querySelector('.supportCard')||page; const t=document.createElement('div');t.id='trackTicketBox';t.className='checkoutBox ticketTrackBox';t.innerHTML=`<b>Track Ticket</b><p style="color:#35546b;margin:8px 0 12px;line-height:1.6">Mee Ticket ID enter chesthe status kanapaduthundi.</p><div class="couponRow"><input id="trackTicketInput" class="input" placeholder="Example: CT1234567890"><button class="smallBtn" onclick="trackComplaintTicket()">Track</button></div><div id="trackTicketResult"></div>`;card.appendChild(t)}}
+  const oldSubmit=window.submitComplaintTicket; window.submitComplaintTicket=function(){const name=document.getElementById('ctName')?.value.trim(),contact=document.getElementById('ctContact')?.value.trim(),problem=document.getElementById('ctProblem')?.value.trim(); if(!name||!contact||!problem){alert('Please fill name, contact and problem.');return;} const id='CT'+Date.now(); const arr=load('mryogi_complaints',[]); arr.unshift({id,name,contact,problem,status:'Open',date:new Date().toLocaleString('en-IN')});save('mryogi_complaints',arr); const f=document.getElementById('complaintForm'); if(f)f.classList.add('hidden'); alert('Complaint Ticket Created. Your Ticket ID: '+id); enhanceSupport();};
+  window.trackComplaintTicket=function(){const id=document.getElementById('trackTicketInput').value.trim(); const r=document.getElementById('trackTicketResult'); const c=load('mryogi_complaints',[]).find(x=>String(x.id).toLowerCase()===id.toLowerCase()); if(!r)return; if(!c){r.innerHTML='<div class="ticketResult">Ticket not found. Please check Ticket ID.</div>';return;} r.innerHTML=`<div class="ticketResult"><b>Ticket ID:</b> ${E(c.id)}<br><b>Name:</b> ${E(c.name)}<br><b>Status:</b> <span class="ticketBadge ${String(c.status).toLowerCase()}">${E(c.status)}</span><br><b>Problem:</b> ${E(c.problem)}<br><b>Date:</b> ${E(c.date)}</div>`};
+  const oldGo=window.goPage; window.goPage=function(page,btn){if(typeof oldGo==='function')oldGo(page,btn); if(page==='support')enhanceSupport(); if(page==='admin')setTimeout(addCategoriesButton,0);};
+  function boot(){refreshHeader&&refreshHeader();rebuildCustomerTabs();enhanceSupport();secretLoginSetup();setTimeout(addCategoriesButton,300)}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot); else boot();
+})();
+</script>
+
+
+<style id="yogi-clean-fix-v2-style">
+:root{--purple:#0ea5e9!important;--pink:#38bdf8!important;--cyan:#7dd3fc!important;--line:rgba(125,211,252,.14)!important}
+body{background:radial-gradient(circle at 50% 0,rgba(56,189,248,.14),transparent 26%),linear-gradient(180deg,#04111f,#06172a 55%,#04111f)!important;color:#f5fbff!important}
+.sidebar,.header,.adminSide,.adminPanel,.supportCard,.checkoutBox,.panel,.cartSummary,.upiBox,.settingsCard,.card,.modalBox,.policyBox,.offerPopup{background:linear-gradient(180deg,rgba(6,19,33,.96),rgba(5,16,28,.98))!important;border-color:rgba(125,211,252,.13)!important;box-shadow:none!important}
+.nav button:hover,.nav button.active,.tab.active,.primaryBtn,.groupBtn,.chooseBtn,.complaintBtn,.heroDot.active{background:linear-gradient(90deg,#2563eb,#38bdf8)!important;color:#fff!important;border-color:transparent!important}
+.smallBtn,.secondaryBtn,.copyBtn,.circleBtn,.tab,.plan,.feature,.catAdminItem,.adminInput,.adminSelect,.adminTextarea,.input,.select,.textarea,.couponInput{border-color:rgba(125,211,252,.14)!important;background:rgba(12,25,40,.92)!important;color:#f5fbff!important;box-shadow:none!important}
+.sectionHead h2,.detailTitle,.adminHeader h2,.slideTitle{letter-spacing:-.5px}
+.hero{border-color:rgba(56,189,248,.18)!important;box-shadow:none!important}
+.heroSlide{min-height:160px!important;padding:14px 16px 48px!important;gap:12px!important}
+.slideTitle{font-size:22px!important}.slidePrice{font-size:24px!important}.slideMeta span{font-size:10px!important;padding:5px 8px!important}.slideImg{height:80px!important;padding:8px!important;background:#071521!important}
+.productGrid{gap:12px!important}.card{border-radius:18px!important}.cardImg{height:112px!important}.cardBody{padding:12px!important}.cardTitle{font-size:14px!important;min-height:34px!important}.price{font-size:22px!important}
+#productOfflineNotice{margin:14px 0 4px;padding:14px 16px;border-radius:18px;background:linear-gradient(90deg,rgba(8,47,73,.96),rgba(6,78,118,.92));border:1px solid rgba(125,211,252,.2);font-weight:800;color:#e0f7ff}
+.product-offline .chooseBtn,.product-offline .primaryBtn[data-buy],.checkout-disabled{opacity:.65!important;pointer-events:none!important}
+.product-offline .chooseBtn::after{content:' (Offline)';font-size:11px}
+.supportActionsGrid{display:grid;gap:12px;margin-top:14px}.supportActionCard{padding:16px;border-radius:18px;background:rgba(9,22,37,.86);border:1px solid rgba(125,211,252,.14)}
+.supportActionCard b{font-size:18px}.supportActionCard p{color:#c8dbe7;line-height:1.6;margin:8px 0 12px}
+.ticketResult{margin-top:12px;padding:14px;border-radius:16px;background:rgba(8,23,38,.85);border:1px solid rgba(125,211,252,.12);line-height:1.7;color:#eef9ff}
+.ticketBadge{display:inline-flex;padding:7px 10px;border-radius:999px;background:#082f49;color:#7dd3fc;font-weight:900}.ticketBadge.open{background:#082f49;color:#7dd3fc}.ticketBadge.solved{background:#052e16;color:#86efac}.ticketBadge.closed{background:#3a1212;color:#fca5a5}
+.checkoutHeroBtn,.upiActionBtn{width:100%;border:0;border-radius:999px;padding:16px 18px;background:linear-gradient(90deg,#2563eb,#38bdf8)!important;color:#fff;font-size:18px;font-weight:1000;box-shadow:0 10px 28px rgba(37,99,235,.22)}
+.cleanOrderCard,.uploadShotCard,.uploadPreviewCard{padding:18px;border-radius:24px;background:linear-gradient(180deg,rgba(7,19,33,.96),rgba(5,16,28,.98));border:1px solid rgba(125,211,252,.13)}
+.cleanOrderTitle{font-size:15px;font-weight:900;color:#dff7ff;letter-spacing:.8px;margin-bottom:14px}.cleanSummaryRow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid rgba(125,211,252,.12);color:#deedf7}.cleanSummaryRow:last-child{border-bottom:0}.cleanSummaryTotal{font-size:18px;font-weight:1000;color:#fff}.cleanSummaryBig{font-size:42px;font-weight:1000;color:#7dd3fc}
+.uploadDropZone{margin-top:16px;border:3px dashed rgba(255,255,255,.18);border-radius:26px;min-height:150px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.04);text-align:center;padding:20px;color:#f8fbff;cursor:pointer}
+.uploadDropZone .icon{font-size:40px;display:block;margin-bottom:10px}.uploadHint{color:#b9cedb;line-height:1.6;font-size:15px}.uploadPreviewImage{width:min(260px,70vw);max-height:320px;object-fit:contain;border-radius:24px;display:block;margin:18px auto 10px;border:1px solid rgba(125,211,252,.16)}
+.readyText{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;color:#6ee7b7;font-size:18px;font-weight:900}.sendWhatsBtn{width:100%;border:0;border-radius:18px;padding:18px;background:#10b981;color:#04111f;font-size:18px;font-weight:1000;box-shadow:0 14px 30px rgba(16,185,129,.18);margin-top:16px}.backDetailsBtn{width:100%;border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:15px;background:rgba(255,255,255,.03);color:#c7d8e6;font-size:17px;margin-top:14px}
+.adminExtraBtn{display:block!important}.pageHintText{margin-top:10px;color:#a8c9dd;font-size:14px;text-align:center}
+@media(max-width:560px){.heroSlide{min-height:150px!important;padding:12px 12px 46px!important}.slideTitle{font-size:18px!important}.slidePrice{font-size:22px!important}.slideImg{height:72px!important}.cardImg{height:100px!important}.checkoutHeroBtn,.upiActionBtn{font-size:17px;padding:15px 16px}.cleanSummaryBig{font-size:34px}.uploadDropZone{min-height:132px}}
+</style>
+<script id="yogi-clean-fix-v2-script">
+(()=>{
+  const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const load=(k,f)=>{try{return JSON.parse(localStorage.getItem(k)??JSON.stringify(f));}catch(e){return f}};
+  const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+  const isAdmin=()=> typeof window.isAdmin==='function' ? window.isAdmin() : localStorage.getItem('mryogi_admin')==='true';
+  const siteOnline=()=>{const st=load('mryogi_site_status',{online:true}); return st.online!==false;};
+  const getSettings=()=> window.settings || load('mryogi_settings',{whatsapp:'918618388937',upiId:'',upiName:'MR.YOGI PREMIUM',qrImageUrl:''});
+  const getCart=()=> Array.isArray(window.cart) ? window.cart : [];
+  function removeHardOffline(){document.getElementById('offlineOverlay')?.remove();}
+  function applyProductOfflineState(){
+    removeHardOffline();
+    const offline = !siteOnline() && !isAdmin();
+    const home=document.getElementById('page-home');
+    const mount=document.getElementById('productsMount');
+    let note=document.getElementById('productOfflineNotice');
+    if(offline){
+      if(!note && mount){ note=document.createElement('div'); note.id='productOfflineNotice'; note.innerHTML='⚠️ Products are temporarily offline. Support, feedback and admin panel will still work.'; mount.parentNode.insertBefore(note,mount); }
+      document.body.classList.add('product-offline');
+      document.querySelectorAll('.chooseBtn').forEach(btn=>{btn.dataset.prevText=btn.dataset.prevText||btn.textContent; btn.textContent='Currently Offline'; btn.disabled=true; btn.classList.add('checkout-disabled');});
+      document.querySelectorAll("button[onclick*='proceedCheckout'],button[onclick*='buyNowSelected'],button[onclick*='addSelectedToCart']").forEach(btn=>{btn.disabled=true; btn.classList.add('checkout-disabled');});
+    }else{
+      document.body.classList.remove('product-offline');
+      note?.remove();
+      document.querySelectorAll('.chooseBtn').forEach(btn=>{if(btn.dataset.prevText) btn.textContent=btn.dataset.prevText; btn.disabled=false; btn.classList.remove('checkout-disabled');});
+      document.querySelectorAll("button[onclick*='proceedCheckout'],button[onclick*='buyNowSelected'],button[onclick*='addSelectedToCart']").forEach(btn=>{btn.disabled=false; btn.classList.remove('checkout-disabled');});
+    }
+  }
+  const oldBuy=window.buyNowSelected; if(oldBuy) window.buyNowSelected=function(){ if(!siteOnline() && !isAdmin()){ alert('Products are currently offline.'); return; } return oldBuy.apply(this,arguments);} 
+  const oldAdd=window.addSelectedToCart; if(oldAdd) window.addSelectedToCart=function(){ if(!siteOnline() && !isAdmin()){ alert('Products are currently offline.'); return; } return oldAdd.apply(this,arguments);} 
+  const oldProceed=window.proceedCheckout; if(oldProceed) window.proceedCheckout=function(){ if(!siteOnline() && !isAdmin()){ alert('Products are currently offline.'); return; } return oldProceed.apply(this,arguments);} 
+
+  function ensureSupportExtras(){
+    const page=document.getElementById('page-support'); if(!page) return;
+    const card=page.querySelector('.supportCard'); if(!card) return;
+    let wrap=document.getElementById('supportActionsWrap');
+    if(!wrap){
+      wrap=document.createElement('div'); wrap.id='supportActionsWrap'; wrap.className='supportActionsGrid';
+      wrap.innerHTML=`
+      <div class="supportActionCard" id="complaintTicketBox">
+        <b>Complaint Ticket</b>
+        <p>Problem unte complaint ticket open cheyandi. Name, number and problem submit chesthe admin panel lo direct kanapaduthundi.</p>
+        <button class="complaintBtn" onclick="openComplaintForm()">📝 Open Complaint Ticket</button>
+        <div id="complaintForm" class="hidden" style="display:grid;gap:10px;margin-top:12px">
+          <input id="ctName" class="input" placeholder="Your name">
+          <input id="ctContact" class="input" placeholder="WhatsApp number">
+          <textarea id="ctProblem" class="textarea" placeholder="Describe your problem"></textarea>
+          <button class="primaryBtn" style="width:100%" onclick="submitComplaintTicket()">Submit Ticket</button>
+        </div>
+      </div>
+      <div class="supportActionCard" id="trackTicketBox">
+        <b>Track Ticket</b>
+        <p>Ticket ID enter chesthe complaint status chudachu.</p>
+        <div class="couponRow"><input id="trackTicketInput" class="input" placeholder="Example: CT1716888888888"><button class="smallBtn" onclick="trackComplaintTicket()">Track</button></div>
+        <div id="trackTicketResult"></div>
+      </div>`;
+      card.appendChild(wrap);
+    }
+  }
+  window.openComplaintForm=function(){const f=document.getElementById('complaintForm'); if(!f) return; f.classList.toggle('hidden');};
+  window.submitComplaintTicket=function(){
+    const name=document.getElementById('ctName')?.value.trim();
+    const contact=document.getElementById('ctContact')?.value.trim();
+    const problem=document.getElementById('ctProblem')?.value.trim();
+    if(!name||!contact||!problem){ alert('Please fill name, number and problem.'); return; }
+    const id='CT'+Date.now();
+    const arr=load('mryogi_complaints',[]);
+    arr.unshift({id,name,contact,problem,status:'Open',date:new Date().toLocaleString('en-IN')});
+    save('mryogi_complaints',arr);
+    document.getElementById('complaintForm')?.classList.add('hidden');
+    ['ctName','ctContact','ctProblem'].forEach(id=>{const el=document.getElementById(id); if(el) el.value='';});
+    alert('Complaint ticket created. Ticket ID: '+id);
+    ensureAdminButtons();
+  };
+  window.trackComplaintTicket=function(){
+    const id=(document.getElementById('trackTicketInput')?.value||'').trim();
+    const res=document.getElementById('trackTicketResult'); if(!res) return;
+    const c=load('mryogi_complaints',[]).find(x=>String(x.id).toLowerCase()===id.toLowerCase());
+    if(!c){ res.innerHTML='<div class="ticketResult">Ticket not found. Please check the Ticket ID.</div>'; return; }
+    res.innerHTML=`<div class="ticketResult"><b>Ticket ID:</b> ${esc(c.id)}<br><b>Name:</b> ${esc(c.name)}<br><b>Status:</b> <span class="ticketBadge ${String(c.status||'Open').toLowerCase()}">${esc(c.status||'Open')}</span><br><b>Problem:</b> ${esc(c.problem)}<br><b>Date:</b> ${esc(c.date)}</div>`;
+  };
+
+  function complaintsHTML(){
+    const arr=load('mryogi_complaints',[]);
+    return `<div class="adminPanel"><div class="adminHeader"><h2>Complaint Tickets</h2><span class="chip">${arr.length} Tickets</span></div><div class="tableWrap"><table><thead><tr><th>#</th><th>Name</th><th>Number</th><th>Problem</th><th>Date</th><th>Status</th><th>Action</th></tr></thead><tbody>${arr.length?arr.map((c,i)=>`<tr><td>${i+1}</td><td>${esc(c.name)}</td><td>${esc(c.contact)}</td><td>${esc(c.problem)}</td><td>${esc(c.date)}</td><td><span class="ticketBadge ${String(c.status||'Open').toLowerCase()}">${esc(c.status||'Open')}</span></td><td><button class="act edit" onclick="updateComplaintStatus('${esc(c.id)}','Solved')">✓</button><button class="act del" onclick="deleteComplaintTicket('${esc(c.id)}')">🗑</button></td></tr>`).join(''):'<tr><td colspan="7">No complaint tickets yet.</td></tr>'}</tbody></table></div></div>`;
+  }
+  window.updateComplaintStatus=function(id,status){const arr=load('mryogi_complaints',[]).map(c=>String(c.id)===String(id)?{...c,status}:c); save('mryogi_complaints',arr); if(typeof window.renderAdmin==='function') window.renderAdmin('complaints');};
+  window.deleteComplaintTicket=function(id){if(!confirm('Delete complaint ticket?')) return; const arr=load('mryogi_complaints',[]).filter(c=>String(c.id)!==String(id)); save('mryogi_complaints',arr); if(typeof window.renderAdmin==='function') window.renderAdmin('complaints');};
+
+  function categoriesHTML(){
+    const list=load('mryogi_categories',['All','OTT','AI & SOFTWARE TOOLS','Games','Others']).filter(Boolean);
+    return `<div class="adminPanel"><div class="adminHeader"><h2>Categories</h2><span class="chip">${list.length} Categories</span></div><div class="categoryManagerGrid"><div><label style="display:block;margin-bottom:7px;font-weight:900">New Category</label><input id="newCatName" class="adminInput" placeholder="Enter category name"><button class="primaryBtn" style="width:100%;margin-top:12px" onclick="addCategoryAdminFix()">Add Category</button></div><div>${list.map((c,i)=>`<div class="catAdminItem"><input class="adminInput" id="catEdit${i}" value="${esc(c)}"><div style="display:flex;gap:8px"><button class="act edit" onclick="renameCategoryAdminFix(${i})">✓</button><button class="act del" onclick="deleteCategoryAdminFix(${i})">🗑</button></div></div>`).join('')}</div></div></div>`;
+  }
+  function getProductArray(){ return Array.isArray(window.products) ? window.products : []; }
+  function saveProductsMaybe(){ try{ localStorage.setItem('mryogi_products', JSON.stringify(getProductArray())); }catch(e){} }
+  window.addCategoryAdminFix=function(){ const name=(document.getElementById('newCatName')?.value||'').trim(); if(!name){alert('Enter category name');return;} const list=load('mryogi_categories',['OTT','AI & SOFTWARE TOOLS','Games','Others']); if(list.some(x=>x.toLowerCase()===name.toLowerCase())){alert('Category already exists');return;} list.push(name); save('mryogi_categories',list); if(typeof window.renderAdmin==='function') window.renderAdmin('categories'); if(typeof window.rebuildCustomerTabs==='function') window.rebuildCustomerTabs(); };
+  window.renameCategoryAdminFix=function(i){ const list=load('mryogi_categories',['OTT','AI & SOFTWARE TOOLS','Games','Others']); const old=list[i]; const name=(document.getElementById('catEdit'+i)?.value||'').trim(); if(!name) return; list[i]=name; save('mryogi_categories',list); getProductArray().forEach(p=>{ if(String(p.category||'').toLowerCase()===String(old).toLowerCase()) p.category=name;}); saveProductsMaybe(); if(typeof window.renderAdmin==='function') window.renderAdmin('categories'); if(typeof window.rebuildCustomerTabs==='function') window.rebuildCustomerTabs(); };
+  window.deleteCategoryAdminFix=function(i){ const list=load('mryogi_categories',['OTT','AI & SOFTWARE TOOLS','Games','Others']); if(list.length<=1){alert('Minimum one category required');return;} if(!confirm('Delete category? Products move to Others.')) return; const old=list.splice(i,1)[0]; save('mryogi_categories',list); getProductArray().forEach(p=>{ if(String(p.category||'').toLowerCase()===String(old).toLowerCase()) p.category='Others';}); saveProductsMaybe(); if(typeof window.renderAdmin==='function') window.renderAdmin('categories'); if(typeof window.rebuildCustomerTabs==='function') window.rebuildCustomerTabs(); };
+
+  function activateAdminButton(btn){ document.querySelectorAll('.adminSide button').forEach(b=>b.classList.remove('active')); if(btn) btn.classList.add('active'); }
+  function ensureAdminButtons(){
+    const side=document.querySelector('.adminSide'); if(!side) return;
+    if(!side.querySelector('[data-ticket-admin]')){ const btn=document.createElement('button'); btn.textContent='Complaint Tickets'; btn.dataset.ticketAdmin='1'; btn.className='adminExtraBtn'; btn.onclick=function(){ activateAdminButton(btn); const mount=document.getElementById('adminMount'); if(mount) mount.innerHTML=complaintsHTML(); }; side.appendChild(btn); }
+    if(!side.querySelector('[data-category-admin]')){ const btn=document.createElement('button'); btn.textContent='Categories'; btn.dataset.categoryAdmin='1'; btn.className='adminExtraBtn'; btn.onclick=function(){ activateAdminButton(btn); const mount=document.getElementById('adminMount'); if(mount) mount.innerHTML=categoriesHTML(); }; side.appendChild(btn); }
+  }
+  const oldRenderAdmin=window.renderAdmin; window.renderAdmin=function(tab){
+    if(tab==='complaints'){ const mount=document.getElementById('adminMount'); if(mount) mount.innerHTML=complaintsHTML(); ensureAdminButtons(); return; }
+    if(tab==='categories'){ const mount=document.getElementById('adminMount'); if(mount) mount.innerHTML=categoriesHTML(); ensureAdminButtons(); return; }
+    const ret = oldRenderAdmin ? oldRenderAdmin.apply(this,arguments) : null; setTimeout(ensureAdminButtons,50); return ret;
+  };
+  const oldAdminTab=window.adminTab; window.adminTab=function(tab,btn){ if(tab==='complaints' || tab==='categories'){ activateAdminButton(btn); return window.renderAdmin(tab);} const ret=oldAdminTab?oldAdminTab.apply(this,arguments):(oldRenderAdmin?oldRenderAdmin(tab):null); setTimeout(ensureAdminButtons,50); return ret; };
+
+  function styleCartCheckoutBtn(){ const btn=document.querySelector("#page-cart button[onclick*='proceedCheckout']"); if(btn){ btn.classList.add('checkoutHeroBtn'); btn.innerHTML='Continue to Checkout →'; } }
+  window.triggerPaymentScreenshot = function(){ document.getElementById('paymentScreenshotInput')?.click(); };
+  window.handlePaymentScreenshotSelect = function(input){
+    const file=input.files && input.files[0]; if(!file) return;
+    const reader=new FileReader();
+    reader.onload=function(e){
+      const img=e.target.result;
+      const previewWrap=document.getElementById('paymentShotPreviewWrap');
+      const imgEl=document.getElementById('paymentShotPreview');
+      const status=document.getElementById('paymentShotReady');
+      const trigger=document.getElementById('paymentUploadTriggerText');
+      if(imgEl) imgEl.src=img;
+      if(previewWrap) previewWrap.classList.remove('hidden');
+      if(status) status.classList.remove('hidden');
+      if(trigger) trigger.textContent='Replace screenshot';
+      try{ sessionStorage.setItem('mryogi_payment_shot', img); }catch(e){}
+    };
+    reader.readAsDataURL(file);
+  };
+  window.openUpiPayment = function(){
+    const settings=getSettings();
+    const od = typeof buildOrderData==='function' ? buildOrderData() : {total:0,orderId:'ORDER',date:new Date().toLocaleDateString('en-IN'),productNames:'Products',planNames:'Plan'};
+    const upi=`upi://pay?pa=${encodeURIComponent(settings.upiId||'')}&pn=${encodeURIComponent(settings.upiName||'MR.YOGI PREMIUM')}&am=${encodeURIComponent(od.total)}&cu=INR&tn=${encodeURIComponent('MR.YOGI PREMIUM '+od.orderId)}`;
+    window.open(upi,'_blank');
+  };
+  window.sendPaymentWhatsApp = function(){
+    const settings=getSettings();
+    const od = typeof buildOrderData==='function' ? buildOrderData() : {total:0,orderId:'ORDER',date:new Date().toLocaleDateString('en-IN'),productNames:'Products',planNames:'Plan'};
+    const msg=`*MR.YOGI PREMIUM PAYMENT*%0A%0A*Order ID:* #${encodeURIComponent(od.orderId)}%0A*Date:* ${encodeURIComponent(od.date)}%0A*Product:* ${encodeURIComponent(od.productNames)}%0A*Plan:* ${encodeURIComponent(od.planNames)}%0A*Amount Paid:* ₹${encodeURIComponent(od.total)}%0A%0APlease check my payment screenshot and activate my order.`;
+    alert('WhatsApp will open now. Please attach the screenshot manually there.');
+    window.open(`https://wa.me/${settings.whatsapp||'918618388937'}?text=${msg}`,'_blank');
+  };
+
+  const oldRenderCheckout=window.renderCheckout; window.renderCheckout=function(){
+    if(oldRenderCheckout) oldRenderCheckout.apply(this,arguments);
+    styleCartCheckoutBtn();
+    const page=document.getElementById('page-checkout'); if(!page) return;
+    const list=getCart(); if(!list.length) return;
+    const summary=document.getElementById('checkoutSummary');
+    const pay=document.getElementById('paymentBox');
+    const side=document.querySelectorAll('#page-checkout .checkoutPanel')[1];
+    const preview=document.getElementById('orderPreview');
+    const settings=getSettings();
+    const od = typeof buildOrderData==='function' ? buildOrderData() : {total:list.reduce((s,x)=>s+Number(x.price||0),0), orderId:'ORDER'+Date.now(), date:new Date().toLocaleDateString('en-IN'), productNames:list.map(x=>x.name).join(', '), planNames:list.map(x=>x.planName||x.plan||'Plan').join(', ')};
+    if(summary){
+      summary.innerHTML = `<div class="cleanOrderCard"><div class="cleanOrderTitle">ORDER SUMMARY</div>${list.map(x=>`<div class="cleanSummaryRow"><div>${esc(x.name)} <span style="display:block;font-size:12px;color:#a9c6d9;margin-top:4px">${esc(x.planName||x.plan||'Plan')}</span></div><div>₹${esc(x.price)}</div></div>`).join('')}<div class="cleanSummaryRow"><div>Subtotal</div><div>₹${esc(od.total)}</div></div><div class="cleanSummaryRow" style="padding-top:14px"><div class="cleanSummaryTotal">Total</div><div class="cleanSummaryBig">₹${esc(od.total)}</div></div></div>`;
+    }
+    if(pay){
+      pay.innerHTML = `<div class="cleanOrderCard"><div class="cleanOrderTitle">UPI PAYMENT</div><div style="color:#d5e7f4;line-height:1.7">Tap the button below to pay directly in your UPI app.</div><button class="upiActionBtn" style="margin-top:18px" onclick="openUpiPayment()">Continue to UPI Payment →</button><div class="pageHintText">UPI auto-fill: amount & order ref sent to your app.</div></div>`;
+    }
+    if(side){
+      side.innerHTML = `<div class="uploadShotCard"><div style="font-size:18px;font-weight:1000;margin-bottom:6px">Upload payment screenshot</div><div class="uploadHint">After paying, upload your UPI success screenshot. Then send it on WhatsApp.</div><input id="paymentScreenshotInput" type="file" accept="image/*" onchange="handlePaymentScreenshotSelect(this)" style="display:none"><div class="uploadDropZone" onclick="triggerPaymentScreenshot()"><div><span class="icon">⇪</span><div id="paymentUploadTriggerText" style="font-size:18px;font-weight:900">Choose screenshot</div></div></div><div id="paymentShotPreviewWrap" class="hidden"><img id="paymentShotPreview" class="uploadPreviewImage" alt="Screenshot preview"><div id="paymentShotReady" class="readyText hidden">🛡 Screenshot ready</div></div><button class="sendWhatsBtn" onclick="sendPaymentWhatsApp()">💬 Send screenshot on WhatsApp</button><button class="backDetailsBtn" onclick="goPage('cart')">← Back to details</button></div>`;
+      try{ const saved=sessionStorage.getItem('mryogi_payment_shot'); if(saved){ const img=document.getElementById('paymentShotPreview'); const w=document.getElementById('paymentShotPreviewWrap'); const r=document.getElementById('paymentShotReady'); const t=document.getElementById('paymentUploadTriggerText'); if(img) img.src=saved; if(w) w.classList.remove('hidden'); if(r) r.classList.remove('hidden'); if(t) t.textContent='Replace screenshot'; } }catch(e){}
+    }
+    if(preview) preview.textContent = `Order ID: #${od.orderId} | Date: ${od.date} | Product: ${od.productNames} | Plan: ${od.planNames} | Amount Paid: ₹${od.total}`;
+  };
+
+  function secretAccessSetup(){
+    let taps=0, timer=null;
+    document.querySelectorAll('#topLogo,#sidebarLogo,.mobileBrandText,.menuBtn').forEach(el=>{
+      if(el.dataset.secretBound) return; el.dataset.secretBound='1';
+      el.addEventListener('click',()=>{ taps++; clearTimeout(timer); timer=setTimeout(()=>taps=0,1500); if(taps>=5){ taps=0; if(typeof window.adminLogin==='function') window.adminLogin(); }});
+    });
+  }
+
+  const oldGoPage=window.goPage; window.goPage=function(page,btn){ const ret=oldGoPage?oldGoPage.apply(this,arguments):null; if(page==='support') setTimeout(ensureSupportExtras,60); if(page==='admin') setTimeout(ensureAdminButtons,80); if(page==='checkout') setTimeout(()=>window.renderCheckout(),80); if(page==='home') setTimeout(applyProductOfflineState,80); styleCartCheckoutBtn(); return ret; };
+  const oldRefreshHeader=window.refreshHeader; window.refreshHeader=function(){ const ret=oldRefreshHeader?oldRefreshHeader.apply(this,arguments):null; const adminBtn=document.getElementById('adminBtn'); if(adminBtn) adminBtn.classList.toggle('hidden', !isAdmin()); return ret; };
+
+  function boot(){ removeHardOffline(); ensureSupportExtras(); ensureAdminButtons(); styleCartCheckoutBtn(); applyProductOfflineState(); secretAccessSetup(); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
+  let n=0; const timer=setInterval(()=>{ boot(); if(++n>12) clearInterval(timer); },600);
+})();
+</script>
+
+
+<style id="yogi-text-menu-fix-v3-style">
+body,.main,.content{color:#f3fbff!important}
+.mobileBrandText,.brand h1,.sectionHead h2,.detailTitle,.detailDesc,.detailShort,.detailInfo,.detailInfo div,.slideTitle,.slideMeta,.slideStart,.slidePrice,.cardTitle,.cardRow,.price,.oldPrice,.stock,.catTag,.blockTitle,.planName,.planPrice,.planMeta,.detailChip,.feature,.feedbackPreviewItem p,.supportCard p,.supportActionCard p,.cleanOrderTitle,.uploadHint,.pageHintText,.orderNoteLine{color:#eaf7ff!important;opacity:1!important}
+.stock{color:#22c55e!important}.oldPrice,.planOld{color:#b9c7d8!important}.blockTitle{color:#dff4ff!important;letter-spacing:1.2px!important}
+.modalBox,.detailBanner,.supportCard,.checkoutBox,.cartSummary,.upiBox,.adminPanel,.settingsCard,.panel,.card,.policyBox{background:linear-gradient(180deg,#071625,#081b2d)!important}
+.adminPanel,.supportCard,.checkoutBox,.cartSummary,.upiBox,.panel,.card,.modalBox{border:1px solid rgba(110,231,255,.12)!important}
+.tableWrap{background:#071625!important;border-radius:18px!important}.tableWrap table{background:transparent!important}.tableWrap th{color:#8fdcff!important;background:rgba(13,35,55,.65)!important;font-size:14px!important}.tableWrap td{color:#eef9ff!important;background:rgba(7,22,37,.72)!important}.tableWrap tr:hover td{background:rgba(10,31,49,.95)!important}
+.status{background:#0f5132!important;color:#dcfce7!important}.chip{background:rgba(14,116,144,.20)!important;color:#dff8ff!important;border-color:rgba(110,231,255,.18)!important}
+.input,.select,.textarea,.couponInput,.adminInput,.adminSelect,.adminTextarea{color:#f8fdff!important;background:#13273a!important;border-color:rgba(110,231,255,.15)!important}.input::placeholder,.textarea::placeholder,.couponInput::placeholder,.adminInput::placeholder,.adminTextarea::placeholder{color:#9fb6c9!important;opacity:1!important}
+.smallBtn,.secondaryBtn,.copyBtn,.tab,.plan,.feature,.catAdminItem{background:#102336!important;color:#edf9ff!important;border-color:rgba(110,231,255,.14)!important}
+.plan.active{box-shadow:0 0 0 2px rgba(168,85,247,.35) inset!important;background:linear-gradient(180deg,#122a42,#0e2134)!important}
+.detailTopBar,.detailInfo,.detailChips,.detailShort{opacity:1!important}
+.detailTitle{font-size:24px!important;font-weight:1000!important}.detailShort{font-size:16px!important;line-height:1.7!important}.detailDesc{font-size:15px!important;line-height:1.8!important}
+.cleanNavBtn{border:0;background:transparent;color:#dff6ff;padding:14px 14px;border-radius:14px;font-size:15px;font-weight:850;display:flex;gap:12px;align-items:center;text-align:left;width:100%}.cleanNavBtn:hover,.cleanNavBtn.active{background:linear-gradient(90deg,#2563eb,#38bdf8)!important;color:#fff!important}
+.supportActionCard b{color:#fff!important}.ticketTitleText{font-size:20px;font-weight:1000;margin-bottom:6px;color:#fff!important}.ticketSubText{color:#cfe7f5!important;line-height:1.7!important}
+.detailBanner img,.cardImg img,.slideImg img{filter:none!important;opacity:1!important}
+.footer,.footer *{color:#e9f8ff!important}
+@media(max-width:560px){.tableWrap th,.tableWrap td{font-size:12px!important}.detailTitle{font-size:22px!important}.detailShort{font-size:15px!important}}
+</style>
+<script id="yogi-text-menu-fix-v3-script">
+(()=>{
+  function ensureExtraMenuButtons(){
+    const nav=document.querySelector('.nav');
+    if(!nav) return;
+    if(!nav.querySelector('[data-complaint-nav]')){
+      const btn=document.createElement('button');
+      btn.className='cleanNavBtn';
+      btn.setAttribute('data-complaint-nav','1');
+      btn.innerHTML='📝 Complaint Ticket';
+      btn.onclick=()=>openComplaintFromMenu();
+      const supportBtn=[...nav.querySelectorAll('button')].find(b=>/support/i.test(b.textContent));
+      if(supportBtn && supportBtn.nextSibling) nav.insertBefore(btn,supportBtn.nextSibling); else nav.appendChild(btn);
+    }
+    if(!nav.querySelector('[data-track-nav]')){
+      const btn=document.createElement('button');
+      btn.className='cleanNavBtn';
+      btn.setAttribute('data-track-nav','1');
+      btn.innerHTML='🎫 Track Complaint';
+      btn.onclick=()=>openTrackFromMenu();
+      const complaintBtn=nav.querySelector('[data-complaint-nav]');
+      if(complaintBtn && complaintBtn.nextSibling) nav.insertBefore(btn,complaintBtn.nextSibling); else nav.appendChild(btn);
+    }
+  }
+
+  function rewriteSupportText(){
+    const support=document.getElementById('page-support');
+    if(!support) return;
+    const h=support.querySelector('h3');
+    if(h) h.textContent='Customer Support Center';
+    const p=support.querySelector('.supportCard > p');
+    if(p) p.textContent='Need help? Use the options below for support, complaint ticket and complaint tracking.';
+
+    const complaintBox=document.getElementById('complaintTicketBox');
+    if(complaintBox){
+      complaintBox.innerHTML=`<div class="ticketTitleText">Complaint Ticket</div><div class="ticketSubText">Order or login issue unte complaint ticket raise cheyandi. Name, WhatsApp number and problem submit chesthe admin panel lo direct kanapaduthundi.</div><button class="complaintBtn" style="margin-top:14px" onclick="openComplaintForm()">📝 Open Complaint Ticket</button><div id="complaintForm" class="hidden" style="display:grid;gap:10px;margin-top:12px"><input id="ctName" class="input" placeholder="Enter your name"><input id="ctContact" class="input" placeholder="Enter your WhatsApp number"><textarea id="ctProblem" class="textarea" placeholder="Explain your problem clearly"></textarea><button class="primaryBtn" style="width:100%" onclick="submitComplaintTicket()">Submit Ticket</button></div>`;
+    }
+
+    const trackBox=document.getElementById('trackTicketBox');
+    if(trackBox){
+      trackBox.innerHTML=`<div class="ticketTitleText">Track Complaint Ticket</div><div class="ticketSubText">Mee Ticket ID enter chesthe complaint current status chudachu.</div><div class="couponRow" style="margin-top:12px"><input id="trackTicketInput" class="input" placeholder="Enter Ticket ID (Example: CT1716888888888)"><button class="smallBtn" onclick="trackComplaintTicket()">Track</button></div><div id="trackTicketResult"></div>`;
+    }
+  }
+
+  window.openComplaintFromMenu=function(){
+    if(typeof goPage==='function') goPage('support');
+    setTimeout(()=>{
+      if(typeof ensureSupportExtras==='function') try{ensureSupportExtras()}catch(e){}
+      rewriteSupportText();
+      const form=document.getElementById('complaintForm');
+      if(form && form.classList.contains('hidden')) form.classList.remove('hidden');
+      document.getElementById('ctName')?.focus();
+      if(typeof closeSidebar==='function') closeSidebar();
+    },120);
+  };
+
+  window.openTrackFromMenu=function(){
+    if(typeof goPage==='function') goPage('support');
+    setTimeout(()=>{
+      if(typeof ensureSupportExtras==='function') try{ensureSupportExtras()}catch(e){}
+      rewriteSupportText();
+      document.getElementById('trackTicketInput')?.focus();
+      document.getElementById('trackTicketBox')?.scrollIntoView({behavior:'smooth',block:'center'});
+      if(typeof closeSidebar==='function') closeSidebar();
+    },120);
+  };
+
+  function boostReadability(){
+    document.querySelectorAll('.cardTitle,.price,.oldPrice,.stock,.catTag,.detailTitle,.detailShort,.detailDesc,.blockTitle,.planName,.planPrice,.planMeta,.slideTitle,.slidePrice,.slideMeta,.sectionHead h2,.adminHeader h2,.tableWrap td,.tableWrap th').forEach(el=>{el.style.opacity='1';});
+  }
+
+  const oldGoPage=window.goPage;
+  window.goPage=function(page,btn){
+    const ret=oldGoPage?oldGoPage.apply(this,arguments):null;
+    setTimeout(()=>{ensureExtraMenuButtons(); rewriteSupportText(); boostReadability();},80);
+    return ret;
+  };
+
+  const oldRenderCheckout=window.renderCheckout;
+  window.renderCheckout=function(){
+    const ret=oldRenderCheckout?oldRenderCheckout.apply(this,arguments):null;
+    boostReadability();
+    return ret;
+  };
+
+  function boot(){ensureExtraMenuButtons(); rewriteSupportText(); boostReadability();}
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
+  let n=0; const t=setInterval(()=>{boot(); if(++n>10) clearInterval(t);},600);
+})();
+</script>
+
+
+<style id="yogi-clean-admin-v4-style">
+/* category tabs clean */
+.tabs{gap:10px!important;padding:10px 0 4px!important}.tab{background:#0d1b2b!important;color:#ffffff!important;border:1px solid rgba(92,196,255,.16)!important;border-radius:999px!important;padding:12px 20px!important;font-size:15px!important;font-weight:900!important;box-shadow:none!important}.tab.active{background:linear-gradient(90deg,#1d4ed8,#38bdf8)!important;color:#fff!important;border-color:transparent!important}
+/* coupon box clean dark */
+.couponBox{background:linear-gradient(180deg,#0c1a29,#0b1725)!important;border:1px solid rgba(92,196,255,.15)!important;border-radius:24px!important;padding:18px!important;box-shadow:none!important}
+.couponBox .blockTitle{color:#dff6ff!important;font-size:15px!important;letter-spacing:1px!important}.couponBox p,#productCouponMsg,#checkoutCouponMsg{color:#b8cede!important;line-height:1.6!important}.couponRow{display:flex!important;gap:12px!important;align-items:center!important}.couponInput{background:#13273a!important;color:#ffffff!important;border:1px solid rgba(92,196,255,.14)!important;border-radius:18px!important;padding:16px 18px!important;font-size:16px!important}.couponInput::placeholder{color:#98b2c4!important;opacity:1!important}.couponRow .smallBtn{background:#17304a!important;color:#fff!important;border:1px solid rgba(92,196,255,.14)!important;border-radius:16px!important;padding:15px 20px!important;min-width:100px!important}
+/* admin panel clean readable */
+.adminLayout{gap:18px!important}.adminSide{background:linear-gradient(180deg,#081522,#0a1a2a)!important;border:1px solid rgba(92,196,255,.14)!important;border-radius:24px!important;padding:18px!important}.adminSide h3{color:#ffffff!important;font-size:21px!important;font-weight:1000!important;line-height:1.25!important}.adminSide h3 small{color:#8fcff5!important!important}
+.adminSide button,.cleanNavBtn,.adminExtraBtn{background:transparent!important;color:#e8f7ff!important;border:0!important;border-radius:14px!important;padding:13px 14px!important;margin-bottom:8px!important;font-size:15px!important;font-weight:850!important}.adminSide button.active,.adminSide button:hover,.adminExtraBtn.active{background:linear-gradient(90deg,#2563eb,#38bdf8)!important;color:#ffffff!important}
+.adminPanel{background:linear-gradient(180deg,#091725,#0b1a2a)!important;border:1px solid rgba(92,196,255,.14)!important;border-radius:24px!important;padding:18px!important;color:#edf9ff!important}.adminHeader{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;margin-bottom:16px!important}.adminHeader h2{color:#ffffff!important;font-size:30px!important;font-weight:1000!important;line-height:1.15!important;opacity:1!important}
+.adminStatsGrid{gap:14px!important}.adminStatCard{background:linear-gradient(180deg,#101d31,#0e1a2c)!important;border:1px solid rgba(92,196,255,.12)!important;border-radius:22px!important;padding:18px!important}.adminStatCard .label{color:#dceef9!important;font-size:14px!important;font-weight:900!important;letter-spacing:1px!important;opacity:1!important}.adminStatCard .value{color:#7dd3fc!important;font-size:44px!important;font-weight:1000!important;margin-top:10px!important;opacity:1!important}
+.settingsCard,.featureAdminCard,.supportActionCard,.checkoutBox,.cartSummary,.upiBox,.panel{background:linear-gradient(180deg,#0b1725,#0d1c2c)!important;border:1px solid rgba(92,196,255,.12)!important;border-radius:22px!important;color:#edf9ff!important}.settingsCard b,.settingsCard h3,.featureAdminCard,.supportActionCard b{color:#ffffff!important}.settingsCard p,.settingsCard div,.featureAdminCard,.supportActionCard p{color:#d6eaf7!important;opacity:1!important}
+.tableWrap{background:#091522!important;border:1px solid rgba(92,196,255,.10)!important;border-radius:18px!important;overflow:hidden!important}.tableWrap table{width:100%!important;border-collapse:collapse!important}.tableWrap thead th{background:#102335!important;color:#9eddff!important;font-size:14px!important;font-weight:900!important;padding:14px 12px!important;border-bottom:1px solid rgba(92,196,255,.10)!important}.tableWrap tbody td{background:#091522!important;color:#edf9ff!important;font-size:14px!important;padding:14px 12px!important;border-bottom:1px solid rgba(92,196,255,.07)!important;opacity:1!important}.tableWrap tbody tr:last-child td{border-bottom:0!important}
+.adminInput,.adminSelect,.adminTextarea{background:#12273a!important;color:#ffffff!important;border:1px solid rgba(92,196,255,.14)!important;border-radius:16px!important;padding:14px!important}.adminInput::placeholder,.adminTextarea::placeholder{color:#9eb8cb!important;opacity:1!important}.primaryBtn{background:linear-gradient(90deg,#2563eb,#38bdf8)!important;color:#fff!important;border:0!important}.smallBtn,.copyBtn,.secondaryBtn,.act{background:#11273a!important;color:#ffffff!important;border:1px solid rgba(92,196,255,.12)!important}.chip{background:#10304a!important;color:#e8f8ff!important;border:1px solid rgba(92,196,255,.14)!important;border-radius:999px!important;padding:10px 16px!important;font-weight:900!important}.sqlBox{background:#07131f!important;color:#dff7ff!important;border:1px solid rgba(92,196,255,.12)!important}
+.adminMenuToggle{background:linear-gradient(90deg,#1d4ed8,#38bdf8)!important;color:#fff!important;border:0!important;border-radius:14px!important;padding:13px 14px!important}
+/* modal/product title readability */
+.detailTitle,.yg5-modalTitle,.yg5-descHead,.yg5-descText,.yg5-selectedPlan .label,.yg5-selectedPlan .name,.yg-priceBox .label,.yg-priceBox .value{color:#ffffff!important;opacity:1!important}.detailInfo div,.planMeta{color:#d6e9f7!important;opacity:1!important}.yg5-selectedPlan,.yg-priceBox{background:linear-gradient(90deg,rgba(109,40,217,.22),rgba(37,99,235,.12))!important;border:1px solid rgba(168,85,247,.16)!important}
+@media(max-width:560px){.adminHeader h2{font-size:26px!important}.adminStatCard .value{font-size:36px!important}.tab{padding:11px 18px!important;font-size:14px!important}.couponInput{font-size:15px!important}}
+</style>
+<script id="yogi-clean-admin-v4-script">
+(()=>{
+  function cleanCategoryLabel(c){
+    const key=String(c||'');
+    const map={All:'All',OTT:'OTT','AI & SOFTWARE TOOLS':'AI & SOFTWARE TOOLS',Games:'Games',Others:'Others'};
+    return map[key] || key;
+  }
+  window.categoryLabel=cleanCategoryLabel;
+
+  function rebuildCleanCustomerTabs(){
+    const box=document.getElementById('categoryTabs');
+    if(!box) return;
+    const current=window.currentCategory||'All';
+    let cats=[];
+    try{cats=(typeof window.cats==='function'?window.cats():JSON.parse(localStorage.getItem('mryogi_categories')||'[]'))||[]}catch(e){cats=[]}
+    cats=cats.filter(Boolean).filter(c=>String(c).toLowerCase()!=='all');
+    box.innerHTML=`<button class="tab ${current==='All'?'active':''}" onclick="setCategory('All',this)">All</button>` + cats.map(c=>`<button class="tab ${current===c?'active':''}" onclick="setCategory('${String(c).replace(/'/g,"\\'")}',this)">${cleanCategoryLabel(c)}</button>`).join('');
+  }
+
+  function dedupeAdminMenu(){
+    const side=document.querySelector('.adminSide');
+    if(!side) return;
+    const seen=new Set();
+    [...side.querySelectorAll('button')].forEach(btn=>{
+      const key=btn.textContent.trim().toLowerCase();
+      if(seen.has(key)) btn.remove();
+      else seen.add(key);
+    });
+  }
+
+  function improveAdminQuickText(){
+    document.querySelectorAll('.adminPanel .adminHeader h2,.adminStatCard .label,.adminStatCard .value,.settingsCard b,.settingsCard p,.tableWrap th,.tableWrap td,.chip').forEach(el=>el.style.opacity='1');
+  }
+
+  function restyleCouponText(){
+    const msg1=document.getElementById('productCouponMsg');
+    if(msg1 && /coupon/i.test(msg1.textContent)) msg1.textContent='Use valid coupon only. Expired coupon will not work.';
+    const msg2=document.getElementById('checkoutCouponMsg');
+    if(msg2 && /coupon/i.test(msg2.textContent)) msg2.textContent='Use valid coupon code to get discount.';
+  }
+
+  const oldRenderHome=window.renderHome;
+  window.renderHome=function(){
+    const ret=oldRenderHome?oldRenderHome.apply(this,arguments):null;
+    setTimeout(rebuildCleanCustomerTabs,40);
+    return ret;
+  };
+
+  const oldSetCategory=window.setCategory;
+  window.setCategory=function(c,btn){
+    const ret=oldSetCategory?oldSetCategory.apply(this,arguments):null;
+    setTimeout(rebuildCleanCustomerTabs,20);
+    return ret;
+  };
+
+  const oldRenderAdmin=window.renderAdmin;
+  window.renderAdmin=function(tab){
+    const ret=oldRenderAdmin?oldRenderAdmin.apply(this,arguments):null;
+    setTimeout(()=>{dedupeAdminMenu(); improveAdminQuickText();},30);
+    return ret;
+  };
+
+  const oldGoPage=window.goPage;
+  window.goPage=function(page,btn){
+    const ret=oldGoPage?oldGoPage.apply(this,arguments):null;
+    setTimeout(()=>{
+      rebuildCleanCustomerTabs();
+      dedupeAdminMenu();
+      improveAdminQuickText();
+      restyleCouponText();
+    },80);
+    return ret;
+  };
+
+  function boot(){rebuildCleanCustomerTabs(); dedupeAdminMenu(); improveAdminQuickText(); restyleCouponText();}
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
+  let n=0; const t=setInterval(()=>{boot(); if(++n>10) clearInterval(t);},700);
+})();
+</script>
+
+
+<style id="yogi-category-bg-fix-v5-style">
+#categoryTabs,.tabs{
+  background: transparent !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+#categoryTabs::before,#categoryTabs::after,.tabs::before,.tabs::after{
+  content:none !important;
+  display:none !important;
+}
+#page-home #categoryTabs{
+  padding: 10px 0 4px !important;
+  margin: 0 !important;
+}
+#page-home #categoryTabs .tab{
+  background: #0d1b2b !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(92,196,255,.16) !important;
+  box-shadow: none !important;
+}
+#page-home #categoryTabs .tab.active{
+  background: linear-gradient(90deg,#1d4ed8,#38bdf8) !important;
+  border-color: transparent !important;
+}
+</style>
+<script id="yogi-category-bg-fix-v5-script">
+(()=>{
+  function fixCategoryBg(){
+    const box=document.getElementById('categoryTabs');
+    if(!box) return;
+    box.style.background='transparent';
+    box.style.backgroundColor='transparent';
+    box.style.border='0';
+    box.style.boxShadow='none';
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',fixCategoryBg); else fixCategoryBg();
+  let n=0; const t=setInterval(()=>{fixCategoryBg(); if(++n>10) clearInterval(t);},500);
+})();
+</script>
+
+
+<style id="yogi-v6-feedback-products-style">
+#homeFeedbackPreview{grid-template-columns:repeat(1,minmax(0,1fr))!important}
+@media(min-width:640px){#homeFeedbackPreview{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(min-width:960px){#homeFeedbackPreview{grid-template-columns:repeat(5,minmax(0,1fr))!important}}
+.feedbackPreviewItem{display:block!important}
+</style>
+<script id="yogi-v6-products-feedback-sales-script">
+(()=>{
+  const FALLBACK_FEEDBACKS=[
+    {name:'Arjun',rating:5,message:'Fast delivery and genuine service.'},
+    {name:'Pooja',rating:5,message:'Great support and instant activation.'},
+    {name:'Ravi',rating:5,message:'Best prices and quick reply.'},
+    {name:'Sneha',rating:4,message:'Smooth buying process and easy support.'},
+    {name:'Kiran',rating:5,message:'Clean website and quick support.'}
+  ];
+  const E=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const load=(k,d)=>{try{return typeof loadJSON==='function'?loadJSON(k,d):JSON.parse(localStorage.getItem(k)||JSON.stringify(d));}catch(e){return d;}};
+  const save=(k,v)=>{try{if(typeof saveJSON==='function')saveJSON(k,v); else localStorage.setItem(k,JSON.stringify(v));}catch(e){}};
+  const moneyVal=v=>Number(String(v||0).replace(/[^0-9.]/g,''))||0;
+  const plainLabel=c=>({All:'All',OTT:'OTT','AI & SOFTWARE TOOLS':'AI & SOFTWARE',Games:'Games',Others:'Others'})[String(c||'')]||String(c||'All');
+  const allCats=()=>{const c=load('mryogi_categories',['OTT','AI & SOFTWARE TOOLS','Games','Others']).filter(Boolean).filter(x=>String(x).toLowerCase()!=='all');return c.length?c:['OTT','AI & SOFTWARE TOOLS','Games','Others'];};
+  window.categoryLabel = plainLabel;
+
+  function syncProducts(){
+    let arr=[];
+    try{ if(Array.isArray(products) && products.length) arr=products.map(x=>Object.assign({},x)); }catch(e){}
+    if(!arr.length && Array.isArray(window.products) && window.products.length) arr=window.products.map(x=>Object.assign({},x));
+    if(!arr.length){ const stored=load('mryogi_products',[]); if(Array.isArray(stored)&&stored.length) arr=stored.map(x=>Object.assign({},x)); }
+    if(!arr.length && typeof demoProducts!=='undefined' && Array.isArray(demoProducts) && demoProducts.length) arr=demoProducts.map(x=>Object.assign({},x));
+    try{ products = arr.map(x=>Object.assign({},x)); }catch(e){}
+    window.products = arr.map(x=>Object.assign({},x));
+    if(arr.length) save('mryogi_products', arr);
+    return window.products;
+  }
+  function syncFeedbacks(){
+    let arr=[];
+    try{ if(Array.isArray(feedbacks)) arr=feedbacks.map(x=>Object.assign({},x)); }catch(e){}
+    if(!arr.length && Array.isArray(window.feedbacks)) arr=window.feedbacks.map(x=>Object.assign({},x));
+    if(!arr.length){ const stored=load('mryogi_feedbacks',[]); if(Array.isArray(stored)) arr=stored.map(x=>Object.assign({},x)); }
+    try{ feedbacks = arr.map(x=>Object.assign({},x)); }catch(e){}
+    window.feedbacks = arr.map(x=>Object.assign({},x));
+    return window.feedbacks;
+  }
+  function syncCategory(next){
+    const val=String(next || window.currentCategory || (typeof currentCategory!=='undefined'?currentCategory:'All') || 'All');
+    try{ currentCategory = val; }catch(e){}
+    window.currentCategory = val;
+    return val;
+  }
+
+  window.rebuildCustomerTabs=function(){
+    const box=document.getElementById('categoryTabs'); if(!box) return;
+    const active=syncCategory();
+    box.innerHTML=`<button class="tab ${active==='All'?'active':''}" onclick="setCategory('All',this)">All</button>`+
+      allCats().map(c=>`<button class="tab ${active===c?'active':''}" onclick="setCategory('${String(c).replace(/'/g,"\\'")}',this)">${plainLabel(c)}</button>`).join('');
+  };
+
+  window.renderProducts=function(){
+    syncProducts();
+    const root=document.getElementById('productsMount'); if(!root) return;
+    const active=syncCategory();
+    let list=(Array.isArray(window.products)?window.products:[]).slice();
+    const catOf=(p)=> typeof window.categoryOf==='function' ? window.categoryOf(p) : String((p&&p.category)||'Others');
+    if(active!=='All') list=list.filter(p=>catOf(p)===active);
+    const sections=active==='All'?allCats():[active];
+    const html=sections.map(sec=>{
+      const items=list.filter(p=>catOf(p)===sec);
+      if(!items.length) return '';
+      return `<div><div class="sectionHead"><h2>${E(plainLabel(sec))}</h2><button class="smallBtn" onclick="setCategory('${String(sec).replace(/'/g,"\\'")}')">View All</button></div><div class="productGrid">${items.map(p=>typeof productCard==='function'?productCard(p):'').join('')}</div></div>`;
+    }).join('');
+    root.innerHTML = html || '<div class="empty">Products will be available soon.</div>';
+  };
+
+  window.setCategory=function(c,btn){
+    syncCategory(c||'All');
+    document.querySelectorAll('#categoryTabs .tab').forEach(b=>b.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+    if(typeof window.rebuildCustomerTabs==='function') window.rebuildCustomerTabs();
+    if(typeof window.renderProducts==='function') window.renderProducts();
+    document.getElementById('productsMount')?.scrollIntoView({behavior:'smooth',block:'start'});
+  };
+
+  window.renderHomeFeedbackPreview=function(){
+    const data=(syncFeedbacks().length?syncFeedbacks():FALLBACK_FEEDBACKS).slice(0,5);
+    const el=document.getElementById('homeFeedbackPreview'); if(!el) return;
+    el.innerHTML = data.map(f=>`<div class="feedbackPreviewItem"><b>${E(f.name)}</b><div class="stars">${'★'.repeat(Number(f.rating||5))}</div><p>${E(f.message)}</p></div>`).join('');
+    const summary=document.getElementById('homeFeedbackSummary') || document.querySelector('#page-home .sectionHead + div');
+    const count=Math.min(data.length,5);
+    document.querySelectorAll('#page-home button').forEach(btn=>{ if(btn.textContent.trim().toLowerCase()==='view feedback'){ btn.onclick=()=>{ if(typeof goPage==='function') goPage('feedback');}; } });
+    const titleNodes=[...document.querySelectorAll('#page-home h2,#page-home h3')].filter(n=>/customer feedback/i.test(n.textContent||''));
+    if(titleNodes.length){
+      const block=titleNodes[0].closest('section,div');
+      const ratingText=block?block.querySelector('div'):null;
+      if(ratingText && /reviews?/i.test(ratingText.textContent||'')) ratingText.innerHTML=`<span style="color:#facc15">★★★★★</span> <b>${count}.0/5 (${count} Reviews)</b>`;
+    }
+  };
+
+  window.renderFeedbacks=function(){
+    const data=syncFeedbacks().length?syncFeedbacks():FALLBACK_FEEDBACKS;
+    const el=document.getElementById('feedbackList'); if(!el) return;
+    el.innerHTML = data.map(f=>`<div class="item"><div class="avatar">${E((f.name||'C')[0]).toUpperCase()}</div><div><b>${E(f.name)}</b><div style="color:#facc15;margin:4px 0">${'★'.repeat(Number(f.rating||5))}</div><div style="color:#d2d8e5;line-height:1.55">${E(f.message)}</div></div></div>`).join('');
+  };
+
+  function parseOrderDate(v){
+    if(!v) return new Date();
+    const s=String(v);
+    if(/^\d{2}\/\d{2}\/\d{4}$/.test(s)) return new Date(s.split('/').reverse().join('-'));
+    const d=new Date(s); return isNaN(d)?new Date():d;
+  }
+  function realSales(days){
+    const now=new Date();
+    const arr=load('mryogi_orders',[]).filter(o=>{
+      const st=String((o&&o.status)||'').toLowerCase();
+      if(!(st.includes('complete')||st.includes('paid')||st.includes('deliver')||st.includes('success'))) return false;
+      const dt=parseOrderDate(o.date);
+      if(days===1){ return dt.toDateString()===now.toDateString(); }
+      return (now-dt)<=days*86400000;
+    });
+    return arr.reduce((s,o)=>s+moneyVal(o.price),0);
+  }
+  function realDashboardHTML(){
+    return `<div class="adminPanel"><div class="adminHeader"><h2>Owner Dashboard</h2><span class="chip">Logged in as Owner</span></div><div class="adminStatsGrid"><div class="adminStatCard"><div class="label">TODAY SALES</div><div class="value">₹${realSales(1)}</div></div><div class="adminStatCard"><div class="label">7 DAYS SALES</div><div class="value">₹${realSales(7)}</div></div><div class="adminStatCard"><div class="label">30 DAYS SALES</div><div class="value">₹${realSales(30)}</div></div></div><div class="settingsCard"><b>Real Sales Only</b><p style="color:#d6eaf7;margin-top:8px;line-height:1.7">Only completed / paid orders are counted here. Pending or fake sales are not included.</p></div></div>`;
+  }
+  const prevRenderAdmin=window.renderAdmin;
+  window.renderAdmin=function(tab='dashboard'){
+    syncProducts();
+    if(tab==='dashboard'){
+      const root=document.getElementById('adminMount'); if(root) root.innerHTML=realDashboardHTML();
+      return;
+    }
+    return typeof prevRenderAdmin==='function' ? prevRenderAdmin.apply(this,arguments) : undefined;
+  };
+
+  const prevRenderHome=window.renderHome;
+  window.renderHome=function(){
+    syncProducts();
+    syncCategory('All');
+    if(typeof prevRenderHome==='function') prevRenderHome.apply(this,arguments);
+    setTimeout(()=>{
+      syncProducts();
+      syncCategory('All');
+      if(typeof window.rebuildCustomerTabs==='function') window.rebuildCustomerTabs();
+      if(typeof window.renderProducts==='function') window.renderProducts();
+      if(typeof window.renderHomeFeedbackPreview==='function') window.renderHomeFeedbackPreview();
+    },60);
+  };
+
+  function boot(){
+    syncProducts();
+    syncFeedbacks();
+    syncCategory('All');
+    if(typeof window.rebuildCustomerTabs==='function') window.rebuildCustomerTabs();
+    if(typeof window.renderProducts==='function') window.renderProducts();
+    if(typeof window.renderHomeFeedbackPreview==='function') window.renderHomeFeedbackPreview();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+  let n=0; const t=setInterval(()=>{boot(); if(++n>12) clearInterval(t);},700);
+})();
+</script>
+
 </body>
 
 </html>
