@@ -545,8 +545,8 @@ function parsePlans(text){return String(text || '').split(',').map(s=>s.trim()).
 function bestPlan(p){const plans=parsePlans(p.plans || '');return plans.filter(x=>x.inStock).sort((a,b)=>a.price-b.price)[0] || plans[0] || {name:'Plan',price:0,original:0,discount:0,inStock:false};}
 function metaKey(p){return String(p.id || p.name || '').toLowerCase();}
 function productMetaFor(p){return productMeta[metaKey(p)] || {featured:false,buyMode:'qr',features:'Fast Delivery,100% Genuine,Free Replacement'};}
-function normalizeProduct(raw){const p = {...raw};p.image = p.image || p.img || '';p.price = money(p.price || bestPlan(raw).price);p.status = p.status || raw.stock || 'In Stock';p.category = categoryOf(raw);return p;}
-async function loadProducts(){document.getElementById('heroMount').innerHTML = '<div class="skeleton"></div>';try{if(!db) throw new Error('No db');const res = await db.from('products').select('*').order('id', {ascending:false});if(res.error) throw res.error;products = (res.data && res.data.length) ? res.data.map(normalizeProduct) : demoProducts.map(normalizeProduct);}catch(e){console.log('Using fallback products', e);products = demoProducts.map(normalizeProduct);}window.products = Array.isArray(products) ? products : [];renderHome();}
+function normalizeProduct(raw){const p = {...raw};const img=String(p.image || p.img || '').trim();const hasImage=/^(https?:|data:image\/|blob:)/i.test(img);p.image = hasImage ? img : '';p.price = money(p.price || bestPlan(raw).price);p.status = p.status || raw.status || raw.stock || 'In Stock';p.stock = raw.stock || p.status || 'In Stock';p.category = categoryOf(raw);p.description = p.description || '';return p;}
+async function loadProducts(){document.getElementById('heroMount').innerHTML = '<div class="skeleton"></div>';let loaded=[];try{if(!db) throw new Error('Supabase client not ready');const res = await db.from('products').select('id,name,price,description,image,stock,status,category,plans,created_at').order('created_at', {ascending:false});if(res.error) throw res.error;loaded = Array.isArray(res.data) ? res.data.map(normalizeProduct).filter(p=>String(p.name||'').trim() && String(p.plans||'').trim()) : [];if(loaded.length){saveJSON('mryogi_products_cache', loaded);}}catch(e){console.log('Supabase products load failed:', e);}if(!loaded.length){const cached = loadJSON('mryogi_products_cache', []).map(normalizeProduct).filter(p=>String(p.name||'').trim() && String(p.plans||'').trim());loaded = cached.length ? cached : demoProducts.map(normalizeProduct);}products = loaded;window.products = Array.isArray(products) ? products : [];renderHome();}
 function featuredProducts(){const explicit = products.filter(p=>productMetaFor(p).featured);return (explicit.length ? explicit : products.slice(0,5)).slice(0,5);}
 function renderHero(){const mount=document.getElementById('heroMount');const items=featuredProducts();mount.innerHTML = `<div class="hero"><div class="heroTrack" id="heroTrack">${items.map(p=>{const plan=bestPlan(p);const meta=productMetaFor(p);const feats=String(meta.features || 'Fast Delivery,100% Genuine,Free Replacement').split(',').map(f=>`<span>${esc(f.trim())}</span>`).join('');return `<div class="heroSlide"><div><div class="slideTitle">${esc((p.name||'Premium').toUpperCase())}</div><div class="slideMeta">${feats}<span>⭐ 4.8</span></div><div class="slideStart">Starting at</div><div><span class="slidePrice">₹${plan.price}</span>${plan.original>plan.price?`<span class="slideOld">₹${plan.original}</span>`:''}</div><div class="slideBtns"><button class="primaryBtn" onclick="openProduct('${esc(String(p.id))}')">⚡ Buy Now</button></div></div><div class="slideImg"><img src="${esc(p.image)}" onerror="this.src='data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%271200%27%20height%3D%27700%27%20viewBox%3D%270%200%201200%20700%27%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%27g%27%20x1%3D%270%27%20y1%3D%270%27%20x2%3D%271%27%20y2%3D%271%27%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%270%25%27%20stop-color%3D%27%236b0909%27/%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%27100%25%27%20stop-color%3D%27%2312070b%27/%3E%0A%20%20%20%20%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%20%20%3C/defs%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%271200%27%20height%3D%27700%27%20rx%3D%2730%27%20fill%3D%27%2306080f%27/%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%271200%27%20height%3D%27700%27%20rx%3D%2730%27%20fill%3D%27url%28%23g%29%27%20opacity%3D%270.30%27/%3E%0A%20%20%20%20%20%20%3Cg%20opacity%3D%270.10%27%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%27M0%20120H1200%27%20stroke%3D%27%23ff2626%27%20stroke-width%3D%272%27/%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%27M0%20220H1200%27%20stroke%3D%27%23ff2626%27%20stroke-width%3D%272%27/%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%27M0%20320H1200%27%20stroke%3D%27%23ff2626%27%20stroke-width%3D%272%27/%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%27M0%20420H1200%27%20stroke%3D%27%23ff2626%27%20stroke-width%3D%272%27/%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%27M0%20520H1200%27%20stroke%3D%27%23ff2626%27%20stroke-width%3D%272%27/%3E%0A%20%20%20%20%20%20%3C/g%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2772%27%20y%3D%27310%27%20font-family%3D%27Arial%2Csans-serif%27%20font-size%3D%27140%27%20font-weight%3D%27900%27%20fill%3D%27%23ff2626%27%3ENETFLIX%3C/text%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2776%27%20y%3D%27390%27%20font-family%3D%27Arial%2Csans-serif%27%20font-size%3D%2742%27%20font-weight%3D%27700%27%20fill%3D%27%23d1d5db%27%3E4K%20Ultra%20HD%20%E2%80%A2%201%20Screen%3C/text%3E%0A%20%20%20%20%3C/svg%3E'"></div></div>`;}).join('')}</div><div class="heroNav"><button class="heroArrow" onclick="prevSlide()">‹</button><div class="heroDots" id="heroDots">${items.map((_,i)=>`<button class="heroDot ${i===currentSlide?'active':''}" onclick="gotoSlide(${i})"></button>`).join('')}</div><button class="heroArrow" onclick="nextSlide()">›</button></div></div>`;updateSlide();startSlide();}
 function updateSlide(){const track=document.getElementById('heroTrack');if(track) track.style.transform=`translateX(-${currentSlide*100}%)`;document.querySelectorAll('.heroDot').forEach((d,i)=>d.classList.toggle('active', i===currentSlide));}
@@ -619,7 +619,7 @@ function renderAdmin(tab='products'){const root=document.getElementById('adminMo
 function adminFormHTML(p={}){const m = productMetaFor(p);const cat=p.category||'OTT';const status=String(p.status||'In Stock').toLowerCase().includes('out')?'Out of Stock':'In Stock';return `<div class="adminPanel"><div class="adminHeader"><h2>${p.id?'Edit Product':'Add / Edit Product'}</h2><button class="smallBtn" onclick="renderAdmin('products')">Back</button></div><div class="adminForm"><div><label style="display:block;margin-bottom:7px;font-weight:900">Product Name</label><input id="pName" class="adminInput" value="${esc(p.name||'')}" placeholder="Netflix Premium"></div><div><label style="display:block;margin-bottom:7px;font-weight:900">Category</label><select id="pCategory" class="adminSelect"><option ${cat==='OTT'?'selected':''}>OTT</option><option ${cat==='AI & SOFTWARE TOOLS'?'selected':''}>AI & SOFTWARE TOOLS</option><option ${cat==='Games'?'selected':''}>Games</option><option ${cat==='Others'?'selected':''}>Others</option></select></div><div><label style="display:block;margin-bottom:7px;font-weight:900">Image URL</label><input id="pImage" class="adminInput" value="${esc(p.image||'')}" placeholder="Paste product image URL"></div><div><label style="display:block;margin-bottom:7px;font-weight:900">Upload Image</label><input id="pFile" class="adminInput" type="file" accept="image/*"></div><div><label style="display:block;margin-bottom:7px;font-weight:900">Price</label><input id="pPrice" class="adminInput" type="number" value="${esc(p.price||'')}" placeholder="149"></div><div><label style="display:block;margin-bottom:7px;font-weight:900">Status</label><select id="pStatus" class="adminSelect"><option ${status==='In Stock'?'selected':''}>In Stock</option><option ${status==='Out of Stock'?'selected':''}>Out of Stock</option></select></div><div class="full"><label style="display:block;margin-bottom:7px;font-weight:900">Plans (Format: Plan:Offer:Original:Stock)</label><textarea id="pPlans" class="adminTextarea" placeholder="1 Month:149:799:In Stock, 3 Months:399:1199:In Stock">${esc(p.plans||'')}</textarea></div><div class="full"><label style="display:block;margin-bottom:7px;font-weight:900">Features for slider / product</label><textarea id="pFeatures" class="adminTextarea" placeholder="Fast Delivery,4K Ultra HD,1 Screen">${esc(m.features||'Fast Delivery,100% Genuine,Free Replacement')}</textarea><div class="hint">Comma separated features. These also show in the top sliding product banner.</div></div><div><label style="display:block;margin-bottom:7px;font-weight:900">Top Slider</label><select id="pFeatured" class="adminSelect"><option value="false" ${!m.featured?'selected':''}>Normal Product</option><option value="true" ${m.featured?'selected':''}>Show in Top Slider</option></select></div><div><label style="display:block;margin-bottom:7px;font-weight:900">Order Type</label><select id="pBuyMode" class="adminSelect"><option value="qr" ${(m.buyMode||'qr')==='qr'?'selected':''}>QR Payment</option><option value="whatsapp" ${m.buyMode==='whatsapp'?'selected':''}>Direct WhatsApp</option></select><div class="hint">WhatsApp products skip QR and open WhatsApp order directly.</div></div><div class="full"><button class="primaryBtn" style="width:100%" onclick="saveProduct()">Save Product</button></div></div></div>`;}
 function editProduct(id){const p=products.find(x=>String(x.id)===String(id)) || {};editingProductId=id;document.getElementById('adminMount').innerHTML = adminFormHTML(p);}
 async function fileToDataURL(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file);});}
-async function saveProduct(){const name=document.getElementById('pName').value.trim();const category=document.getElementById('pCategory').value.trim();let image=document.getElementById('pImage').value.trim();const file=document.getElementById('pFile').files[0];const price=money(document.getElementById('pPrice').value);const status=document.getElementById('pStatus').value.trim();const plans=document.getElementById('pPlans').value.trim();const features=document.getElementById('pFeatures').value.trim();const featured=document.getElementById('pFeatured').value==='true';const buyMode=document.getElementById('pBuyMode').value;if(file) image=await fileToDataURL(file);if(!name || !plans){alert('Product name and plans are required.');return;}const payload={name, category, image, price, plans, status};try{if(db){let res;if(editingProductId) res=await db.from('products').update(payload).eq('id', editingProductId); else res=await db.from('products').insert([payload]); if(res.error) throw res.error;} else {if(editingProductId){const idx=products.findIndex(p=>String(p.id)===String(editingProductId)); if(idx>=0) products[idx]={...products[idx], ...payload};} else {products.unshift({id:'local'+Date.now(), ...payload});}} const key = String((editingProductId || name)).toLowerCase(); productMeta[key] = {featured, buyMode, features}; saveJSON('mryogi_product_meta', productMeta); editingProductId=null; await loadProducts(); renderAdmin('products'); showToast('Saved successfully','Product updated in website.');}catch(e){console.log(e);alert('Could not save product. Check your Supabase products table columns: id, name, category, image, price, plans, status.');}}
+async function saveProduct(){const name=document.getElementById('pName').value.trim();const category=document.getElementById('pCategory').value.trim();let image=document.getElementById('pImage').value.trim();const file=document.getElementById('pFile').files[0];const price=money(document.getElementById('pPrice').value);const status=document.getElementById('pStatus').value.trim();const plans=document.getElementById('pPlans').value.trim();const features=document.getElementById('pFeatures').value.trim();const featured=document.getElementById('pFeatured').value==='true';const buyMode=document.getElementById('pBuyMode').value;if(file) image=await fileToDataURL(file);if(!name || !plans){alert('Product name and plans are required.');return;}const payload={name, category, image, price, plans, status, stock:status, description:features};try{if(db){let res;if(editingProductId) res=await db.from('products').update(payload).eq('id', editingProductId); else res=await db.from('products').insert([payload]); if(res.error) throw res.error;} else {if(editingProductId){const idx=products.findIndex(p=>String(p.id)===String(editingProductId)); if(idx>=0) products[idx]={...products[idx], ...payload};} else {products.unshift({id:'local'+Date.now(), ...payload});}saveJSON('mryogi_products_cache', products);} const key = String((editingProductId || name)).toLowerCase(); productMeta[key] = {featured, buyMode, features}; saveJSON('mryogi_product_meta', productMeta); editingProductId=null; await loadProducts(); renderAdmin('products'); showToast('Saved successfully','Product updated in website.');}catch(e){console.log(e);alert('Could not save product. Check your Supabase products table columns: id, name, category, image, price, plans, stock, description, created_at.');}}
 async function deleteProduct(id){if(!confirm('Delete this product?')) return;try{if(db){const res=await db.from('products').delete().eq('id', id); if(res.error) throw res.error;} else products=products.filter(p=>String(p.id)!==String(id)); await loadProducts(); renderAdmin('products');}catch(e){console.log(e);alert('Could not delete product.');}}
 function couponsHTML(){const cards=coupons.map(c=>{const expired=c.expiry && new Date(c.expiry+'T23:59:59')<new Date();return `<div class="settingsCard" style="margin-bottom:12px"><div style="font-size:20px;font-weight:1000">${esc(c.code)}</div><div style="margin-top:8px;color:#d4dbe8">Discount: ₹${money(c.discount)}</div><div style="margin-top:6px;color:${expired?'#ff9b9b':'#cfd5e2'}">Expiry: ${esc(c.expiry || 'No expiry')}</div><div style="margin-top:12px"><button class="act del" onclick="deleteCoupon('${c.id}')">🗑</button></div></div>`;}).join('');return `<div class="adminPanel"><div class="adminHeader"><h2>Coupons</h2></div><div class="adminForm"><div><label style="display:block;margin-bottom:7px;font-weight:900">Coupon Code</label><input id="cCode" class="adminInput" placeholder="SAVE50"></div><div><label style="display:block;margin-bottom:7px;font-weight:900">Discount Amount</label><input id="cDiscount" class="adminInput" type="number" placeholder="50"></div><div><label style="display:block;margin-bottom:7px;font-weight:900">Expiry Date</label><input id="cExpiry" class="adminInput" type="date"></div><div><label style="display:block;margin-bottom:7px;font-weight:900">Note</label><div class="adminInput">Expired coupons stop working automatically.</div></div><div class="full"><button class="primaryBtn" style="width:100%" onclick="createCoupon()">Create Coupon</button></div></div><div style="margin-top:18px">${cards || '<div class="empty">No coupons created yet.</div>'}</div></div>`;}
 function createCoupon(){const code=document.getElementById('cCode').value.trim().toUpperCase();const discount=money(document.getElementById('cDiscount').value);const expiry=document.getElementById('cExpiry').value;if(!code || !discount || !expiry){showToast('Coupon not created','Please fill code, discount and expiry date.');return;}coupons.unshift({id:'cp'+Date.now(), code, discount, expiry});saveJSON('mryogi_coupons', coupons);renderAdmin('coupons');showToast('Offer created','Coupon/offer saved successfully.');}
@@ -7568,6 +7568,408 @@ body,.main,.content{color:#f3fbff!important}
   function boot(){rebuildCleanCustomerTabs(); dedupeAdminMenu(); improveAdminQuickText(); restyleCouponText();}
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
   let n=0; const t=setInterval(()=>{boot(); if(++n>10) clearInterval(t);},700);
+})();
+</script>
+
+
+<style id="yogi-category-bg-fix-v5-style">
+#categoryTabs,.tabs{
+  background: transparent !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+#categoryTabs::before,#categoryTabs::after,.tabs::before,.tabs::after{
+  content:none !important;
+  display:none !important;
+}
+#page-home #categoryTabs{
+  padding: 10px 0 4px !important;
+  margin: 0 !important;
+}
+#page-home #categoryTabs .tab{
+  background: #0d1b2b !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(92,196,255,.16) !important;
+  box-shadow: none !important;
+}
+#page-home #categoryTabs .tab.active{
+  background: linear-gradient(90deg,#1d4ed8,#38bdf8) !important;
+  border-color: transparent !important;
+}
+</style>
+<script id="yogi-category-bg-fix-v5-script">
+(()=>{
+  function fixCategoryBg(){
+    const box=document.getElementById('categoryTabs');
+    if(!box) return;
+    box.style.background='transparent';
+    box.style.backgroundColor='transparent';
+    box.style.border='0';
+    box.style.boxShadow='none';
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',fixCategoryBg); else fixCategoryBg();
+  let n=0; const t=setInterval(()=>{fixCategoryBg(); if(++n>10) clearInterval(t);},500);
+})();
+</script>
+
+
+<style id="yogi-v6-feedback-products-style">
+#homeFeedbackPreview{grid-template-columns:repeat(1,minmax(0,1fr))!important}
+@media(min-width:640px){#homeFeedbackPreview{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(min-width:960px){#homeFeedbackPreview{grid-template-columns:repeat(5,minmax(0,1fr))!important}}
+.feedbackPreviewItem{display:block!important}
+</style>
+<script id="yogi-v6-products-feedback-sales-script">
+(()=>{
+  const FALLBACK_FEEDBACKS=[
+    {name:'Arjun',rating:5,message:'Fast delivery and genuine service.'},
+    {name:'Pooja',rating:5,message:'Great support and instant activation.'},
+    {name:'Ravi',rating:5,message:'Best prices and quick reply.'},
+    {name:'Sneha',rating:4,message:'Smooth buying process and easy support.'},
+    {name:'Kiran',rating:5,message:'Clean website and quick support.'}
+  ];
+  const E=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const load=(k,d)=>{try{return typeof loadJSON==='function'?loadJSON(k,d):JSON.parse(localStorage.getItem(k)||JSON.stringify(d));}catch(e){return d;}};
+  const save=(k,v)=>{try{if(typeof saveJSON==='function')saveJSON(k,v); else localStorage.setItem(k,JSON.stringify(v));}catch(e){}};
+  const moneyVal=v=>Number(String(v||0).replace(/[^0-9.]/g,''))||0;
+  const plainLabel=c=>({All:'All',OTT:'OTT','AI & SOFTWARE TOOLS':'AI & SOFTWARE',Games:'Games',Others:'Others'})[String(c||'')]||String(c||'All');
+  const allCats=()=>{const c=load('mryogi_categories',['OTT','AI & SOFTWARE TOOLS','Games','Others']).filter(Boolean).filter(x=>String(x).toLowerCase()!=='all');return c.length?c:['OTT','AI & SOFTWARE TOOLS','Games','Others'];};
+  window.categoryLabel = plainLabel;
+
+  function syncProducts(){
+    let arr=[];
+    try{ if(Array.isArray(products) && products.length) arr=products.map(x=>Object.assign({},x)); }catch(e){}
+    if(!arr.length && Array.isArray(window.products) && window.products.length) arr=window.products.map(x=>Object.assign({},x));
+    if(!arr.length){ const stored=load('mryogi_products',[]); if(Array.isArray(stored)&&stored.length) arr=stored.map(x=>Object.assign({},x)); }
+    if(!arr.length && typeof demoProducts!=='undefined' && Array.isArray(demoProducts) && demoProducts.length) arr=demoProducts.map(x=>Object.assign({},x));
+    try{ products = arr.map(x=>Object.assign({},x)); }catch(e){}
+    window.products = arr.map(x=>Object.assign({},x));
+    if(arr.length) save('mryogi_products', arr);
+    return window.products;
+  }
+  function syncFeedbacks(){
+    let arr=[];
+    try{ if(Array.isArray(feedbacks)) arr=feedbacks.map(x=>Object.assign({},x)); }catch(e){}
+    if(!arr.length && Array.isArray(window.feedbacks)) arr=window.feedbacks.map(x=>Object.assign({},x));
+    if(!arr.length){ const stored=load('mryogi_feedbacks',[]); if(Array.isArray(stored)) arr=stored.map(x=>Object.assign({},x)); }
+    try{ feedbacks = arr.map(x=>Object.assign({},x)); }catch(e){}
+    window.feedbacks = arr.map(x=>Object.assign({},x));
+    return window.feedbacks;
+  }
+  function syncCategory(next){
+    const val=String(next || window.currentCategory || (typeof currentCategory!=='undefined'?currentCategory:'All') || 'All');
+    try{ currentCategory = val; }catch(e){}
+    window.currentCategory = val;
+    return val;
+  }
+
+  window.rebuildCustomerTabs=function(){
+    const box=document.getElementById('categoryTabs'); if(!box) return;
+    const active=syncCategory();
+    box.innerHTML=`<button class="tab ${active==='All'?'active':''}" onclick="setCategory('All',this)">All</button>`+
+      allCats().map(c=>`<button class="tab ${active===c?'active':''}" onclick="setCategory('${String(c).replace(/'/g,"\\'")}',this)">${plainLabel(c)}</button>`).join('');
+  };
+
+  window.renderProducts=function(){
+    syncProducts();
+    const root=document.getElementById('productsMount'); if(!root) return;
+    const active=syncCategory();
+    let list=(Array.isArray(window.products)?window.products:[]).slice();
+    const catOf=(p)=> typeof window.categoryOf==='function' ? window.categoryOf(p) : String((p&&p.category)||'Others');
+    if(active!=='All') list=list.filter(p=>catOf(p)===active);
+    const sections=active==='All'?allCats():[active];
+    const html=sections.map(sec=>{
+      const items=list.filter(p=>catOf(p)===sec);
+      if(!items.length) return '';
+      return `<div><div class="sectionHead"><h2>${E(plainLabel(sec))}</h2><button class="smallBtn" onclick="setCategory('${String(sec).replace(/'/g,"\\'")}')">View All</button></div><div class="productGrid">${items.map(p=>typeof productCard==='function'?productCard(p):'').join('')}</div></div>`;
+    }).join('');
+    root.innerHTML = html || '<div class="empty">Products will be available soon.</div>';
+  };
+
+  window.setCategory=function(c,btn){
+    syncCategory(c||'All');
+    document.querySelectorAll('#categoryTabs .tab').forEach(b=>b.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+    if(typeof window.rebuildCustomerTabs==='function') window.rebuildCustomerTabs();
+    if(typeof window.renderProducts==='function') window.renderProducts();
+    document.getElementById('productsMount')?.scrollIntoView({behavior:'smooth',block:'start'});
+  };
+
+  window.renderHomeFeedbackPreview=function(){
+    const data=(syncFeedbacks().length?syncFeedbacks():FALLBACK_FEEDBACKS).slice(0,5);
+    const el=document.getElementById('homeFeedbackPreview'); if(!el) return;
+    el.innerHTML = data.map(f=>`<div class="feedbackPreviewItem"><b>${E(f.name)}</b><div class="stars">${'★'.repeat(Number(f.rating||5))}</div><p>${E(f.message)}</p></div>`).join('');
+    const summary=document.getElementById('homeFeedbackSummary') || document.querySelector('#page-home .sectionHead + div');
+    const count=Math.min(data.length,5);
+    document.querySelectorAll('#page-home button').forEach(btn=>{ if(btn.textContent.trim().toLowerCase()==='view feedback'){ btn.onclick=()=>{ if(typeof goPage==='function') goPage('feedback');}; } });
+    const titleNodes=[...document.querySelectorAll('#page-home h2,#page-home h3')].filter(n=>/customer feedback/i.test(n.textContent||''));
+    if(titleNodes.length){
+      const block=titleNodes[0].closest('section,div');
+      const ratingText=block?block.querySelector('div'):null;
+      if(ratingText && /reviews?/i.test(ratingText.textContent||'')) ratingText.innerHTML=`<span style="color:#facc15">★★★★★</span> <b>${count}.0/5 (${count} Reviews)</b>`;
+    }
+  };
+
+  window.renderFeedbacks=function(){
+    const data=syncFeedbacks().length?syncFeedbacks():FALLBACK_FEEDBACKS;
+    const el=document.getElementById('feedbackList'); if(!el) return;
+    el.innerHTML = data.map(f=>`<div class="item"><div class="avatar">${E((f.name||'C')[0]).toUpperCase()}</div><div><b>${E(f.name)}</b><div style="color:#facc15;margin:4px 0">${'★'.repeat(Number(f.rating||5))}</div><div style="color:#d2d8e5;line-height:1.55">${E(f.message)}</div></div></div>`).join('');
+  };
+
+  function parseOrderDate(v){
+    if(!v) return new Date();
+    const s=String(v);
+    if(/^\d{2}\/\d{2}\/\d{4}$/.test(s)) return new Date(s.split('/').reverse().join('-'));
+    const d=new Date(s); return isNaN(d)?new Date():d;
+  }
+  function realSales(days){
+    const now=new Date();
+    const arr=load('mryogi_orders',[]).filter(o=>{
+      const st=String((o&&o.status)||'').toLowerCase();
+      if(!(st.includes('complete')||st.includes('paid')||st.includes('deliver')||st.includes('success'))) return false;
+      const dt=parseOrderDate(o.date);
+      if(days===1){ return dt.toDateString()===now.toDateString(); }
+      return (now-dt)<=days*86400000;
+    });
+    return arr.reduce((s,o)=>s+moneyVal(o.price),0);
+  }
+  function realDashboardHTML(){
+    return `<div class="adminPanel"><div class="adminHeader"><h2>Owner Dashboard</h2><span class="chip">Logged in as Owner</span></div><div class="adminStatsGrid"><div class="adminStatCard"><div class="label">TODAY SALES</div><div class="value">₹${realSales(1)}</div></div><div class="adminStatCard"><div class="label">7 DAYS SALES</div><div class="value">₹${realSales(7)}</div></div><div class="adminStatCard"><div class="label">30 DAYS SALES</div><div class="value">₹${realSales(30)}</div></div></div><div class="settingsCard"><b>Real Sales Only</b><p style="color:#d6eaf7;margin-top:8px;line-height:1.7">Only completed / paid orders are counted here. Pending or fake sales are not included.</p></div></div>`;
+  }
+  const prevRenderAdmin=window.renderAdmin;
+  window.renderAdmin=function(tab='dashboard'){
+    syncProducts();
+    if(tab==='dashboard'){
+      const root=document.getElementById('adminMount'); if(root) root.innerHTML=realDashboardHTML();
+      return;
+    }
+    return typeof prevRenderAdmin==='function' ? prevRenderAdmin.apply(this,arguments) : undefined;
+  };
+
+  const prevRenderHome=window.renderHome;
+  window.renderHome=function(){
+    syncProducts();
+    syncCategory('All');
+    if(typeof prevRenderHome==='function') prevRenderHome.apply(this,arguments);
+    setTimeout(()=>{
+      syncProducts();
+      syncCategory('All');
+      if(typeof window.rebuildCustomerTabs==='function') window.rebuildCustomerTabs();
+      if(typeof window.renderProducts==='function') window.renderProducts();
+      if(typeof window.renderHomeFeedbackPreview==='function') window.renderHomeFeedbackPreview();
+    },60);
+  };
+
+  function boot(){
+    syncProducts();
+    syncFeedbacks();
+    syncCategory('All');
+    if(typeof window.rebuildCustomerTabs==='function') window.rebuildCustomerTabs();
+    if(typeof window.renderProducts==='function') window.renderProducts();
+    if(typeof window.renderHomeFeedbackPreview==='function') window.renderHomeFeedbackPreview();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+  let n=0; const t=setInterval(()=>{boot(); if(++n>12) clearInterval(t);},700);
+})();
+</script>
+
+
+<script id="yogi-products-hotfix">
+(function(){
+  const FALLBACK_CARD='data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221200%22 height=%22700%22 viewBox=%220 0 1200 700%22%3E%3Crect width=%221200%22 height=%22700%22 rx=%2230%22 fill=%22%2306080f%22/%3E%3Crect x=%2224%22 y=%2224%22 width=%221152%22 height=%22652%22 rx=%2224%22 fill=%22%230f172a%22 stroke=%22%23a855f7%22 stroke-opacity=%220.45%22/%3E%3Ctext x=%22600%22 y=%22328%22 text-anchor=%22middle%22 font-family=%22Arial,sans-serif%22 font-size=%2264%22 font-weight=%22800%22 fill=%22%23ffffff%22%3EMR.YOGI PREMIUM%3C/text%3E%3Ctext x=%22600%22 y=%22398%22 text-anchor=%22middle%22 font-family=%22Arial,sans-serif%22 font-size=%2236%22 font-weight=%22700%22 fill=%22%23cbd5e1%22%3EProduct Image%3C/text%3E%3C/svg%3E';
+  function cleanProductRow(p){
+    const x={...(p||{})};
+    x.name=String(x.name||'').trim();
+    x.plans=String(x.plans||'').trim();
+    if(!x.name || !x.plans) return null;
+    const img=String(x.image||x.img||'').trim();
+    x.image=/^(https?:|data:image\/|blob:)/i.test(img)?img:FALLBACK_CARD;
+    x.category=typeof categoryOf==='function'?categoryOf(x):(x.category||'Others');
+    x.price=typeof money==='function'?money(x.price):Number(x.price||0);
+    x.status=x.status||x.stock||'In Stock';
+    x.stock=x.stock||x.status||'In Stock';
+    return x;
+  }
+  const oldLoadProducts=window.loadProducts;
+  window.loadProducts=async function(){
+    const hero=document.getElementById('heroMount');
+    if(hero) hero.innerHTML='<div class="skeleton"></div>';
+    let rows=[];
+    try{
+      if(window.db){
+        const res=await window.db.from('products').select('id,name,price,description,image,stock,status,category,plans,created_at').order('created_at',{ascending:false});
+        if(res && !res.error && Array.isArray(res.data)) rows=res.data.map(cleanProductRow).filter(Boolean);
+      }
+    }catch(e){console.log('Hotfix loadProducts failed', e)}
+    if(!rows.length){
+      try{rows=(JSON.parse(localStorage.getItem('mryogi_products_cache')||'[]')||[]).map(cleanProductRow).filter(Boolean)}catch(e){}
+    }
+    if(!rows.length && Array.isArray(window.demoProducts)) rows=window.demoProducts.map(cleanProductRow).filter(Boolean);
+    window.products=rows;
+    if(typeof products!=='undefined') products=rows;
+    try{localStorage.setItem('mryogi_products_cache', JSON.stringify(rows))}catch(e){}
+    if(typeof window.renderHome==='function') window.renderHome();
+  };
+  const oldRenderProducts=window.renderProducts;
+  window.renderProducts=function(){
+    const root=document.getElementById('productsMount');
+    const list=(Array.isArray(window.products)?window.products:[]).map(cleanProductRow).filter(Boolean);
+    if(!root) return;
+    if(!list.length){root.innerHTML='<div class="empty">Products will be available soon.</div>';return;}
+    const current=window.currentCategory||'All';
+    const filtered=current!=='All'?list.filter(p=>categoryOf(p)===current):list;
+    if(!filtered.length){root.innerHTML='<div class="empty">Products will be available soon.</div>';return;}
+    const sections=current==='All'?['OTT','AI & SOFTWARE TOOLS','Games','Others']:[current];
+    root.innerHTML=sections.map(sec=>{const items=filtered.filter(p=>categoryOf(p)===sec);if(!items.length)return '';return `<div><div class="sectionHead"><h2>${categoryLabel(sec)}</h2><button class="smallBtn" onclick="setCategory('${sec.replace(/'/g,"\'")}')">View All</button></div><div class="productGrid">${items.map(productCard).join('')}</div></div>`;}).join('') || '<div class="empty">Products will be available soon.</div>';
+  };
+})();
+</script>
+
+<style id="yogi-clean-real-fix-style">
+/* Clean readable text */
+body,.sectionHead h2,.panel h3,.supportCard h3,.adminHeader h2,.detailTitle,.blockTitle,label,b,strong{color:#f4fbff!important}
+.panel p,.supportCard p,.feedbackPreviewItem p,.feedbackList .item div,.detailDesc,.detailInfo,.cardRow,.catTag,.empty,.hint,.slideMeta,.slideStart{color:#d7e7f5!important;opacity:1!important}
+.input,.textarea,.select,.couponInput,.adminInput,.adminTextarea,.adminSelect{background:#0f2032!important;border-color:rgba(137,185,255,.18)!important;color:#f4fbff!important}
+.input::placeholder,.textarea::placeholder,.couponInput::placeholder,.adminInput::placeholder,.adminTextarea::placeholder{color:#9bb4cb!important;opacity:1!important}
+.panel,.supportCard,.checkoutBox,.feedbackPreviewItem,.infoPanel,.couponBox,.totalBox,.cartSummary,.settingsCard{background:linear-gradient(180deg,#0b1624,#08111d)!important;border:1px solid rgba(137,185,255,.12)!important;box-shadow:0 10px 26px rgba(0,0,0,.18)!important}
+.infoPanel{background:linear-gradient(135deg,#10223a,#08111d)!important}
+#homeFeedbackSummary .yySentence,#homeFeedbackSummary .title{color:#e9f7ff!important}
+#homeFeedbackSummary .yy-miniViewFeedback{display:none!important}
+.feedbackPreviewItem b,.feedbackList .item b{color:#f5fbff!important}
+.feedbackStars,.feedbackPreviewItem .stars{color:#facc15!important}
+.primaryBtn,.smallBtn,.secondaryBtn{box-shadow:0 8px 18px rgba(124,58,237,.18)!important}
+/* Keep only one feedback button visible */
+#page-home .sectionHead .smallBtn.keep-feedback-btn{display:inline-flex!important}
+#page-home .sectionHead .smallBtn:not(.keep-feedback-btn){display:none!important}
+</style>
+<script id="yogi-clean-real-fix-script">
+(()=>{
+  const E=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const load=(k,d)=>{try{return typeof loadJSON==='function'?loadJSON(k,d):JSON.parse(localStorage.getItem(k)||JSON.stringify(d));}catch(e){return d;}};
+  const FAKE_KEYS=new Set([
+    'arjun|fast delivery and genuine service.',
+    'pooja|great support and instant activation.',
+    'ravi|best prices and quick reply.',
+    'siri|smooth buying process and easy support.',
+    'sneha|smooth buying process and easy support.',
+    'kiran|clean website and quick support.'
+  ]);
+
+  function realFeedbacks(){
+    let arr=[];
+    try{ if(Array.isArray(window.feedbacks)) arr=window.feedbacks.map(x=>Object.assign({},x)); }catch(e){}
+    if(!arr.length){ const stored=load('mryogi_feedbacks',[]); if(Array.isArray(stored)) arr=stored.map(x=>Object.assign({},x)); }
+    arr = (Array.isArray(arr)?arr:[]).filter(f=>{
+      const name=String((f&&f.name)||'').trim();
+      const msg=String((f&&f.message)||'').trim();
+      if(!name || !msg) return false;
+      const key=(name+'|'+msg).toLowerCase();
+      return !FAKE_KEYS.has(key);
+    });
+    try{ window.feedbacks = arr.map(x=>Object.assign({},x)); }catch(e){}
+    return arr;
+  }
+
+  function stats(){
+    const arr=realFeedbacks();
+    const count=arr.length;
+    const avg=count?(arr.reduce((a,b)=>a+Number(b.rating||0),0)/count):0;
+    return {count, avg:count?avg.toFixed(1):'0.0', rounded:count?Math.max(1,Math.round(avg)):0};
+  }
+
+  function keepSingleFeedbackButton(){
+    const home=document.getElementById('page-home');
+    if(!home) return;
+    const btns=[...home.querySelectorAll('button')].filter(b=>/view feedback/i.test((b.textContent||'').trim()));
+    btns.forEach((btn,i)=>{
+      if(i===0){
+        btn.classList.add('keep-feedback-btn');
+        btn.onclick=()=>typeof goPage==='function'&&goPage('feedback');
+      } else btn.remove();
+    });
+  }
+
+  function updateSummary(){
+    const wrap=document.getElementById('homeFeedbackSummary');
+    if(!wrap) return;
+    const s=stats();
+    const stars=s.rounded?'★'.repeat(s.rounded):'';
+    wrap.innerHTML=`<div class="yyHead"><div class="yyLine"><div class="line"></div><div class="title">Customer Feedback</div><div class="line"></div></div><div class="yyLine"><div class="line"></div><div class="title" style="font-size:16px"><span style="color:#facc15">${stars}</span> <span style="margin-left:8px">${s.count ? s.avg+'/5' : 'No Reviews Yet'}</span> <span style="color:#c7cede;font-weight:800">${s.count ? '('+s.count+' Reviews)' : ''}</span></div><div class="line"></div></div><div class="yySentence">Only real customer feedback is shown here.</div></div>`;
+  }
+
+  window.feedbackStats = stats;
+  window.renderHomeFeedbackPreview = function(){
+    const el=document.getElementById('homeFeedbackPreview'); if(!el) return;
+    const arr=realFeedbacks();
+    if(!arr.length){
+      el.innerHTML='<div class="empty">No real customer feedback yet.</div>';
+      updateSummary();
+      keepSingleFeedbackButton();
+      return;
+    }
+    el.innerHTML=arr.slice(0,5).map(f=>`<div class="feedbackPreviewItem"><b>${E(f.name)}</b><div class="feedbackStars">${'★'.repeat(Number(f.rating||5))}</div><p>${E(f.message)}</p></div>`).join('');
+    updateSummary();
+    keepSingleFeedbackButton();
+  };
+
+  window.renderFeedbacks = function(){
+    const el=document.getElementById('feedbackList'); if(!el) return;
+    const arr=realFeedbacks();
+    if(!arr.length){ el.innerHTML='<div class="empty">No real feedback yet.</div>'; return; }
+    el.innerHTML=arr.map(f=>`<div class="item"><div class="avatar">${E(String(f.name||'U').charAt(0).toUpperCase())}</div><div><b>${E(f.name)}</b><div class="feedbackStars">${'★'.repeat(Number(f.rating||5))}</div><div style="color:#d7e7f5;margin-top:6px;line-height:1.6">${E(f.message)}</div></div></div>`).join('');
+  };
+
+  const originalSubmit=window.submitFeedback;
+  window.submitFeedback=function(){
+    if(typeof originalSubmit==='function') originalSubmit();
+    try{ window.renderHomeFeedbackPreview(); window.renderFeedbacks(); }catch(e){}
+  };
+
+  const originalRenderProductModal=window.renderProductModal;
+  window.renderProductModal=function(){
+    if(typeof originalRenderProductModal==='function') originalRenderProductModal();
+    try{
+      const box=document.getElementById('productModalContent'); if(!box) return;
+      const s=stats();
+      box.querySelectorAll('.detailInfo div').forEach(node=>{
+        if(/reviews?/i.test(node.textContent||'')){
+          node.textContent = s.count ? `${s.avg}/5 (${s.count} reviews)` : 'No real reviews yet';
+        }
+      });
+    }catch(e){}
+  };
+
+  function clean(){
+    keepSingleFeedbackButton();
+    try{ window.renderHomeFeedbackPreview(); }catch(e){}
+    try{ window.renderFeedbacks(); }catch(e){}
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',clean); else clean();
+  setTimeout(clean,400);
+  setTimeout(clean,1200);
+})();
+</script>
+
+
+<script id="yogi-category-emoji-fix">
+(()=>{
+  window.shortCategoryName=function(v){
+    const c=String(v||'').trim();
+    if(c==='OTT') return '🍿 OTT';
+    if(c==='AI & SOFTWARE TOOLS') return '🤖 AI & SOFTWARE';
+    if(c==='Games') return '🎮 Games';
+    if(c==='Others') return '🎁 Others';
+    if(c==='All') return '✨ All';
+    return c;
+  };
+  function rerender(){
+    try{ if(typeof renderProducts==='function') renderProducts(); }catch(e){}
+    try{ if(typeof renderProductModal==='function' && window.selectedProduct) renderProductModal(); }catch(e){}
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', rerender); else rerender();
+  setTimeout(rerender,300);
 })();
 </script>
 
